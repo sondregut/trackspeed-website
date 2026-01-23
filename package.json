@@ -1,0 +1,8 @@
+{
+  "name": "trackspeed-website",
+  "version": "1.0.0",
+  "description": "TrackSpeed marketing website",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
