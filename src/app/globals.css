@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+:root {
+  /* LaserSpeed Design System - Dark Mode */
+  --background: #191919;
+  --background-gradient-start: #263138;
+  --background-gradient-end: #0e1316;
+  --foreground: #FDFDFD;
+
+  /* Surface colors */
+  --surface: #2B2E32;
+  --surface-elevated: #333333;
+
+  /* Text colors */
+  --text-primary: #FDFDFD;
+  --text-secondary: #9B9A97;
+  --text-muted: #787774;
+
+  /* Accent colors */
+  --accent-primary: #5C8DB8;
+  --accent-success: #22C55E;
+  --accent-warning: #FEAA21;
+  --accent-error: #FC0726;
+  --accent-info: #68A1D6;
+
+  /* Card gradient (gunmetal) */
+  --card-top: #2C3033;
+  --card-bottom: #272B2E;
+  --card-edge: #191D21;
+
+  /* Purple-teal gradient for feature cards */
+  --card-gradient-left: #302A53;
+  --card-gradient-right: #234353;
+
+  /* Borders */
+  --border: #3D3D3D;
+  --border-subtle: #2B2B2B;
+
+  /* Legacy aliases */
+  --muted: var(--text-secondary);
+  --card: var(--surface);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent-primary);
+  --color-accent-success: var(--accent-success);
+  --color-accent-warning: var(--accent-warning);
+  --color-muted: var(--text-secondary);
+  --color-card: var(--surface);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: linear-gradient(to bottom, var(--background-gradient-start), var(--background-gradient-end));
+  min-height: 100vh;
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* iPhone mockup styles - LaserSpeed gunmetal */
+.iphone-mockup {
+  background: linear-gradient(to bottom, var(--card-top), var(--card-bottom));
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.iphone-screen {
+  background: var(--background);
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+/* Gradient text - blue accent */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-info) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button styles - Primary (blue accent) */
+.btn-primary {
+  background: var(--accent-primary);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #4a7da8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(92, 141, 184, 0.3);
+}
+
+/* Card styles - Gunmetal with depth */
+.card-gunmetal {
+  background: linear-gradient(to bottom, var(--card-top), var(--card-bottom));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Feature card gradient (purple-teal) */
+.card-gradient {
+  background: linear-gradient(135deg, var(--card-gradient-left) 0%, var(--card-gradient-right) 100%);
+}
+
+/* Success accent */
+.text-success {
+  color: var(--accent-success);
+}
+
+.bg-success {
+  background-color: var(--accent-success);
+}
+
+/* Warning/Gold accent */
+.text-warning {
+  color: var(--accent-warning);
+}
+
+.bg-warning {
+  background-color: var(--accent-warning);
+}
