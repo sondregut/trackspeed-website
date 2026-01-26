@@ -6,12 +6,16 @@ import QuickSetups from "@/components/QuickSetups";
 import MultiDevice from "@/components/MultiDevice";
 import HowItWorks from "@/components/HowItWorks";
 import Comparison from "@/components/Comparison";
+import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      {/* Gradient transition */}
+      <div className="gradient-divider" />
+      <Testimonials />
       <HowItWorks />
       <Features />
       <StartTypes />

@@ -1,50 +1,61 @@
+import Link from "next/link";
+
 export default function TimingTechnology() {
   return (
-    <section id="timing-technology" className="py-24 px-6">
+    <section id="timing-technology" className="section-padding px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            The science behind
-            <span className="block text-[#5C8DB8]">sub-frame precision</span>
+          <h2 className="text-section mb-4">
+            The science behind sub-frame precision
           </h2>
-          <p className="text-xl text-[#9B9A97] max-w-2xl mx-auto">
+          <p className="text-body max-w-2xl mx-auto">
             How we achieve ~4ms accuracy with standard iPhone cameras
           </p>
         </div>
 
         {/* Main explanation card */}
-        <div className="card-gunmetal rounded-3xl p-8 md:p-12 mb-8">
+        <div className="card-feature p-8 md:p-12 mb-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left - Visual diagram */}
             <div className="relative">
               {/* Frame timeline visualization */}
-              <div className="bg-[#1A1D21] rounded-2xl p-6">
-                <div className="text-sm text-[#787774] mb-4 font-mono">
+              <div className="bg-[var(--bg-mint)] rounded-2xl p-6" style={{ border: '1px solid var(--border-light)' }}>
+                <div className="text-sm mb-4 font-mono" style={{ color: 'var(--text-muted)' }}>
                   120fps capture = 8.3ms between frames
                 </div>
 
                 {/* Timeline */}
                 <div className="relative h-32 mb-6">
                   {/* Timeline line */}
-                  <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-[#3D3D3D]"></div>
+                  <div className="absolute top-1/2 left-0 right-0 h-0.5" style={{ background: 'var(--border-light)' }}></div>
 
                   {/* Frame markers */}
-                  <div className="absolute left-[20%] top-1/2 -translate-y-1/2 flex flex-col items-center">
-                    <div className="w-4 h-4 rounded-full bg-[#3D3D3D] border-2 border-[#5C8DB8]"></div>
-                    <span className="text-xs text-[#787774] mt-2">Frame N</span>
-                    <span className="text-xs text-[#5C8DB8] font-mono">d₀ = 12px</span>
+                  <div className="absolute left-[15%] top-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <div className="w-3 h-3 rounded-full" style={{ background: 'var(--border-light)' }}></div>
+                    <span className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>N-2</span>
                   </div>
 
-                  {/* Crossing point (interpolated) */}
+                  <div className="absolute left-[30%] top-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <div className="w-3 h-3 rounded-full" style={{ background: 'var(--border-light)' }}></div>
+                    <span className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>N-1</span>
+                  </div>
+
                   <div className="absolute left-[45%] top-1/2 -translate-y-1/2 flex flex-col items-center">
-                    <div className="w-3 h-8 bg-[#22C55E] rounded-sm"></div>
-                    <span className="text-xs text-[#22C55E] mt-2 font-semibold">Gate</span>
+                    <div className="w-4 h-4 rounded-full border-2" style={{ background: 'var(--bg-mint)', borderColor: 'var(--text-primary)' }}></div>
+                    <span className="text-xs mt-2" style={{ color: 'var(--text-secondary)' }}>Frame N</span>
                   </div>
 
-                  {/* Athlete position indicator */}
-                  <div className="absolute left-[38%] top-[25%] flex flex-col items-center">
+                  {/* Gate line */}
+                  <div className="absolute left-[55%] top-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <div className="w-1 h-10 rounded-sm" style={{ background: 'var(--accent-green)' }}></div>
+                    <span className="text-xs mt-2 font-semibold" style={{ color: 'var(--accent-green)' }}>Gate</span>
+                  </div>
+
+                  {/* Athlete indicator */}
+                  <div className="absolute left-[50%] top-[20%] flex flex-col items-center">
                     <svg
-                      className="w-6 h-6 text-[#5C8DB8]"
+                      className="w-5 h-5"
+                      style={{ color: 'var(--text-secondary)' }}
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -53,22 +64,26 @@ export default function TimingTechnology() {
                   </div>
 
                   <div className="absolute left-[70%] top-1/2 -translate-y-1/2 flex flex-col items-center">
-                    <div className="w-4 h-4 rounded-full bg-[#3D3D3D] border-2 border-[#5C8DB8]"></div>
-                    <span className="text-xs text-[#787774] mt-2">Frame N+1</span>
-                    <span className="text-xs text-[#5C8DB8] font-mono">d₁ = 18px</span>
+                    <div className="w-4 h-4 rounded-full border-2" style={{ background: 'var(--bg-mint)', borderColor: 'var(--text-primary)' }}></div>
+                    <span className="text-xs mt-2" style={{ color: 'var(--text-secondary)' }}>Frame N+1</span>
+                  </div>
+
+                  <div className="absolute left-[85%] top-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <div className="w-3 h-3 rounded-full" style={{ background: 'var(--border-light)' }}></div>
+                    <span className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>N+2</span>
                   </div>
                 </div>
 
                 {/* Formula */}
-                <div className="bg-[#2B2E32] rounded-xl p-4 font-mono text-center">
-                  <div className="text-[#9B9A97] text-sm mb-2">
-                    Linear interpolation formula
+                <div className="bg-white rounded-xl p-4 font-mono text-center" style={{ border: '1px solid var(--border-light)' }}>
+                  <div className="text-sm mb-2" style={{ color: 'var(--text-muted)' }}>
+                    Trajectory regression (3+ frames)
                   </div>
-                  <div className="text-[#5C8DB8] text-lg">
-                    α = d₀ / (d₀ + d₁) = 12 / 30 = 0.4
+                  <div className="text-sm" style={{ color: 'var(--text-primary)' }}>
+                    position = velocity × time + offset
                   </div>
-                  <div className="text-[#22C55E] text-sm mt-2">
-                    Crossing time = Frame N + (0.4 × 8.3ms) = +3.3ms
+                  <div className="text-sm mt-2" style={{ color: 'var(--accent-green)' }}>
+                    Solve for crossing time with sub-frame precision
                   </div>
                 </div>
               </div>
@@ -76,63 +91,74 @@ export default function TimingTechnology() {
 
             {/* Right - Explanation */}
             <div>
-              <h3 className="text-2xl font-bold mb-6">
+              <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
                 Beyond frame-by-frame timing
               </h3>
+              <Link
+                href="/technology"
+                className="inline-flex items-center gap-1 text-sm mb-6 hover:opacity-70 transition-opacity"
+                style={{ color: 'var(--accent-green)' }}
+              >
+                Learn how it works
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
 
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#5C8DB8]/20 flex items-center justify-center text-[#5C8DB8] font-bold text-sm">
+                  <div className="icon-box flex-shrink-0 w-8 h-8 text-sm font-bold">
                     1
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">120fps Capture</h4>
-                    <p className="text-sm text-[#9B9A97]">
-                      Camera captures 120 frames per second, giving us 8.3ms
-                      resolution between frames.
+                    <h4 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Motion Detection</h4>
+                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                      Frame differencing identifies moving objects. Blob analysis
+                      finds the largest motion region (your body) and tracks its
+                      leading edge toward the gate.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#5C8DB8]/20 flex items-center justify-center text-[#5C8DB8] font-bold text-sm">
+                  <div className="icon-box flex-shrink-0 w-8 h-8 text-sm font-bold">
                     2
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">
-                      Sub-frame Interpolation
+                    <h4 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                      Trajectory Regression
                     </h4>
-                    <p className="text-sm text-[#9B9A97]">
-                      We measure the athlete&apos;s distance to the gate in
-                      consecutive frames and calculate the exact crossing moment
-                      using linear interpolation.
+                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                      We track position across multiple frames and use linear
+                      regression to calculate the precise moment you crossed the
+                      gate line—even between frames.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#5C8DB8]/20 flex items-center justify-center text-[#5C8DB8] font-bold text-sm">
+                  <div className="icon-box flex-shrink-0 w-8 h-8 text-sm font-bold">
                     3
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Rolling Shutter Fix</h4>
-                    <p className="text-sm text-[#9B9A97]">
-                      We add 0.75× exposure duration to compensate for the
-                      camera&apos;s rolling shutter, ensuring the timing matches
-                      when the athlete actually crossed.
+                    <h4 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Rolling Shutter Correction</h4>
+                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                      iPhone cameras scan top-to-bottom over ~5-12ms. We measure
+                      where you crossed vertically and compensate for the exact
+                      scan timing at that position.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#22C55E]/20 flex items-center justify-center text-[#22C55E] font-bold text-sm">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold" style={{ background: '#D1FAE5', color: 'var(--accent-green)' }}>
                     ✓
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">~4ms Effective Accuracy</h4>
-                    <p className="text-sm text-[#9B9A97]">
-                      The combination of high frame rate, sub-frame
-                      interpolation, and exposure compensation delivers timing
+                    <h4 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>~4ms Effective Accuracy</h4>
+                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                      The combination of 120fps capture, multi-frame trajectory
+                      analysis, and rolling shutter correction delivers timing
                       precision comparable to professional systems.
                     </p>
                   </div>
@@ -144,19 +170,19 @@ export default function TimingTechnology() {
 
         {/* Bottom stats */}
         <div className="grid md:grid-cols-3 gap-4">
-          <div className="card-gunmetal rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-[#5C8DB8] mb-2">8.3ms</div>
-            <div className="text-sm text-[#9B9A97]">Frame interval at 120fps</div>
+          <div className="card-stat">
+            <div className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>8.3ms</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>Frame interval at 120fps</div>
           </div>
-          <div className="card-gunmetal rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-[#5C8DB8] mb-2">~0.5ms</div>
-            <div className="text-sm text-[#9B9A97]">
+          <div className="card-stat">
+            <div className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>~0.5ms</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>
               Interpolation resolution
             </div>
           </div>
-          <div className="card-gunmetal rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-[#22C55E] mb-2">~4ms</div>
-            <div className="text-sm text-[#9B9A97]">
+          <div className="card-stat">
+            <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent-green)' }}>~4ms</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>
               Effective timing accuracy
             </div>
           </div>

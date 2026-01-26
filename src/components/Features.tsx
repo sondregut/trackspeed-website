@@ -1,7 +1,7 @@
 export default function Features() {
   const stats = [
     { value: "~4ms", label: "Timing Accuracy" },
-    { value: "120", label: "FPS Camera" },
+    { value: "2+", label: "Device Sync" },
     { value: "0", label: "Extra Hardware" },
   ];
 
@@ -46,14 +46,13 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 px-6">
+    <section id="features" className="section-padding px-6 bg-mint-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Professional timing,
-            <span className="block text-[#5C8DB8]">zero equipment</span>
+        <div className="text-center mb-16">
+          <h2 className="text-section mb-4">
+            Professional timing, zero equipment
           </h2>
-          <p className="text-xl text-[#9B9A97] max-w-2xl mx-auto">
+          <p className="text-body max-w-2xl mx-auto">
             Everything you need is already in your pocket
           </p>
         </div>
@@ -61,11 +60,11 @@ export default function Features() {
         {/* Stats bar */}
         <div className="grid grid-cols-3 gap-4 mb-16">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center p-6 card-gunmetal rounded-2xl">
-              <div className="text-3xl md:text-4xl font-bold text-[#5C8DB8] mb-1">
+            <div key={index} className="card-stat">
+              <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                 {stat.value}
               </div>
-              <div className="text-sm text-[#9B9A97]">{stat.label}</div>
+              <div className="text-sm" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
             </div>
           ))}
         </div>
@@ -75,14 +74,14 @@ export default function Features() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex gap-4 p-5 card-gunmetal rounded-xl hover:border-[#5C8DB8]/30 transition-colors"
+              className="card-feature flex gap-4"
             >
-              <div className="flex-shrink-0 w-10 h-10 bg-[#5C8DB8]/10 rounded-lg flex items-center justify-center text-[#5C8DB8]">
+              <div className="icon-box flex-shrink-0">
                 {feature.icon}
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>
-                <p className="text-sm text-[#9B9A97]">{feature.description}</p>
+                <h3 className="text-card-title mb-1">{feature.title}</h3>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{feature.description}</p>
               </div>
             </div>
           ))}
