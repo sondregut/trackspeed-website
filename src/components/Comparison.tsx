@@ -66,7 +66,7 @@ export default function Comparison() {
       name: "Portability",
       trackspeed: "Pocket-sized",
       freelap: "Carry bag",
-      brower: "Vehicle needed",
+      brower: "Carry bag",
       dashr: "Carry bag",
       stopwatch: "Pocket-sized",
     },
