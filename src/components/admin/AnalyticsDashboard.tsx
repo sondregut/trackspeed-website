@@ -32,11 +32,11 @@ interface AnalyticsData {
 }
 
 interface RevenueCatData {
-  activeSubscribers: number
-  activeTrials: number
-  mrr: number
-  revenue30d: number
-  error?: string
+  activeSubscribers: number | null
+  activeTrials: number | null
+  mrr: number | null
+  revenue30d: number | null
+  dashboardUrl: string
 }
 
 export default function AnalyticsDashboard() {
@@ -123,12 +123,19 @@ export default function AnalyticsDashboard() {
           subtitle="Users with sessions"
           icon={<ActivityIcon />}
         />
-        <StatCard
-          title="Pro Subscribers"
-          value={revenuecat?.activeSubscribers?.toLocaleString() || "—"}
-          subtitle={revenuecat?.error ? revenuecat.error : "Active subscriptions"}
-          icon={<StarIcon />}
-        />
+        <a
+          href={revenuecat?.dashboardUrl || "https://app.revenuecat.com"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <StatCard
+            title="Pro Subscribers"
+            value="View in RC"
+            subtitle="Click to open RevenueCat"
+            icon={<StarIcon />}
+          />
+        </a>
         <StatCard
           title="Promo Redemptions"
           value={analytics.overview.promoRedemptions.toLocaleString()}
@@ -149,12 +156,19 @@ export default function AnalyticsDashboard() {
           value={analytics.overview.totalRuns.toLocaleString()}
           icon={<RunIcon />}
         />
-        <StatCard
-          title="Active Trials"
-          value={revenuecat?.activeTrials?.toLocaleString() || "—"}
-          subtitle={revenuecat?.mrr ? `MRR: $${revenuecat.mrr.toFixed(2)}` : undefined}
-          icon={<ClockIcon />}
-        />
+        <a
+          href={revenuecat?.dashboardUrl || "https://app.revenuecat.com"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <StatCard
+            title="Trials & MRR"
+            value="View in RC"
+            subtitle="Click to open RevenueCat"
+            icon={<ClockIcon />}
+          />
+        </a>
       </div>
 
       {/* Charts Row */}
