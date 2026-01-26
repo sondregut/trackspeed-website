@@ -1,134 +1,267 @@
 @import "tailwindcss";
 
 :root {
-  /* LaserSpeed Design System - Dark Mode */
-  --background: #191919;
-  --background-gradient-start: #263138;
-  --background-gradient-end: #0e1316;
-  --foreground: #FDFDFD;
+  /* Cal AI Design System */
 
-  /* Surface colors */
-  --surface: #2B2E32;
-  --surface-elevated: #333333;
+  /* Primary text colors */
+  --text-primary: #0E0E0C;
+  --text-secondary: #26303E;
+  --text-muted: #5B6470;
+  --text-on-dark: #E8E8E6;
+  --text-on-dark-muted: #9CA3AF;
 
-  /* Text colors */
-  --text-primary: #FDFDFD;
-  --text-secondary: #9B9A97;
-  --text-muted: #787774;
+  /* Section backgrounds */
+  --bg-white: #FFFFFF;
+  --bg-warm: #FFFFF9;
+  --bg-mint: #F7FBF8;
+  --bg-mint-end: #F3F9FB;
+  --bg-sky: #F4FAFD;
+  --bg-sky-end: #F1F8FE;
 
-  /* Accent colors */
-  --accent-primary: #5C8DB8;
-  --accent-success: #22C55E;
-  --accent-warning: #FEAA21;
-  --accent-error: #FC0726;
-  --accent-info: #68A1D6;
+  /* Dark section (testimonials style) */
+  --bg-dark: #1E1A24;
+  --bg-dark-card: #2D2934;
+  --bg-dark-edge: #1A1921;
 
-  /* Card gradient (gunmetal) */
-  --card-top: #2C3033;
-  --card-bottom: #272B2E;
-  --card-edge: #191D21;
+  /* Borders & surfaces */
+  --border-light: #E6EAF0;
+  --border-dark: #3A3640;
 
-  /* Purple-teal gradient for feature cards */
-  --card-gradient-left: #302A53;
-  --card-gradient-right: #234353;
-
-  /* Borders */
-  --border: #3D3D3D;
-  --border-subtle: #2B2B2B;
-
-  /* Legacy aliases */
-  --muted: var(--text-secondary);
-  --card: var(--surface);
+  /* Accent (minimal - only for labels) */
+  --accent-red: #F04F4F;
+  --accent-green: #22C55E;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent-primary);
-  --color-accent-success: var(--accent-success);
-  --color-accent-warning: var(--accent-warning);
-  --color-muted: var(--text-secondary);
-  --color-card: var(--surface);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-white);
+  --color-foreground: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border-light);
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: linear-gradient(to bottom, var(--background-gradient-start), var(--background-gradient-end));
+  background: var(--bg-white);
   min-height: 100vh;
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* iPhone mockup styles - LaserSpeed gunmetal */
+/* ========================================
+   SECTION BACKGROUNDS (Cal AI style)
+   ======================================== */
+
+/* Hero - white to light blue-gray (Cal AI style) */
+.bg-hero {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, #f5f8fb 100%);
+}
+
+/* Gradient transition divider */
+.gradient-divider {
+  height: 120px;
+  background: linear-gradient(180deg, #f5f8fb 0%, #f0f4f8 100%);
+}
+
+/* Mint wash section */
+.bg-mint-wash {
+  background: linear-gradient(180deg, #f7fbf8 0%, #f3f9fb 100%);
+}
+
+/* Sky wash section */
+.bg-sky-wash {
+  background: linear-gradient(180deg, #f0f4f8 0%, #f4f7fa 50%, #f7f9fc 100%);
+}
+
+/* Dark section (testimonials/CTA) */
+.bg-dark-section {
+  background: radial-gradient(900px 500px at 50% 40%, #2d2934 0%, #1e1a24 60%, #1a1921 100%);
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+/* Hero heading - big and bold */
+.text-hero {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Section heading */
+.text-section {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Card title */
+.text-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+/* Body text */
+.text-body {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   COMPONENTS
+   ======================================== */
+
+/* iPhone mockup */
 .iphone-mockup {
-  background: linear-gradient(to bottom, var(--card-top), var(--card-bottom));
+  background: linear-gradient(to bottom, #2D2D2D, #1A1A1A);
   border-radius: 40px;
-  padding: 12px;
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 10px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .iphone-screen {
-  background: var(--background);
+  background: #000;
   border-radius: 32px;
   overflow: hidden;
 }
 
-/* Gradient text - blue accent */
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-info) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Button styles - Primary (blue accent) */
+/* Primary button - dark pill */
 .btn-primary {
-  background: var(--accent-primary);
+  background: var(--text-primary);
+  color: #FFFFFF;
+  padding: 0.875rem 1.75rem;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 1rem;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-primary:hover {
-  background: #4a7da8;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(92, 141, 184, 0.3);
+  background: #1F2937;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Card styles - Gunmetal with depth */
-.card-gunmetal {
-  background: linear-gradient(to bottom, var(--card-top), var(--card-bottom));
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+/* App Store button */
+.btn-app-store {
+  background: #000000;
+  color: #FFFFFF;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Feature card gradient (purple-teal) */
-.card-gradient {
-  background: linear-gradient(135deg, var(--card-gradient-left) 0%, var(--card-gradient-right) 100%);
+.btn-app-store:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
 }
 
-/* Success accent */
+/* Feature card - Cal AI style */
+.card-feature {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.card-feature:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-color: #D1D5DB;
+}
+
+/* Dark card (for dark sections) */
+.card-dark {
+  background: var(--bg-dark-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 20px;
+}
+
+/* Icon container - rounded square with light fill */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  background: #F3F4F6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+/* Social proof pill */
+.social-proof-pill {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* Stats card */
+.card-stat {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* New feature label (accent) */
+.label-new {
+  background: var(--accent-red);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Success text */
 .text-success {
-  color: var(--accent-success);
+  color: var(--accent-green);
 }
 
-.bg-success {
-  background-color: var(--accent-success);
+/* ========================================
+   SPACING (Cal AI uses huge padding)
+   ======================================== */
+
+.section-padding {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
-/* Warning/Gold accent */
-.text-warning {
-  color: var(--accent-warning);
-}
-
-.bg-warning {
-  background-color: var(--accent-warning);
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
 }

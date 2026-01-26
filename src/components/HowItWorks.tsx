@@ -5,7 +5,7 @@ export default function HowItWorks() {
     {
       number: "01",
       title: "Position your iPhone",
-      description: "Place your phone at the finish line. No calibration needed—the app uses up to 120fps capture with linear interpolation to detect crossings with millisecond accuracy.",
+      description: "Place your phone at the finish line. No calibration needed—the app detects crossings automatically and uses linear interpolation to achieve millisecond accuracy.",
       image: "/screenshot-setup.png",
     },
     {
@@ -23,32 +23,32 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-24 px-6 bg-[#0e1316]">
+    <section id="how-it-works" className="section-padding px-6 bg-sky-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-20">
+          <h2 className="text-section mb-4">
             How it works
           </h2>
-          <p className="text-xl text-[#9B9A97] max-w-2xl mx-auto">
+          <p className="text-body max-w-2xl mx-auto">
             Get started in under a minute
           </p>
         </div>
 
-        <div className="space-y-24">
+        <div className="space-y-32">
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`grid lg:grid-cols-2 gap-12 items-center ${
+              className={`grid lg:grid-cols-2 gap-16 items-center ${
                 index % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
               {/* Content */}
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="text-6xl font-bold text-[#3D3D3D]">{step.number}</span>
+                  <span className="text-7xl font-bold" style={{ color: 'var(--border-light)' }}>{step.number}</span>
                 </div>
-                <h3 className="text-3xl font-bold mb-4">{step.title}</h3>
-                <p className="text-xl text-[#9B9A97]">{step.description}</p>
+                <h3 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{step.title}</h3>
+                <p className="text-lg" style={{ color: 'var(--text-muted)' }}>{step.description}</p>
               </div>
 
               {/* Screenshot */}

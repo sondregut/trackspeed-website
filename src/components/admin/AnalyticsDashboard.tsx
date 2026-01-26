@@ -13,6 +13,18 @@ interface AnalyticsData {
     totalRuns: number
     promoRedemptions: number
   }
+  subscriptions: {
+    activeSubscribers: number
+    activeTrials: number
+    churnedLast30d: number
+  }
+  revenue: {
+    totalRevenueCents: number
+    mrrCents: number
+    monthlySubscribers: number
+    yearlySubscribers: number
+    currency: string
+  }
   dailyActivity: Array<{
     date: string
     sessions: number
@@ -31,17 +43,8 @@ interface AnalyticsData {
   }>
 }
 
-interface RevenueCatData {
-  activeSubscribers: number | null
-  activeTrials: number | null
-  mrr: number | null
-  revenue30d: number | null
-  dashboardUrl: string
-}
-
 export default function AnalyticsDashboard() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
-  const [revenuecat, setRevenuecat] = useState<RevenueCatData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [chartMetric, setChartMetric] = useState<"sessions" | "users">("sessions")
@@ -49,20 +52,12 @@ export default function AnalyticsDashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [analyticsRes, revenuecatRes] = await Promise.all([
-          fetch("/api/admin/analytics"),
-          fetch("/api/admin/analytics/revenuecat"),
-        ])
+        const analyticsRes = await fetch("/api/admin/analytics")
 
         if (!analyticsRes.ok) throw new Error("Failed to fetch analytics")
 
         const analyticsData = await analyticsRes.json()
         setAnalytics(analyticsData)
-
-        if (revenuecatRes.ok) {
-          const revenuecatData = await revenuecatRes.json()
-          setRevenuecat(revenuecatData)
-        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load analytics")
       } finally {
@@ -123,19 +118,12 @@ export default function AnalyticsDashboard() {
           subtitle="Users with sessions"
           icon={<ActivityIcon />}
         />
-        <a
-          href={revenuecat?.dashboardUrl || "https://app.revenuecat.com"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
-          <StatCard
-            title="Pro Subscribers"
-            value="View in RC"
-            subtitle="Click to open RevenueCat"
-            icon={<StarIcon />}
-          />
-        </a>
+        <StatCard
+          title="Pro Subscribers"
+          value={analytics.subscriptions.activeSubscribers.toLocaleString()}
+          subtitle="Active subscriptions"
+          icon={<StarIcon />}
+        />
         <StatCard
           title="Promo Redemptions"
           value={analytics.overview.promoRedemptions.toLocaleString()}
@@ -144,8 +132,36 @@ export default function AnalyticsDashboard() {
         />
       </div>
 
+      {/* Revenue Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard
+          title="Total Revenue"
+          value={formatCurrency(analytics.revenue.totalRevenueCents)}
+          subtitle="Lifetime revenue"
+          icon={<DollarIcon />}
+        />
+        <StatCard
+          title="MRR"
+          value={formatCurrency(analytics.revenue.mrrCents)}
+          subtitle="Monthly recurring revenue"
+          icon={<TrendIcon />}
+        />
+        <StatCard
+          title="Monthly Plans"
+          value={analytics.revenue.monthlySubscribers.toLocaleString()}
+          subtitle="Active monthly subs"
+          icon={<CalendarIcon />}
+        />
+        <StatCard
+          title="Yearly Plans"
+          value={analytics.revenue.yearlySubscribers.toLocaleString()}
+          subtitle="Active yearly subs"
+          icon={<CalendarYearIcon />}
+        />
+      </div>
+
       {/* Session Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Sessions"
           value={analytics.overview.totalSessions.toLocaleString()}
@@ -156,19 +172,18 @@ export default function AnalyticsDashboard() {
           value={analytics.overview.totalRuns.toLocaleString()}
           icon={<RunIcon />}
         />
-        <a
-          href={revenuecat?.dashboardUrl || "https://app.revenuecat.com"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
-          <StatCard
-            title="Trials & MRR"
-            value="View in RC"
-            subtitle="Click to open RevenueCat"
-            icon={<ClockIcon />}
-          />
-        </a>
+        <StatCard
+          title="Active Trials"
+          value={analytics.subscriptions.activeTrials.toLocaleString()}
+          subtitle="Trial subscriptions"
+          icon={<ClockIcon />}
+        />
+        <StatCard
+          title="Churned (30d)"
+          value={analytics.subscriptions.churnedLast30d.toLocaleString()}
+          subtitle="Expired subscriptions"
+          icon={<ChurnIcon />}
+        />
       </div>
 
       {/* Charts Row */}
@@ -257,7 +272,16 @@ export default function AnalyticsDashboard() {
   )
 }
 
-// Helper function
+// Helper functions
+function formatCurrency(cents: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(cents / 100)
+}
+
 function formatTimeAgo(dateStr: string): string {
   const date = new Date(dateStr)
   const now = new Date()
@@ -327,6 +351,46 @@ function ClockIcon() {
   return (
     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+function ChurnIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+    </svg>
+  )
+}
+
+function DollarIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+function TrendIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    </svg>
+  )
+}
+
+function CalendarIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  )
+}
+
+function CalendarYearIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM9 14l2 2 4-4" />
     </svg>
   )
 }

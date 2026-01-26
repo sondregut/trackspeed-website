@@ -30,7 +30,7 @@ export default function Hero() {
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-200 to-green-400 border-2 border-white" />
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-200 to-purple-400 border-2 border-white" />
               </div>
-              Loved by olympians
+              <span className="font-bold">Loved by olympians</span>
             </div>
 
             <h1 className="text-hero mb-4">

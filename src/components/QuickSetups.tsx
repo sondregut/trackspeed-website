@@ -10,7 +10,7 @@ export default function QuickSetups() {
     },
     {
       category: "Acceleration",
-      color: "#5C8DB8",
+      color: "var(--text-secondary)",
       tests: [
         { name: "10m Sprint", distance: "10m", start: "Voice Command", popular: true },
         { name: "20m Sprint", distance: "20m", start: "Audio Gun", popular: false },
@@ -20,7 +20,7 @@ export default function QuickSetups() {
     },
     {
       category: "Max Speed",
-      color: "#4CAF50",
+      color: "var(--accent-green)",
       tests: [
         { name: "Flying 10m", distance: "10m", start: "Flying", popular: true },
         { name: "Flying 20m", distance: "20m", start: "Flying", popular: false },
@@ -30,19 +30,18 @@ export default function QuickSetups() {
   ];
 
   return (
-    <section id="quick-setups" className="py-24 px-6">
+    <section id="quick-setups" className="section-padding px-6 bg-sky-wash">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            One-tap
-            <span className="block text-[#5C8DB8]">test presets</span>
+          <h2 className="text-section mb-4">
+            One-tap test presets
           </h2>
-          <p className="text-xl text-[#9B9A97] max-w-2xl mx-auto">
+          <p className="text-body max-w-2xl mx-auto">
             Pre-configured tests for common sprint distances. Select and go.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           {presets.map((category, catIndex) => (
             <div key={catIndex}>
               <h3
@@ -59,17 +58,17 @@ export default function QuickSetups() {
                 {category.tests.map((test, testIndex) => (
                   <div
                     key={testIndex}
-                    className="card-gunmetal rounded-xl p-5 hover:border-[#5C8DB8]/30 transition-colors relative"
+                    className="card-feature relative"
                   >
                     {test.popular && (
-                      <span className="absolute -top-2 -right-2 bg-[#5C8DB8] text-white text-xs px-2 py-1 rounded-full">
+                      <span className="label-new absolute -top-2 -right-2">
                         Popular
                       </span>
                     )}
-                    <h4 className="text-lg font-semibold mb-2">{test.name}</h4>
-                    <div className="space-y-1 text-sm text-[#9B9A97]">
-                      <p>Distance: <span className="text-white">{test.distance}</span></p>
-                      <p>Start: <span className="text-white">{test.start}</span></p>
+                    <h4 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{test.name}</h4>
+                    <div className="space-y-1 text-sm" style={{ color: 'var(--text-muted)' }}>
+                      <p>Distance: <span style={{ color: 'var(--text-primary)' }}>{test.distance}</span></p>
+                      <p>Start: <span style={{ color: 'var(--text-primary)' }}>{test.start}</span></p>
                     </div>
                   </div>
                 ))}
@@ -79,7 +78,7 @@ export default function QuickSetups() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-[#9B9A97]">
+          <p style={{ color: 'var(--text-muted)' }}>
             Plus unlimited custom configurations for any distance and start type
           </p>
         </div>

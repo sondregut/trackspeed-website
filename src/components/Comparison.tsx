@@ -10,15 +10,7 @@ export default function Comparison() {
       highlight: true,
     },
     {
-      name: "Claimed Accuracy",
-      trackspeed: "±10ms",
-      freelap: "±20ms",
-      brower: "±1ms*",
-      dashr: "±10ms",
-      stopwatch: "±200ms",
-    },
-    {
-      name: "Real-World Reliability",
+      name: "Accuracy",
       trackspeed: "±10ms",
       freelap: "±20ms",
       brower: "±50-60ms**",
@@ -83,8 +75,8 @@ export default function Comparison() {
   const renderValue = (value: string | boolean) => {
     if (value === true) {
       return (
-        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#22C55E]/20">
-          <svg className="w-4 h-4 text-[#22C55E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full" style={{ background: '#D1FAE5' }}>
+          <svg className="w-4 h-4" style={{ color: 'var(--accent-green)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </span>
@@ -92,8 +84,8 @@ export default function Comparison() {
     }
     if (value === false) {
       return (
-        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#787774]/20">
-          <svg className="w-4 h-4 text-[#787774]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full" style={{ background: 'var(--border-light)' }}>
+          <svg className="w-4 h-4" style={{ color: 'var(--text-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </span>
@@ -103,64 +95,65 @@ export default function Comparison() {
   };
 
   return (
-    <section id="comparison" className="py-24 px-6 bg-[#0e1316]">
+    <section id="comparison" className="section-padding px-6 bg-mint-wash">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            How we <span className="text-[#5C8DB8]">compare</span>
+          <h2 className="text-section mb-4">
+            How we compare
           </h2>
-          <p className="text-xl text-[#9B9A97]">
+          <p className="text-body">
             Professional timing without the professional price tag
           </p>
         </div>
 
         {/* Desktop Table */}
         <div className="hidden lg:block">
-          <div className="card-gunmetal rounded-2xl overflow-hidden">
+          <div className="card-feature overflow-hidden p-0">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#1a1d20]">
-                  <th className="text-left py-5 px-6 text-[#787774] font-medium text-sm uppercase tracking-wider">
+                <tr style={{ background: 'var(--bg-mint)' }}>
+                  <th className="text-left py-5 px-6 font-medium text-sm uppercase tracking-wider" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>
                     Feature
                   </th>
-                  <th className="py-5 px-4 text-center">
+                  <th className="py-5 px-4 text-center" style={{ borderBottom: '1px solid var(--border-light)' }}>
                     <div className="inline-flex flex-col items-center gap-1">
-                      <span className="text-[#5C8DB8] font-bold">TrackSpeed</span>
-                      <span className="text-[10px] text-[#22C55E] bg-[#22C55E]/10 px-2 py-0.5 rounded-full">
+                      <span className="font-bold" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ color: 'var(--accent-green)', background: '#D1FAE5' }}>
                         YOU ARE HERE
                       </span>
                     </div>
                   </th>
-                  <th className="py-5 px-4 text-center text-[#787774] font-medium">Freelap</th>
-                  <th className="py-5 px-4 text-center text-[#787774] font-medium">Brower</th>
-                  <th className="py-5 px-4 text-center text-[#787774] font-medium">DASHR</th>
-                  <th className="py-5 px-4 text-center text-[#787774] font-medium">Stopwatch</th>
+                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Freelap</th>
+                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Brower</th>
+                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>DASHR</th>
+                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Stopwatch</th>
                 </tr>
               </thead>
               <tbody>
                 {features.map((feature, index) => (
                   <tr
                     key={index}
-                    className={`border-t border-[#3D3D3D]/30 ${
-                      feature.highlight ? "bg-[#5C8DB8]/5" : ""
-                    }`}
+                    style={{
+                      background: feature.highlight ? 'var(--bg-sky)' : 'white',
+                      borderTop: '1px solid var(--border-light)'
+                    }}
                   >
-                    <td className="py-4 px-6 text-white font-medium">{feature.name}</td>
+                    <td className="py-4 px-6 font-medium" style={{ color: 'var(--text-primary)' }}>{feature.name}</td>
                     <td className="py-4 px-4 text-center">
-                      <span className="text-white font-semibold">
+                      <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
                         {renderValue(feature.trackspeed)}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-center text-[#9B9A97]">
+                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
                       {renderValue(feature.freelap)}
                     </td>
-                    <td className="py-4 px-4 text-center text-[#9B9A97]">
+                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
                       {renderValue(feature.brower)}
                     </td>
-                    <td className="py-4 px-4 text-center text-[#9B9A97]">
+                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
                       {renderValue(feature.dashr)}
                     </td>
-                    <td className="py-4 px-4 text-center text-[#9B9A97]">
+                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
                       {renderValue(feature.stopwatch)}
                     </td>
                   </tr>
@@ -172,18 +165,18 @@ export default function Comparison() {
 
         {/* Mobile View */}
         <div className="lg:hidden">
-          <div className="card-gunmetal rounded-2xl p-6 mb-4">
+          <div className="card-feature p-6 mb-4">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[#5C8DB8] font-bold text-lg">TrackSpeed</span>
-              <span className="text-[10px] text-[#22C55E] bg-[#22C55E]/10 px-2 py-1 rounded-full">
+              <span className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
+              <span className="text-[10px] px-2 py-1 rounded-full" style={{ color: 'var(--accent-green)', background: '#D1FAE5' }}>
                 YOU ARE HERE
               </span>
             </div>
             <div className="space-y-3">
               {features.map((feature, index) => (
-                <div key={index} className="flex justify-between items-center py-2 border-b border-[#3D3D3D]/30 last:border-0">
-                  <span className="text-[#9B9A97]">{feature.name}</span>
-                  <span className="text-white font-medium">{renderValue(feature.trackspeed)}</span>
+                <div key={index} className="flex justify-between items-center py-2" style={{ borderBottom: index < features.length - 1 ? '1px solid var(--border-light)' : 'none' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>{feature.name}</span>
+                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{renderValue(feature.trackspeed)}</span>
                 </div>
               ))}
             </div>
@@ -191,13 +184,13 @@ export default function Comparison() {
 
           <div className="grid grid-cols-2 gap-3">
             {["Freelap", "Brower", "DASHR", "Stopwatch"].map((competitor) => (
-              <div key={competitor} className="bg-[#2B2E32]/50 rounded-xl p-4">
-                <h4 className="text-[#787774] font-medium text-sm mb-3">{competitor}</h4>
+              <div key={competitor} className="card-feature p-4">
+                <h4 className="font-medium text-sm mb-3" style={{ color: 'var(--text-muted)' }}>{competitor}</h4>
                 <div className="space-y-2 text-sm">
                   {features.slice(0, 4).map((feature, index) => (
                     <div key={index} className="flex justify-between">
-                      <span className="text-[#787774]">{feature.name}</span>
-                      <span className="text-[#9B9A97]">
+                      <span style={{ color: 'var(--text-muted)' }}>{feature.name}</span>
+                      <span style={{ color: 'var(--text-secondary)' }}>
                         {renderValue(feature[competitor.toLowerCase() as keyof typeof feature] as string | boolean)}
                       </span>
                     </div>
@@ -208,9 +201,9 @@ export default function Comparison() {
           </div>
         </div>
 
-        <div className="text-center text-[#787774] text-xs mt-8 space-y-1">
+        <div className="text-center text-xs mt-8 space-y-1" style={{ color: 'var(--text-muted)' }}>
           <p>*When billed annually. Prices are approximate.</p>
-          <p>**Per <a href="https://www.researchgate.net/publication/266796025" className="text-[#5C8DB8] hover:underline" target="_blank" rel="noopener">peer-reviewed study</a>: Brower found "not reliable enough to monitor small changes for elite athletes"</p>
+          <p>**Per <a href="https://www.researchgate.net/publication/266796025" className="underline hover:no-underline" style={{ color: 'var(--text-secondary)' }} target="_blank" rel="noopener">peer-reviewed study</a>: Brower found &quot;not reliable enough to monitor small changes for elite athletes&quot;</p>
           <p>Beam systems trigger on any body part (hand/leg), not chest. TrackSpeed is designed for training, not official competition.</p>
         </div>
       </div>

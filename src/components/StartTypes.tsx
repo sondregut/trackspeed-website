@@ -1,6 +1,13 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function StartTypes() {
+  const [selected, setSelected] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const startTypes = [
     {
       title: "Flying Start",
@@ -12,7 +19,7 @@ export default function StartTypes() {
       title: "Touch Release",
       description: "Place finger on screen, lift to start. Captures reaction time just like blocks at a real track meet.",
       useCase: "40 yard dash, combine testing",
-      image: "/start-touch-release.png",
+      image: "/start-touch.png",
     },
     {
       title: "Countdown",
@@ -24,50 +31,136 @@ export default function StartTypes() {
       title: "Voice Command",
       description: '"On your marks... Set... GO!" AI voice commands with realistic timing based on official rules.',
       useCase: "Solo training, group starts",
-      image: "/start-voice-command.png",
+      image: "/start-voice.png",
     },
     {
       title: "Start in Frame",
       description: "Begin stationary in the camera view, then take off. Timer starts when you leave the frame. No second device needed.",
       useCase: "Solo training, single phone setup",
-      image: "/start-in-frame.png",
+      image: "/start-frame.png",
     },
   ];
 
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-40% 0px -40% 0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = cardRefs.current.findIndex((ref) => ref === entry.target);
+          if (index !== -1) {
+            setSelected(index);
+          }
+        }
+      });
+    }, observerOptions);
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="start-types" className="py-24 px-6 bg-[#1A1A1A]">
+    <section id="start-types" ref={sectionRef} className="px-6 bg-mint-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Five ways to
-            <span className="block text-[#5C8DB8]">start your sprint</span>
+        <div className="text-center pt-28 pb-16">
+          <h2 className="text-section mb-4">
+            Five ways to start your sprint
           </h2>
-          <p className="text-xl text-[#9B9A97] max-w-2xl mx-auto">
+          <p className="text-body max-w-2xl mx-auto">
             Choose the start method that matches your training goals
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {startTypes.map((type, index) => (
-            <div
-              key={index}
-              className={`card-gunmetal rounded-2xl overflow-hidden hover:border-[#5C8DB8]/30 transition-colors ${index === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
-            >
-              <div className="relative h-80 bg-[#0D0D0D]">
-                <Image
-                  src={type.image}
-                  alt={type.title}
-                  fill
-                  className="object-contain"
-                />
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Sticky phone mockup */}
+          <div className="hidden lg:block">
+            <div className="sticky top-32">
+              <div className="iphone-mockup w-[280px] mx-auto">
+                <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
+                  <div className="relative w-full h-full">
+                    {startTypes.map((type, index) => (
+                      <Image
+                        key={index}
+                        src={type.image}
+                        alt={type.title}
+                        width={280}
+                        height={606}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                          index === selected ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">{type.title}</h3>
-                <p className="text-[#9B9A97] mb-3">{type.description}</p>
-                <p className="text-sm text-[#5C8DB8]">Best for: {type.useCase}</p>
+              {/* Dots indicator */}
+              <div className="flex justify-center gap-2 mt-6">
+                {startTypes.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelected(index);
+                      cardRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }}
+                    className="w-2 h-2 rounded-full transition-all duration-300"
+                    style={{
+                      background: index === selected ? 'var(--text-primary)' : 'var(--border-light)',
+                      transform: index === selected ? 'scale(1.25)' : 'scale(1)',
+                    }}
+                    aria-label={`View ${startTypes[index].title}`}
+                  />
+                ))}
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Start type cards */}
+          <div className="space-y-6 pb-28">
+            {startTypes.map((type, index) => (
+              <div
+                key={index}
+                ref={(el) => { cardRefs.current[index] = el; }}
+                onClick={() => setSelected(index)}
+                className={`p-6 cursor-pointer transition-all duration-300 rounded-3xl ${
+                  index === selected
+                    ? "bg-white border-2 border-gray-900 shadow-lg scale-[1.02]"
+                    : "bg-gray-100/80 border border-transparent hover:bg-gray-100"
+                }`}
+              >
+                {/* Mobile: show image inline */}
+                <div className="lg:hidden mb-4">
+                  <div className="iphone-mockup w-[200px] mx-auto">
+                    <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
+                      <Image
+                        src={type.image}
+                        alt={type.title}
+                        width={200}
+                        height={433}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  {type.title}
+                </h3>
+                <p className="mb-3" style={{ color: 'var(--text-muted)' }}>
+                  {type.description}
+                </p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                  Best for: {type.useCase}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
