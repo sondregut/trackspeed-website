@@ -57,7 +57,7 @@ export default function Comparison() {
       name: "Photo Finish",
       trackspeed: true,
       freelap: false,
-      brower: "Paid add-on",
+      brower: false,
       dashr: false,
       stopwatch: false,
       highlight: true,
