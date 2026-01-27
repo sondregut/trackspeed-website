@@ -104,7 +104,7 @@ function wrapTemplate(content: string, previewText: string): string {
       <p class="muted">
         <a href="https://mytrackspeed.com">Website</a> •
         <a href="mailto:support@mytrackspeed.com">Support</a> •
-        <a href="mailto:unsubscribe@mytrackspeed.com?subject=Unsubscribe">Unsubscribe</a>
+        <a href="/api/unsubscribe?email=test@example.com&token=preview">Unsubscribe</a>
       </p>
       <p class="muted">&copy; 2026 Track Speed LLC. All rights reserved.</p>
     </div>
@@ -159,7 +159,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 
       <div style="margin:24px 0;">
         <p><span style="display:inline-block;width:28px;height:28px;background:#5C8DB8;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:700;margin-right:12px;">1</span><strong>Stable Phone Position</strong></p>
-        <p style="margin-left:40px;font-size:14px;">Use a tripod or lean your phone against something stable. The app detects movement, so a steady position means more accurate detection.</p>
+        <p style="margin-left:40px;font-size:14px;">Use a tripod for best results. The app detects movement, so a steady position means more accurate detection.</p>
       </div>
 
       <div style="margin:24px 0;">
@@ -168,8 +168,8 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
       </div>
 
       <div style="margin:24px 0;">
-        <p><span style="display:inline-block;width:28px;height:28px;background:#5C8DB8;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:700;margin-right:12px;">3</span><strong>Use Higher Frame Rates</strong></p>
-        <p style="margin-left:40px;font-size:14px;">In settings, increase the Photo Finish frame rate for better accuracy. Higher frame rates mean more precise timing.</p>
+        <p><span style="display:inline-block;width:28px;height:28px;background:#5C8DB8;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:700;margin-right:12px;">3</span><strong>Camera Angle</strong></p>
+        <p style="margin-left:40px;font-size:14px;">Position your phone perpendicular to the track. Make sure the runner crosses through the center of the frame for best detection.</p>
       </div>
 
       <hr>
@@ -188,46 +188,31 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
   }),
 
   convert_day7: (data) => ({
-    subject: data.sessionCount && data.sessionCount > 0
-      ? `You've run ${data.sessionCount} sessions - here's what's next`
-      : "Ready to take your training seriously?",
+    subject: "Special offer: 20% off TrackSpeed Pro",
     html: wrapTemplate(`
-      <h1>${data.sessionCount && data.sessionCount > 0
-        ? `You've run ${data.sessionCount} session${data.sessionCount > 1 ? 's' : ''}!`
-        : "Ready to Take Your Training Seriously?"}</h1>
-      <p>Hi ${data.name || "Athlete"},</p>
-      ${data.sessionCount && data.sessionCount > 0
-        ? `<p>Great progress! You've been putting in the work. Here's what you're missing out on with the free version:</p>`
-        : `<p>You downloaded TrackSpeed a week ago but haven't timed a sprint yet. Here's what you're missing:</p>`
-      }
+      <h1>Your Exclusive Offer Inside</h1>
+      <p>Hi ${data.name || "there"},</p>
+      <p>As a TrackSpeed user, we're giving you early access to a special discount.</p>
 
-      <table style="width:100%;margin:24px 0;border-collapse:collapse;">
-        <tr>
-          <td style="width:50%;padding:20px;background:#f9fafb;border-radius:8px 0 0 8px;text-align:center;vertical-align:top;">
-            <p style="font-size:18px;font-weight:600;color:#525f7f;margin:0 0 16px;">Free</p>
-            <p style="font-size:14px;color:#8898aa;margin:0 0 8px;">5 sessions/month</p>
-            <p style="font-size:14px;color:#8898aa;margin:0 0 8px;">Basic history</p>
-            <p style="font-size:14px;color:#8898aa;margin:0;">Single device only</p>
-          </td>
-          <td style="width:50%;padding:20px;background:#fff7ed;border-radius:0 8px 8px 0;text-align:center;vertical-align:top;">
-            <p style="font-size:18px;font-weight:600;color:#5C8DB8;margin:0 0 16px;">Pro</p>
-            <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">Unlimited sessions</p>
-            <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">Full history & analytics</p>
-            <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">Multi-device mode (2+ phones)</p>
-            <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">Video export with overlay</p>
-            <p style="font-size:14px;color:#525f7f;margin:0;">Priority support</p>
-          </td>
-        </tr>
-      </table>
-
-      <p style="text-align:center;margin:24px 0;">
-        <span style="font-size:32px;font-weight:700;color:#1a1a1a;">$4.99</span><span style="color:#525f7f;">/month</span>
-        <br><span class="muted">or $39.99/year (save 33%)</span>
-      </p>
+      <div class="offer-box">
+        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">LIMITED TIME OFFER</p>
+        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Your First Year</p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Get Pro for just <strong>$39.99/year</strong> <span style="text-decoration:line-through;color:#8898aa;">$49.99</span></p>
+      </div>
 
       <p style="text-align:center;margin:32px 0;">
-        <a href="#" class="btn">Upgrade to Pro</a>
+        <a href="trackspeed://promo?offer=yearly_20_off" class="btn">Claim 20% Off</a>
       </p>
+
+      <p style="font-weight:600;color:#1a1a1a;margin:24px 0 16px;">What you get with Pro:</p>
+
+      <div style="margin:0 0 24px;">
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Multi-device timing</strong> - Use 2+ phones as start/finish gates</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Unlimited sessions</strong> - No monthly limits</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Full history & analytics</strong> - Track your progress over time</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Video export</strong> - Share runs with time overlay</p>
+        <p style="margin:0;font-size:15px;">✓ <strong>Priority support</strong> - Get help when you need it</p>
+      </div>
 
       <hr>
 
@@ -236,9 +221,9 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
         <p class="muted" style="margin:0;">— Marcus T., College Sprinter</p>
       </div>
 
-      <p>Not ready yet? No problem. Keep using the free version as long as you like.</p>
+      <p>Not ready yet? No problem - you can keep using the free version.</p>
       <p>Run fast,<br>The TrackSpeed Team</p>
-    `, "Unlock your full potential with TrackSpeed Pro"),
+    `, "Special offer: 20% off TrackSpeed Pro for one year"),
   }),
 
   trial_cancelled: (data) => ({
@@ -275,40 +260,41 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
   }),
 
   winback: (data) => ({
-    subject: "We miss you at the track!",
+    subject: "We miss you - here's 20% off to come back",
     html: wrapTemplate(`
       <h1>We Miss You at the Track</h1>
-      <p>Hi ${data.name || "Athlete"},</p>
-      <p>It's been a while since you used TrackSpeed. Here's what you've been missing:</p>
-
-      <div class="feature-box">
-        <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Why athletes love TrackSpeed:</p>
-        <p style="margin:0 0 8px;font-size:14px;"><strong>Professional accuracy</strong> - Same precision as $3,000+ timing gates</p>
-        <p style="margin:0 0 8px;font-size:14px;"><strong>Multi-device mode</strong> - Use 2+ phones for start/finish/splits</p>
-        <p style="margin:0 0 8px;font-size:14px;"><strong>Multiple start types</strong> - Flying, countdown, voice command, touch release & more</p>
-        <p style="margin:0;font-size:14px;"><strong>Video export</strong> - Share your runs with time overlay</p>
-      </div>
+      <p>Hi ${data.name || "there"},</p>
+      <p>It's been a while since you used TrackSpeed. We'd love to have you back.</p>
 
       <div class="offer-box">
-        <p style="font-size:20px;font-weight:700;color:#5C8DB8;margin:0 0 8px;">Welcome Back Offer</p>
-        <p style="margin:0 0 12px;">Come back and get <strong>50% off</strong> your first month of Pro.</p>
-        <p style="font-size:18px;font-weight:700;background:#fff;padding:8px 16px;display:inline-block;border-radius:4px;font-family:monospace;margin:0;">COMEBACK50</p>
+        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">WELCOME BACK OFFER</p>
+        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Pro</p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Get a full year for just <strong>$39.99</strong> <span style="text-decoration:line-through;color:#8898aa;">$49.99</span></p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
-        <a href="#" class="btn">Reactivate Pro - 50% Off</a>
+        <a href="trackspeed://promo?offer=yearly_20_off" class="btn">Claim 20% Off</a>
       </p>
+
+      <p style="font-weight:600;color:#1a1a1a;margin:24px 0 16px;">What you'll get with Pro:</p>
+
+      <div style="margin:0 0 24px;">
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Multi-device timing</strong> - Use 2+ phones as start/finish gates</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Unlimited sessions</strong> - No monthly limits</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Full history & analytics</strong> - Track your progress over time</p>
+        <p style="margin:0;font-size:15px;">✓ <strong>Video export</strong> - Share runs with time overlay</p>
+      </div>
 
       <hr>
 
-      <p>Or just open the app and continue with the free tier. Your previous session history is still there waiting for you.</p>
+      <p>Not ready yet? You can still use the free version - your previous data is still there.</p>
 
       <p style="text-align:center;margin:32px 0;">
-        <a href="#" class="btn btn-secondary">Open TrackSpeed</a>
+        <a href="trackspeed://open" class="btn btn-secondary">Open TrackSpeed</a>
       </p>
 
       <p>See you at the track,<br>The TrackSpeed Team</p>
-    `, "We miss you at the track!"),
+    `, "We miss you - here's 20% off to come back"),
   }),
 
   feature_update: (data) => ({

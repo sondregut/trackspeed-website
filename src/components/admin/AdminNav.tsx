@@ -8,6 +8,7 @@ const navItems = [
   { href: "/admin/codes", label: "Promo Codes" },
   { href: "/admin/redemptions", label: "Redemptions" },
   { href: "/admin/emails", label: "Emails" },
+  { href: "/admin/sms", label: "SMS" },
 ]
 
 export default function AdminNav() {

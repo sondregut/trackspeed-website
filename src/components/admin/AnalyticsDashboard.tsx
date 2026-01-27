@@ -17,6 +17,7 @@ interface AnalyticsData {
     activeSubscribers: number
     activeTrials: number
     churnedLast30d: number
+    billingIssues: number
   }
   revenue: {
     totalRevenueCents: number
@@ -24,6 +25,24 @@ interface AnalyticsData {
     monthlySubscribers: number
     yearlySubscribers: number
     currency: string
+  }
+  engagement: {
+    averageScore: number
+    atRiskCount: number
+    trendDistribution: {
+      increasing: number
+      stable: number
+      decreasing: number
+      inactive: number
+    }
+    atRiskUsers: Array<{
+      user_id: string
+      email: string | null
+      days_inactive: number | null
+      engagement_score: number
+      risk_score: number
+      activity_trend: string
+    }>
   }
   dailyActivity: Array<{
     date: string
@@ -185,6 +204,102 @@ export default function AnalyticsDashboard() {
           icon={<ChurnIcon />}
         />
       </div>
+
+      {/* Engagement & Retention Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard
+          title="At-Risk Users"
+          value={analytics.engagement.atRiskCount.toLocaleString()}
+          subtitle="Risk score >= 40"
+          icon={<AlertIcon />}
+          highlight={analytics.engagement.atRiskCount > 0}
+        />
+        <StatCard
+          title="Avg Engagement"
+          value={analytics.engagement.averageScore.toLocaleString()}
+          subtitle="Score out of 100"
+          icon={<EngagementIcon />}
+        />
+        <StatCard
+          title="Billing Issues"
+          value={analytics.subscriptions.billingIssues.toLocaleString()}
+          subtitle="Users in grace period"
+          icon={<CreditCardIcon />}
+          highlight={analytics.subscriptions.billingIssues > 0}
+        />
+        <StatCard
+          title="Inactive Users"
+          value={analytics.engagement.trendDistribution.inactive.toLocaleString()}
+          subtitle="No recent activity"
+          icon={<InactiveIcon />}
+        />
+      </div>
+
+      {/* At-Risk Users Table */}
+      {analytics.engagement.atRiskUsers.length > 0 && (
+        <div className="bg-[#2B2E32] rounded-xl border border-[#3D3D3D] overflow-hidden">
+          <div className="p-4 border-b border-[#3D3D3D] flex items-center gap-2">
+            <AlertIcon />
+            <h2 className="text-lg font-semibold text-white">At-Risk Users</h2>
+            <span className="ml-2 px-2 py-0.5 bg-red-500/20 text-red-400 text-xs rounded-full">
+              {analytics.engagement.atRiskCount} users
+            </span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-[#1A1A1A]">
+                  <th className="text-left px-4 py-3 text-sm font-medium text-[#9B9A97]">Email</th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-[#9B9A97]">Days Inactive</th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-[#9B9A97]">Engagement</th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-[#9B9A97]">Risk Score</th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-[#9B9A97]">Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analytics.engagement.atRiskUsers.map((user) => (
+                  <tr key={user.user_id} className="border-t border-[#3D3D3D] hover:bg-[#3D3D3D]/30">
+                    <td className="px-4 py-3 text-sm text-white">
+                      {user.email || <span className="text-[#9B9A97]">No email</span>}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-white">
+                      {user.days_inactive !== null ? `${user.days_inactive}d` : '—'}
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <span className={`px-2 py-1 rounded ${
+                        user.engagement_score < 30 ? 'bg-red-500/20 text-red-400' :
+                        user.engagement_score < 60 ? 'bg-yellow-500/20 text-yellow-400' :
+                        'bg-green-500/20 text-green-400'
+                      }`}>
+                        {user.engagement_score}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <span className={`px-2 py-1 rounded ${
+                        user.risk_score >= 70 ? 'bg-red-500/20 text-red-400' :
+                        user.risk_score >= 50 ? 'bg-orange-500/20 text-orange-400' :
+                        'bg-yellow-500/20 text-yellow-400'
+                      }`}>
+                        {user.risk_score}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <span className={`px-2 py-1 rounded ${
+                        user.activity_trend === 'inactive' ? 'bg-red-500/20 text-red-400' :
+                        user.activity_trend === 'decreasing' ? 'bg-orange-500/20 text-orange-400' :
+                        user.activity_trend === 'stable' ? 'bg-blue-500/20 text-blue-400' :
+                        'bg-green-500/20 text-green-400'
+                      }`}>
+                        {user.activity_trend}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -391,6 +506,38 @@ function CalendarYearIcon() {
   return (
     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM9 14l2 2 4-4" />
+    </svg>
+  )
+}
+
+function AlertIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+  )
+}
+
+function EngagementIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+    </svg>
+  )
+}
+
+function CreditCardIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+    </svg>
+  )
+}
+
+function InactiveIcon() {
+  return (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
     </svg>
   )
 }

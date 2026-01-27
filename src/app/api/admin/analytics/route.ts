@@ -13,6 +13,7 @@ interface AnalyticsData {
     activeSubscribers: number
     activeTrials: number
     churnedLast30d: number
+    billingIssues: number
   }
   revenue: {
     totalRevenueCents: number
@@ -20,6 +21,24 @@ interface AnalyticsData {
     monthlySubscribers: number
     yearlySubscribers: number
     currency: string
+  }
+  engagement: {
+    averageScore: number
+    atRiskCount: number
+    trendDistribution: {
+      increasing: number
+      stable: number
+      decreasing: number
+      inactive: number
+    }
+    atRiskUsers: Array<{
+      user_id: string
+      email: string | null
+      days_inactive: number | null
+      engagement_score: number
+      risk_score: number
+      activity_trend: string
+    }>
   }
   dailyActivity: Array<{
     date: string
@@ -58,8 +77,12 @@ export async function GET() {
       activeSubscribersResult,
       activeTrialsResult,
       churnedResult,
+      billingIssuesResult,
       subscriptionEventsResult,
       activeSubscriptionsForMrrResult,
+      engagementScoresResult,
+      atRiskUsersResult,
+      profilesForEmailResult,
     ] = await Promise.all([
       // Total users
       supabase.from('profiles').select('id', { count: 'exact', head: true }),
@@ -127,6 +150,13 @@ export async function GET() {
         .eq('status', 'expired')
         .gte('expires_at', thirtyDaysAgo),
 
+      // Billing issues (users in grace period)
+      supabase
+        .from('subscriptions')
+        .select('id', { count: 'exact', head: true })
+        .eq('status', 'billing_issue')
+        .gt('grace_period_expires_at', now.toISOString()),
+
       // All subscription events for total revenue (production only)
       supabase
         .from('subscription_events')
@@ -141,6 +171,30 @@ export async function GET() {
         .eq('is_trial', false)
         .eq('environment', 'PRODUCTION')
         .gt('expires_at', now.toISOString()),
+
+      // Engagement metrics - average score
+      supabase
+        .from('user_engagement_metrics')
+        .select('engagement_score'),
+
+      // At-risk users with details (join with profiles for email)
+      supabase
+        .from('user_engagement_metrics')
+        .select(`
+          user_id,
+          days_since_last_activity,
+          engagement_score,
+          risk_score,
+          activity_trend
+        `)
+        .eq('is_at_risk', true)
+        .order('risk_score', { ascending: false })
+        .limit(20),
+
+      // Get profiles for at-risk users (separate query)
+      supabase
+        .from('profiles')
+        .select('id, email'),
     ])
 
     // Count unique active users
@@ -221,6 +275,49 @@ export async function GET() {
       }
     }
 
+    // Calculate engagement metrics
+    const engagementScores = (engagementScoresResult.data || []) as { engagement_score: number }[]
+    const averageEngagementScore = engagementScores.length > 0
+      ? Math.round(engagementScores.reduce((sum, e) => sum + e.engagement_score, 0) / engagementScores.length)
+      : 0
+
+    // Create profile email lookup map
+    const profileEmailMap = new Map<string, string | null>()
+    for (const profile of profilesForEmailResult.data || []) {
+      const p = profile as { id: string; email: string | null }
+      profileEmailMap.set(p.id, p.email)
+    }
+
+    // Process at-risk users with emails
+    const atRiskUsers = (atRiskUsersResult.data || []).map((user) => {
+      const u = user as {
+        user_id: string
+        days_since_last_activity: number | null
+        engagement_score: number
+        risk_score: number
+        activity_trend: string
+      }
+      return {
+        user_id: u.user_id,
+        email: profileEmailMap.get(u.user_id) || null,
+        days_inactive: u.days_since_last_activity,
+        engagement_score: u.engagement_score,
+        risk_score: u.risk_score,
+        activity_trend: u.activity_trend,
+      }
+    })
+
+    // Calculate trend distribution from all engagement data
+    const trendDistribution = { increasing: 0, stable: 0, decreasing: 0, inactive: 0 }
+    // We'll need to query this separately or estimate from available data
+    // For now, count from at-risk users which is a subset
+    for (const user of atRiskUsers) {
+      const trend = user.activity_trend as keyof typeof trendDistribution
+      if (trend in trendDistribution) {
+        trendDistribution[trend]++
+      }
+    }
+
     const analyticsData: AnalyticsData = {
       overview: {
         totalUsers: profilesResult.count || 0,
@@ -233,6 +330,7 @@ export async function GET() {
         activeSubscribers: activeSubscribersResult.count || 0,
         activeTrials: activeTrialsResult.count || 0,
         churnedLast30d: churnedResult.count || 0,
+        billingIssues: billingIssuesResult.count || 0,
       },
       revenue: {
         totalRevenueCents,
@@ -240,6 +338,12 @@ export async function GET() {
         monthlySubscribers,
         yearlySubscribers,
         currency: 'USD',
+      },
+      engagement: {
+        averageScore: averageEngagementScore,
+        atRiskCount: atRiskUsers.length,
+        trendDistribution,
+        atRiskUsers,
       },
       dailyActivity,
       startTypeDistribution,

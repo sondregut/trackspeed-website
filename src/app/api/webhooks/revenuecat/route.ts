@@ -39,6 +39,8 @@ interface RevenueCatWebhookEvent {
     currency?: string
     price_in_purchased_currency?: number
     subscriber_attributes?: Record<string, { value: string; updated_at_ms: number }>
+    // Grace period fields (for BILLING_ISSUE events)
+    grace_period_expiration_at_ms?: number
   }
 }
 
@@ -173,6 +175,15 @@ export async function POST(request: NextRequest) {
       store: event.store,
       environment: event.environment,
       updated_at: new Date().toISOString(),
+    }
+
+    // Handle grace period expiration for billing issues
+    if (event.type === 'BILLING_ISSUE' && event.grace_period_expiration_at_ms) {
+      subscriptionData.grace_period_expires_at = new Date(event.grace_period_expiration_at_ms).toISOString()
+      console.log(`Billing issue detected. Grace period expires: ${subscriptionData.grace_period_expires_at}`)
+    } else if (status === 'active') {
+      // Clear grace period when subscription becomes active again
+      subscriptionData.grace_period_expires_at = null
     }
 
     // Add revenue fields if available

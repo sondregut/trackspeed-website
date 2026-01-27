@@ -54,7 +54,7 @@ const templates: Record<string, (d: TemplateData) => { subject: string; html: st
       <p>Here are some tips to make sure you're getting the most accurate times possible.</p>
       <div class="feature-box"><p><strong>1. Stable Position</strong> - Use a tripod for best results</p>
       <p><strong>2. Good Lighting</strong> - Outdoors works best</p>
-      <p style="margin:0;"><strong>3. Higher Frame Rates</strong> - Increase for better accuracy</p></div>
+      <p style="margin:0;"><strong>3. Camera Angle</strong> - Position perpendicular to the track</p></div>
       <p>Keep pushing!<br>The TrackSpeed Team</p>`),
   }),
   convert_day7: (d) => ({
