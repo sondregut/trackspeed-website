@@ -47,16 +47,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Generate unique code from name (e.g., "Coach Mike" -> "COACH_MIKE")
-    const baseCode = name
+    // Generate unique code: NAME30 format (e.g., "Sondre" -> "SONDRE30")
+    const firstName = name
+      .split(/\s+/)[0] // Take first word/name
       .toUpperCase()
-      .replace(/[^A-Z0-9\s]/g, '')
-      .replace(/\s+/g, '_')
-      .substring(0, 20)
+      .replace(/[^A-Z0-9]/g, '')
+      .substring(0, 15)
+
+    const baseCode = `${firstName}30`
 
     // Check if code exists and append number if needed
     let code = baseCode
-    let suffix = 1
+    let suffix = 2
     let codeExists = true
 
     while (codeExists) {
@@ -69,7 +71,7 @@ export async function POST(request: NextRequest) {
       if (!existingCode) {
         codeExists = false
       } else {
-        code = `${baseCode}_${suffix}`
+        code = `${firstName}30_${suffix}`
         suffix++
       }
     }
