@@ -6,15 +6,16 @@ const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
 
 // SMS templates (keep in sync with supabase/functions/_shared/sms-templates.ts)
+// Templates are written conversationally to encourage replies (handled by AI via sms-webhook)
 const smsTemplates: Record<string, (d: { name: string; sessionCount: number }) => string> = {
   welcome: () =>
-    "Welcome to TrackSpeed! 🏃 Start your first timing session today. Need help? Reply HELP. Reply STOP to opt out.",
+    "Hey! Thanks for trying TrackSpeed. Let me know if you need help getting started - just reply here. STOP to opt out",
   tips_day3: () =>
-    "TrackSpeed tip: Use 2 phones for split times! Place one at start, one at finish. 📱⏱️",
+    "Quick tip - you can use 2 phones to time splits! One at start, one at finish. Have you tried it?",
   convert_day7: () =>
-    "Special offer: 20% off TrackSpeed Pro! Unlimited timing & multi-device mode. Tap to claim: https://mytrackspeed.com/pro",
+    "How's TrackSpeed working for you? If you want unlimited sessions or multi-phone timing, check out Pro: mytrackspeed.com/pro",
   winback: () =>
-    "We miss you at TrackSpeed! Come back & get 20% off Pro. Tap to claim: https://mytrackspeed.com/pro",
+    "Hey, noticed you haven't timed in a while. Everything okay? Let me know if you hit any issues.",
 };
 
 export async function POST(request: Request) {

@@ -75,16 +75,14 @@ export default function Hero() {
 
           {/* Right - iPhone mockup */}
           <div className="flex justify-center lg:justify-end">
-            <div className="iphone-mockup w-[280px] md:w-[320px]">
-              <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
-                <Image
-                  src="/screenshot-home.png"
-                  alt="TrackSpeed app home screen"
-                  width={320}
-                  height={693}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="w-[280px] md:w-[320px]">
+              <Image
+                src="/homescreen.png"
+                alt="TrackSpeed app home screen"
+                width={368}
+                height={750}
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>

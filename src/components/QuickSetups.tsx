@@ -3,29 +3,17 @@ export default function QuickSetups() {
     {
       category: "Combine Tests",
       color: "#E85D4C",
-      tests: [
-        { name: "40 Yard Dash", distance: "36.58m", start: "Touch Release", popular: true },
-        { name: "Pro Agility", distance: "20 yards", start: "Touch Release", popular: false },
-      ],
+      tests: ["40 Yard Dash", "5-10-5"],
     },
     {
       category: "Acceleration",
       color: "var(--text-secondary)",
-      tests: [
-        { name: "10m Sprint", distance: "10m", start: "Voice Command", popular: true },
-        { name: "20m Sprint", distance: "20m", start: "Audio Gun", popular: false },
-        { name: "30m Sprint", distance: "30m", start: "Voice Command", popular: true },
-        { name: "60m Sprint", distance: "60m", start: "Audio Gun", popular: false },
-      ],
+      tests: ["10m", "20m", "30m", "60m"],
     },
     {
-      category: "Max Speed",
+      category: "Flying Sprints",
       color: "var(--accent-green)",
-      tests: [
-        { name: "Flying 10m", distance: "10m", start: "Flying", popular: true },
-        { name: "Flying 20m", distance: "20m", start: "Flying", popular: false },
-        { name: "Flying 30m", distance: "30m", start: "Flying", popular: true },
-      ],
+      tests: ["Flying 10m", "Flying 20m", "Flying 30m"],
     },
   ];
 
@@ -41,11 +29,11 @@ export default function QuickSetups() {
           </p>
         </div>
 
-        <div className="space-y-10">
+        <div className="grid sm:grid-cols-3 gap-8">
           {presets.map((category, catIndex) => (
-            <div key={catIndex}>
+            <div key={catIndex} className="card-feature">
               <h3
-                className="text-lg font-semibold mb-4 flex items-center gap-2"
+                className="text-lg font-semibold mb-3 flex items-center gap-2"
                 style={{ color: category.color }}
               >
                 <span
@@ -54,25 +42,9 @@ export default function QuickSetups() {
                 />
                 {category.category}
               </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {category.tests.map((test, testIndex) => (
-                  <div
-                    key={testIndex}
-                    className="card-feature relative"
-                  >
-                    {test.popular && (
-                      <span className="label-new absolute -top-2 -right-2">
-                        Popular
-                      </span>
-                    )}
-                    <h4 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{test.name}</h4>
-                    <div className="space-y-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-                      <p>Distance: <span style={{ color: 'var(--text-primary)' }}>{test.distance}</span></p>
-                      <p>Start: <span style={{ color: 'var(--text-primary)' }}>{test.start}</span></p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                {category.tests.join(", ")}
+              </p>
             </div>
           ))}
         </div>
