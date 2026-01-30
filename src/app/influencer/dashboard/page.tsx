@@ -144,12 +144,6 @@ export default function InfluencerDashboardPage() {
             Thanks for applying, {stats.influencer.name}! We&apos;re reviewing your
             application and will get back to you within 24-48 hours.
           </p>
-          <div className="bg-[#2B2E32] rounded-xl p-4 mb-6">
-            <p className="text-sm text-[#9B9A97] mb-1">Your Reserved Promo Code</p>
-            <p className="text-xl font-bold text-[#5C8DB8] font-mono">
-              {stats.influencer.code}
-            </p>
-          </div>
           <p className="text-sm text-[#9B9A97]">
             Once approved, you&apos;ll receive an email with instructions to start
             earning commissions.
