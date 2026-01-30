@@ -236,10 +236,182 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`Subscription updated: ${event.app_user_id} -> ${status}`)
+
+    // Handle influencer commission for yearly conversions
+    if (
+      (event.type === 'TRIAL_CONVERTED' || event.type === 'INITIAL_PURCHASE') &&
+      planType === 'yearly' &&
+      priceCents
+    ) {
+      await handleInfluencerConversion(event.app_user_id, priceCents, supabase)
+    }
+
+    // Handle refund - clawback commission if within 60 days
+    if (event.type === 'EXPIRATION' && event.cancel_reason === 'CUSTOMER_SUPPORT') {
+      // This is likely a refund
+      await handleInfluencerRefund(event.app_user_id, supabase)
+    }
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Webhook processing error:', error)
     return NextResponse.json({ error: 'Processing error' }, { status: 500 })
+  }
+}
+
+// Handle influencer commission when a referred user converts to yearly subscription
+async function handleInfluencerConversion(
+  appUserId: string,
+  priceCents: number,
+  supabase: ReturnType<typeof getSupabase>
+) {
+  try {
+    // Find unconverted referral for this user
+    const { data: referral, error: referralError } = await supabase
+      .from('influencer_referrals')
+      .select('*, influencers!inner(*)')
+      .eq('app_user_id', appUserId)
+      .is('converted_at', null)
+      .single()
+
+    if (referralError || !referral) {
+      // Not an influencer referral, nothing to do
+      return
+    }
+
+    const commissionCents = Math.round(priceCents * 0.20) // 20% commission
+
+    // Update referral as converted
+    await supabase
+      .from('influencer_referrals')
+      .update({ converted_at: new Date().toISOString() })
+      .eq('id', referral.id)
+
+    // Create commission record
+    await supabase
+      .from('influencer_commissions')
+      .insert({
+        influencer_id: referral.influencer_id,
+        referral_id: referral.id,
+        revenue_cents: priceCents,
+        commission_cents: commissionCents,
+        status: 'pending',
+      })
+
+    // Update influencer totals
+    await supabase.rpc('update_influencer_conversion_stats', {
+      influencer_uuid: referral.influencer_id,
+      commission_amount: commissionCents,
+    })
+
+    console.log(
+      `Influencer commission created: $${(commissionCents / 100).toFixed(2)} for influencer ${referral.influencer_id}`
+    )
+
+    // Auto-transfer via Stripe Connect if account is set up
+    const influencer = referral.influencers
+    if (influencer?.stripe_account_id && influencer?.stripe_onboarding_complete) {
+      await transferCommission(
+        referral.influencer_id,
+        commissionCents,
+        influencer.stripe_account_id,
+        supabase
+      )
+    }
+  } catch (error) {
+    console.error('Failed to handle influencer conversion:', error)
+    // Don't throw - subscription processing should continue
+  }
+}
+
+// Handle refund - clawback commission if within 60 days
+async function handleInfluencerRefund(
+  appUserId: string,
+  supabase: ReturnType<typeof getSupabase>
+) {
+  try {
+    const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
+
+    // Find commission within clawback period
+    const { data: commission, error: commissionError } = await supabase
+      .from('influencer_commissions')
+      .select('*, influencer_referrals!inner(*)')
+      .eq('influencer_referrals.app_user_id', appUserId)
+      .gte('created_at', sixtyDaysAgo)
+      .eq('status', 'pending') // Only pending (not yet transferred)
+      .single()
+
+    if (commissionError || !commission) {
+      // No clawback needed
+      return
+    }
+
+    // Mark commission as clawed back
+    await supabase
+      .from('influencer_commissions')
+      .update({ status: 'clawback' })
+      .eq('id', commission.id)
+
+    // Update influencer totals
+    await supabase.rpc('decrement_influencer_earnings', {
+      influencer_uuid: commission.influencer_id,
+      amount: commission.commission_cents,
+    })
+
+    console.log(
+      `Clawed back $${(commission.commission_cents / 100).toFixed(2)} from influencer ${commission.influencer_id}`
+    )
+  } catch (error) {
+    console.error('Failed to handle influencer refund:', error)
+    // Don't throw - subscription processing should continue
+  }
+}
+
+// Transfer commission to influencer via Stripe Connect
+async function transferCommission(
+  influencerId: string,
+  amountCents: number,
+  stripeAccountId: string,
+  supabase: ReturnType<typeof getSupabase>
+) {
+  try {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+    if (!stripeSecretKey) {
+      console.error('STRIPE_SECRET_KEY not configured - skipping transfer')
+      return
+    }
+
+    // Dynamic import to avoid requiring stripe in all environments
+    const Stripe = (await import('stripe')).default
+    const stripe = new Stripe(stripeSecretKey)
+
+    const transfer = await stripe.transfers.create({
+      amount: amountCents,
+      currency: 'usd',
+      destination: stripeAccountId,
+      metadata: { influencer_id: influencerId },
+    })
+
+    // Update commission record
+    await supabase
+      .from('influencer_commissions')
+      .update({
+        status: 'transferred',
+        stripe_transfer_id: transfer.id,
+        transferred_at: new Date().toISOString(),
+      })
+      .eq('influencer_id', influencerId)
+      .eq('status', 'pending')
+
+    console.log(`Transferred $${(amountCents / 100).toFixed(2)} to influencer ${influencerId}`)
+  } catch (error) {
+    console.error('Failed to transfer commission:', error)
+    // Mark commission as failed
+    await supabase
+      .from('influencer_commissions')
+      .update({ status: 'failed' })
+      .eq('influencer_id', influencerId)
+      .eq('status', 'pending')
   }
 }
 

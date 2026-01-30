@@ -10,6 +10,7 @@ interface InfluencerStats {
     name: string
     email: string
     code: string
+    status: "pending" | "approved" | "rejected" | "suspended"
     stripeConnected: boolean
     totalSignups: number
     totalConversions: number
@@ -111,6 +112,87 @@ export default function InfluencerDashboardPage() {
           >
             Try again
           </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Show pending approval screen
+  if (stats.influencer.status === "pending") {
+    return (
+      <div className="max-w-2xl mx-auto p-6">
+        <div className="bg-[#1A1A1A] rounded-2xl p-8 text-center">
+          <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg
+              className="w-8 h-8 text-yellow-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Application Under Review
+          </h1>
+          <p className="text-[#9B9A97] mb-6">
+            Thanks for applying, {stats.influencer.name}! We&apos;re reviewing your
+            application and will get back to you within 24-48 hours.
+          </p>
+          <div className="bg-[#2B2E32] rounded-xl p-4 mb-6">
+            <p className="text-sm text-[#9B9A97] mb-1">Your Reserved Promo Code</p>
+            <p className="text-xl font-bold text-[#5C8DB8] font-mono">
+              {stats.influencer.code}
+            </p>
+          </div>
+          <p className="text-sm text-[#9B9A97]">
+            Once approved, you&apos;ll receive an email with instructions to start
+            earning commissions.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show rejected/suspended message
+  if (stats.influencer.status === "rejected" || stats.influencer.status === "suspended") {
+    return (
+      <div className="max-w-2xl mx-auto p-6">
+        <div className="bg-[#1A1A1A] rounded-2xl p-8 text-center">
+          <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg
+              className="w-8 h-8 text-red-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Account {stats.influencer.status === "rejected" ? "Not Approved" : "Suspended"}
+          </h1>
+          <p className="text-[#9B9A97] mb-6">
+            {stats.influencer.status === "rejected"
+              ? "Unfortunately, your application wasn't approved at this time."
+              : "Your affiliate account has been suspended."}
+          </p>
+          <p className="text-sm text-[#9B9A97]">
+            If you have questions, please contact{" "}
+            <a href="mailto:support@trackspeed.app" className="text-[#5C8DB8] hover:underline">
+              support@trackspeed.app
+            </a>
+          </p>
         </div>
       </div>
     )

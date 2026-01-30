@@ -55,6 +55,7 @@ export async function GET(request: NextRequest) {
         name: influencer.name,
         email: influencer.email,
         code: influencer.code,
+        status: influencer.status,
         stripeConnected: influencer.stripe_onboarding_complete,
         totalSignups: influencer.total_signups,
         totalConversions: influencer.total_conversions,

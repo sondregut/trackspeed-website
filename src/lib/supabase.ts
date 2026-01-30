@@ -25,6 +25,50 @@ export interface PromoRedemption {
   promo_codes?: PromoCode
 }
 
+// Influencer types
+export interface Influencer {
+  id: string
+  email: string
+  name: string
+  password_hash: string
+  code: string
+  social_links: Record<string, string>
+  application_note: string | null
+  stripe_account_id: string | null
+  stripe_onboarding_complete: boolean
+  status: 'pending' | 'approved' | 'rejected' | 'suspended'
+  status_reason: string | null
+  approved_at: string | null
+  approved_by: string | null
+  total_signups: number
+  total_conversions: number
+  total_earnings_cents: number
+  created_at: string
+  updated_at: string
+}
+
+export interface InfluencerReferral {
+  id: string
+  influencer_id: string
+  app_user_id: string
+  device_id: string
+  trial_expires_at: string
+  converted_at: string | null
+  created_at: string
+}
+
+export interface InfluencerCommission {
+  id: string
+  influencer_id: string
+  referral_id: string
+  revenue_cents: number
+  commission_cents: number
+  status: 'pending' | 'transferred' | 'clawback' | 'failed'
+  stripe_transfer_id: string | null
+  created_at: string
+  transferred_at: string | null
+}
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
