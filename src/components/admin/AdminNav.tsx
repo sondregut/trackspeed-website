@@ -7,6 +7,7 @@ const navItems = [
   { href: "/admin", label: "Dashboard", exact: true },
   { href: "/admin/codes", label: "Promo Codes" },
   { href: "/admin/redemptions", label: "Redemptions" },
+  { href: "/admin/influencers", label: "Influencers" },
   { href: "/admin/emails", label: "Emails" },
   { href: "/admin/sms", label: "SMS" },
 ]

@@ -75,9 +75,18 @@ export default function Footer() {
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
             &copy; {new Date().getFullYear()} TrackSpeed. All rights reserved.
           </p>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Made for athletes, by athletes.
-          </p>
+          <div className="flex items-center gap-6">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              Made for athletes, by athletes.
+            </p>
+            <Link
+              href="/influencer/apply"
+              className="text-xs transition-opacity hover:opacity-70"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Affiliates
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
