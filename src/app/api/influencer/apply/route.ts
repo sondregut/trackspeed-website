@@ -99,19 +99,17 @@ export async function POST(request: NextRequest) {
 
     console.log(`New influencer application: ${email} (code: ${code})`)
 
-    // Send confirmation email (don't block on failure)
-    sendEmail({
+    // Send confirmation email
+    const emailResult = await sendEmail({
       to: email.toLowerCase(),
       template: 'influencer_application_received',
       data: { name },
       metadata: { influencer_id: influencer.id },
-    }).then(result => {
-      if (!result.success) {
-        console.error('Failed to send confirmation email:', result.error)
-      }
-    }).catch(err => {
-      console.error('Email send error:', err)
     })
+
+    if (!emailResult.success) {
+      console.error('Failed to send confirmation email:', emailResult.error)
+    }
 
     return NextResponse.json({
       success: true,
