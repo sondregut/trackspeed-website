@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendEmail } from '@/lib/email'
 import { cookies } from 'next/headers'
 
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     let query = supabase
       .from('influencers')
@@ -68,7 +68,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     // Build update object
     const updateData: Record<string, unknown> = {

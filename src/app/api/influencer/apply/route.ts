@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendEmail } from '@/lib/email'
 import bcrypt from 'bcryptjs'
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     // Check if email already exists
     const { data: existing } = await supabase

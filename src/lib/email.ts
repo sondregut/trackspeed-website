@@ -1,4 +1,4 @@
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const FROM_EMAIL = process.env.FROM_EMAIL || 'TrackSpeed <noreply@hello.mytrackspeed.com>'
@@ -139,7 +139,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
     }
 
     // Log the send in the database
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
     await supabase.from('email_send_log').insert({
       email: to,
       template,

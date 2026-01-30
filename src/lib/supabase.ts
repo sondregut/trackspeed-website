@@ -71,9 +71,11 @@ export interface InfluencerCommission {
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Lazy initialization to avoid build-time errors when env vars are not set
 let _supabase: SupabaseClient | null = null
+let _supabaseAdmin: SupabaseClient | null = null
 
 export function getSupabase(): SupabaseClient {
   if (!_supabase) {
@@ -83,6 +85,17 @@ export function getSupabase(): SupabaseClient {
     _supabase = createClient(supabaseUrl, supabaseAnonKey)
   }
   return _supabase
+}
+
+// Service role client for admin operations (bypasses RLS)
+export function getSupabaseAdmin(): SupabaseClient {
+  if (!_supabaseAdmin) {
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Missing Supabase service role key')
+    }
+    _supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey)
+  }
+  return _supabaseAdmin
 }
 
 // For backwards compatibility (will throw at runtime if env vars not set)
