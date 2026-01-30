@@ -34,10 +34,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
     }
 
-    // Check if approved
-    if (influencer.status !== 'approved') {
+    // Check if rejected or suspended (pending users can login to see their status)
+    if (influencer.status === 'rejected' || influencer.status === 'suspended') {
       const statusMessages: Record<string, string> = {
-        pending: 'Your application is still pending review.',
         rejected: 'Your application was not approved.',
         suspended: 'Your account has been suspended.',
       }
