@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 export default function Testimonials() {
   const testimonials = [
@@ -62,37 +65,39 @@ export default function Testimonials() {
     <section className="pt-6 md:pt-8 pb-28 md:pb-36 px-6 bg-sky-wash">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-section mb-4">Loved by your favorite olympians</h2>
-          <p className="text-body max-w-2xl mx-auto">
-            From high school track to the Olympic Games
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-section mb-4">Loved by your favorite olympians</h2>
+            <p className="text-body max-w-2xl mx-auto">
+              From high school track to the Olympic Games
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Testimonial cards - 2 row masonry grid */}
-        <div className="grid md:grid-cols-3 gap-5">
+        <StaggerContainer className="grid md:grid-cols-3 gap-5">
           {/* Row 1 */}
-          <div className="md:mt-6">
+          <StaggerItem className="md:mt-6">
             <TestimonialCard testimonial={testimonials[0]} variant="dark" />
-          </div>
-          <div className="md:-mt-2">
+          </StaggerItem>
+          <StaggerItem className="md:-mt-2">
             <TestimonialCard testimonial={testimonials[1]} variant="light" />
-          </div>
-          <div className="md:mt-10">
+          </StaggerItem>
+          <StaggerItem className="md:mt-10">
             <TestimonialCard testimonial={testimonials[2]} variant="dark" />
-          </div>
+          </StaggerItem>
 
           {/* Row 2 */}
-          <div className="md:-mt-8">
+          <StaggerItem className="md:-mt-8">
             <TestimonialCard testimonial={testimonials[3]} variant="dark" />
-          </div>
-          <div className="md:-mt-16">
+          </StaggerItem>
+          <StaggerItem className="md:-mt-16">
             <TestimonialCard testimonial={testimonials[4]} variant="light" />
-          </div>
-          <div className="md:-mt-4">
+          </StaggerItem>
+          <StaggerItem className="md:-mt-4">
             <TestimonialCard testimonial={testimonials[5]} variant="dark" />
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
     </section>
   );

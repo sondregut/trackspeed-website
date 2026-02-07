@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function StartTypes() {
   const [selected, setSelected] = useState(0);
@@ -69,14 +70,16 @@ export default function StartTypes() {
   return (
     <section id="start-types" ref={sectionRef} className="px-6 bg-mint-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center pt-28 pb-16">
-          <h2 className="text-section mb-4">
-            Five ways to start your sprint
-          </h2>
-          <p className="text-body max-w-2xl mx-auto">
-            Choose the start method that matches your training goals
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center pt-28 pb-16">
+            <h2 className="text-section mb-4">
+              Five ways to start your sprint
+            </h2>
+            <p className="text-body max-w-2xl mx-auto">
+              Choose the start method that matches your training goals
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Sticky phone mockup */}

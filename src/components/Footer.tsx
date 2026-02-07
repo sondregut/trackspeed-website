@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 
 export default function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid var(--border-light)', background: 'var(--bg-mint)' }}>
+    <footer style={{ background: 'var(--bg-mint)' }}>
+      <Separator />
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}

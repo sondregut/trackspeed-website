@@ -1,3 +1,17 @@
+"use client";
+
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
+import ScrollReveal from "@/components/ScrollReveal";
+
 export default function Comparison() {
   const features = [
     {
@@ -97,109 +111,122 @@ export default function Comparison() {
   return (
     <section id="comparison" className="section-padding px-6 bg-mint-wash">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-section mb-4">
-            How we compare
-          </h2>
-          <p className="text-body">
-            Professional timing without the professional price tag
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <h2 className="text-section mb-4">
+              How we compare
+            </h2>
+            <p className="text-body">
+              Professional timing without the professional price tag
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Desktop Table */}
-        <div className="hidden lg:block">
-          <div className="card-feature overflow-hidden p-0">
-            <table className="w-full">
-              <thead>
-                <tr style={{ background: 'var(--bg-mint)' }}>
-                  <th className="text-left py-5 px-6 font-medium text-sm uppercase tracking-wider" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>
-                    Feature
-                  </th>
-                  <th className="py-5 px-4 text-center" style={{ borderBottom: '1px solid var(--border-light)' }}>
-                    <div className="inline-flex flex-col items-center gap-1">
-                      <span className="font-bold" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ color: 'var(--accent-green)', background: '#D1FAE5' }}>
-                        YOU ARE HERE
-                      </span>
-                    </div>
-                  </th>
-                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Freelap</th>
-                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Brower</th>
-                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>DASHR</th>
-                  <th className="py-5 px-4 text-center font-medium" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Stopwatch</th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((feature, index) => (
-                  <tr
-                    key={index}
-                    style={{
-                      background: feature.highlight ? 'var(--bg-sky)' : 'white',
-                      borderTop: '1px solid var(--border-light)'
-                    }}
-                  >
-                    <td className="py-4 px-6 font-medium" style={{ color: 'var(--text-primary)' }}>{feature.name}</td>
-                    <td className="py-4 px-4 text-center">
-                      <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                        {renderValue(feature.trackspeed)}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
-                      {renderValue(feature.freelap)}
-                    </td>
-                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
-                      {renderValue(feature.brower)}
-                    </td>
-                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
-                      {renderValue(feature.dashr)}
-                    </td>
-                    <td className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
-                      {renderValue(feature.stopwatch)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <ScrollReveal>
+          <div className="hidden lg:block">
+            <Card className="overflow-hidden p-0 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-b-0" style={{ background: 'var(--bg-mint)' }}>
+                    <TableHead className="text-left py-5 px-6 font-medium text-sm uppercase tracking-wider h-auto" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>
+                      Feature
+                    </TableHead>
+                    <TableHead className="py-5 px-4 text-center h-auto" style={{ borderBottom: '1px solid var(--border-light)' }}>
+                      <div className="inline-flex flex-col items-center gap-1">
+                        <span className="font-bold" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
+                        <Badge className="text-[10px] px-2 py-0.5 bg-[#D1FAE5] border-transparent" style={{ color: 'var(--accent-green)' }}>
+                          YOU ARE HERE
+                        </Badge>
+                      </div>
+                    </TableHead>
+                    <TableHead className="py-5 px-4 text-center font-medium h-auto" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Freelap</TableHead>
+                    <TableHead className="py-5 px-4 text-center font-medium h-auto" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Brower</TableHead>
+                    <TableHead className="py-5 px-4 text-center font-medium h-auto" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>DASHR</TableHead>
+                    <TableHead className="py-5 px-4 text-center font-medium h-auto" style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border-light)' }}>Stopwatch</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {features.map((feature, index) => (
+                    <TableRow
+                      key={index}
+                      className="border-b-0"
+                      style={{
+                        background: feature.highlight ? 'var(--bg-sky)' : 'white',
+                        borderTop: '1px solid var(--border-light)'
+                      }}
+                    >
+                      <TableCell className="py-4 px-6 font-medium" style={{ color: 'var(--text-primary)' }}>{feature.name}</TableCell>
+                      <TableCell className="py-4 px-4 text-center">
+                        <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          {renderValue(feature.trackspeed)}
+                        </span>
+                      </TableCell>
+                      <TableCell className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
+                        {renderValue(feature.freelap)}
+                      </TableCell>
+                      <TableCell className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
+                        {renderValue(feature.brower)}
+                      </TableCell>
+                      <TableCell className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
+                        {renderValue(feature.dashr)}
+                      </TableCell>
+                      <TableCell className="py-4 px-4 text-center" style={{ color: 'var(--text-muted)' }}>
+                        {renderValue(feature.stopwatch)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Mobile View */}
-        <div className="lg:hidden">
-          <div className="card-feature p-6 mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
-              <span className="text-[10px] px-2 py-1 rounded-full" style={{ color: 'var(--accent-green)', background: '#D1FAE5' }}>
-                YOU ARE HERE
-              </span>
-            </div>
-            <div className="space-y-3">
-              {features.map((feature, index) => (
-                <div key={index} className="flex justify-between items-center py-2" style={{ borderBottom: index < features.length - 1 ? '1px solid var(--border-light)' : 'none' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>{feature.name}</span>
-                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{renderValue(feature.trackspeed)}</span>
+        <ScrollReveal>
+          <div className="lg:hidden">
+            <Card className="p-6 mb-4 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <CardHeader className="p-0 pb-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
+                  <Badge className="text-[10px] px-2 py-1 bg-[#D1FAE5] border-transparent" style={{ color: 'var(--accent-green)' }}>
+                    YOU ARE HERE
+                  </Badge>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {["Freelap", "Brower", "DASHR", "Stopwatch"].map((competitor) => (
-              <div key={competitor} className="card-feature p-4">
-                <h4 className="font-medium text-sm mb-3" style={{ color: 'var(--text-muted)' }}>{competitor}</h4>
-                <div className="space-y-2 text-sm">
-                  {features.slice(0, 4).map((feature, index) => (
-                    <div key={index} className="flex justify-between">
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-3">
+                  {features.map((feature, index) => (
+                    <div key={index} className="flex justify-between items-center py-2" style={{ borderBottom: index < features.length - 1 ? '1px solid var(--border-light)' : 'none' }}>
                       <span style={{ color: 'var(--text-muted)' }}>{feature.name}</span>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {renderValue(feature[competitor.toLowerCase() as keyof typeof feature] as string | boolean)}
-                      </span>
+                      <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{renderValue(feature.trackspeed)}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-            ))}
+              </CardContent>
+            </Card>
+
+            <div className="grid grid-cols-2 gap-3">
+              {["Freelap", "Brower", "DASHR", "Stopwatch"].map((competitor) => (
+                <Card key={competitor} className="p-4 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                  <CardContent className="p-0">
+                    <h4 className="font-medium text-sm mb-3" style={{ color: 'var(--text-muted)' }}>{competitor}</h4>
+                    <div className="space-y-2 text-sm">
+                      {features.slice(0, 4).map((feature, index) => (
+                        <div key={index} className="flex justify-between">
+                          <span style={{ color: 'var(--text-muted)' }}>{feature.name}</span>
+                          <span style={{ color: 'var(--text-secondary)' }}>
+                            {renderValue(feature[competitor.toLowerCase() as keyof typeof feature] as string | boolean)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="text-center text-xs mt-8 space-y-1" style={{ color: 'var(--text-muted)' }}>
           <p>*When billed annually. Prices are approximate.</p>

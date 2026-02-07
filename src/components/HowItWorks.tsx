@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 export default function HowItWorks() {
   const steps = [
@@ -35,53 +38,57 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="section-padding px-6 bg-sky-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-section mb-4">How it works</h2>
-          <p className="text-body max-w-2xl mx-auto">
-            Get started in under a minute
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-section mb-4">How it works</h2>
+            <p className="text-body max-w-2xl mx-auto">
+              Get started in under a minute
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="flex flex-col items-center text-center">
-              {/* Phone screenshot with built-in frame */}
-              <div className="w-[180px] mb-8">
-                <Image
-                  src={step.image}
-                  alt={step.title}
-                  width={368}
-                  height={750}
-                  className="w-full h-auto"
-                />
+            <StaggerItem key={index}>
+              <div className="flex flex-col items-center text-center">
+                {/* Phone screenshot with built-in frame */}
+                <div className="w-[180px] mb-8">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    width={368}
+                    height={750}
+                    className="w-full h-auto"
+                  />
+                </div>
+
+                {/* Step label */}
+                <span
+                  className="text-sm font-semibold uppercase tracking-widest mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Step {step.number}
+                </span>
+
+                {/* Title */}
+                <h3
+                  className="text-xl font-bold mb-2"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {step.title}
+                </h3>
+
+                {/* Description */}
+                <p
+                  className="text-base max-w-[260px]"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {step.description}
+                </p>
               </div>
-
-              {/* Step label */}
-              <span
-                className="text-sm font-semibold uppercase tracking-widest mb-2"
-                style={{ color: "var(--text-muted)" }}
-              >
-                Step {step.number}
-              </span>
-
-              {/* Title */}
-              <h3
-                className="text-xl font-bold mb-2"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {step.title}
-              </h3>
-
-              {/* Description */}
-              <p
-                className="text-base max-w-[260px]"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {step.description}
-              </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

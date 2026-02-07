@@ -1,3 +1,8 @@
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+
 export default function Features() {
   const stats = [
     { value: "~4ms", label: "Timing Accuracy" },
@@ -48,44 +53,51 @@ export default function Features() {
   return (
     <section id="features" className="section-padding px-6 bg-mint-wash">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-section mb-4">
-            Professional timing, zero equipment
-          </h2>
-          <p className="text-body max-w-2xl mx-auto">
-            Everything you need is already in your pocket
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-section mb-4">
+              Professional timing, zero equipment
+            </h2>
+            <p className="text-body max-w-2xl mx-auto">
+              Everything you need is already in your pocket
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Stats bar */}
-        <div className="grid grid-cols-3 gap-4 mb-16">
+        <StaggerContainer className="grid grid-cols-3 gap-4 mb-16">
           {stats.map((stat, index) => (
-            <div key={index} className="card-stat">
-              <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
-                {stat.value}
-              </div>
-              <div className="text-sm" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
-            </div>
+            <StaggerItem key={index}>
+              <Card className="border-[var(--border-light)] rounded-[20px] py-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <CardContent className="text-center p-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Feature grid */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <StaggerContainer className="grid md:grid-cols-2 gap-4">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="card-feature flex gap-4"
-            >
-              <div className="icon-box flex-shrink-0">
-                {feature.icon}
-              </div>
-              <div>
-                <h3 className="text-card-title mb-1">{feature.title}</h3>
-                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{feature.description}</p>
-              </div>
-            </div>
+            <StaggerItem key={index}>
+              <Card className="border-[var(--border-light)] rounded-3xl py-0 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-[#D1D5DB] transition-all">
+                <CardContent className="flex gap-4 p-7">
+                  <div className="icon-box flex-shrink-0">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-card-title mb-1">{feature.title}</h3>
+                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{feature.description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
