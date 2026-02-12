@@ -51,6 +51,9 @@ export default function Navbar() {
             <Link href="/support" className="text-sm font-bold transition-colors hover:text-gray-900" style={{ color: 'var(--text-muted)' }}>
               Support
             </Link>
+            <Link href="/feedback" className="text-sm font-bold transition-colors hover:text-gray-900" style={{ color: 'var(--text-muted)' }}>
+              Feedback
+            </Link>
           </div>
 
           {/* App Store button */}
@@ -111,6 +114,15 @@ export default function Navbar() {
                     style={{ color: 'var(--text-muted)' }}
                   >
                     Support
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/feedback"
+                    className="text-sm font-bold"
+                    style={{ color: 'var(--text-muted)' }}
+                  >
+                    Feedback
                   </Link>
                 </SheetClose>
                 <a

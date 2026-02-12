@@ -10,6 +10,7 @@ const navItems = [
   { href: "/admin/influencers", label: "Influencers" },
   { href: "/admin/emails", label: "Emails" },
   { href: "/admin/sms", label: "SMS" },
+  { href: "/admin/notifications", label: "Push" },
 ]
 
 export default function AdminNav() {

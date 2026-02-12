@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions - TrackSpeed",
   description: "Terms and Conditions for using the TrackSpeed application.",
+  alternates: {
+    canonical: "https://mytrackspeed.com/terms",
+  },
 };
 
 export default function TermsPage() {

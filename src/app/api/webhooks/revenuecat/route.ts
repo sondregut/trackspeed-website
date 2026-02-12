@@ -246,6 +246,11 @@ export async function POST(request: NextRequest) {
       await handleInfluencerConversion(event.app_user_id, priceCents, supabase)
     }
 
+    // Handle referral reward - grant 1 free month to referrer when referred user subscribes
+    if (event.type === 'INITIAL_PURCHASE' || event.type === 'TRIAL_CONVERTED') {
+      await handleReferralReward(event.app_user_id, supabase)
+    }
+
     // Handle refund - clawback commission if within 60 days
     if (event.type === 'EXPIRATION' && event.cancel_reason === 'CUSTOMER_SUPPORT') {
       // This is likely a refund
@@ -256,6 +261,127 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Webhook processing error:', error)
     return NextResponse.json({ error: 'Processing error' }, { status: 500 })
+  }
+}
+
+// Handle referral reward - grant 1 free month to referrer when referred user subscribes
+async function handleReferralReward(
+  appUserId: string,
+  supabase: ReturnType<typeof getSupabase>
+) {
+  try {
+    // Find the referral record for this user (by device_id which is the app_user_id)
+    const { data: referral, error: referralError } = await supabase
+      .from('user_referrals')
+      .select('id, referrer_code, referred_device_id, status')
+      .eq('referred_device_id', appUserId)
+      .eq('status', 'pending')
+      .single()
+
+    if (referralError || !referral) {
+      // Not a referred user, nothing to do
+      return
+    }
+
+    console.log(`Processing referral reward for referrer code: ${referral.referrer_code}`)
+
+    // Look up the referrer's device_id from their referral code
+    const { data: referrerCode, error: codeError } = await supabase
+      .from('user_referral_codes')
+      .select('device_id')
+      .eq('code', referral.referrer_code)
+      .single()
+
+    if (codeError || !referrerCode?.device_id) {
+      console.error(`Could not find referrer device_id for code: ${referral.referrer_code}`)
+      return
+    }
+
+    const referrerDeviceId = referrerCode.device_id
+
+    // Update referral status to 'subscribed'
+    const { error: updateError } = await supabase
+      .from('user_referrals')
+      .update({ status: 'subscribed' })
+      .eq('id', referral.id)
+
+    if (updateError) {
+      console.error('Failed to update referral status to subscribed:', updateError)
+      // Continue anyway - we still want to try granting the reward
+    }
+
+    // Grant 1 free month to referrer via RevenueCat Promotional Entitlement
+    const revenueCatSecretKey = process.env.REVENUECAT_SECRET_KEY
+    if (!revenueCatSecretKey) {
+      console.error('REVENUECAT_SECRET_KEY not configured - skipping promotional entitlement')
+      return
+    }
+
+    // Grant promotional entitlement with retry
+    // https://www.revenuecat.com/docs/api-v1#tag/Entitlements/operation/grant-a-promotional-entitlement
+    let response: Response | null = null
+    let lastError = ''
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        response = await fetch(
+          `https://api.revenuecat.com/v1/subscribers/${encodeURIComponent(referrerDeviceId)}/entitlements/Pro/promotional`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${revenueCatSecretKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              duration: 'monthly', // 30 days
+            }),
+          }
+        )
+
+        if (response.ok) break
+
+        lastError = await response.text()
+
+        // Don't retry on 4xx errors (client errors)
+        if (response.status >= 400 && response.status < 500) break
+
+        // Wait before retry (exponential backoff)
+        if (attempt < 2) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)))
+        }
+      } catch (fetchError) {
+        lastError = fetchError instanceof Error ? fetchError.message : 'Unknown fetch error'
+        if (attempt < 2) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)))
+        }
+      }
+    }
+
+    if (!response?.ok) {
+      console.error(`Failed to grant promotional entitlement after retries: ${lastError}`)
+      // Leave status as 'subscribed' so we know they subscribed but reward failed
+      // Could be retried manually or via a background job
+      return
+    }
+
+    // Update referral status to 'rewarded'
+    const { error: rewardError } = await supabase
+      .from('user_referrals')
+      .update({
+        status: 'rewarded',
+        rewarded_at: new Date().toISOString(),
+      })
+      .eq('id', referral.id)
+
+    if (rewardError) {
+      console.error('Failed to update referral status to rewarded:', rewardError)
+      // The reward was granted, just logging failed - not critical
+    }
+
+    console.log(`Granted 1 free month to referrer ${referrerDeviceId} for referring ${appUserId}`)
+  } catch (error) {
+    console.error('Failed to handle referral reward:', error)
+    // Don't throw - subscription processing should continue
   }
 }
 

@@ -45,6 +45,7 @@ export const emailTemplates = {
         <p style="font-size:14px;margin:0 0 4px;padding-left:16px;">• Access to your affiliate dashboard</p>
         <p style="font-size:14px;margin:0;padding-left:16px;">• Instructions to start earning</p>
       </div>
+      <p>You can check your application status anytime at your <a href="${BASE_URL}/influencer/dashboard">affiliate dashboard</a>.</p>
       <p>In the meantime, feel free to explore TrackSpeed at <a href="${BASE_URL}">${BASE_URL.replace('https://', '')}</a></p>
       <hr>
       <p>Thanks for your interest in partnering with us!</p>

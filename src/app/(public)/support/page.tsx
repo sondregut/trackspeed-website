@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Support - TrackSpeed",
   description: "Get help with TrackSpeed. FAQ, troubleshooting, and contact information.",
+  alternates: {
+    canonical: "https://mytrackspeed.com/support",
+  },
 };
 
 export default function SupportPage() {
@@ -122,7 +125,11 @@ export default function SupportPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Feature Requests & Feedback</h2>
           <p className="text-[#9B9A97]">
-            We love hearing from our users! If you have ideas for new features or improvements, please email us at{" "}
+            We love hearing from our users! Visit our{" "}
+            <a href="/feedback" className="text-[#5C8DB8] hover:underline">
+              feedback board
+            </a>
+            {" "}to vote on ideas, suggest new features, or report bugs. You can also email us at{" "}
             <a href="mailto:feedback@mytrackspeed.com" className="text-[#5C8DB8] hover:underline">
               feedback@mytrackspeed.com
             </a>

@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "How We Achieve ~4ms Timing Accuracy - TrackSpeed",
   description:
     "A deep dive into the computer vision, trajectory analysis, and physics-based corrections that enable millisecond-precision timing with your iPhone.",
+  alternates: {
+    canonical: "https://mytrackspeed.com/technology",
+  },
 };
 
 export default function TechnologyPage() {

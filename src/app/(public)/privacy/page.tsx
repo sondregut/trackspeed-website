@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy - TrackSpeed",
   description: "Privacy Policy for the TrackSpeed application. Learn how we collect, use, and protect your data.",
+  alternates: {
+    canonical: "https://mytrackspeed.com/privacy",
+  },
 };
 
 export default function PrivacyPage() {
@@ -10,7 +13,7 @@ export default function PrivacyPage() {
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: January 22, 2025</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: February 12, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
