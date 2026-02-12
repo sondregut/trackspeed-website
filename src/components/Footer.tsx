@@ -37,7 +37,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://instagram.com/trackspeedapp"
+                href="https://instagram.com/mytrackspeed"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity hover:opacity-70"
