@@ -45,13 +45,13 @@ export default function PromoCodeTable({ codes, onToggle, onDelete }: PromoCodeT
                   )}
                 </div>
               </td>
-              <td className="px-4 py-4 text-sm capitalize">
+              <td className="px-4 py-4 text-sm text-[#9B9A97] capitalize">
                 {code.type}
               </td>
-              <td className="px-4 py-4 text-sm">
+              <td className="px-4 py-4 text-sm text-[#9B9A97]">
                 {formatDuration(code.duration_days)}
               </td>
-              <td className="px-4 py-4 text-sm">
+              <td className="px-4 py-4 text-sm text-white">
                 {code.current_uses}
                 {code.max_uses && (
                   <span className="text-[#787774]"> / {code.max_uses}</span>
@@ -77,7 +77,7 @@ export default function PromoCodeTable({ codes, onToggle, onDelete }: PromoCodeT
                 <div className="flex items-center justify-end gap-2">
                   <button
                     onClick={() => onToggle(code.id, code.is_active)}
-                    className="px-3 py-1 rounded text-sm bg-[#2B2E32] hover:bg-[#3D3D3D] transition-colors"
+                    className="px-3 py-1 rounded text-sm text-white bg-[#2B2E32] hover:bg-[#3D3D3D] transition-colors"
                   >
                     {code.is_active ? "Disable" : "Enable"}
                   </button>
