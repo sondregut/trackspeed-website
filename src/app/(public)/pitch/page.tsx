@@ -659,7 +659,7 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Financial Projections</SlideLabel>
           <h2 className="text-section mb-4">
-            Path to $12M ARR
+            Path to $5M ARR
           </h2>
           <p className="text-body mb-6 max-w-3xl">
             Bottom-up model using top-tier hard-paywall benchmarks with opt-out
@@ -1372,11 +1372,11 @@ function CompetitorDot({
 
 function ProjectionTable() {
   const rows = [
-    { label: "Cumulative downloads", y1: "100K", y2: "800K", y3: "4M" },
-    { label: "Active paid subs", y1: "10K", y2: "50K", y3: "160K" },
+    { label: "Cumulative downloads", y1: "100K", y2: "500K", y3: "1.5M" },
+    { label: "Active paid subs", y1: "10K", y2: "25K", y3: "65K" },
     { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$75" },
-    { label: "ARR", y1: "$550K", y2: "$3M", y3: "$12M" },
-    { label: "YoY growth", y1: "—", y2: "~5.5x", y3: "~4x" },
+    { label: "ARR", y1: "$550K", y2: "$1.5M", y3: "$5M" },
+    { label: "YoY growth", y1: "—", y2: "~2.7x", y3: "~3.3x" },
   ];
 
   return (
