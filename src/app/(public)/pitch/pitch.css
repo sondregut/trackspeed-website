@@ -8,15 +8,15 @@
 }
 
 .pitch-slide {
-  height: 100dvh;
+  min-height: 100dvh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 3rem 2rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Navigation dots */
@@ -101,7 +101,7 @@
 @media (max-width: 768px) {
   .pitch-slide {
     padding: 1.5rem;
-    padding-top: 5rem;
+    padding-top: 4rem;
   }
 
   .pitch-nav {
@@ -142,7 +142,8 @@
 
   /* Each slide = one printed page */
   .pitch-slide {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     page-break-after: always;
     break-after: page;
     scroll-snap-align: unset;

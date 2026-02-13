@@ -25,18 +25,46 @@ export default function PitchDeck() {
   const deckRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // Lock body scroll and hide navbar/footer so only the pitch deck is visible
+  // Lock body scroll and hide footer; navbar is scroll-direction aware
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const navbar = document.querySelector("nav:not(.pitch-nav)") as HTMLElement | null;
     const footer = document.querySelector("footer") as HTMLElement | null;
-    if (navbar) navbar.style.display = "none";
     if (footer) footer.style.display = "none";
+    if (navbar) {
+      navbar.style.transition = "transform 0.3s ease";
+      navbar.style.transform = "translateY(0)";
+    }
     return () => {
       document.body.style.overflow = "";
-      if (navbar) navbar.style.display = "";
       if (footer) footer.style.display = "";
+      if (navbar) {
+        navbar.style.transition = "";
+        navbar.style.transform = "";
+      }
     };
+  }, []);
+
+  // Show navbar when scrolling up or at top, hide when scrolling down
+  useEffect(() => {
+    const deck = deckRef.current;
+    if (!deck) return;
+    let lastScrollTop = 0;
+
+    const handleScroll = () => {
+      const navbar = document.querySelector("nav:not(.pitch-nav)") as HTMLElement | null;
+      if (!navbar) return;
+      const scrollTop = deck.scrollTop;
+      if (scrollTop <= 10 || scrollTop < lastScrollTop) {
+        navbar.style.transform = "translateY(0)";
+      } else {
+        navbar.style.transform = "translateY(-100%)";
+      }
+      lastScrollTop = scrollTop;
+    };
+
+    deck.addEventListener("scroll", handleScroll, { passive: true });
+    return () => deck.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Track which slide is in view
@@ -176,9 +204,9 @@ export default function PitchDeck() {
                 carry bag, and most programs simply can&apos;t afford it.
               </p>
               <div className="grid sm:grid-cols-3 gap-4">
-                <PriceCard name="Freelap" price="$500 – $2,000+" />
-                <PriceCard name="DASHR" price="$500 – $1,500+" />
-                <PriceCard name="Brower" price="$1,500 – $5,000+" />
+                <PriceCard name="Freelap" price="$535 – $1,265+" />
+                <PriceCard name="DASHR" price="$375 – $1,300+" />
+                <PriceCard name="Brower" price="$800 – $1,765+" />
               </div>
             </div>
           </div>
@@ -443,42 +471,49 @@ export default function PitchDeck() {
               x="10%"
               y="80%"
               color="rgba(255,255,255,0.4)"
+              price="Free"
             />
             <CompetitorDot
               name="MySprint"
               x="14%"
               y="65%"
               color="rgba(255,255,255,0.4)"
+              price="Free (video analysis)"
             />
             <CompetitorDot
               name="Jawku"
               x="28%"
               y="55%"
               color="rgba(255,255,255,0.4)"
+              price="~$200"
             />
             <CompetitorDot
               name="Freelap"
               x="52%"
               y="28%"
               color="rgba(255,255,255,0.4)"
+              price="$535 – $1,265+"
             />
             <CompetitorDot
               name="DASHR"
               x="48%"
               y="36%"
               color="rgba(255,255,255,0.4)"
+              price="$375 – $1,300+"
             />
             <CompetitorDot
               name="Brower"
               x="72%"
               y="18%"
               color="rgba(255,255,255,0.4)"
+              price="$800 – $1,765+"
             />
             <CompetitorDot
               name="FinishLynx"
               x="88%"
               y="10%"
               color="rgba(255,255,255,0.4)"
+              price="$5,000 – $25,000+"
             />
             {/* TrackSpeed — highlighted */}
             <CompetitorDot
@@ -487,6 +522,7 @@ export default function PitchDeck() {
               y="15%"
               color="#5C8DB8"
               highlighted
+              price="$49.99/year"
             />
           </div>
           <p
@@ -623,29 +659,33 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Financial Projections</SlideLabel>
           <h2 className="text-section mb-4">
-            Path to $10M ARR
+            Path to $12M ARR
           </h2>
           <p className="text-body mb-6 max-w-3xl">
-            Bottom-up model built on real conversion funnel benchmarks.
-            Android launch in Year 2 doubles addressable market. Team &amp;
-            school licenses drive ARPU expansion in Year 3.
+            Bottom-up model using top-tier hard-paywall benchmarks with opt-out
+            trial. 82% of conversions happen within 24 hours — our onboarding
+            is built for that moment. Android launch in Year 2 multiplies
+            addressable downloads. Team licenses drive ARPU expansion in Year 3.
           </p>
           <ProjectionTable />
           <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            <AssumptionCard label="Download → trial" value="18%" />
-            <AssumptionCard label="Trial → paid" value="45%" />
-            <AssumptionCard label="Net conversion" value="~8%" />
-            <AssumptionCard label="Annual retention" value="60%" />
+            <AssumptionCard label="Download → trial" value="20%" />
+            <AssumptionCard label="Trial → paid" value="50%" />
+            <AssumptionCard label="Download → paid" value="~10%" />
+            <AssumptionCard label="Annual retention" value="50%" />
             <AssumptionCard label="LTV:CAC" value=">10:1" />
           </div>
           <p
             className="text-xs mt-4 max-w-3xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Top-quartile funnel rates driven by guided onboarding, instant &quot;wow
-            moment&quot; on first run, and high-intent users from athletics channels.
-            70/30 annual-monthly plan mix. Team licenses ($200–$500/yr) lift
-            blended ARPU to $70+ by Year 3. Organic-first CAC under $5.
+            Hard-paywall model with 7-day opt-out trial. Top 10% D2T is 20.3%,
+            median T2P for opt-out trials is 39.9% (top 10%: 68.3%) — our 50%
+            is conservative. Winning D2P target: 10–12% (RevenueCat 2025 State
+            of Subscription Apps; Adapty 2026; Business of Apps 2026). 82% of
+            conversions occur within 24 hours. 70/30 annual-monthly mix. 7-day
+            trials outperform 30-day in 2026. Team licenses lift ARPU to $75
+            by Year 3. Organic-first CAC under $5.
           </p>
           <SlideNumber current={10} total={SLIDES.length} />
         </div>
@@ -670,14 +710,15 @@ export default function PitchDeck() {
                 className="text-sm font-medium mb-3"
                 style={{ color: "#5C8DB8" }}
               >
-                Co-Founder
+                Co-Founder &amp; Lead Developer
               </p>
               <p
                 className="text-sm leading-relaxed mb-3"
                 style={{ color: "var(--text-secondary)" }}
               >
-                Product vision and strategy. Background in athletics and business
-                development.
+                Built TrackSpeed from the ground up — native iOS, computer vision
+                pipeline, multi-device sync, backend, and website. Former D1
+                athlete with deep domain knowledge.
               </p>
               <div className="flex items-center gap-3">
                 <a
@@ -711,14 +752,14 @@ export default function PitchDeck() {
                 className="text-sm font-medium mb-3"
                 style={{ color: "#5C8DB8" }}
               >
-                Developer
+                Co-Founder &amp; Technical Advisor
               </p>
               <p
                 className="text-sm leading-relaxed mb-3"
                 style={{ color: "var(--text-secondary)" }}
               >
-                Built TrackSpeed end-to-end — native iOS, computer vision pipeline,
-                multi-device sync, backend, and website.
+                Technical advisor and second builder. Contributes to architecture
+                decisions, code reviews, and feature development.
               </p>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <a
@@ -1278,18 +1319,31 @@ function CompetitorDot({
   y,
   color,
   highlighted,
+  price,
 }: {
   name: string;
   x: string;
   y: string;
   color: string;
   highlighted?: boolean;
+  price?: string;
 }) {
   return (
     <div
-      className="absolute flex flex-col items-center"
+      className="absolute flex flex-col items-center group"
       style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
     >
+      {price && (
+        <div
+          className="absolute bottom-full mb-2 px-2 py-1 rounded text-[10px] font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+          style={{
+            background: "rgba(0,0,0,0.85)",
+            color: "white",
+          }}
+        >
+          {price}
+        </div>
+      )}
       <div
         className="rounded-full"
         style={{
@@ -1318,11 +1372,11 @@ function CompetitorDot({
 
 function ProjectionTable() {
   const rows = [
-    { label: "Cumulative downloads", y1: "100K", y2: "1M", y3: "5M" },
-    { label: "Active paid subs", y1: "3K", y2: "25K", y3: "140K" },
-    { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$70" },
-    { label: "ARR", y1: "$165K", y2: "$1.5M", y3: "$10M" },
-    { label: "YoY growth", y1: "—", y2: "~9x", y3: "~6.5x" },
+    { label: "Cumulative downloads", y1: "100K", y2: "800K", y3: "4M" },
+    { label: "Active paid subs", y1: "10K", y2: "50K", y3: "160K" },
+    { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$75" },
+    { label: "ARR", y1: "$550K", y2: "$3M", y3: "$12M" },
+    { label: "YoY growth", y1: "—", y2: "~5.5x", y3: "~4x" },
   ];
 
   return (
