@@ -632,20 +632,20 @@ export default function PitchDeck() {
           </p>
           <ProjectionTable />
           <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            <AssumptionCard label="Download → trial" value="12%" />
-            <AssumptionCard label="Trial → paid" value="35%" />
-            <AssumptionCard label="Net conversion" value="~4%" />
-            <AssumptionCard label="Annual retention" value="55%" />
+            <AssumptionCard label="Download → trial" value="18%" />
+            <AssumptionCard label="Trial → paid" value="45%" />
+            <AssumptionCard label="Net conversion" value="~8%" />
+            <AssumptionCard label="Annual retention" value="60%" />
             <AssumptionCard label="LTV:CAC" value=">10:1" />
           </div>
           <p
             className="text-xs mt-4 max-w-3xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Funnel benchmarks based on RevenueCat 2025 State of Subscription Apps.
-            70/30 annual-monthly plan mix. Individual ARPU $55/yr, team licenses
-            $200–$500/yr lift blended ARPU to $70+ by Year 3. Organic-first CAC
-            under $5 via Jumpers World &amp; influencer channels.
+            Top-quartile funnel rates driven by guided onboarding, instant &quot;wow
+            moment&quot; on first run, and high-intent users from athletics channels.
+            70/30 annual-monthly plan mix. Team licenses ($200–$500/yr) lift
+            blended ARPU to $70+ by Year 3. Organic-first CAC under $5.
           </p>
           <SlideNumber current={10} total={SLIDES.length} />
         </div>
