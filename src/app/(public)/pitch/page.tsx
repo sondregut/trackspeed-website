@@ -1318,11 +1318,11 @@ function CompetitorDot({
 
 function ProjectionTable() {
   const rows = [
-    { label: "Cumulative downloads", y1: "300K", y2: "2M", y3: "6M" },
-    { label: "Active paid subs", y1: "5K", y2: "30K", y3: "140K" },
+    { label: "Cumulative downloads", y1: "100K", y2: "1M", y3: "5M" },
+    { label: "Active paid subs", y1: "3K", y2: "25K", y3: "140K" },
     { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$70" },
-    { label: "ARR", y1: "$275K", y2: "$1.8M", y3: "$10M" },
-    { label: "YoY growth", y1: "—", y2: "~6.5x", y3: "~5.5x" },
+    { label: "ARR", y1: "$165K", y2: "$1.5M", y3: "$10M" },
+    { label: "YoY growth", y1: "—", y2: "~9x", y3: "~6.5x" },
   ];
 
   return (
