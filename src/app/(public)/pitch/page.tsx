@@ -625,25 +625,27 @@ export default function PitchDeck() {
           <h2 className="text-section mb-4">
             Path to $10M ARR
           </h2>
-          <p className="text-body mb-8 max-w-3xl">
-            Bottom-up model following the T2D3 SaaS growth framework — triple,
-            triple, double. Driven by organic distribution (Jumpers World),
-            influencer partnerships, and platform expansion to Android.
+          <p className="text-body mb-6 max-w-3xl">
+            Bottom-up model built on real conversion funnel benchmarks.
+            Android launch in Year 2 doubles addressable market. Team &amp;
+            school licenses drive ARPU expansion in Year 3.
           </p>
           <ProjectionTable />
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <AssumptionCard label="Free → Pro conversion" value="5–8%" />
-            <AssumptionCard label="Annual retention" value="65%" />
-            <AssumptionCard label="Blended ARPU" value="$60/yr" />
+          <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <AssumptionCard label="Download → trial" value="12%" />
+            <AssumptionCard label="Trial → paid" value="35%" />
+            <AssumptionCard label="Net conversion" value="~4%" />
+            <AssumptionCard label="Annual retention" value="55%" />
             <AssumptionCard label="LTV:CAC" value=">10:1" />
           </div>
           <p
             className="text-xs mt-4 max-w-3xl"
             style={{ color: "var(--text-muted)" }}
           >
-            70% annual / 30% monthly plan mix. ARPU rises with team &amp; school
-            licenses ($200–$500/yr). Organic-first CAC under $5 via social channels.
-            Android launch in Year 2 doubles addressable market.
+            Funnel benchmarks based on RevenueCat 2025 State of Subscription Apps.
+            70/30 annual-monthly plan mix. Individual ARPU $55/yr, team licenses
+            $200–$500/yr lift blended ARPU to $70+ by Year 3. Organic-first CAC
+            under $5 via Jumpers World &amp; influencer channels.
           </p>
           <SlideNumber current={10} total={SLIDES.length} />
         </div>
@@ -1316,10 +1318,11 @@ function CompetitorDot({
 
 function ProjectionTable() {
   const rows = [
-    { label: "Free users", y1: "100K", y2: "500K", y3: "2M" },
-    { label: "Pro subscribers", y1: "5K", y2: "35K", y3: "150K" },
-    { label: "ARR", y1: "$300K", y2: "$2.5M", y3: "$10M" },
-    { label: "YoY growth", y1: "—", y2: "~8x", y3: "~4x" },
+    { label: "Cumulative downloads", y1: "300K", y2: "2M", y3: "6M" },
+    { label: "Active paid subs", y1: "5K", y2: "30K", y3: "140K" },
+    { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$70" },
+    { label: "ARR", y1: "$275K", y2: "$1.8M", y3: "$10M" },
+    { label: "YoY growth", y1: "—", y2: "~6.5x", y3: "~5.5x" },
   ];
 
   return (
