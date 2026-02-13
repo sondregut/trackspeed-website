@@ -202,11 +202,11 @@ function TestimonialCard({
           <div className="flex gap-0.5 mb-2">
             <div
               className="w-1 h-2.5 rounded-sm"
-              style={{ background: "#3B82F6" }}
+              style={{ background: "var(--brand)" }}
             ></div>
             <div
               className="w-1 h-2.5 rounded-sm"
-              style={{ background: "#3B82F6" }}
+              style={{ background: "var(--brand)" }}
             ></div>
           </div>
 

@@ -112,11 +112,9 @@ export default function StartTypes() {
                       setSelected(index);
                       cardRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
                     }}
-                    className="w-2 h-2 rounded-full transition-all duration-300"
-                    style={{
-                      background: index === selected ? 'var(--text-primary)' : 'var(--border-light)',
-                      transform: index === selected ? 'scale(1.25)' : 'scale(1)',
-                    }}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === selected ? "bg-foreground scale-125" : "bg-border"
+                    }`}
                     aria-label={`View ${startTypes[index].title}`}
                   />
                 ))}
@@ -152,13 +150,13 @@ export default function StartTypes() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
                   {type.title}
                 </h3>
-                <p className="mb-3" style={{ color: 'var(--text-muted)' }}>
+                <p className="mb-3 text-muted">
                   {type.description}
                 </p>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-sm font-medium text-text-secondary">
                   Best for: {type.useCase}
                 </p>
               </div>

@@ -70,10 +70,10 @@ export default function Features() {
             <StaggerItem key={index}>
               <Card className="border-[var(--border-light)] rounded-[20px] py-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                 <CardContent className="text-center p-0">
-                  <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  <div className="text-3xl md:text-4xl font-bold mb-1 text-foreground">
                     {stat.value}
                   </div>
-                  <div className="text-sm" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
+                  <div className="text-sm text-muted">{stat.label}</div>
                 </CardContent>
               </Card>
             </StaggerItem>
@@ -91,7 +91,7 @@ export default function Features() {
                   </div>
                   <div>
                     <h3 className="text-card-title mb-1">{feature.title}</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{feature.description}</p>
+                    <p className="text-sm text-muted">{feature.description}</p>
                   </div>
                 </CardContent>
               </Card>

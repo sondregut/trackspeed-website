@@ -63,26 +63,17 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Step label */}
-                <span
-                  className="text-sm font-semibold uppercase tracking-widest mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <span className="text-sm font-semibold uppercase tracking-widest mb-2 text-muted">
                   Step {step.number}
                 </span>
 
                 {/* Title */}
-                <h3
-                  className="text-xl font-bold mb-2"
-                  style={{ color: "var(--text-primary)" }}
-                >
+                <h3 className="text-xl font-bold mb-2 text-foreground">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p
-                  className="text-base max-w-[260px]"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <p className="text-base max-w-[260px] text-muted">
                   {step.description}
                 </p>
               </div>

@@ -7,6 +7,9 @@
 :root {
   /* Cal AI Design System */
 
+  /* Brand */
+  --brand: #5C8DB8;
+
   /* Primary text colors */
   --text-primary: #0E0E0C;
   --text-secondary: #26303E;
@@ -73,6 +76,13 @@
   --color-foreground: var(--text-primary);
   --color-muted: var(--text-muted);
   --color-border: var(--border-light);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-on-dark: var(--text-on-dark);
+  --color-text-on-dark-muted: var(--text-on-dark-muted);
+  --color-bg-mint: var(--bg-mint);
+  --color-accent-green: var(--accent-green);
+  --color-accent-red: var(--accent-red);
+  --color-brand: var(--brand);
   --font-sans: var(--font-inter);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

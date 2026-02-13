@@ -43,8 +43,8 @@ export default function MultiDevice() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{feature.title}</h3>
-                        <p style={{ color: 'var(--text-muted)' }}>{feature.description}</p>
+                        <h3 className="text-lg font-semibold mb-1 text-foreground">{feature.title}</h3>
+                        <p className="text-muted">{feature.description}</p>
                       </div>
                     </div>
                   </StaggerItem>

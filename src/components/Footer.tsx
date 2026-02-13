@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import AppleIcon from "@/components/icons/AppleIcon";
 
 export default function Footer() {
   return (
-    <footer style={{ background: 'var(--bg-mint)' }}>
+    <footer className="bg-bg-mint">
       <Separator />
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8">
@@ -18,18 +19,30 @@ export default function Footer() {
                 height={32}
                 className="rounded-lg"
               />
-              <span className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>TrackSpeed</span>
+              <span className="text-lg font-bold text-foreground">TrackSpeed</span>
             </Link>
-            <p className="text-sm max-w-xs" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-sm max-w-xs text-muted">
               Professional sprint timing using your iPhone. No extra hardware needed.
             </p>
+
+            {/* App Store download */}
+            <a
+              href="https://apps.apple.com/app/trackspeed"
+              className="inline-flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg mt-4 hover:bg-[#1a1a1a] transition-colors"
+            >
+              <AppleIcon className="w-5 h-5" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] opacity-80">Download on the</span>
+                <span className="text-sm font-semibold -mt-0.5">App Store</span>
+              </div>
+            </a>
+
             <div className="flex items-center gap-4 mt-4">
               <a
                 href="https://x.com/trackspeedapp"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-70"
-                style={{ color: 'var(--text-muted)' }}
+                className="text-muted transition-opacity hover:opacity-70"
                 aria-label="X (Twitter)"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -40,8 +53,7 @@ export default function Footer() {
                 href="https://instagram.com/mytrackspeed"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-70"
-                style={{ color: 'var(--text-muted)' }}
+                className="text-muted transition-opacity hover:opacity-70"
                 aria-label="Instagram"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -54,8 +66,7 @@ export default function Footer() {
                 href="https://tiktok.com/@trackspeedapp"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-70"
-                style={{ color: 'var(--text-muted)' }}
+                className="text-muted transition-opacity hover:opacity-70"
                 aria-label="TikTok"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -67,23 +78,22 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Product</h4>
+            <h4 className="font-semibold mb-4 text-foreground">Product</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#features" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="#features" className="text-muted transition-colors hover:opacity-70">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="#how-it-works" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="#how-it-works" className="text-muted transition-colors hover:opacity-70">
                   How It Works
                 </Link>
               </li>
               <li>
                 <a
                   href="https://apps.apple.com/app/trackspeed"
-                  className="transition-colors hover:opacity-70"
-                  style={{ color: 'var(--text-muted)' }}
+                  className="text-muted transition-colors hover:opacity-70"
                 >
                   Download
                 </a>
@@ -92,25 +102,25 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Legal</h4>
+            <h4 className="font-semibold mb-4 text-foreground">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/support" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="/support" className="text-muted transition-colors hover:opacity-70">
                   Support
                 </Link>
               </li>
               <li>
-                <Link href="/feedback" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="/feedback" className="text-muted transition-colors hover:opacity-70">
                   Feedback
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="/terms" className="text-muted transition-colors hover:opacity-70">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
+                <Link href="/privacy" className="text-muted transition-colors hover:opacity-70">
                   Privacy Policy
                 </Link>
               </li>
@@ -118,18 +128,17 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderTop: '1px solid var(--border-light)' }}>
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+        <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-border">
+          <p className="text-sm text-muted">
             &copy; {new Date().getFullYear()} TrackSpeed. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-sm text-text-secondary">
               Made for athletes, by athletes.
             </p>
             <Link
               href="/influencer/apply"
-              className="text-xs transition-opacity hover:opacity-70"
-              style={{ color: 'var(--text-muted)' }}
+              className="text-xs text-muted transition-opacity hover:opacity-70"
             >
               Affiliates
             </Link>

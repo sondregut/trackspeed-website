@@ -16,7 +16,7 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   title: "TrackSpeed - Sprint Timing App",
-  description: "Professional sprint timing using your iPhone. 240fps detection, multi-device sync, millisecond accuracy.",
+  description: "Professional sprint timing using your iPhone. 120fps detection, multi-device sync, millisecond accuracy.",
   keywords: [
     "sprint timing",
     "track and field",
