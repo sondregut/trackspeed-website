@@ -40,9 +40,7 @@ export const metadata: Metadata = {
     url: "https://mytrackspeed.com",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/photofinish_edit.png",
         alt: "TrackSpeed - Sprint Timing App",
       },
     ],
@@ -51,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TrackSpeed - Sprint Timing App",
     description: "Professional sprint timing using your iPhone. Millisecond accuracy, no extra hardware needed.",
-    images: ["/og-image.png"],
+    images: ["/photofinish_edit.png"],
   },
   icons: {
     icon: [

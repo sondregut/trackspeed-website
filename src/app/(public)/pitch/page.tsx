@@ -659,13 +659,13 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Financial Projections</SlideLabel>
           <h2 className="text-section mb-4">
-            Path to $5M ARR
+            Path to $3M ARR
           </h2>
           <p className="text-body mb-6 max-w-3xl">
             Bottom-up model using top-tier hard-paywall benchmarks with opt-out
-            trial. 82% of conversions happen within 24 hours — our onboarding
-            is built for that moment. Android launch in Year 2 multiplies
-            addressable downloads. Team licenses drive ARPU expansion in Year 3.
+            trial. 60,000 subscribers at $50/year = $3M ARR. Android launch
+            in Year 2 multiplies addressable downloads. Team &amp; school
+            licenses provide further ARPU upside beyond this base case.
           </p>
           <ProjectionTable />
           <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
@@ -679,13 +679,13 @@ export default function PitchDeck() {
             className="text-xs mt-4 max-w-3xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Hard-paywall model with 7-day opt-out trial. Top 10% D2T is 20.3%,
-            median T2P for opt-out trials is 39.9% (top 10%: 68.3%) — our 50%
-            is conservative. Winning D2P target: 10–12% (RevenueCat 2025 State
-            of Subscription Apps; Adapty 2026; Business of Apps 2026). 82% of
-            conversions occur within 24 hours. 70/30 annual-monthly mix. 7-day
-            trials outperform 30-day in 2026. Team licenses lift ARPU to $75
-            by Year 3. Organic-first CAC under $5.
+            Hard-paywall model with 7-day opt-out trial. Top 10% D2T: 20.3%,
+            median T2P for opt-out trials: 39.9% (top 10%: 68.3%). Winning
+            D2P target: 10–12% (RevenueCat 2025; Adapty 2026; Business of
+            Apps 2026). 82% of conversions within 24 hours. 7-day trials
+            outperform 30-day in 2026. $50/yr ARPU uses actual pricing —
+            team licenses ($200–$500/yr) offer upside not modeled here.
+            Organic-first CAC under $5.
           </p>
           <SlideNumber current={10} total={SLIDES.length} />
         </div>
@@ -1373,10 +1373,10 @@ function CompetitorDot({
 function ProjectionTable() {
   const rows = [
     { label: "Cumulative downloads", y1: "100K", y2: "500K", y3: "1.5M" },
-    { label: "Active paid subs", y1: "10K", y2: "25K", y3: "65K" },
-    { label: "Blended ARPU", y1: "$55", y2: "$60", y3: "$75" },
-    { label: "ARR", y1: "$550K", y2: "$1.5M", y3: "$5M" },
-    { label: "YoY growth", y1: "—", y2: "~2.7x", y3: "~3.3x" },
+    { label: "Active paid subs", y1: "10K", y2: "25K", y3: "60K" },
+    { label: "Blended ARPU", y1: "$50", y2: "$50", y3: "$50" },
+    { label: "ARR", y1: "$500K", y2: "$1.25M", y3: "$3M" },
+    { label: "YoY growth", y1: "—", y2: "~2.5x", y3: "~2.4x" },
   ];
 
   return (
