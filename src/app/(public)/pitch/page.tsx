@@ -623,26 +623,27 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Financial Projections</SlideLabel>
           <h2 className="text-section mb-4">
-            Conservative path to profitability
+            Path to $10M ARR
           </h2>
-          <p className="text-body mb-10 max-w-3xl">
-            Bottom-up projections based on our go-to-market channels, organic
-            growth benchmarks, and conversion rates typical for freemium fitness apps.
+          <p className="text-body mb-8 max-w-3xl">
+            Bottom-up model following the T2D3 SaaS growth framework — triple,
+            triple, double. Driven by organic distribution (Jumpers World),
+            influencer partnerships, and platform expansion to Android.
           </p>
           <ProjectionTable />
-          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <AssumptionCard label="Free → Pro conversion" value="4–6%" />
-            <AssumptionCard label="Monthly churn" value="5%" />
-            <AssumptionCard label="Blended ARPU" value="~$45/yr" />
-            <AssumptionCard label="CAC (organic-led)" value="~$3" />
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <AssumptionCard label="Free → Pro conversion" value="5–8%" />
+            <AssumptionCard label="Annual retention" value="65%" />
+            <AssumptionCard label="Blended ARPU" value="$60/yr" />
+            <AssumptionCard label="LTV:CAC" value=">10:1" />
           </div>
           <p
-            className="text-xs mt-6 max-w-3xl"
+            className="text-xs mt-4 max-w-3xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Assumptions: 70% annual / 30% monthly mix. Growth driven primarily by
-            organic social (Jumpers World + influencer partnerships) and App Store
-            optimization. Numbers exclude potential team/school license revenue.
+            70% annual / 30% monthly plan mix. ARPU rises with team &amp; school
+            licenses ($200–$500/yr). Organic-first CAC under $5 via social channels.
+            Android launch in Year 2 doubles addressable market.
           </p>
           <SlideNumber current={10} total={SLIDES.length} />
         </div>
@@ -1315,10 +1316,10 @@ function CompetitorDot({
 
 function ProjectionTable() {
   const rows = [
-    { label: "Free users", y1: "10,000", y2: "45,000", y3: "120,000" },
-    { label: "Pro subscribers", y1: "500", y2: "2,500", y3: "7,500" },
-    { label: "Annual revenue", y1: "$22K", y2: "$112K", y3: "$340K" },
-    { label: "MoM growth", y1: "15–20%", y2: "10–12%", y3: "6–8%" },
+    { label: "Free users", y1: "100K", y2: "500K", y3: "2M" },
+    { label: "Pro subscribers", y1: "5K", y2: "35K", y3: "150K" },
+    { label: "ARR", y1: "$300K", y2: "$2.5M", y3: "$10M" },
+    { label: "YoY growth", y1: "—", y2: "~8x", y3: "~4x" },
   ];
 
   return (
