@@ -869,32 +869,71 @@ export default function PitchDeck() {
         </div>
       </section>
 
-      {/* Slide 13 — Vision */}
+      {/* Slide 13 — Vision & Mission */}
       <section className="pitch-slide bg-dark-section" data-index={12}>
         <div className="max-w-3xl text-center">
-          <SlideLabel dark>Vision</SlideLabel>
+          <SlideLabel dark>Vision &amp; Mission</SlideLabel>
           <h2
-            className="text-section mb-6"
+            className="text-section mb-8"
             style={{ color: "var(--text-on-dark)" }}
           >
-            Democratize sprint timing for every athlete
+            Why we exist
           </h2>
+
+          {/* Vision statement */}
+          <div
+            className="rounded-xl p-6 mb-4 text-left"
+            style={{
+              background: "rgba(92, 141, 184, 0.12)",
+              borderLeft: "4px solid #5C8DB8",
+            }}
+          >
+            <p
+              className="text-xs font-semibold uppercase tracking-wider mb-2"
+              style={{ color: "#5C8DB8" }}
+            >
+              Vision
+            </p>
+            <p
+              className="text-lg md:text-xl font-medium leading-relaxed"
+              style={{ color: "var(--text-on-dark)" }}
+            >
+              &ldquo;Every athlete deserves access to accurate timing — regardless
+              of budget, location, or sport.&rdquo;
+            </p>
+          </div>
+
+          {/* Mission statement */}
+          <div
+            className="rounded-xl p-6 mb-8 text-left"
+            style={{
+              background: "rgba(92, 141, 184, 0.12)",
+              borderLeft: "4px solid #5C8DB8",
+            }}
+          >
+            <p
+              className="text-xs font-semibold uppercase tracking-wider mb-2"
+              style={{ color: "#5C8DB8" }}
+            >
+              Mission
+            </p>
+            <p
+              className="text-lg md:text-xl font-medium leading-relaxed"
+              style={{ color: "var(--text-on-dark)" }}
+            >
+              &ldquo;Replace expensive timing hardware with the phone already in
+              your pocket — using computer vision and sub-frame interpolation to
+              deliver professional-grade accuracy for free.&rdquo;
+            </p>
+          </div>
+
           <p
-            className="text-lg md:text-xl leading-relaxed mb-6"
+            className="text-base md:text-lg leading-relaxed mb-10"
             style={{ color: "var(--text-on-dark-muted)" }}
           >
-            Track &amp; field is where we start — it&apos;s where precision matters most.
-            But sprinting isn&apos;t just for sprinters. Football players run 40-yard dashes.
-            Soccer players track sprint speed. Baseball players measure home-to-first.
-            Recreational athletes want to know if they&apos;re getting faster.
-          </p>
-          <p
-            className="text-lg md:text-xl leading-relaxed mb-12"
-            style={{ color: "var(--text-on-dark-muted)" }}
-          >
-            Speed is the most universal metric in sport. Every coach, every athlete,
-            every school deserves access to accurate timing — without the price tag.
-            TrackSpeed makes that possible with the phone already in their pocket.
+            Track &amp; field is where we start, but speed is universal.
+            Football 40s, soccer sprints, baseball home-to-first — every coach
+            and athlete deserves accurate timing without the price tag.
           </p>
           <div className="flex flex-wrap gap-8 justify-center">
             <Stat value="$0" label="Hardware needed" dark />
@@ -954,12 +993,6 @@ export default function PitchDeck() {
             >
               trackspeed.app
             </a>
-          </div>
-          {/* App Store QR Code */}
-          <div className="flex justify-center mb-8">
-            <div className="text-center">
-              <QrCode />
-            </div>
           </div>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
             sondre@trackspeed.app
