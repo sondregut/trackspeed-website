@@ -12,7 +12,7 @@ export default function SupportPage() {
   const faqs = [
     {
       question: "How does TrackSpeed work?",
-      answer: "TrackSpeed uses your iPhone's camera to detect when an athlete crosses the timing gate. The app uses advanced pose detection to identify when the athlete's chest crosses the virtual finish line, providing millisecond-accurate timing.",
+      answer: "TrackSpeed uses your iPhone's camera to detect when an athlete crosses the timing gate. The app uses camera-based motion detection to identify when the athlete's torso crosses the timing gate, providing millisecond-accurate timing.",
     },
     {
       question: "Do I need special equipment?",
@@ -20,7 +20,7 @@ export default function SupportPage() {
     },
     {
       question: "What iPhone models are supported?",
-      answer: "TrackSpeed works with iPhone 6 and later models. For best performance, we recommend iPhone 12 or newer.",
+      answer: "TrackSpeed works with iPhone XS and later (iOS 17+). For best performance, we recommend iPhone 12 Pro or newer.",
     },
     {
       question: "How accurate is the timing?",
@@ -47,7 +47,7 @@ export default function SupportPage() {
         "Ensure good lighting - the camera needs to clearly see the athlete",
         "Position the phone so the athlete passes perpendicular to the camera view",
         "Make sure the athlete's torso is visible in the frame",
-        "Try adjusting the detection sensitivity in settings",
+        "Try using a higher FPS setting (60 or 120fps) in settings",
       ],
     },
     {
@@ -74,21 +74,21 @@ export default function SupportPage() {
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Support</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: January 22, 2025</p>
+        <p className="text-muted mb-12">Last updated: February 14, 2026</p>
 
         {/* Contact */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-          <p className="text-[#9B9A97] mb-4">
+          <p className="text-muted mb-4">
             If you need help with TrackSpeed or have any questions, we&apos;re here to assist you.
           </p>
-          <p className="text-[#9B9A97]">
-            <strong className="text-white">Email:</strong>{" "}
+          <p className="text-muted">
+            <strong className="text-foreground">Email:</strong>{" "}
             <a href="mailto:support@mytrackspeed.com" className="text-[#5C8DB8] hover:underline">
               support@mytrackspeed.com
             </a>
           </p>
-          <p className="text-[#787774] mt-2">We typically respond within 24-48 hours.</p>
+          <p className="text-muted mt-2">We typically respond within 24-48 hours.</p>
         </section>
 
         {/* FAQ */}
@@ -98,7 +98,7 @@ export default function SupportPage() {
             {faqs.map((faq, index) => (
               <div key={index} className="card-gunmetal rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                <p className="text-[#9B9A97]">{faq.answer}</p>
+                <p className="text-muted">{faq.answer}</p>
               </div>
             ))}
           </div>
@@ -111,7 +111,7 @@ export default function SupportPage() {
             {troubleshooting.map((item, index) => (
               <div key={index} className="card-gunmetal rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-3">{item.issue}</h3>
-                <ul className="list-disc list-inside space-y-2 text-[#9B9A97]">
+                <ul className="list-disc list-inside space-y-2 text-muted">
                   {item.solutions.map((solution, i) => (
                     <li key={i}>{solution}</li>
                   ))}
@@ -124,7 +124,7 @@ export default function SupportPage() {
         {/* Feedback */}
         <section>
           <h2 className="text-2xl font-bold mb-4">Feature Requests & Feedback</h2>
-          <p className="text-[#9B9A97]">
+          <p className="text-muted">
             We love hearing from our users! Visit our{" "}
             <a href="/feedback" className="text-[#5C8DB8] hover:underline">
               feedback board

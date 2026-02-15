@@ -77,7 +77,7 @@ function ProPageContent() {
               </p>
             </div>
             <a
-              href="https://apps.apple.com/app/trackspeed/id6744919845"
+              href="https://apps.apple.com/app/trackspeed/id6757509163"
               className="inline-block bg-[#5C8DB8] hover:bg-[#4A7BA6] text-white font-semibold py-3 px-8 rounded-full transition-colors"
             >
               Download on App Store

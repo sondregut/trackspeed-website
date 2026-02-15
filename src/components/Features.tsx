@@ -28,7 +28,7 @@ export default function Features() {
         </svg>
       ),
       title: "Multi-Device Sync",
-      description: "Connect iPhones wirelessly. Sub-millisecond clock synchronization between gates.",
+      description: "Connect iPhones wirelessly. Millisecond-accurate clock synchronization between gates.",
     },
     {
       icon: (

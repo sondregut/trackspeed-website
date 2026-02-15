@@ -23,42 +23,6 @@ export default function Testimonials() {
         "As a long jumper, speed is everything. I time all my sprints with TrackSpeed and love how quick and easy it is to set up. It even tracks my long jump takeoff speed!",
       hasRealImage: true,
     },
-    {
-      name: "David Okonkwo",
-      role: "Speed Coach",
-      image: "/testimonials/coach-2.jpg",
-      instagram: "https://instagram.com/coach_david",
-      quote:
-        "The multi-device sync is incredible. I can time splits at 10m, 20m, and 40m all at once.",
-      hasRealImage: false,
-    },
-    {
-      name: "Emma Rodriguez",
-      role: "High School Coach",
-      image: "/testimonials/coach-3.jpg",
-      instagram: "https://instagram.com/coach_emma",
-      quote:
-        "My whole team uses this now. Way more accurate than hand timing and the kids love seeing their times instantly.",
-      hasRealImage: false,
-    },
-    {
-      name: "James Wilson",
-      role: "400m Specialist",
-      image: "/testimonials/athlete-2.jpg",
-      instagram: "https://instagram.com/james_400m",
-      quote:
-        "TrackSpeed helped me shave 0.3s off my 400m. Being able to analyze my split times changed everything.",
-      hasRealImage: false,
-    },
-    {
-      name: "Coach Mike Davis",
-      role: "Club Athletics",
-      image: "/testimonials/coach-4.jpg",
-      instagram: "https://instagram.com/coachmike",
-      quote:
-        "Best timing app I've used. The accuracy rivals equipment that costs 10x more.",
-      hasRealImage: false,
-    },
   ];
 
   return (
@@ -74,28 +38,13 @@ export default function Testimonials() {
           </div>
         </ScrollReveal>
 
-        {/* Testimonial cards - 2 row masonry grid */}
-        <StaggerContainer className="grid md:grid-cols-3 gap-5">
-          {/* Row 1 */}
+        {/* Testimonial cards */}
+        <StaggerContainer className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
           <StaggerItem className="md:mt-6">
             <TestimonialCard testimonial={testimonials[0]} variant="dark" />
           </StaggerItem>
           <StaggerItem className="md:-mt-2">
             <TestimonialCard testimonial={testimonials[1]} variant="light" />
-          </StaggerItem>
-          <StaggerItem className="md:mt-10">
-            <TestimonialCard testimonial={testimonials[2]} variant="dark" />
-          </StaggerItem>
-
-          {/* Row 2 */}
-          <StaggerItem className="md:-mt-8">
-            <TestimonialCard testimonial={testimonials[3]} variant="dark" />
-          </StaggerItem>
-          <StaggerItem className="md:-mt-16">
-            <TestimonialCard testimonial={testimonials[4]} variant="light" />
-          </StaggerItem>
-          <StaggerItem className="md:-mt-4">
-            <TestimonialCard testimonial={testimonials[5]} variant="dark" />
           </StaggerItem>
         </StaggerContainer>
       </div>

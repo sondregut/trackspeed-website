@@ -640,7 +640,7 @@ export default function TechnologyPage() {
             </h2>
             <p className="text-body mb-8">Download TrackSpeed and experience millisecond precision with just your iPhone.</p>
             <a
-              href="https://apps.apple.com/app/trackspeed-sprint-timer/id6739832765"
+              href="https://apps.apple.com/app/trackspeed/id6757509163"
               className="btn-primary inline-flex items-center gap-3"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">

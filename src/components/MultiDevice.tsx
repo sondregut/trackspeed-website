@@ -10,7 +10,7 @@ export default function MultiDevice() {
       description: "Phones connect automatically via peer-to-peer WiFi. No internet required.",
     },
     {
-      title: "Sub-millisecond Sync",
+      title: "Millisecond-Accurate Sync",
       description: "NTP-style clock synchronization ensures accurate timing across devices.",
     },
     {

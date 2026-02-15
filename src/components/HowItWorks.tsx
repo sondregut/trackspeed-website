@@ -16,7 +16,7 @@ export default function HowItWorks() {
       number: "2",
       title: "Start your session",
       description:
-        "Choose your start method—countdown, voice commands, or flying start.",
+        "Choose from five start methods—flying start, touch release, countdown, voice commands, or start in frame.",
       image: "/tracksetup.png",
     },
     {
