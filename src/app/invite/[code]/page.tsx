@@ -12,11 +12,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { code } = await params
 
   return {
-    title: 'You\'ve been invited! - TrackSpeed',
-    description: 'Get the app and start timing your sprints.',
+    title: 'You\'ve been invited to TrackSpeed',
+    description: 'Download TrackSpeed and start timing your sprints with ~4ms accuracy. No hardware needed — just your iPhone.',
+    robots: { index: false },
     openGraph: {
-      title: 'You\'ve been invited! - TrackSpeed',
-      description: 'Get the app and start timing your sprints.',
+      title: 'You\'ve been invited to TrackSpeed',
+      description: 'Download TrackSpeed and start timing your sprints with ~4ms accuracy.',
       type: 'website',
       url: `https://mytrackspeed.com/invite/${code}`,
     },

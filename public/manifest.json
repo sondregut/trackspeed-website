@@ -1,0 +1,21 @@
+{
+  "name": "TrackSpeed",
+  "short_name": "TrackSpeed",
+  "description": "Sprint timing app for iPhone. ~4ms accuracy, no hardware needed.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F5F5F7",
+  "theme_color": "#5C8DB8",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

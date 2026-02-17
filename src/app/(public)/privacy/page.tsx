@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - TrackSpeed",
-  description: "Privacy Policy for the TrackSpeed application. Learn how we collect, use, and protect your data.",
+  title: "Privacy Policy",
+  description:
+    "TrackSpeed privacy policy. How we handle camera data, timing sessions, and personal information. Video is processed on-device only.",
   alternates: {
     canonical: "https://mytrackspeed.com/privacy",
   },

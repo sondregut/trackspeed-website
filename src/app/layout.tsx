@@ -15,8 +15,13 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "TrackSpeed - Sprint Timing App",
-  description: "Professional sprint timing using your iPhone. 120fps detection, multi-device sync, millisecond accuracy.",
+  metadataBase: new URL("https://mytrackspeed.com"),
+  title: {
+    default: "TrackSpeed - Sprint Timing App for iPhone",
+    template: "%s | TrackSpeed",
+  },
+  description:
+    "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS.",
   keywords: [
     "sprint timing",
     "track and field",
@@ -29,26 +34,38 @@ export const metadata: Metadata = {
     "track meet timer",
     "running timer",
     "athletics app",
+    "100m timing app",
+    "how to time sprints with phone",
+    "free sprint timer",
+    "track and field timing system",
+    "training timer for sprints",
+    "multi-device timing system",
+    "millisecond timer app",
   ],
   alternates: {
     canonical: "https://mytrackspeed.com",
   },
   openGraph: {
-    title: "TrackSpeed - Sprint Timing App",
-    description: "Professional sprint timing using your iPhone",
+    siteName: "TrackSpeed",
+    title: "TrackSpeed - Sprint Timing App for iPhone",
+    description:
+      "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
     type: "website",
     url: "https://mytrackspeed.com",
     images: [
       {
         url: "/photofinish_edit.png",
-        alt: "TrackSpeed - Sprint Timing App",
+        width: 881,
+        height: 1816,
+        alt: "TrackSpeed photo finish timing review on iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TrackSpeed - Sprint Timing App",
-    description: "Professional sprint timing using your iPhone. Millisecond accuracy, no extra hardware needed.",
+    title: "TrackSpeed - Sprint Timing App for iPhone",
+    description:
+      "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
     images: ["/photofinish_edit.png"],
   },
   icons: {
@@ -57,6 +74,10 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
+  other: {
+    "apple-itunes-app": "app-id=6757509163",
   },
 };
 
@@ -79,20 +100,47 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               name: "TrackSpeed",
+              url: "https://mytrackspeed.com",
+              downloadUrl:
+                "https://apps.apple.com/app/trackspeed/id6757509163",
               operatingSystem: "iOS",
               applicationCategory: "SportsApplication",
               description:
-                "Professional sprint timing using your iPhone camera. Millisecond accuracy, no extra hardware needed.",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "5",
-                ratingCount: "1",
-              },
+                "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
+              offers: [
+                {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                  name: "Free",
+                },
+                {
+                  "@type": "Offer",
+                  price: "49.99",
+                  priceCurrency: "USD",
+                  name: "TrackSpeed Pro (Annual)",
+                  priceValidUntil: "2027-12-31",
+                },
+                {
+                  "@type": "Offer",
+                  price: "8.99",
+                  priceCurrency: "USD",
+                  name: "TrackSpeed Pro (Monthly)",
+                  priceValidUntil: "2027-12-31",
+                },
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "TrackSpeed",
+              url: "https://mytrackspeed.com",
+              logo: "https://mytrackspeed.com/icon.png",
             }),
           }}
         />

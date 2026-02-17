@@ -11,6 +11,9 @@ import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
+  title: "Sprint Timing App for iPhone - Free, No Hardware",
+  description:
+    "Turn your iPhone into a timing system. ~4ms accuracy, 120fps detection, multi-device sync. Free for track coaches and athletes.",
   alternates: {
     canonical: "https://mytrackspeed.com",
   },

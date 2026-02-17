@@ -1,3 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /influencer
+Disallow: /influencer/
+Disallow: /api/
+Disallow: /invite/
 Sitemap: https://mytrackspeed.com/sitemap.xml

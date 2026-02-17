@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Support - TrackSpeed",
-  description: "Get help with TrackSpeed. FAQ, troubleshooting, and contact information.",
+  title: "Help & FAQ - Sprint Timing Troubleshooting",
+  description:
+    "Get help with TrackSpeed. FAQ on sprint timing setup, multi-device sync, crossing detection, and subscription management.",
   alternates: {
     canonical: "https://mytrackspeed.com/support",
   },
@@ -70,8 +71,25 @@ export default function SupportPage() {
     },
   ];
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <div className="pt-24 pb-16 px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Support</h1>
         <p className="text-muted mb-12">Last updated: February 14, 2026</p>
@@ -96,7 +114,7 @@ export default function SupportPage() {
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="card-gunmetal rounded-xl p-6">
+              <div key={index} className="card-feature rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
                 <p className="text-muted">{faq.answer}</p>
               </div>
@@ -109,7 +127,7 @@ export default function SupportPage() {
           <h2 className="text-2xl font-bold mb-6">Troubleshooting</h2>
           <div className="space-y-6">
             {troubleshooting.map((item, index) => (
-              <div key={index} className="card-gunmetal rounded-xl p-6">
+              <div key={index} className="card-feature rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-3">{item.issue}</h3>
                 <ul className="list-disc list-inside space-y-2 text-muted">
                   {item.solutions.map((solution, i) => (

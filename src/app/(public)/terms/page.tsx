@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions - TrackSpeed",
-  description: "Terms and Conditions for using the TrackSpeed application.",
+  title: "Terms & Conditions",
+  description:
+    "Terms and conditions for the TrackSpeed sprint timing app. Covers subscriptions, acceptable use, and liability.",
   alternates: {
     canonical: "https://mytrackspeed.com/terms",
   },

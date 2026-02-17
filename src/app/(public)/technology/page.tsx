@@ -2,17 +2,46 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How We Achieve ~4ms Timing Accuracy - TrackSpeed",
+  title: "How iPhone Sprint Timing Achieves ~4ms Accuracy",
   description:
-    "A deep dive into the computer vision, trajectory analysis, and physics-based corrections that enable millisecond-precision timing with your iPhone.",
+    "Deep dive into the computer vision, sub-frame interpolation, and clock sync that power TrackSpeed's ~4ms timing accuracy.",
   alternates: {
     canonical: "https://mytrackspeed.com/technology",
+  },
+  openGraph: {
+    type: "article",
   },
 };
 
 export default function TechnologyPage() {
+  const techArticleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: "How iPhone Sprint Timing Achieves ~4ms Accuracy",
+    description:
+      "Deep dive into the computer vision, sub-frame interpolation, and clock sync that power TrackSpeed's ~4ms timing accuracy.",
+    author: {
+      "@type": "Organization",
+      name: "TrackSpeed",
+      url: "https://mytrackspeed.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "TrackSpeed",
+      url: "https://mytrackspeed.com",
+      logo: "https://mytrackspeed.com/icon.png",
+    },
+    datePublished: "2026-02-01",
+    dateModified: "2026-02-17",
+    mainEntityOfPage: "https://mytrackspeed.com/technology",
+  };
+
   return (
     <div className="bg-hero min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
