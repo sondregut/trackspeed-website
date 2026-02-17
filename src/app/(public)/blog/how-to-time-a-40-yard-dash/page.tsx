@@ -271,29 +271,30 @@ export default function HowToTime40YardDashPage() {
                       color: "#5C8DB8",
                     }}
                   >
-                    +
+                    2
                   </div>
                   <div>
                     <div
                       className="font-semibold"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      A second iPhone (optional, for start gate)
+                      A second iPhone (for the start gate)
                     </div>
                     <div
                       className="text-sm"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      Adding a second phone at the start line gives you a fully
-                      automated timing gate with{" "}
+                      TrackSpeed uses two phones — one at the start line and one
+                      at the finish line — to create a fully automated timing
+                      gate with{" "}
                       <Link
                         href="/technology"
                         className="text-[#5C8DB8] hover:underline"
                       >
                         clock-synced accuracy
                       </Link>
-                      . But a single phone still gives you far better results
-                      than a stopwatch.
+                      . Both phones detect crossings automatically, eliminating
+                      human reaction time entirely.
                     </div>
                   </div>
                 </div>
@@ -431,7 +432,7 @@ export default function HowToTime40YardDashPage() {
             </div>
           </section>
 
-          {/* Section 4: Single Phone vs Two-Phone Setup */}
+          {/* Section 4: How the Two-Phone Setup Works */}
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-4">
               <div className="icon-box flex-shrink-0 w-10 h-10 text-lg font-bold">
@@ -441,86 +442,50 @@ export default function HowToTime40YardDashPage() {
                 className="text-2xl md:text-3xl font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
-                Single Phone vs Two-Phone Setup
+                How the Two-Phone Setup Works
               </h2>
             </div>
             <div className="card-feature p-6 md:p-8">
               <p className="text-body mb-6">
-                TrackSpeed works with either one or two iPhones. The right
-                choice depends on whether you have a helper or a second device
-                available.
+                TrackSpeed uses two iPhones — one at the start line and one at
+                the finish line — to create a fully automated timing gate.
+                Both phones detect crossings automatically using computer
+                vision, so there&apos;s zero human reaction time in the
+                measurement.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div
+                className="rounded-xl p-5 mb-6"
+                style={{
+                  background: "rgba(92, 141, 184, 0.06)",
+                  border: "1px solid rgba(92, 141, 184, 0.2)",
+                }}
+              >
                 <div
-                  className="rounded-xl p-5"
-                  style={{
-                    background: "var(--bg-mint)",
-                    border: "1px solid var(--border-light)",
-                  }}
+                  className="font-semibold mb-3"
+                  style={{ color: "var(--text-primary)" }}
                 >
-                  <div
-                    className="font-semibold mb-3"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    Single Phone (Finish Only)
-                  </div>
-                  <ul
-                    className="text-sm space-y-2"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    <li>Phone at the finish line only</li>
-                    <li>
-                      You start the timer manually by tapping or reacting to a
-                      verbal &quot;go&quot;
-                    </li>
-                    <li>
-                      Finish detection is fully automatic via computer vision
-                    </li>
-                    <li>Start has some human reaction delay (like a hand timer at the start only)</li>
-                    <li>Great for solo training or quick reps</li>
-                  </ul>
+                  What the Two Phones Do
                 </div>
-                <div
-                  className="rounded-xl p-5"
-                  style={{
-                    background: "rgba(92, 141, 184, 0.06)",
-                    border: "1px solid rgba(92, 141, 184, 0.2)",
-                  }}
+                <ul
+                  className="text-sm space-y-2"
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  <div
-                    className="font-semibold mb-3"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    Two Phones (Start + Finish)
-                  </div>
-                  <ul
-                    className="text-sm space-y-2"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    <li>One phone at the start, one at the finish</li>
-                    <li>Both detect crossings automatically</li>
-                    <li>
-                      Devices sync clocks over peer-to-peer with sub-millisecond
-                      precision
-                    </li>
-                    <li>Zero human reaction time in the measurement</li>
-                    <li>The most accurate setup possible</li>
-                  </ul>
-                </div>
+                  <li>One phone at the start line, one at the finish line</li>
+                  <li>Both detect crossings automatically via computer vision</li>
+                  <li>
+                    Devices sync clocks over peer-to-peer with sub-millisecond
+                    precision
+                  </li>
+                  <li>Zero human reaction time in the measurement</li>
+                  <li>
+                    Review crossing frames from both phones after each run
+                  </li>
+                </ul>
               </div>
 
               <p className="text-body mb-4">
-                With a single phone, the finish time is captured with full
-                computer-vision accuracy, but the start still depends on your
-                reaction to press the button or respond to a signal. This is
-                still a major improvement over a handheld stopwatch because at
-                least the finish detection is fully consistent and automated.
-              </p>
-
-              <p className="text-body">
-                With two phones, both the start and finish are detected
-                automatically. The devices use an{" "}
+                The two devices use an{" "}
                 <Link
                   href="/technology"
                   className="text-[#5C8DB8] hover:underline"
@@ -528,9 +493,13 @@ export default function HowToTime40YardDashPage() {
                   NTP-style clock synchronization protocol
                 </Link>{" "}
                 to align their internal clocks to within a few milliseconds of
-                each other. This eliminates human error entirely from the
-                measurement. For a detailed walkthrough on setting up a
-                two-phone timing gate, see our{" "}
+                each other. This means the time you see is pure running time —
+                from the moment the athlete crosses the start gate to the
+                moment they cross the finish gate.
+              </p>
+
+              <p className="text-body">
+                For a detailed walkthrough on setting up both phones, see our{" "}
                 <Link
                   href="/blog/multi-phone-sprint-timing-setup"
                   className="text-[#5C8DB8] hover:underline"

@@ -123,12 +123,11 @@ export default function MultiPhoneSprintTimingSetupPage() {
             </div>
             <div className="card-feature p-6 md:p-8">
               <p className="text-body mb-6">
-                A single phone at the finish line can time a sprint, but it
-                relies on a manual start signal or the athlete triggering the
-                gate themselves. That introduces reaction time into the
-                measurement. When a coach presses &quot;go&quot; and the athlete
-                responds, the clock includes however long it took the athlete to
-                react to the command -- not just how fast they ran.
+                A handheld stopwatch relies on human reaction at both the
+                start and the finish. That introduces reaction-time error into
+                every measurement. When a coach presses &quot;go&quot; and the
+                athlete responds, the clock includes however long it took both
+                humans to react — not just how fast the athlete ran.
               </p>
 
               <h3

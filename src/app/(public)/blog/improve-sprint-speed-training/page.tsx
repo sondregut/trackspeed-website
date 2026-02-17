@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "5 Sprint Training Drills That Benefit from Accurate Timing",
+  title: "4 Sprint Training Drills That Benefit from Accurate Timing",
   description:
     "Specific sprint training drills where precise, consistent timing data helps you track progress, break plateaus, and train smarter. Flying 30s, block starts, in-and-out 60s, and more.",
   alternates: {
@@ -17,7 +17,7 @@ export default function ImproveSprintSpeedTrainingPage() {
   const blogPostingJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: "5 Sprint Training Drills That Benefit from Accurate Timing",
+    headline: "4 Sprint Training Drills That Benefit from Accurate Timing",
     description:
       "Specific sprint training drills where precise, consistent timing data helps you track progress, break plateaus, and train smarter.",
     author: {
@@ -97,7 +97,7 @@ export default function ImproveSprintSpeedTrainingPage() {
               letterSpacing: "-0.02em",
             }}
           >
-            5 Sprint Training Drills That Benefit from Accurate Timing
+            4 Sprint Training Drills That Benefit from Accurate Timing
           </h1>
           <p
             className="text-lg md:text-xl"
@@ -333,17 +333,19 @@ export default function ImproveSprintSpeedTrainingPage() {
               </h3>
               <p className="text-body mb-6">
                 Place one phone at the start line and a second phone at the
-                20-meter mark. The{" "}
+                20-meter mark. Use TrackSpeed&apos;s thumb release start type —
+                the athlete holds their thumb on the start phone&apos;s screen
+                while in the blocks, and timing begins the instant they lift
+                off. This gives you a precise reaction time and eliminates the
+                need for a coach to press &quot;go.&quot; The{" "}
                 <Link
                   href="/blog/multi-phone-sprint-timing-setup"
                   className="text-[#5C8DB8] hover:underline"
                 >
                   two-phone setup
                 </Link>{" "}
-                captures both the reaction/start time and the 20-meter split
-                automatically. The start phone detects your first movement out
-                of the blocks, while the finish phone records when you cross the
-                20-meter line.
+                then captures the 20-meter split automatically at the finish
+                phone.
               </p>
 
               <h3
@@ -415,13 +417,12 @@ export default function ImproveSprintSpeedTrainingPage() {
                 How to Set It Up
               </h3>
               <p className="text-body mb-6">
-                Mark four cones at 0, 20, 40, and 60 meters. Ideally, place
-                timing gates at each transition point. With a single phone, you
-                can time the full 60 meters. With two phones, place one at the
-                20-meter mark and one at the 40-meter mark to capture the
-                &quot;maintenance zone&quot; split separately&mdash;this is the
-                most valuable data point, as it tells you how well you held
-                speed through the relaxed phase.
+                Mark four cones at 0, 20, 40, and 60 meters. Place your two
+                phones at the transition points where you want split data. For
+                example, place one at the 20-meter mark and one at the 40-meter
+                mark to capture the &quot;maintenance zone&quot; split
+                separately&mdash;this is the most valuable data point, as it
+                tells you how well you held speed through the relaxed phase.
               </p>
 
               <h3
@@ -541,92 +542,6 @@ export default function ImproveSprintSpeedTrainingPage() {
             </div>
           </section>
 
-          {/* Drill 5: Fatigue Drop-Off Sets */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="icon-box flex-shrink-0 w-10 h-10 text-lg font-bold">
-                5
-              </div>
-              <h2
-                className="text-2xl md:text-3xl font-bold"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Fatigue Drop-Off Sets
-              </h2>
-            </div>
-            <div className="card-feature p-6 md:p-8">
-              <h3
-                className="text-lg font-semibold mb-3"
-                style={{ color: "var(--text-primary)" }}
-              >
-                What It Is
-              </h3>
-              <p className="text-body mb-6">
-                This is a volume-management protocol, not a single drill.
-                Perform repeated sprints over a fixed distance (40 meters is the
-                most common) with a fixed rest interval (typically 2&ndash;4
-                minutes). Time every rep. When your time drops off by more than
-                a predetermined threshold&mdash;usually 5&ndash;10% from your
-                best rep of the day&mdash;the session is over.
-              </p>
-
-              <h3
-                className="text-lg font-semibold mb-3"
-                style={{ color: "var(--text-primary)" }}
-              >
-                How to Set It Up
-              </h3>
-              <p className="text-body mb-6">
-                Place your phone at the{" "}
-                <Link
-                  href="/blog/how-to-time-a-40-yard-dash"
-                  className="text-[#5C8DB8] hover:underline"
-                >
-                  40-meter (or 40-yard) mark
-                </Link>
-                . Run each rep with maximum intent. After each rep, check your
-                time. Record your fastest rep of the day as the baseline.
-                Continue sprinting with full rest until your time exceeds the
-                baseline by your chosen threshold (for example, if your best is
-                5.00 seconds and your threshold is 5%, stop when a rep comes in
-                at 5.25 or slower).
-              </p>
-
-              <h3
-                className="text-lg font-semibold mb-3"
-                style={{ color: "var(--text-primary)" }}
-              >
-                What to Measure
-              </h3>
-              <p className="text-body mb-6">
-                Three things: (1) your best rep time, which indicates current
-                sprint capacity; (2) the number of reps before drop-off, which
-                indicates your speed endurance and recovery capacity; and (3)
-                the pattern of degradation&mdash;does your time hold steady for
-                six reps then fall off a cliff, or does it gradually creep up
-                from rep one? These patterns reveal different things about your
-                fitness.
-              </p>
-
-              <h3
-                className="text-lg font-semibold mb-3"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Why Accurate Timing Matters Here
-              </h3>
-              <p className="text-body">
-                The entire protocol depends on detecting small changes in sprint
-                time from rep to rep. A 5% drop-off from a 5.00-second baseline
-                is only 0.25 seconds. With hand timing, you might stop a session
-                two reps too early (because a timing error made a rep look slow)
-                or two reps too late (because a timing error made a rep look
-                fast when you were already degraded). Automated timing ensures
-                the stop decision is based on real fatigue, not measurement
-                noise.
-              </p>
-            </div>
-          </section>
-
           {/* Using Your Data */}
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-4">
@@ -726,17 +641,16 @@ export default function ImproveSprintSpeedTrainingPage() {
                 Getting Started
               </h2>
               <p className="text-body mb-4">
-                All five of these sprint training drills work with a single
-                phone placed at one timing point. For drills that benefit from
-                split timing (block starts, in-and-out 60s), a{" "}
+                All four of these drills use a two-phone setup — one at the
+                start line and one at the finish. For drills that benefit from
+                split timing (block starts, in-and-out 60s), check out our{" "}
                 <Link
                   href="/blog/multi-phone-sprint-timing-setup"
                   className="text-[#5C8DB8] hover:underline"
                 >
-                  two-phone setup
-                </Link>{" "}
-                gives you additional data points without any extra cost.
-                TrackSpeed handles the{" "}
+                  multi-phone setup guide
+                </Link>
+                . TrackSpeed handles the{" "}
                 <Link
                   href="/#how-it-works"
                   className="text-[#5C8DB8] hover:underline"
@@ -751,8 +665,8 @@ export default function ImproveSprintSpeedTrainingPage() {
                 Start with the drill that matches your current training
                 focus. If you are working on top speed, begin with flying 30s.
                 If acceleration is the priority, use block starts to 20 meters.
-                If you are managing volume for a competition phase, fatigue
-                drop-off sets give you a built-in auto-regulation tool. The key
+                If you want to quantify the effect of sled work, try resisted
+                sprint comparisons. The key
                 is consistent measurement: same distance, same setup, same
                 protocol, so the only variable is your performance.
               </p>

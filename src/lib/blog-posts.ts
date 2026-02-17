@@ -41,13 +41,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "improve-sprint-speed-training",
-    title: "5 Sprint Training Drills That Benefit from Accurate Timing",
+    title: "4 Sprint Training Drills That Benefit from Accurate Timing",
     excerpt:
       "Specific drills where having precise, consistent timing data makes the difference between guessing and knowing your progress.",
     date: "2026-02-03",
     lastModified: "2026-02-03",
     category: "Training",
-    readTime: "6 min read",
+    readTime: "5 min read",
   },
   {
     slug: "what-is-photo-finish-timing",
