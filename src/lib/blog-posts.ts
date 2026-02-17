@@ -10,6 +10,16 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "sprint-timing-gates-buyers-guide",
+    title: "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
+    excerpt:
+      "Why spend $2,500 on timing gates when your iPhone delivers the same training accuracy for free? Complete comparison of laser gates, camera-based timing, and stopwatches.",
+    date: "2026-02-17",
+    lastModified: "2026-02-17",
+    category: "Comparisons",
+    readTime: "8 min read",
+  },
+  {
     slug: "how-to-time-a-40-yard-dash",
     title: "How to Time a 40-Yard Dash Accurately with Your Phone",
     excerpt:
