@@ -55,14 +55,14 @@ export default function Navbar() {
             <Link href="#how-it-works" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               How It Works
             </Link>
-            <Link href="#start-types" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Start Types
+            <Link href="/technology" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+              Technology
             </Link>
             <Link href="/support" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               Support
             </Link>
-            <Link href="/feedback" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Feedback
+            <Link href="/blog" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+              Blog
             </Link>
           </div>
 
@@ -98,8 +98,8 @@ export default function Navbar() {
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link href="#start-types" className="text-sm font-bold text-muted">
-                    Start Types
+                  <Link href="/technology" className="text-sm font-bold text-muted">
+                    Technology
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
@@ -108,8 +108,8 @@ export default function Navbar() {
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link href="/feedback" className="text-sm font-bold text-muted">
-                    Feedback
+                  <Link href="/blog" className="text-sm font-bold text-muted">
+                    Blog
                   </Link>
                 </SheetClose>
                 <a

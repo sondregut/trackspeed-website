@@ -6,4 +6,6 @@ Disallow: /influencer
 Disallow: /influencer/
 Disallow: /api/
 Disallow: /invite/
+Disallow: /pitch
+Disallow: /pro
 Sitemap: https://mytrackspeed.com/sitemap.xml

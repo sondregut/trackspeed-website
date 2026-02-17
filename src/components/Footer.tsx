@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-bg-mint">
       <Separator />
       <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
@@ -76,7 +76,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links */}
+          {/* Product Links */}
           <div>
             <h4 className="font-semibold mb-4 text-foreground">Product</h4>
             <ul className="space-y-2 text-sm">
@@ -91,6 +91,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/technology" className="text-muted transition-colors hover:opacity-70">
+                  Technology
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://apps.apple.com/app/trackspeed"
                   className="text-muted transition-colors hover:opacity-70"
@@ -101,8 +106,9 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Resources Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-foreground">Legal</h4>
+            <h4 className="font-semibold mb-4 text-foreground">Resources</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/support" className="text-muted transition-colors hover:opacity-70">
@@ -114,6 +120,18 @@ export default function Footer() {
                   Feedback
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="text-muted transition-colors hover:opacity-70">
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h4 className="font-semibold mb-4 text-foreground">Legal</h4>
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/terms" className="text-muted transition-colors hover:opacity-70">
                   Terms & Conditions

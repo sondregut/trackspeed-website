@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Help & FAQ - Sprint Timing Troubleshooting",
@@ -10,10 +11,17 @@ export const metadata: Metadata = {
 };
 
 export default function SupportPage() {
-  const faqs = [
+  const faqs: { question: string; answer: string; richAnswer?: React.ReactNode }[] = [
     {
       question: "How does TrackSpeed work?",
       answer: "TrackSpeed uses your iPhone's camera to detect when an athlete crosses the timing gate. The app uses camera-based motion detection to identify when the athlete's torso crosses the timing gate, providing millisecond-accurate timing.",
+      richAnswer: (
+        <>
+          TrackSpeed uses your iPhone&apos;s camera to detect when an athlete crosses the timing gate. The app uses{" "}
+          <Link href="/technology" className="text-[#5C8DB8] hover:underline">camera-based motion detection</Link>{" "}
+          to identify when the athlete&apos;s torso crosses the timing gate, providing millisecond-accurate timing.
+        </>
+      ),
     },
     {
       question: "Do I need special equipment?",
@@ -26,6 +34,13 @@ export default function SupportPage() {
     {
       question: "How accurate is the timing?",
       answer: "TrackSpeed provides millisecond-level timing precision. When using two devices, our clock synchronization ensures both gates are aligned for accurate split times.",
+      richAnswer: (
+        <>
+          TrackSpeed achieves{" "}
+          <Link href="/technology" className="text-[#5C8DB8] hover:underline">~4ms timing accuracy</Link>{" "}
+          using sub-frame interpolation and rolling shutter correction. When using two devices, our clock synchronization ensures both gates are aligned for accurate split times.
+        </>
+      ),
     },
     {
       question: "Can I use TrackSpeed for official competitions?",
@@ -116,7 +131,7 @@ export default function SupportPage() {
             {faqs.map((faq, index) => (
               <div key={index} className="card-feature rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                <p className="text-muted">{faq.answer}</p>
+                <p className="text-muted">{faq.richAnswer ?? faq.answer}</p>
               </div>
             ))}
           </div>
