@@ -1116,33 +1116,6 @@ export default function SprintTimingGatesBuyersGuidePage() {
               </div>
 
               <div
-                className="rounded-xl p-5 mb-4"
-                style={{
-                  background: "rgba(92, 141, 184, 0.1)",
-                  border: "1px solid rgba(92, 141, 184, 0.3)",
-                }}
-              >
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  2. Is this for research publication or a D1 program?
-                </h3>
-                <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-                  <strong style={{ color: "var(--text-primary)" }}>
-                    Yes:
-                  </strong>{" "}
-                  Laser gates make sense (established validation, institutional
-                  expectations)
-                  <br />
-                  <strong style={{ color: "var(--text-primary)" }}>
-                    No:
-                  </strong>{" "}
-                  Move to question 3
-                </p>
-              </div>
-
-              <div
                 className="rounded-xl p-5"
                 style={{
                   background: "rgba(34, 197, 94, 0.1)",
@@ -1153,14 +1126,14 @@ export default function SprintTimingGatesBuyersGuidePage() {
                   className="text-lg font-semibold mb-2"
                   style={{ color: "#166534" }}
                 >
-                  3. Do you want consistent training data without spending
-                  $2,000+?
+                  2. Do you want consistent training data?
                 </h3>
                 <p className="text-sm" style={{ color: "#166534" }}>
                   <strong>Yes:</strong> TrackSpeed gives you everything you need
                   -- ~4ms accuracy, automatic session logging, finish frame
                   review, multi-phone sync for split timing, and zero setup
-                  hassle. For 95% of athletes and coaches, this is the answer.
+                  hassle. This is the answer for training, whether you are a
+                  casual runner, high school team, D1 program, or research lab.
                 </p>
               </div>
             </div>
