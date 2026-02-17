@@ -49,10 +49,10 @@ export default function Navbar() {
 
           {/* Desktop nav - centered links */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="#features" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+            <Link href="/#features" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               Features
             </Link>
-            <Link href="#how-it-works" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+            <Link href="/#how-it-works" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               How It Works
             </Link>
             <Link href="/technology" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
@@ -88,12 +88,12 @@ export default function Navbar() {
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <nav className="flex flex-col gap-4 mt-8">
                 <SheetClose asChild>
-                  <Link href="#features" className="text-sm font-bold text-muted">
+                  <Link href="/#features" className="text-sm font-bold text-muted">
                     Features
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link href="#how-it-works" className="text-sm font-bold text-muted">
+                  <Link href="/#how-it-works" className="text-sm font-bold text-muted">
                     How It Works
                   </Link>
                 </SheetClose>
