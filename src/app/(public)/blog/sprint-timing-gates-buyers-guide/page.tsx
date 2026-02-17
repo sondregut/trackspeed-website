@@ -953,7 +953,7 @@ export default function SprintTimingGatesBuyersGuidePage() {
                       <td className="py-3 px-4">~4ms</td>
                       <td className="py-3 px-4">30 sec</td>
                       <td className="py-3 pl-4">
-                        95% of athletes and coaches
+                        Everyone (training & daily use)
                       </td>
                     </tr>
                     <tr>
