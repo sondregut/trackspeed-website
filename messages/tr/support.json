@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Yardım ve SSS - Sprint Zamanlama Sorun Giderme",
+    "description": "TrackSpeed ile yardım al. Sprint zamanlama kurulumu, çoklu cihaz senkronizasyonu, geçiş algılama ve abonelik yönetimi hakkında SSS."
+  },
+  "title": "Destek",
+  "lastUpdated": "Son güncelleme: 14 Şubat 2026",
+  "contact": {
+    "title": "Bize Ulaş",
+    "description": "TrackSpeed ile ilgili yardıma ihtiyacın varsa veya herhangi bir sorun varsa, yardım etmek için buradayız.",
+    "email": "E-posta:",
+    "responseTime": "Genellikle 24-48 saat içinde yanıt veriyoruz."
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "items": {
+      "howItWorks": {
+        "question": "TrackSpeed nasıl çalışır?",
+        "answer": "TrackSpeed, bir sporcunun zamanlama kapısını ne zaman geçtiğini algılamak için iPhone kamerasını kullanır. Uygulama, sporcunun gövdesinin zamanlama kapısını ne zaman geçtiğini belirlemek için kamera tabanlı hareket algılama kullanarak milisaniye hassasiyetinde zamanlama sağlar."
+      },
+      "equipment": {
+        "question": "Özel ekipmana ihtiyacım var mı?",
+        "answer": "Hayır! TrackSpeed sadece iPhone'unla çalışır. Ara süre ölçümü veya başlangıç/bitiş kapıları için kablosuz olarak senkronize olan iki iPhone kullanabilirsin."
+      },
+      "models": {
+        "question": "Hangi iPhone modelleri destekleniyor?",
+        "answer": "TrackSpeed, iPhone XS ve sonrası (iOS 17+) ile çalışır. En iyi performans için iPhone 12 Pro veya daha yenisini öneriyoruz."
+      },
+      "accuracy": {
+        "question": "Zamanlama ne kadar doğru?",
+        "answer": "TrackSpeed, kare altı interpolasyon ve yuvarlanan panjur düzeltmesi kullanarak ~4ms zamanlama doğruluğu elde eder. İki cihaz kullanırken, saat senkronizasyonumuz her iki kapının doğru ara süreler için hizalanmasını sağlar."
+      },
+      "competitions": {
+        "question": "TrackSpeed'i resmi yarışmalarda kullanabilir miyim?",
+        "answer": "TrackSpeed antrenman ve resmi olmayan zamanlama için tasarlanmıştır. Resmi yarışmalar için lütfen spor dalının yönetim organının gerektirdiği sertifikalı zamanlama ekipmanını kullan."
+      },
+      "connecting": {
+        "question": "İki telefonu nasıl bağlarım?",
+        "answer": "Her iki cihazda da TrackSpeed yüklü olmalı. Bir cihaz 'ev sahibi' olarak oturum oluşturur, diğeri katılır. Cihazlar eşler arası ağ üzerinden otomatik olarak bağlanır — internet bağlantısı gerekmez."
+      },
+      "cancel": {
+        "question": "Aboneliğimi nasıl iptal ederim?",
+        "answer": "Abonelikler Apple ID'n üzerinden yönetilir. Ayarlar → [Adın] → Abonelikler → TrackSpeed → Aboneliği İptal Et'e git."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Sorun Giderme",
+    "items": {
+      "noDetection": {
+        "issue": "Uygulama geçişleri algılamıyor",
+        "solutions": [
+          "İyi aydınlatma sağla — kameranın sporcuyu net görmesi gerekir",
+          "Telefonu sporcunun kamera görüşüne dik geçeceği şekilde konumlandır",
+          "Sporcunun gövdesinin karede görünür olduğundan emin ol",
+          "Ayarlarda daha yüksek FPS ayarını (60 veya 120fps) dene"
+        ]
+      },
+      "noConnection": {
+        "issue": "İki cihaz bağlanmıyor",
+        "solutions": [
+          "Her iki cihazda da WiFi ve Bluetooth'un açık olduğundan emin ol",
+          "Her iki cihaz birbirinden 10 metre mesafede olmalı",
+          "Her iki cihazda da uygulamayı kapatıp yeniden açmayı dene",
+          "Her iki cihazın da TrackSpeed'in en son sürümünü çalıştırdığından emin ol"
+        ]
+      },
+      "thermal": {
+        "issue": "Uygulama yavaş çalışıyor veya cihaz ısınıyor",
+        "solutions": [
+          "Soğumaya yardımcı olmak için telefon kılıfını çıkar",
+          "Cihazı doğrudan güneş ışığından koru",
+          "Arka planda çalışan diğer uygulamaları kapat",
+          "Zamanlama oturumları arasında ara ver"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Özellik İstekleri ve Geri Bildirim",
+    "description": "Kullanıcılarımızdan duymayı seviyoruz! Fikirlere oy vermek, yeni özellikler önermek veya hata bildirmek için <feedbackLink>geri bildirim panomuzu</feedbackLink> ziyaret et. Bize <emailLink>feedback@mytrackspeed.com</emailLink> adresinden de e-posta gönderebilirsin."
+  }
+}

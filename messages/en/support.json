@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Help & FAQ - Sprint Timing Troubleshooting",
+    "description": "Get help with TrackSpeed. FAQ on sprint timing setup, multi-device sync, crossing detection, and subscription management."
+  },
+  "title": "Support",
+  "lastUpdated": "Last updated: February 14, 2026",
+  "contact": {
+    "title": "Contact Us",
+    "description": "If you need help with TrackSpeed or have any questions, we're here to assist you.",
+    "email": "Email:",
+    "responseTime": "We typically respond within 24-48 hours."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": {
+      "howItWorks": {
+        "question": "How does TrackSpeed work?",
+        "answer": "TrackSpeed uses your iPhone's camera to detect when an athlete crosses the timing gate. The app uses camera-based motion detection to identify when the athlete's torso crosses the timing gate, providing millisecond-accurate timing."
+      },
+      "equipment": {
+        "question": "Do I need special equipment?",
+        "answer": "No! TrackSpeed works with just your iPhone. For split timing or start/finish gates, you can use two iPhones that sync together wirelessly."
+      },
+      "models": {
+        "question": "What iPhone models are supported?",
+        "answer": "TrackSpeed works with iPhone XS and later (iOS 17+). For best performance, we recommend iPhone 12 Pro or newer."
+      },
+      "accuracy": {
+        "question": "How accurate is the timing?",
+        "answer": "TrackSpeed achieves ~4ms timing accuracy using sub-frame interpolation and rolling shutter correction. When using two devices, our clock synchronization ensures both gates are aligned for accurate split times."
+      },
+      "competitions": {
+        "question": "Can I use TrackSpeed for official competitions?",
+        "answer": "TrackSpeed is designed for training and unofficial timing. For official competitions, please use certified timing equipment as required by your sport's governing body."
+      },
+      "connecting": {
+        "question": "How do I connect two phones together?",
+        "answer": "Both devices need to have TrackSpeed installed. One device creates a session as the 'host,' and the other joins. The devices connect automatically via peer-to-peer networking - no internet connection required."
+      },
+      "cancel": {
+        "question": "How do I cancel my subscription?",
+        "answer": "Subscriptions are managed through your Apple ID. Go to Settings \u2192 [Your Name] \u2192 Subscriptions \u2192 TrackSpeed \u2192 Cancel Subscription."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting",
+    "items": {
+      "noDetection": {
+        "issue": "The app isn't detecting crossings",
+        "solutions": [
+          "Ensure good lighting - the camera needs to clearly see the athlete",
+          "Position the phone so the athlete passes perpendicular to the camera view",
+          "Make sure the athlete's torso is visible in the frame",
+          "Try using a higher FPS setting (60 or 120fps) in settings"
+        ]
+      },
+      "noConnection": {
+        "issue": "Two devices won't connect",
+        "solutions": [
+          "Ensure both devices have WiFi and Bluetooth enabled",
+          "Both devices should be within 30 feet of each other",
+          "Try closing and reopening the app on both devices",
+          "Make sure both devices are running the latest version of TrackSpeed"
+        ]
+      },
+      "thermal": {
+        "issue": "The app is running slow or getting hot",
+        "solutions": [
+          "Remove any phone case to help with cooling",
+          "Avoid direct sunlight on the device",
+          "Close other apps running in the background",
+          "Take breaks between timing sessions"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Feature Requests & Feedback",
+    "description": "We love hearing from our users! Visit our <feedbackLink>feedback board</feedbackLink> to vote on ideas, suggest new features, or report bugs. You can also email us at <emailLink>feedback@mytrackspeed.com</emailLink>."
+  }
+}

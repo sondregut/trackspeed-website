@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "iPhone Sprint Zamanlaması ~4ms Doğruluğu Nasıl Sağlar",
+    "description": "TrackSpeed'in iPhone kameranızı kullanarak milisaniye doğruluğunda sprint zamanlaması nasıl sağladığını öğrenin — ekstra ekipman gerekmez."
+  },
+  "backToHome": "Ana sayfaya dön",
+  "heroTitle": "~4ms Zamanlama Doğruluğunu Nasıl Sağlıyoruz",
+  "heroSubtitle": "iPhone'un hassas sprint zamanlaması için ihtiyaç duyulan her şeye zaten sahip — yüksek kare hızlı kamera, hassas jiroskop ve güçlü işlemci. Bunun neler sağladığı aşağıda.",
+  "sections": {
+    "subFrame": {
+      "title": "Kare Altı Hassasiyet",
+      "desc": "Sporcular bir kare yakalandığında tam kapıyı nadiren geçer. Sistemimiz, kareler arasındaki geçiş anını tespit etmek için birden fazla kareyi analiz eder — kameranın yerel kare aralığının çok ötesine geçen milisaniye altı interpolasyon doğruluğu sağlar."
+    },
+    "corrections": {
+      "title": "Fizik Tabanlı Düzeltmeler",
+      "desc": "iPhone kameraları her kareyi birkaç milisaniye boyunca yukarıdan aşağıya tarar; bu, sporcunun karede göründüğü yere bağlı olarak zamanlama kaymasına yol açar. Sistematik hatayı ortadan kaldırmak için bunu ve diğer donanım düzeyindeki zamanlama yapıtlarını otomatik olarak düzeltiriz."
+    },
+    "clockSync": {
+      "title": "Çoklu Cihaz Saat Senkronizasyonu",
+      "desc": "Biri başlangıçta biri bitişte olmak üzere iki iPhone kullanırken saatlerinin milisaniyeler içinde uyuşması gerekir. Senkronizasyon protokolümüz cihazlar arasında ±3-5ms hizalama sağlar. Senkronizasyon sırasında en iyi sonuçlar için her iki telefonu birbirine yaklaşık 10 metre mesafede tutun. Senkronize olduktan sonra istediğiniz kadar uzaklaştırabilirsiniz."
+    },
+    "bodyTracking": {
+      "title": "Vücut Takibi, Işın Kırma Değil",
+      "desc": "Lazer kapılar ışını ilk kıran şey üzerinde tetiklenir — uzatılmış bir kol, diz veya göğüs. Bu, koşu formu nedeniyle değişir ve tutarsızlık yaratır. TrackSpeed, gövdenin ne zaman çizgiyi geçtiğini belirlemek için sporcunun vücut kütlesini takip eder; bu da resmi zamanlamanın çalışma şekliyle örtüşür."
+    }
+  },
+  "accuracy": {
+    "title": "Sonuç",
+    "value": "~4ms",
+    "label": "Etkin zamanlama doğruluğu",
+    "desc": "Kare altı interpolasyon, fizik düzeltmeleri ve saat senkronizasyonu bir araya gelerek — yalnızca iPhone'unuzu kullanarak — profesyonel donanımla rekabet eden zamanlama hassasiyeti sunar."
+  },
+  "professionalComparison": {
+    "title": "Karşılaştırma",
+    "system": "Sistem",
+    "resolution": "Çözünürlük",
+    "detection": "Algılama",
+    "cost": "Maliyet",
+    "fat": {
+      "name": "FAT (Resmi)",
+      "resolution": "0.001s",
+      "detection": "Foto finish kamerası",
+      "cost": "$10,000+"
+    },
+    "laserGates": {
+      "name": "Lazer Kapılar",
+      "resolution": "±50-200ms*",
+      "detection": "İlk ışın kırma",
+      "cost": "$500-2000"
+    },
+    "trackspeed": {
+      "name": "TrackSpeed",
+      "resolution": "~4ms",
+      "detection": "Vücut takibi",
+      "cost": "iPhone'un"
+    },
+    "laserNote": "*Lazer kapılar milisaniye altı hızda tetiklenir; ancak tutarsız tetikleme noktaları (kol - göğüs) aynı sporcu için koşular arasında 50-200ms varyasyona neden olabilir."
+  },
+  "cta": {
+    "title": "Antrenmanını zamanlamaya hazır mısın?",
+    "subtitle": "TrackSpeed'i indir ve yalnızca iPhone'unla milisaniye hassasiyetini deneyimle.",
+    "download": "App Store'dan indir",
+    "compare": "TrackSpeed'in diğer zamanlama yöntemleriyle karşılaştırmasına bak"
+  }
+}

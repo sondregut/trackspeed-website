@@ -1,0 +1,38 @@
+{
+  "title": "طلبات الميزات والآراء",
+  "subtitle": "صوّت على الأفكار التي تريد رؤيتها، أو اقترح فكرتك.",
+  "submitIdea": "أرسل فكرة",
+  "submitAnIdea": "أرسل فكرة",
+  "titleLabel": "العنوان *",
+  "titlePlaceholder": "عنوان قصير ووصفي",
+  "descriptionLabel": "الوصف",
+  "descriptionPlaceholder": "اشرح ما تريده ولماذا سيكون مفيداً...",
+  "categoryLabel": "الفئة",
+  "categories": {
+    "all": "الكل",
+    "features": "الميزات",
+    "bugs": "الأخطاء",
+    "improvements": "التحسينات",
+    "featureRequest": "طلب ميزة",
+    "bugReport": "تقرير خطأ",
+    "improvement": "تحسين"
+  },
+  "yourName": "اسمك (اختياري)",
+  "anonymous": "مجهول",
+  "submitting": "جارٍ الإرسال...",
+  "submit": "إرسال",
+  "status": {
+    "open": "مفتوح",
+    "planned": "مخطط",
+    "inProgress": "قيد التنفيذ",
+    "completed": "مكتمل"
+  },
+  "noIdeasYet": "لا توجد أفكار بعد",
+  "beFirstToSubmit": "كن أول من يرسل طلب ميزة!",
+  "loadingComments": "جارٍ تحميل التعليقات...",
+  "noComments": "لا توجد تعليقات بعد. كن أول من يشارك أفكاره!",
+  "namePlaceholder": "اسمك (اختياري)",
+  "commentPlaceholder": "أضف تعليقاً...",
+  "post": "نشر",
+  "team": "الفريق"
+}

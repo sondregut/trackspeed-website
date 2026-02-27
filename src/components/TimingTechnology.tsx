@@ -1,20 +1,22 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 export default function TimingTechnology() {
+  const t = useTranslations("home");
   return (
     <section id="timing-technology" className="section-padding px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">
             <h2 className="text-section mb-4">
-              The science behind sub-frame precision
+              {t("timingTechnology.title")}
             </h2>
             <p className="text-body max-w-2xl mx-auto">
-              How we achieve ~4ms accuracy with standard iPhone cameras
+              {t("timingTechnology.subtitle")}
             </p>
           </div>
         </ScrollReveal>
@@ -29,7 +31,7 @@ export default function TimingTechnology() {
                   {/* Frame timeline visualization */}
                   <div className="bg-bg-mint rounded-2xl p-6 border border-border">
                     <div className="text-sm mb-4 font-mono text-muted">
-                      120fps capture = 8.3ms between frames
+                      {t("timingTechnology.frameCapture")}
                     </div>
 
                     {/* Timeline */}
@@ -84,13 +86,13 @@ export default function TimingTechnology() {
                     {/* Formula */}
                     <div className="bg-white rounded-xl p-4 font-mono text-center border border-border">
                       <div className="text-sm mb-2 text-muted">
-                        Trajectory regression (3+ frames)
+                        {t("timingTechnology.formulaLabel")}
                       </div>
                       <div className="text-sm text-foreground">
-                        position = velocity × time + offset
+                        {t("timingTechnology.formula")}
                       </div>
                       <div className="text-sm mt-2 text-accent-green">
-                        Solve for crossing time with sub-frame precision
+                        {t("timingTechnology.formulaResult")}
                       </div>
                     </div>
                   </div>
@@ -99,13 +101,13 @@ export default function TimingTechnology() {
                 {/* Right - Explanation */}
                 <div>
                   <h3 className="text-2xl font-bold mb-2 text-foreground">
-                    Beyond frame-by-frame timing
+                    {t("timingTechnology.beyondFrameByFrame")}
                   </h3>
                   <Link
                     href="/technology"
                     className="inline-flex items-center gap-1 text-sm mb-6 text-accent-green hover:opacity-70 transition-opacity"
                   >
-                    Learn how it works
+                    {t("timingTechnology.learnHowItWorks")}
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -117,11 +119,9 @@ export default function TimingTechnology() {
                         1
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1 text-foreground">Motion Detection</h4>
+                        <h4 className="font-semibold mb-1 text-foreground">{t("timingTechnology.motionDetection.title")}</h4>
                         <p className="text-sm text-muted">
-                          Frame differencing identifies moving objects. Blob analysis
-                          finds the largest motion region (your body) and tracks its
-                          leading edge toward the gate.
+                          {t("timingTechnology.motionDetection.description")}
                         </p>
                       </div>
                     </div>
@@ -132,12 +132,10 @@ export default function TimingTechnology() {
                       </div>
                       <div>
                         <h4 className="font-semibold mb-1 text-foreground">
-                          Trajectory Regression
+                          {t("timingTechnology.trajectoryRegression.title")}
                         </h4>
                         <p className="text-sm text-muted">
-                          We track position across multiple frames and use linear
-                          regression to calculate the precise moment you crossed the
-                          gate line—even between frames.
+                          {t("timingTechnology.trajectoryRegression.description")}
                         </p>
                       </div>
                     </div>
@@ -147,11 +145,9 @@ export default function TimingTechnology() {
                         3
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1 text-foreground">Rolling Shutter Correction</h4>
+                        <h4 className="font-semibold mb-1 text-foreground">{t("timingTechnology.rollingShutterCorrection.title")}</h4>
                         <p className="text-sm text-muted">
-                          iPhone cameras scan top-to-bottom over ~5-12ms. We measure
-                          where you crossed vertically and compensate for the exact
-                          scan timing at that position.
+                          {t("timingTechnology.rollingShutterCorrection.description")}
                         </p>
                       </div>
                     </div>
@@ -161,11 +157,9 @@ export default function TimingTechnology() {
                         ✓
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1 text-foreground">~4ms Effective Accuracy</h4>
+                        <h4 className="font-semibold mb-1 text-foreground">{t("timingTechnology.effectiveAccuracy.title")}</h4>
                         <p className="text-sm text-muted">
-                          The combination of 120fps capture, multi-frame trajectory
-                          analysis, and rolling shutter correction delivers timing
-                          precision comparable to professional systems.
+                          {t("timingTechnology.effectiveAccuracy.description")}
                         </p>
                       </div>
                     </div>
@@ -181,17 +175,17 @@ export default function TimingTechnology() {
           <StaggerItem>
             <Card className="border-[var(--border-light)] rounded-[20px] py-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <CardContent className="text-center p-0">
-                <div className="text-3xl font-bold mb-2 text-foreground">8.3ms</div>
-                <div className="text-sm text-muted">Frame interval at 120fps</div>
+                <div className="text-3xl font-bold mb-2 text-foreground">{t("timingTechnology.stats.frameInterval.value")}</div>
+                <div className="text-sm text-muted">{t("timingTechnology.stats.frameInterval.label")}</div>
               </CardContent>
             </Card>
           </StaggerItem>
           <StaggerItem>
             <Card className="border-[var(--border-light)] rounded-[20px] py-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <CardContent className="text-center p-0">
-                <div className="text-3xl font-bold mb-2 text-foreground">~0.5ms</div>
+                <div className="text-3xl font-bold mb-2 text-foreground">{t("timingTechnology.stats.interpolation.value")}</div>
                 <div className="text-sm text-muted">
-                  Interpolation resolution
+                  {t("timingTechnology.stats.interpolation.label")}
                 </div>
               </CardContent>
             </Card>
@@ -199,9 +193,9 @@ export default function TimingTechnology() {
           <StaggerItem>
             <Card className="border-[var(--border-light)] rounded-[20px] py-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <CardContent className="text-center p-0">
-                <div className="text-3xl font-bold mb-2 text-accent-green">~4ms</div>
+                <div className="text-3xl font-bold mb-2 text-accent-green">{t("timingTechnology.stats.accuracy.value")}</div>
                 <div className="text-sm text-muted">
-                  Effective timing accuracy
+                  {t("timingTechnology.stats.accuracy.label")}
                 </div>
               </CardContent>
             </Card>

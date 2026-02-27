@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "Wie iPhone-Sprintzeitmessung ~4ms Genauigkeit erreicht",
+    "description": "Erfahre, wie TrackSpeed die Kamera deines iPhones nutzt, um millisekundengenaue Sprintzeitmessung zu liefern – ohne zusätzliches Equipment."
+  },
+  "backToHome": "Zurück zur Startseite",
+  "heroTitle": "Wie wir ~4ms Messgenauigkeit erreichen",
+  "heroSubtitle": "Dein iPhone hat bereits alles, was du für präzise Sprintzeitmessung brauchst – eine Kamera mit hoher Bildrate, präzises Gyroskop und leistungsstarken Prozessor. So nutzen wir das.",
+  "sections": {
+    "subFrame": {
+      "title": "Sub-Frame-Präzision",
+      "desc": "Athleten überqueren den Messpunkt selten genau in dem Moment, in dem ein Frame aufgenommen wird. Unser System analysiert mehrere Frames, um den Überquerungszeitpunkt zwischen den Frames zu bestimmen – mit Sub-Millisekunden-Interpolationsgenauigkeit, die weit über das native Frame-Intervall der Kamera hinausgeht."
+    },
+    "corrections": {
+      "title": "Physikbasierte Korrekturen",
+      "desc": "iPhone-Kameras scannen jedes Bild von oben nach unten über mehrere Millisekunden, was je nach Position des Athleten im Bild einen Zeitversatz einführt. Wir korrigieren dies und andere hardwarebedingte Zeitartefakte automatisch, um systematische Fehler zu eliminieren."
+    },
+    "clockSync": {
+      "title": "Multi-Geräte-Uhren-Sync",
+      "desc": "Bei der Verwendung von zwei iPhones – eins am Start, eins im Ziel – müssen deren Uhren auf Millisekunden übereinstimmen. Unser Synchronisationsprotokoll erreicht ±3–5ms Abgleich zwischen den Geräten. Halte während der Synchronisation beide Handys in ca. 10 Metern Nähe für beste Ergebnisse. Nach der Synchronisation kannst du sie beliebig weit auseinander platzieren."
+    },
+    "bodyTracking": {
+      "title": "Körperverfolgung statt Lichtschranke",
+      "desc": "Lasertore lösen bei dem aus, was zuerst den Strahl unterbricht – ein ausgestreckter Arm, ein Knie oder die Brust. Das variiert je nach Laufstil und erzeugt Inkonsistenzen. TrackSpeed verfolgt die Körpermasse des Athleten, um festzustellen, wann der Oberkörper die Linie überquert – genau wie bei der offiziellen Zeitmessung."
+    }
+  },
+  "accuracy": {
+    "title": "Das Ergebnis",
+    "value": "~4ms",
+    "label": "Effektive Messgenauigkeit",
+    "desc": "Sub-Frame-Interpolation, physikalische Korrekturen und Uhren-Synchronisation ergeben zusammen eine Messpräzision, die mit dedizierter Hardware mithalten kann – nur mit deinem iPhone."
+  },
+  "professionalComparison": {
+    "title": "Wie das im Vergleich abschneidet",
+    "system": "System",
+    "resolution": "Auflösung",
+    "detection": "Erkennung",
+    "cost": "Kosten",
+    "fat": {
+      "name": "FAT (Offiziell)",
+      "resolution": "0,001s",
+      "detection": "Fotofinish-Kamera",
+      "cost": "$10.000+"
+    },
+    "laserGates": {
+      "name": "Lasertore",
+      "resolution": "±50–200ms*",
+      "detection": "Erster Strahlbruch",
+      "cost": "$500–2000"
+    },
+    "trackspeed": {
+      "name": "TrackSpeed",
+      "resolution": "~4ms",
+      "detection": "Körperverfolgung",
+      "cost": "Dein iPhone"
+    },
+    "laserNote": "*Lasertore lösen mit Sub-Millisekunden-Geschwindigkeit aus, aber inkonsistente Auslösepunkte (Arm vs. Brust) können 50–200ms Variation zwischen Läufen für denselben Athleten verursachen."
+  },
+  "cta": {
+    "title": "Bereit, dein Training zu messen?",
+    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem iPhone.",
+    "download": "Im App Store laden",
+    "compare": "Sieh, wie TrackSpeed im Vergleich zu anderen Zeitmess-Methoden abschneidet"
+  }
+}

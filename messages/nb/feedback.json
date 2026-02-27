@@ -1,0 +1,38 @@
+{
+  "title": "Funksjonsønsker og tilbakemeldinger",
+  "subtitle": "Stem på ideer du vil se, eller foreslå dine egne.",
+  "submitIdea": "Send inn idé",
+  "submitAnIdea": "Send inn en idé",
+  "titleLabel": "Tittel *",
+  "titlePlaceholder": "En kort, beskrivende tittel",
+  "descriptionLabel": "Beskrivelse",
+  "descriptionPlaceholder": "Forklar hva du ønsker og hvorfor det ville vært nyttig...",
+  "categoryLabel": "Kategori",
+  "categories": {
+    "all": "Alle",
+    "features": "Funksjoner",
+    "bugs": "Feil",
+    "improvements": "Forbedringer",
+    "featureRequest": "Funksjonsønske",
+    "bugReport": "Feilrapport",
+    "improvement": "Forbedring"
+  },
+  "yourName": "Ditt navn (valgfritt)",
+  "anonymous": "Anonym",
+  "submitting": "Sender inn...",
+  "submit": "Send inn",
+  "status": {
+    "open": "Åpen",
+    "planned": "Planlagt",
+    "inProgress": "Under arbeid",
+    "completed": "Fullført"
+  },
+  "noIdeasYet": "Ingen ideer ennå",
+  "beFirstToSubmit": "Vær den første til å sende inn et funksjonsønske!",
+  "loadingComments": "Laster kommentarer...",
+  "noComments": "Ingen kommentarer ennå. Vær den første til å dele dine tanker!",
+  "namePlaceholder": "Ditt navn (valgfritt)",
+  "commentPlaceholder": "Legg til en kommentar...",
+  "post": "Publiser",
+  "team": "Team"
+}

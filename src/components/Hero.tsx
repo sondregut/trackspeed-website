@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Avatar, AvatarImage, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,7 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; su
 }
 
 export default function Hero() {
+  const t = useTranslations("home");
   return (
     <section className="bg-hero min-h-screen flex items-center justify-center pt-20 pb-16 px-6">
       <div className="max-w-6xl mx-auto">
@@ -62,25 +64,25 @@ export default function Hero() {
                     <AvatarFallback className="bg-gradient-to-br from-purple-200 to-purple-400" />
                   </Avatar>
                 </AvatarGroup>
-                <span className="font-bold text-muted">Loved by olympians</span>
+                <span className="font-bold text-muted">{t("hero.socialProof")}</span>
               </Badge>
 
               <h1 className="text-hero mb-4">
-                TrackSpeed
+                {t("hero.title")}
               </h1>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-6 text-muted">
-                Sprint timing with just your iPhone
+                {t("hero.subtitle")}
               </h2>
 
               <p className="text-body mb-8 max-w-lg mx-auto lg:mx-0">
-                Turn your iPhone into a professional timing system. No extra hardware, no calibration, instant results.
+                {t("hero.description")}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-12">
                 <Button asChild size="lg" className="bg-black text-white hover:bg-[#1a1a1a] rounded-[10px] px-5 py-3 h-auto text-base font-medium">
                   <a href="https://apps.apple.com/app/trackspeed">
                     <AppleIcon />
-                    Download on the App Store
+                    {t("hero.downloadCta")}
                   </a>
                 </Button>
               </div>
@@ -91,19 +93,19 @@ export default function Hero() {
                   <div className="text-2xl font-bold text-foreground">
                     ~<AnimatedNumber value={4} suffix="ms" />
                   </div>
-                  <div className="text-sm text-muted">Accuracy</div>
+                  <div className="text-sm text-muted">{t("hero.stats.accuracy")}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-foreground">
                     &lt;<AnimatedNumber value={1} suffix=" min" />
                   </div>
-                  <div className="text-sm text-muted">Setup</div>
+                  <div className="text-sm text-muted">{t("hero.stats.setup")}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-foreground">
                     $<AnimatedNumber value={0} />
                   </div>
-                  <div className="text-sm text-muted">Hardware</div>
+                  <div className="text-sm text-muted">{t("hero.stats.hardware")}</div>
                 </div>
               </div>
             </div>

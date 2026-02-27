@@ -1,0 +1,37 @@
+{
+  "title": "Sporcular için sporcular tarafından",
+  "intro": "TrackSpeed pistte doğdu. Yanlış zamanlama araçlarından bıkmış aktif yarışmacı sporcularız — bu yüzden kendimizinkini yaptık.",
+  "story1": "En üst düzeyde antrenman yapan atletizm sporcuları olarak, sprintlerimiz ve yaklaşma koşularımız için doğru zamanlama gerekiyordu — ama seçenekler ya tutarsız tetikleme noktalarına sahip pahalı lazer kapı sistemleri ya da kronometre ve insan reaksiyon süresi hatası olan bir antrenördü. İkisi de yeterince iyi değildi.",
+  "story2": "Herkesin cebindeki iPhone'un bunu çözmek için gereken donanıma zaten sahip olduğunu fark ettik — yüksek kare hızlı kamera, hassas jiroskop ve gerçek zamanlı bilgisayarlı görü için yeterli işlem gücü. Böylece TrackSpeed'i yaptık: kare kare hareket algılama ve kare altı interpolasyon kullanarak milisaniye doğruluğunda sonuçlar veren bir zamanlama sistemi, ekstra ekipman gerektirmeden.",
+  "team": {
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Kurucu Ortak ve Baş Geliştirici",
+      "bio1": "Profesyonel sırıkla atlamacı ve Norveç'i temsil eden iki kez olimpiyatçı (Tokyo 2020, Paris 2024). Princeton University'de NCAA şampiyonu; 6.00m ile tüm zamanların üniversite salon rekorunu eşitledi. Hem salon hem açık hava sırıkla atlamada Ivy League rekor sahibi. Avrupa Salon Atletizm Şampiyonası altın madalyacısı.",
+      "bio2": "Kurucu ve Baş Geliştirici. Princeton B.A., UT Austin M.Ed."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Kurucu Ortak ve Jumpers World",
+      "bio1": "Kuzey Makedonya'yı temsil eden uzun atlamacı ve ulusal rekor sahibi (7.91m). Kuzey Makedonya Yılın Sporcusu seçildi. Avrupa Salon Atletizm Şampiyonası ve Avrupa Atletizm Takım Şampiyonası'nda yarıştı. University of Arkansas mezunu.",
+      "bio2": "TrackSpeed kurucu ortağı ve Jumpers World'ün kurucusu — en büyük atletizm medya markalarından biri. Atletizm camiasında derin ağ ve sporcuların ihtiyaçlarına ilk elden anlayış."
+    },
+    "simen": {
+      "name": "Simen Guttormsen",
+      "role": "Mühendis",
+      "bio1": "Norveç'i temsil eden olimpik sırıkla atlamacı. Duke University'de NCAA şampiyonu ve ACC rekor sahibi; üç kez Tüm-Amerikalı seçildi. Daha önce Princeton'da iki kez Tüm-Amerikalı.",
+      "bio2": "TrackSpeed'in tam yığın ortak geliştiricisi — mimari kararlardan kod incelemelerine ve özellik geliştirmeye kadar tüm kod tabanına katkıda bulunur. Princeton B.E. Yöneylem Araştırması ve Finansal Mühendislik, Duke M.S. Ekonomi ve Hesaplama."
+    }
+  },
+  "teamNote": "Sporcular tarafından, sporcular için yapıldı.",
+  "cta": {
+    "title": "Antrenmanını zamanlamaya hazır mısın?",
+    "subtitle": "TrackSpeed'i indir ve sadece iPhone'unla milisaniye hassasiyetini deneyimle.",
+    "download": "App Store'dan indir",
+    "learnMore": "Zamanlama teknolojimizin nasıl çalıştığını öğren"
+  },
+  "metadata": {
+    "title": "Hakkımızda — TrackSpeed",
+    "description": "TrackSpeed'in arkasındaki sporcularla tanış. Her sporcu için hassas sprint zamanlaması oluşturan aktif yarışmacı sporcular."
+  }
+}

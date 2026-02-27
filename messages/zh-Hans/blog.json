@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "博客 - 短跑计时技巧、指南与技术",
+    "description": "关于短跑计时技术、训练方法以及充分利用手机计时的技巧、指南和深度分析。"
+  },
+  "title": "博客",
+  "subtitle": "帮助您通过精准计时跑得更快的指南、对比和训练技巧。",
+  "readMore": "阅读更多",
+  "englishOnly": "本文仅提供英文版。",
+  "cta": {
+    "title": "准备好计时短跑了吗？",
+    "description": "下载TrackSpeed，开始从iPhone获取精准、稳定的计时数据。",
+    "download": "在App Store下载"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "短跑计时系统购买指南：计时门、应用和秒表全面对比",
+      "excerpt": "为什么要花$2,500买计时门？您的iPhone可以免费提供同等的训练精度。激光门、摄像头计时和秒表的完整对比。"
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "如何用手机精确计时40码冲刺",
+      "excerpt": "了解如何仅用iPhone获得可靠、可重复的40码冲刺成绩——无需昂贵的激光门或秒表误差。"
+    },
+    "sprint-timing-systems-compared": {
+      "title": "短跑计时系统对比：激光门 vs 摄像头 vs 秒表",
+      "excerpt": "最常见短跑计时方法的客观对比——精度、成本、一致性，以及哪种最适合您的情况。"
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "如何在田径训练中设置多手机短跑计时",
+      "excerpt": "在田径训练中使用两部iPhone在起跑线和终点线设置分段计时的分步指南。"
+    },
+    "improve-sprint-speed-training": {
+      "title": "4个受益于精准计时的短跑训练方法",
+      "excerpt": "在这些具体训练中，拥有精确、一致的计时数据将帮助您从猜测变为确知进步。"
+    },
+    "what-is-photo-finish-timing": {
+      "title": "什么是终点摄影计时？它是如何工作的？",
+      "excerpt": "清晰解读终点摄影技术——从奥运级线扫描摄像头到现代智能手机方案。"
+    }
+  }
+}

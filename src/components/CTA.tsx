@@ -1,19 +1,21 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
 import AppleIcon from "@/components/icons/AppleIcon";
 
 export default function CTA() {
+  const t = useTranslations("home");
   return (
     <section className="py-24 px-6 bg-dark-section">
       <ScrollReveal>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-on-dark">
-            Ready to time faster?
+            {t("ctaSection.title")}
           </h2>
           <p className="text-xl mb-10 max-w-xl mx-auto text-text-on-dark-muted">
-            Download TrackSpeed and start training with precision timing today.
+            {t("ctaSection.subtitle")}
           </p>
 
           {/* Value props */}
@@ -22,19 +24,19 @@ export default function CTA() {
               <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-sm text-text-on-dark-muted">~4ms accuracy</span>
+              <span className="text-sm text-text-on-dark-muted">{t("ctaSection.accuracy")}</span>
             </div>
             <div className="flex items-center gap-2 justify-center">
               <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-sm text-text-on-dark-muted">&lt;1 min setup</span>
+              <span className="text-sm text-text-on-dark-muted">{t("ctaSection.setup")}</span>
             </div>
             <div className="flex items-center gap-2 justify-center">
               <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-sm text-text-on-dark-muted">No extra hardware</span>
+              <span className="text-sm text-text-on-dark-muted">{t("ctaSection.noHardware")}</span>
             </div>
           </div>
 
@@ -45,7 +47,7 @@ export default function CTA() {
             </a>
           </Button>
           <p className="text-sm mt-6 text-text-on-dark-muted">
-            Free to download. Premium features available.
+            {t("ctaSection.freeNote")}
           </p>
         </div>
       </ScrollReveal>

@@ -1,0 +1,38 @@
+{
+  "title": "Özellik İstekleri ve Geri Bildirim",
+  "subtitle": "Görmek istediğin fikirlere oy ver veya kendi fikrini öner.",
+  "submitIdea": "Fikir Gönder",
+  "submitAnIdea": "Bir Fikir Gönder",
+  "titleLabel": "Başlık *",
+  "titlePlaceholder": "Kısa, açıklayıcı bir başlık",
+  "descriptionLabel": "Açıklama",
+  "descriptionPlaceholder": "Ne istediğini ve neden faydalı olacağını açıkla...",
+  "categoryLabel": "Kategori",
+  "categories": {
+    "all": "Tümü",
+    "features": "Özellikler",
+    "bugs": "Hatalar",
+    "improvements": "İyileştirmeler",
+    "featureRequest": "Özellik İsteği",
+    "bugReport": "Hata Raporu",
+    "improvement": "İyileştirme"
+  },
+  "yourName": "Adın (isteğe bağlı)",
+  "anonymous": "Anonim",
+  "submitting": "Gönderiliyor...",
+  "submit": "Gönder",
+  "status": {
+    "open": "Açık",
+    "planned": "Planlanmış",
+    "inProgress": "Devam Ediyor",
+    "completed": "Tamamlandı"
+  },
+  "noIdeasYet": "Henüz fikir yok",
+  "beFirstToSubmit": "İlk özellik isteğini gönderen sen ol!",
+  "loadingComments": "Yorumlar yükleniyor...",
+  "noComments": "Henüz yorum yok. Düşüncelerini paylaşan ilk kişi ol!",
+  "namePlaceholder": "Adın (isteğe bağlı)",
+  "commentPlaceholder": "Bir yorum ekle...",
+  "post": "Paylaş",
+  "team": "Ekip"
+}

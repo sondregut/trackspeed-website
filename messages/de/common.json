@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert's",
+    "technology": "Technologie",
+    "support": "Hilfe",
+    "blog": "Blog",
+    "about": "Über uns",
+    "appStore": "App Store",
+    "openMenu": "Menü öffnen",
+    "navigation": "Navigation",
+    "downloadOnThe": "Laden im",
+    "language": "Sprache"
+  },
+  "footer": {
+    "tagline": "Professionelle Sprintzeitmessung mit deinem iPhone. Keine zusätzliche Hardware nötig.",
+    "product": "Produkt",
+    "download": "Download",
+    "resources": "Ressourcen",
+    "feedback": "Feedback",
+    "legal": "Rechtliches",
+    "termsAndConditions": "Nutzungsbedingungen",
+    "privacyPolicy": "Datenschutz",
+    "copyright": "© {year} TrackSpeed. Alle Rechte vorbehalten.",
+    "madeForAthletes": "Von Athleten, für Athleten.",
+    "affiliates": "Partner"
+  },
+  "cookie": {
+    "message": "Wir verwenden Cookies, um die Nutzung der Website zu analysieren und dein Erlebnis zu verbessern.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  },
+  "cta": {
+    "downloadForIos": "Für iOS herunterladen",
+    "downloadOnAppStore": "Im App Store laden",
+    "tryFree": "TrackSpeed kostenlos testen"
+  }
+}

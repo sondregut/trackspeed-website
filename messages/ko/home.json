@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "iPhone용 단거리 타이밍 앱 - 무료, 추가 하드웨어 불필요",
+    "description": "iPhone을 타이밍 시스템으로 변환하세요. ~4ms 정확도, 120fps 감지, 다중 기기 동기화. 트랙 코치와 선수에게 무료."
+  },
+  "hero": {
+    "socialProof": "올림픽 선수들이 사랑하는 앱",
+    "title": "TrackSpeed",
+    "subtitle": "iPhone만으로 단거리 타이밍 측정",
+    "description": "iPhone을 전문 타이밍 시스템으로 변환하세요. 추가 하드웨어 없이, 보정 없이, 즉각적인 결과.",
+    "downloadCta": "App Store에서 다운로드",
+    "stats": {
+      "accuracy": "정확도",
+      "setup": "설정",
+      "hardware": "하드웨어"
+    }
+  },
+  "testimonials": {
+    "title": "좋아하는 올림픽 선수들이 사랑하는 앱",
+    "subtitle": "고교 트랙부터 올림픽까지",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "올림픽 장대높이뛰기 선수",
+      "quote": "저는 대회 전 도움닫기를 점검하기 위해 TrackSpeed를 사용합니다. 정확도가 인상적이고 도약 시 제 속도를 정확히 알 수 있습니다."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "마케도니아 멀리뛰기 기록 보유자",
+      "quote": "멀리뛰기 선수에게 속도는 전부입니다. 모든 스프린트를 TrackSpeed로 측정하며, 설정이 빠르고 쉬운 점이 정말 좋습니다. 멀리뛰기 도약 속도까지 추적해 줍니다!"
+    }
+  },
+  "howItWorks": {
+    "title": "작동 방식",
+    "subtitle": "1분 이내에 시작하기",
+    "step": "{number}단계",
+    "steps": {
+      "connect": {
+        "title": "기기 연결",
+        "description": "iPhone을 서로 연결하세요. Wi-Fi를 통해 자동으로 동기화됩니다."
+      },
+      "start": {
+        "title": "세션 시작",
+        "description": "다섯 가지 출발 방법 중 선택하세요 — 플라잉 스타트, 터치 릴리즈, 카운트다운, 음성 명령, 또는 프레임 내 출발."
+      },
+      "position": {
+        "title": "스마트폰 배치",
+        "description": "결승선에 스마트폰을 배치하세요. 보정이 필요 없습니다."
+      },
+      "time": {
+        "title": "기록 확인",
+        "description": "스프린트를 달리고 밀리초 단위의 정확도로 즉각적인 결과를 얻으세요."
+      }
+    }
+  },
+  "features": {
+    "title": "전문 타이밍, 장비 불필요",
+    "subtitle": "필요한 모든 것이 이미 주머니 안에 있습니다",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "타이밍 정확도" },
+      "sync": { "value": "2+", "label": "기기 동기화" },
+      "hardware": { "value": "0", "label": "추가 하드웨어" }
+    },
+    "smartDetection": {
+      "title": "스마트 감지",
+      "description": "카메라 기반 동작 감지가 결승선 통과 시 자동으로 타이밍을 시작합니다."
+    },
+    "multiDeviceSync": {
+      "title": "다중 기기 동기화",
+      "description": "iPhone을 무선으로 연결하세요. 게이트 간 밀리초 단위의 정확한 클록 동기화."
+    },
+    "instantResults": {
+      "title": "즉각적인 결과",
+      "description": "통과하는 순간 기록을 확인하세요. 수동 스톱워치 지연 없음."
+    },
+    "trackProgress": {
+      "title": "진도 추적",
+      "description": "세션을 저장하고, 기록을 확인하며, 시간에 따른 발전을 추적하세요."
+    }
+  },
+  "startTypes": {
+    "title": "다섯 가지 스프린트 출발 방법",
+    "subtitle": "훈련 목표에 맞는 출발 방법을 선택하세요",
+    "bestFor": "최적 용도: {useCase}",
+    "types": {
+      "flying": {
+        "title": "플라잉 스타트",
+        "description": "전속력으로 통과하세요. 첫 번째 게이트 통과가 자동으로 타이머를 시작합니다. 최고 속도 테스트에 적합합니다.",
+        "useCase": "속도 테스트, 플라잉 10m/20m/30m"
+      },
+      "touch": {
+        "title": "터치 릴리즈",
+        "description": "화면에 손가락을 올려두고 들어올려 출발하세요. 실제 트랙 대회의 블록처럼 반응 시간을 측정합니다.",
+        "useCase": "40야드 대시, 콤바인 테스트"
+      },
+      "countdown": {
+        "title": "카운트다운",
+        "description": "3... 2... 1... 삐! 시각적, 음향적 카운트다운으로 예측 가능한 출발 신호를 제공합니다. 일관된 훈련에 적합합니다.",
+        "useCase": "개인 훈련, 시간 인터벌"
+      },
+      "voice": {
+        "title": "음성 명령",
+        "description": "\"제자리에... 준비... 출발!\" 공식 규정 기반의 사실적인 타이밍을 갖춘 AI 음성 명령.",
+        "useCase": "개인 훈련, 그룹 출발"
+      },
+      "frame": {
+        "title": "프레임 내 출발",
+        "description": "카메라 시야 안에서 정지 상태로 시작한 후 달리세요. 프레임에서 벗어날 때 타이머가 시작됩니다. 두 번째 기기가 필요 없습니다.",
+        "useCase": "개인 훈련, 스마트폰 단독 설정"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "정밀한 타이밍을 위해 여러 기기 연결",
+    "description": "출발선에 iPhone 한 대, 결승선에 iPhone 한 대를 사용하세요. 임의의 거리에서 스플릿 타임을 위해 더 많은 기기를 추가할 수 있습니다.",
+    "wirelessConnection": {
+      "title": "무선 연결",
+      "description": "기기가 P2P WiFi를 통해 자동으로 연결됩니다. 인터넷이 필요 없습니다."
+    },
+    "millisecondSync": {
+      "title": "밀리초 단위 정밀 동기화",
+      "description": "NTP 스타일의 클록 동기화로 기기 간 정확한 타이밍을 보장합니다."
+    },
+    "unlimitedGates": {
+      "title": "무제한 게이트",
+      "description": "iPhone 3대 이상으로 스플릿 타이밍을 추가하세요. 가속 단계와 최고 속도를 추적합니다."
+    }
+  },
+  "comparison": {
+    "title": "비교 분석",
+    "subtitle": "전문가 수준의 타이밍, 전문가 수준의 가격표 없이",
+    "feature": "기능",
+    "youAreHere": "현재 위치",
+    "features": {
+      "price": "가격",
+      "accuracy": "정확도",
+      "chestDetection": "가슴 감지",
+      "setupTime": "설정 시간",
+      "hardware": "하드웨어",
+      "splitTimes": "스플릿 타임",
+      "photoFinish": "포토피니시",
+      "portability": "휴대성"
+    },
+    "trackspeed": {
+      "price": "무료 / $8.99/mo*",
+      "accuracy": "~4ms",
+      "chestDetection": "예 (상체만)",
+      "setupTime": "1분 미만",
+      "hardware": "iPhone만",
+      "portability": "주머니 크기"
+    },
+    "freelap": {
+      "price": "$500 - $2,000+",
+      "accuracy": "±20ms",
+      "chestDetection": "아니오 (신체 어느 부위든)",
+      "setupTime": "5-10분",
+      "hardware": "센서 + 칩",
+      "portability": "캐리백"
+    },
+    "brower": {
+      "price": "$1,500 - $5,000+",
+      "accuracy": "±50-60ms**",
+      "chestDetection": "아니오 (빔 차단)",
+      "setupTime": "10-20분",
+      "hardware": "게이트 + 패드",
+      "portability": "캐리백"
+    },
+    "dashr": {
+      "price": "$500 - $1,500+",
+      "accuracy": "±10ms",
+      "chestDetection": "아니오 (빔 차단)",
+      "setupTime": "5-10분",
+      "hardware": "레이저 게이트",
+      "portability": "캐리백"
+    },
+    "stopwatch": {
+      "price": "$10 - $50",
+      "accuracy": "±200ms",
+      "chestDetection": "시각적 추정",
+      "setupTime": "즉시",
+      "hardware": "없음",
+      "portability": "주머니 크기"
+    },
+    "footnotes": {
+      "pricing": "*월 $8.99 또는 연 $49.99. 가격은 대략적입니다.",
+      "browerStudy": "**<link>동료 심사 연구</link>에 따르면: Brower는 \"엘리트 선수의 소폭 변화를 모니터링하기에 충분히 신뢰할 수 없음\"으로 나타났습니다",
+      "beamNote": "빔 시스템은 가슴이 아닌 신체 어느 부위(손/발)든 감지합니다. TrackSpeed는 공식 대회가 아닌 훈련을 위해 설계되었습니다."
+    }
+  },
+  "timingTechnology": {
+    "title": "서브프레임 정밀도의 과학",
+    "subtitle": "표준 iPhone 카메라로 ~4ms 정확도를 달성하는 방법",
+    "frameCapture": "120fps 촬영 = 프레임 간 8.3ms",
+    "formula": "위치 = 속도 × 시간 + 오프셋",
+    "formulaLabel": "궤적 회귀 분석 (3개+ 프레임)",
+    "formulaResult": "서브프레임 정밀도로 통과 시점 계산",
+    "beyondFrameByFrame": "프레임별 타이밍을 넘어서",
+    "learnHowItWorks": "작동 원리 알아보기",
+    "motionDetection": {
+      "title": "동작 감지",
+      "description": "프레임 차분이 움직이는 물체를 식별합니다. 블롭 분석이 가장 큰 동작 영역(신체)을 찾아 게이트를 향한 앞쪽 가장자리를 추적합니다."
+    },
+    "trajectoryRegression": {
+      "title": "궤적 회귀 분석",
+      "description": "여러 프레임에 걸쳐 위치를 추적하고 선형 회귀를 사용하여 게이트 라인을 통과한 정확한 순간을 계산합니다 — 프레임 사이까지도."
+    },
+    "rollingShutterCorrection": {
+      "title": "롤링 셔터 보정",
+      "description": "iPhone 카메라는 약 5-12ms에 걸쳐 위에서 아래로 스캔합니다. 수직으로 어디를 통과했는지 측정하고 해당 위치의 정확한 스캔 타이밍을 보정합니다."
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms 유효 정확도",
+      "description": "120fps 촬영, 다중 프레임 궤적 분석, 롤링 셔터 보정의 조합으로 전문 시스템에 필적하는 타이밍 정밀도를 제공합니다."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "120fps에서의 프레임 간격" },
+      "interpolation": { "value": "~0.5ms", "label": "보간 분해능" },
+      "accuracy": { "value": "~4ms", "label": "유효 타이밍 정확도" }
+    }
+  },
+  "ctaSection": {
+    "title": "더 빠르게 측정할 준비가 되셨나요?",
+    "subtitle": "TrackSpeed를 다운로드하고 오늘부터 정밀 타이밍으로 훈련을 시작하세요.",
+    "accuracy": "~4ms 정확도",
+    "setup": "1분 미만 설정",
+    "noHardware": "추가 하드웨어 불필요",
+    "freeNote": "무료 다운로드. 프리미엄 기능 이용 가능."
+  }
+}

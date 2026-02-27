@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "Slik oppnår iPhone-sprinttidtaking ~4ms nøyaktighet",
+    "description": "Lær hvordan TrackSpeed bruker kameraet på iPhonen din for å levere millisekundnøyaktig sprinttidtaking – uten ekstra utstyr."
+  },
+  "backToHome": "Tilbake til forsiden",
+  "heroTitle": "Slik oppnår vi ~4ms tidtakingsnøyaktighet",
+  "heroSubtitle": "iPhonen din har allerede alt som trengs for presis sprinttidtaking – et kamera med høy bildefrekvens, presist gyroskop og kraftig prosessor. Her er hva det muliggjør.",
+  "sections": {
+    "subFrame": {
+      "title": "Sub-frame-presisjon",
+      "desc": "Utøvere krysser sjelden porten i det nøyaktige øyeblikket et bilde tas. Systemet vårt analyserer flere bilder for å fastslå krysningsøyeblikket mellom bildene – med sub-millisekund interpolasjonsnøyaktighet som går langt utover kameraets native bildeintervall."
+    },
+    "corrections": {
+      "title": "Fysikkbaserte korreksjoner",
+      "desc": "iPhone-kameraer skanner hvert bilde fra topp til bunn over flere millisekunder, noe som introduserer en tidsforskyvning avhengig av hvor utøveren vises i bildet. Vi korrigerer automatisk for dette og andre maskinvarerelaterte tidsartefakter for å eliminere systematisk feil."
+    },
+    "clockSync": {
+      "title": "Flerenhets klokkesynkronisering",
+      "desc": "Når du bruker to iPhoner – én ved start og én i mål – må klokkene deres stemme overens innenfor millisekunder. Vår synkroniseringsprotokoll oppnår ±3–5ms justering mellom enhetene. Hold begge telefonene innenfor ca. 10 meter under synkronisering for best resultat. Når de er synkronisert, kan du flytte dem så langt fra hverandre du trenger."
+    },
+    "bodyTracking": {
+      "title": "Kroppssporing, ikke strålebrudd",
+      "desc": "Laserporter utløses av det som bryter strålen først – en utstrakt arm, et kne eller brystet. Dette varierer med løpsteknikk og skaper inkonsistens. TrackSpeed sporer utøverens kroppsmasse for å bestemme når overkroppen krysser linjen, slik offisiell tidtaking fungerer."
+    }
+  },
+  "accuracy": {
+    "title": "Resultatet",
+    "value": "~4ms",
+    "label": "Effektiv tidtakingsnøyaktighet",
+    "desc": "Sub-frame-interpolasjon, fysikkorreksjoner og klokkesynkronisering gir samlet en tidtakingspresisjon som konkurrerer med dedikert maskinvare – kun med din iPhone."
+  },
+  "professionalComparison": {
+    "title": "Slik sammenligner dette seg",
+    "system": "System",
+    "resolution": "Oppløsning",
+    "detection": "Deteksjon",
+    "cost": "Kostnad",
+    "fat": {
+      "name": "FAT (Offisiell)",
+      "resolution": "0,001s",
+      "detection": "Målfotokamera",
+      "cost": "$10 000+"
+    },
+    "laserGates": {
+      "name": "Laserporter",
+      "resolution": "±50–200ms*",
+      "detection": "Første strålebrudd",
+      "cost": "$500–2000"
+    },
+    "trackspeed": {
+      "name": "TrackSpeed",
+      "resolution": "~4ms",
+      "detection": "Kroppssporing",
+      "cost": "Din iPhone"
+    },
+    "laserNote": "*Laserporter utløses med sub-millisekund hastighet, men inkonsistente utløsningspunkter (arm vs. bryst) kan forårsake 50–200ms variasjon mellom løp for samme utøver."
+  },
+  "cta": {
+    "title": "Klar for å ta tiden på treningen?",
+    "subtitle": "Last ned TrackSpeed og opplev millisekundpresisjon med bare din iPhone.",
+    "download": "Last ned fra App Store",
+    "compare": "Se hvordan TrackSpeed sammenligner seg med andre tidtakingsmetoder"
+  }
+}

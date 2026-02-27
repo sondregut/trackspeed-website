@@ -1,0 +1,37 @@
+{
+  "title": "Utøvere som bygger for utøvere",
+  "intro": "TrackSpeed ble til på løpebanen. Vi er aktive konkurranseutøvere som ble lei av unøyaktige tidtakingsverktøy – så vi bygde vårt eget.",
+  "story1": "Som friidrettsutøvere som trener på toppnivå, trengte vi nøyaktig tidtaking for sprintene og tilløpene våre – men alternativene var enten dyre lasersystemer med inkonsistente utløsningspunkter, eller en trener med stoppeklokke og menneskelig reaksjonstidsfeil. Ingen av delene var bra nok.",
+  "story2": "Vi innså at iPhonen i alles lomme allerede hadde maskinvaren som trengtes – et kamera med høy bildefrekvens, presist gyroskop og nok prosesseringskraft for sanntids datasyn. Så vi bygde TrackSpeed: et tidtakingssystem som bruker bilde-for-bilde bevegelsesdeteksjon og sub-frame-interpolasjon for å levere millisekundnøyaktige resultater, uten ekstra utstyr.",
+  "team": {
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Medgrunnlegger og hovedutvikler",
+      "bio1": "Profesjonell stavhopper og togangs olympier (Tokyo 2020, Paris 2024) for Norge. NCAA-mester ved Princeton University, hvor han tangerte tidenes college-innendørsrekord på 6,00m. Innehar Ivy League-rekorder i stav inne og ute. Gullmedaljevinner ved EM innendørs i friidrett.",
+      "bio2": "Grunnlegger og hovedutvikler. Princeton B.A., UT Austin M.Ed."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Medgrunnlegger & Jumpers World",
+      "bio1": "Lengdehopper for Nord-Makedonia og nasjonal rekordholder (7,91m). Kåret til Nord-Makedonias årets utøver. Deltok i EM innendørs i friidrett og lag-EM i friidrett. University of Arkansas-alumnus.",
+      "bio2": "Medgrunnlegger av TrackSpeed og grunnlegger av Jumpers World – en av de største mediemerkene innen friidrett. Dypt nettverk i friidrettsmiljøet med førstehånds forståelse av hva utøvere trenger."
+    },
+    "simen": {
+      "name": "Simen Guttormsen",
+      "role": "Ingeniør",
+      "bio1": "Olympisk stavhopper for Norge. NCAA-mester og ACC-rekordholder ved Duke University, hvor han var tre ganger All-American. Tidligere to ganger All-American ved Princeton.",
+      "bio2": "Fullstack-medutvikler av TrackSpeed – bidrar på tvers av hele kodebasen, fra arkitekturbeslutninger og kodegjennomganger til funksjonsutvikling. Princeton B.E. i Operations Research and Financial Engineering, Duke M.S. i Economics and Computation."
+    }
+  },
+  "teamNote": "Bygget av utøvere, for utøvere.",
+  "cta": {
+    "title": "Klar for å ta tiden på treningen?",
+    "subtitle": "Last ned TrackSpeed og opplev millisekundpresisjon med bare din iPhone.",
+    "download": "Last ned fra App Store",
+    "learnMore": "Lær hvordan tidtakingsteknologien vår fungerer"
+  },
+  "metadata": {
+    "title": "Om oss — TrackSpeed",
+    "description": "Møt utøverne bak TrackSpeed. Aktive konkurranseutøvere som bygger presis sprinttidtaking for alle utøvere."
+  }
+}

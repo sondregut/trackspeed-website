@@ -1,26 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 export default function Testimonials() {
+  const t = useTranslations("home");
+
   const testimonials = [
     {
-      name: "Sondre Guttormsen",
-      role: "Olympic Pole Vaulter",
+      name: t("testimonials.sondre.name"),
+      role: t("testimonials.sondre.role"),
       image: "/testimonials/sondre-guttormsen.jpg",
       instagram: "https://instagram.com/sondre_pv",
-      quote:
-        "I use TrackSpeed to dial in my run-up before competitions. The accuracy is impressive and I always know exactly what speed I'm hitting at takeoff.",
+      quote: t("testimonials.sondre.quote"),
       hasRealImage: true,
     },
     {
-      name: "Andreas Trajkovski",
-      role: "Macedonian Long Jump Record Holder",
+      name: t("testimonials.andreas.name"),
+      role: t("testimonials.andreas.role"),
       image: "/testimonials/andreas-trajkovski.jpg",
       instagram: "https://instagram.com/andreas_trajkovski",
-      quote:
-        "As a long jumper, speed is everything. I time all my sprints with TrackSpeed and love how quick and easy it is to set up. It even tracks my long jump takeoff speed!",
+      quote: t("testimonials.andreas.quote"),
       hasRealImage: true,
     },
   ];
@@ -31,9 +32,9 @@ export default function Testimonials() {
         {/* Heading */}
         <ScrollReveal>
           <div className="text-center mb-16">
-            <h2 className="text-section mb-4">Loved by your favorite olympians</h2>
+            <h2 className="text-section mb-4">{t("testimonials.title")}</h2>
             <p className="text-body max-w-2xl mx-auto">
-              From high school track to the Olympic Games
+              {t("testimonials.subtitle")}
             </p>
           </div>
         </ScrollReveal>

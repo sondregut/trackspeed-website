@@ -1,0 +1,37 @@
+{
+  "title": "Athleten bauen für Athleten",
+  "intro": "TrackSpeed entstand auf der Laufbahn. Wir sind aktive Wettkampfathleten, die genug von ungenauen Zeitmessungen hatten – also haben wir unsere eigene gebaut.",
+  "story1": "Als Leichtathleten, die auf höchstem Niveau trainieren, brauchten wir genaue Zeitmessung für unsere Sprints und Anläufe – aber die Optionen waren entweder teure Laserschranken mit uneinheitlichen Auslösepunkten oder ein Trainer mit Stoppuhr und menschlicher Reaktionszeitverzögerung. Beides war nicht gut genug.",
+  "story2": "Uns wurde klar, dass das iPhone in jeder Tasche bereits die nötige Hardware hat – eine Kamera mit hoher Bildrate, präzises Gyroskop und genug Rechenleistung für Echtzeit-Computer-Vision. Also haben wir TrackSpeed gebaut: ein Zeitmesssystem, das Frame-für-Frame-Bewegungserkennung und Sub-Frame-Interpolation nutzt, um millisekundengenaue Ergebnisse zu liefern – ohne zusätzliches Equipment.",
+  "team": {
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Mitgründer & Leitender Entwickler",
+      "bio1": "Professioneller Stabhochspringer und zweimaliger Olympiateilnehmer (Tokio 2020, Paris 2024) für Norwegen. NCAA-Champion an der Princeton University, wo er den Allzeit-Hallenrekord der Colleges mit 6,00m egalisierte. Hält Ivy-League-Rekorde im Hallen- und Freiluft-Stabhochsprung. Goldmedaillengewinner bei den Hallen-Europameisterschaften.",
+      "bio2": "Gründer & Leitender Entwickler. Princeton B.A., UT Austin M.Ed."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Mitgründer & Jumpers World",
+      "bio1": "Weitspringer für Nordmazedonien und nationaler Rekordhalter (7,91m). Zum nordmazedonischen Sportler des Jahres ernannt. Teilnahme an den Hallen-Europameisterschaften und den Europäischen Mannschaftsmeisterschaften. Absolvent der University of Arkansas.",
+      "bio2": "Mitgründer von TrackSpeed und Gründer von Jumpers World – einer der größten Leichtathletik-Medienmarken. Tiefes Netzwerk in der Leichtathletik-Community mit direktem Verständnis dafür, was Athleten brauchen."
+    },
+    "simen": {
+      "name": "Simen Guttormsen",
+      "role": "Ingenieur",
+      "bio1": "Olympischer Stabhochspringer für Norwegen. NCAA-Champion und ACC-Rekordhalter an der Duke University, wo er dreimaliger All-American war. Zuvor zweimaliger All-American an der Princeton University.",
+      "bio2": "Fullstack-Co-Entwickler von TrackSpeed – arbeitet an der gesamten Codebasis, von Architekturentscheidungen und Code-Reviews bis zur Feature-Entwicklung. Princeton B.E. in Operations Research and Financial Engineering, Duke M.S. in Economics and Computation."
+    }
+  },
+  "teamNote": "Von Athleten gebaut, für Athleten.",
+  "cta": {
+    "title": "Bereit, dein Training zu messen?",
+    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem iPhone.",
+    "download": "Im App Store laden",
+    "learnMore": "Erfahre, wie unsere Zeitmess-Technologie funktioniert"
+  },
+  "metadata": {
+    "title": "Über uns — TrackSpeed",
+    "description": "Lerne die Athleten hinter TrackSpeed kennen. Aktive Wettkampfathleten, die präzise Sprintzeitmessung für jeden Athleten bauen."
+  }
+}

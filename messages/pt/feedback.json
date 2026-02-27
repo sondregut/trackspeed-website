@@ -1,0 +1,38 @@
+{
+  "title": "Sugestoes de recursos e feedback",
+  "subtitle": "Vote nas ideias que voce quer ver ou sugira as suas.",
+  "submitIdea": "Enviar ideia",
+  "submitAnIdea": "Enviar uma ideia",
+  "titleLabel": "Titulo *",
+  "titlePlaceholder": "Um titulo curto e descritivo",
+  "descriptionLabel": "Descricao",
+  "descriptionPlaceholder": "Explique o que voce gostaria e por que seria util...",
+  "categoryLabel": "Categoria",
+  "categories": {
+    "all": "Todos",
+    "features": "Recursos",
+    "bugs": "Bugs",
+    "improvements": "Melhorias",
+    "featureRequest": "Sugestao de recurso",
+    "bugReport": "Relato de bug",
+    "improvement": "Melhoria"
+  },
+  "yourName": "Seu nome (opcional)",
+  "anonymous": "Anonimo",
+  "submitting": "Enviando...",
+  "submit": "Enviar",
+  "status": {
+    "open": "Aberto",
+    "planned": "Planejado",
+    "inProgress": "Em andamento",
+    "completed": "Concluido"
+  },
+  "noIdeasYet": "Nenhuma ideia ainda",
+  "beFirstToSubmit": "Seja o primeiro a enviar uma sugestao de recurso!",
+  "loadingComments": "Carregando comentarios...",
+  "noComments": "Nenhum comentario ainda. Seja o primeiro a compartilhar sua opiniao!",
+  "namePlaceholder": "Seu nome (opcional)",
+  "commentPlaceholder": "Adicionar um comentario...",
+  "post": "Publicar",
+  "team": "Equipe"
+}

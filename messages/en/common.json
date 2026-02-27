@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "technology": "Technology",
+    "support": "Support",
+    "blog": "Blog",
+    "about": "About",
+    "appStore": "App Store",
+    "openMenu": "Open menu",
+    "navigation": "Navigation",
+    "downloadOnThe": "Download on the",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "Professional sprint timing using your iPhone. No extra hardware needed.",
+    "product": "Product",
+    "download": "Download",
+    "resources": "Resources",
+    "feedback": "Feedback",
+    "legal": "Legal",
+    "termsAndConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "\u00a9 {year} TrackSpeed. All rights reserved.",
+    "madeForAthletes": "Made for athletes, by athletes.",
+    "affiliates": "Affiliates"
+  },
+  "cookie": {
+    "message": "We use cookies to analyze site usage and improve your experience.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "cta": {
+    "downloadForIos": "Download for iOS",
+    "downloadOnAppStore": "Download on the App Store",
+    "tryFree": "Try TrackSpeed Free"
+  }
+}

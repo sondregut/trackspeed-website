@@ -1,0 +1,10 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "TrackSpeed privacy policy. How we handle camera data, timing sessions, and personal information. Video is processed on-device only."
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "description": "Terms and conditions for the TrackSpeed sprint timing app. Covers subscriptions, acceptable use, and liability."
+  }
+}

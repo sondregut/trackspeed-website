@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "Sprinttidtaking-app for iPhone – Gratis, uten maskinvare",
+    "description": "Gjør iPhonen din om til et tidtakingssystem. ~4ms nøyaktighet, 120fps deteksjon, synkronisering av flere enheter. Gratis for trenere og utøvere."
+  },
+  "hero": {
+    "socialProof": "Elsket av olympiere",
+    "title": "TrackSpeed",
+    "subtitle": "Sprinttidtaking med bare din iPhone",
+    "description": "Gjør iPhonen din om til et profesjonelt tidtakingssystem. Ingen ekstra maskinvare, ingen kalibrering, umiddelbare resultater.",
+    "downloadCta": "Last ned fra App Store",
+    "stats": {
+      "accuracy": "Nøyaktighet",
+      "setup": "Oppsett",
+      "hardware": "Maskinvare"
+    }
+  },
+  "testimonials": {
+    "title": "Elsket av dine favoritt-olympiere",
+    "subtitle": "Fra videregående friidrett til de olympiske leker",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Olympisk stavhopper",
+      "quote": "Jeg bruker TrackSpeed for å finjustere tilløpet mitt før konkurranser. Nøyaktigheten er imponerende, og jeg vet alltid nøyaktig hvilken fart jeg treffer ved satsen."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Makedonsk lengdehopp-rekordholder",
+      "quote": "Som lengdehopper er fart alt. Jeg tar tiden på alle sprintene mine med TrackSpeed og elsker hvor raskt og enkelt det er å sette opp. Den måler til og med satsfarten min i lengdehopp!"
+    }
+  },
+  "howItWorks": {
+    "title": "Slik fungerer det",
+    "subtitle": "Kom i gang på under ett minutt",
+    "step": "Steg {number}",
+    "steps": {
+      "connect": {
+        "title": "Koble til telefoner",
+        "description": "Par iPhonene dine sammen. De synkroniserer seg automatisk over Wi-Fi."
+      },
+      "start": {
+        "title": "Start økten",
+        "description": "Velg mellom fem startmetoder – flygende start, berøringsutløser, nedtelling, talekommandoer eller start i bildet."
+      },
+      "position": {
+        "title": "Plasser telefonen",
+        "description": "Sett telefonen ved mållinjen. Ingen kalibrering nødvendig."
+      },
+      "time": {
+        "title": "Få tiden din",
+        "description": "Løp sprinten og få umiddelbare resultater med millisekunders nøyaktighet."
+      }
+    }
+  },
+  "features": {
+    "title": "Profesjonell tidtaking, null utstyr",
+    "subtitle": "Alt du trenger ligger allerede i lommen din",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "Tidtakingsnøyaktighet" },
+      "sync": { "value": "2+", "label": "Enhetssynkronisering" },
+      "hardware": { "value": "0", "label": "Ekstra maskinvare" }
+    },
+    "smartDetection": {
+      "title": "Smart deteksjon",
+      "description": "Kamerabasert bevegelsesdeteksjon utløser tidtakingen automatisk når du krysser linjen."
+    },
+    "multiDeviceSync": {
+      "title": "Flerenhetssynkronisering",
+      "description": "Koble iPhoner trådløst. Millisekundnøyaktig klokkesynkronisering mellom portene."
+    },
+    "instantResults": {
+      "title": "Umiddelbare resultater",
+      "description": "Se tiden din i det øyeblikket du krysser linjen. Ingen manuelle stoppeklokkeforsinkelser."
+    },
+    "trackProgress": {
+      "title": "Følg utviklingen",
+      "description": "Lagre økter, se historikk og følg forbedringen din over tid."
+    }
+  },
+  "startTypes": {
+    "title": "Fem måter å starte sprinten på",
+    "subtitle": "Velg startmetoden som passer treningsmålene dine",
+    "bestFor": "Best for: {useCase}",
+    "types": {
+      "flying": {
+        "title": "Flygende start",
+        "description": "Løp gjennom i full fart. Første portkryssing starter tidtakeren automatisk. Perfekt for testing av maksfart.",
+        "useCase": "Fartstesting, flygende 10m/20m/30m"
+      },
+      "touch": {
+        "title": "Berøringsutløser",
+        "description": "Legg fingeren på skjermen, løft for å starte. Fanger reaksjonstiden akkurat som startblokker på et ekte stevne.",
+        "useCase": "40 yard dash, combine-testing"
+      },
+      "countdown": {
+        "title": "Nedtelling",
+        "description": "3... 2... 1... PIIP! En visuell og auditiv nedtelling gir deg et forutsigbart startsignal. Flott for konsistent trening.",
+        "useCase": "Solotrening, intervaller"
+      },
+      "voice": {
+        "title": "Talekommando",
+        "description": "\"Klar... Ferdig... GÅ!\" AI-talekommandoer med realistisk timing basert på offisielle regler.",
+        "useCase": "Solotrening, gruppestarter"
+      },
+      "frame": {
+        "title": "Start i bildet",
+        "description": "Start stående i kamerabildet, så løp av gårde. Tidtakeren starter når du forlater bildet. Ingen ekstra enhet nødvendig.",
+        "useCase": "Solotrening, oppsett med én telefon"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "Koble sammen flere telefoner for presis tidtaking",
+    "description": "Bruk én iPhone ved startlinjen og en annen ved mål. Legg til flere telefoner for mellomtider på hvilken som helst distanse.",
+    "wirelessConnection": {
+      "title": "Trådløs tilkobling",
+      "description": "Telefonene kobler seg automatisk via peer-to-peer WiFi. Ingen internett nødvendig."
+    },
+    "millisecondSync": {
+      "title": "Millisekundnøyaktig synkronisering",
+      "description": "NTP-basert klokkesynkronisering sikrer nøyaktig tidtaking mellom enhetene."
+    },
+    "unlimitedGates": {
+      "title": "Ubegrensede porter",
+      "description": "Legg til mellomtider med 3+ telefoner. Følg akselerasjonsfaser og toppfart."
+    }
+  },
+  "comparison": {
+    "title": "Slik sammenligner vi oss",
+    "subtitle": "Profesjonell tidtaking uten den profesjonelle prislappen",
+    "feature": "Funksjon",
+    "youAreHere": "DU ER HER",
+    "features": {
+      "price": "Pris",
+      "accuracy": "Nøyaktighet",
+      "chestDetection": "Brystdeteksjon",
+      "setupTime": "Oppsettstid",
+      "hardware": "Maskinvare",
+      "splitTimes": "Mellomtider",
+      "photoFinish": "Målfoto",
+      "portability": "Portabilitet"
+    },
+    "trackspeed": {
+      "price": "Gratis / $8.99/mnd*",
+      "accuracy": "~4ms",
+      "chestDetection": "Ja (kun overkropp)",
+      "setupTime": "< 1 min",
+      "hardware": "Kun iPhone",
+      "portability": "Lommeformat"
+    },
+    "freelap": {
+      "price": "$500 – $2 000+",
+      "accuracy": "±20ms",
+      "chestDetection": "Nei (hvilken som helst kroppsdel)",
+      "setupTime": "5–10 min",
+      "hardware": "Sensorer + brikker",
+      "portability": "Bæreveske"
+    },
+    "brower": {
+      "price": "$1 500 – $5 000+",
+      "accuracy": "±50–60ms**",
+      "chestDetection": "Nei (strålebrudd)",
+      "setupTime": "10–20 min",
+      "hardware": "Porter + matter",
+      "portability": "Bæreveske"
+    },
+    "dashr": {
+      "price": "$500 – $1 500+",
+      "accuracy": "±10ms",
+      "chestDetection": "Nei (strålebrudd)",
+      "setupTime": "5–10 min",
+      "hardware": "Laserporter",
+      "portability": "Bæreveske"
+    },
+    "stopwatch": {
+      "price": "$10 – $50",
+      "accuracy": "±200ms",
+      "chestDetection": "Visuelt anslag",
+      "setupTime": "Umiddelbart",
+      "hardware": "Ingen",
+      "portability": "Lommeformat"
+    },
+    "footnotes": {
+      "pricing": "*$8.99/mnd eller $49.99/år. Prisene er omtrentlige.",
+      "browerStudy": "**Ifølge en <link>fagfellevurdert studie</link>: Brower ble funnet «ikke pålitelig nok til å overvåke små endringer hos eliteutøvere»",
+      "beamNote": "Strålesystemer utløses av hvilken som helst kroppsdel (hånd/ben), ikke brystet. TrackSpeed er laget for trening, ikke offisielle konkurranser."
+    }
+  },
+  "timingTechnology": {
+    "title": "Vitenskapen bak sub-frame-presisjon",
+    "subtitle": "Slik oppnår vi ~4ms nøyaktighet med vanlige iPhone-kameraer",
+    "frameCapture": "120fps opptak = 8.3ms mellom bilder",
+    "formula": "posisjon = hastighet × tid + forskyvning",
+    "formulaLabel": "Baneregresjon (3+ bilder)",
+    "formulaResult": "Beregn kryssningstidspunktet med sub-frame-presisjon",
+    "beyondFrameByFrame": "Utover bilde-for-bilde-tidtaking",
+    "learnHowItWorks": "Lær hvordan det fungerer",
+    "motionDetection": {
+      "title": "Bevegelsesdeteksjon",
+      "description": "Bildedifferensiering identifiserer objekter i bevegelse. Blob-analyse finner det største bevegelsesområdet (kroppen din) og sporer forkanten mot porten."
+    },
+    "trajectoryRegression": {
+      "title": "Baneregresjon",
+      "description": "Vi sporer posisjonen over flere bilder og bruker lineær regresjon for å beregne det nøyaktige øyeblikket du krysset portlinjen – også mellom bilder."
+    },
+    "rollingShutterCorrection": {
+      "title": "Rolling shutter-korreksjon",
+      "description": "iPhone-kameraer skanner fra topp til bunn over ~5–12ms. Vi måler hvor du krysset vertikalt og kompenserer for den nøyaktige skannetimingen på den posisjonen."
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms effektiv nøyaktighet",
+      "description": "Kombinasjonen av 120fps opptak, flerbilders baneanalyse og rolling shutter-korreksjon gir tidtakingspresisjon sammenlignbar med profesjonelle systemer."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "Bildeintervall ved 120fps" },
+      "interpolation": { "value": "~0.5ms", "label": "Interpolasjonsoppløsning" },
+      "accuracy": { "value": "~4ms", "label": "Effektiv tidtakingsnøyaktighet" }
+    }
+  },
+  "ctaSection": {
+    "title": "Klar for raskere tidtaking?",
+    "subtitle": "Last ned TrackSpeed og begynn å trene med presis tidtaking i dag.",
+    "accuracy": "~4ms nøyaktighet",
+    "setup": "<1 min oppsett",
+    "noHardware": "Ingen ekstra maskinvare",
+    "freeNote": "Gratis å laste ned. Premium-funksjoner tilgjengelig."
+  }
+}

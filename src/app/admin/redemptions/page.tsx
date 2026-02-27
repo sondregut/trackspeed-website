@@ -37,7 +37,7 @@ export default function RedemptionsPage() {
         >
           &larr; Back to Dashboard
         </Link>
-        <h1 className="text-2xl font-bold">Redemptions</h1>
+        <h1 className="text-2xl font-bold text-white">Redemptions</h1>
         <p className="text-[#9B9A97] mt-1">View all promo code redemptions</p>
       </div>
 

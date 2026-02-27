@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Ayuda y preguntas frecuentes - Solucion de problemas de cronometraje",
+    "description": "Obtén ayuda con TrackSpeed. Preguntas frecuentes sobre configuración de cronometraje, sincronización multidispositivo, detección de cruces y gestion de suscripciónes."
+  },
+  "title": "Soporte",
+  "lastUpdated": "Ultima actualizacion: 14 de febrero de 2026",
+  "contact": {
+    "title": "Contactanos",
+    "description": "Si necesitas ayuda con TrackSpeed o tienes alguna pregunta, estamos aqui para asistirte.",
+    "email": "Correo electronico:",
+    "responseTime": "Normalmente respondemos en 24-48 horas."
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": {
+      "howItWorks": {
+        "question": "Como funciona TrackSpeed?",
+        "answer": "TrackSpeed usa la camara de tu iPhone para detectar cuando un atleta cruza la puerta de cronometraje. La app utiliza detección de movimiento por camara para identificar cuando el torso del atleta cruza la puerta, proporcionando cronometraje con precisión de milisegundos."
+      },
+      "equipment": {
+        "question": "Necesito equipo especial?",
+        "answer": "No! TrackSpeed funciona solo con tu iPhone. Para parciales o puertas de salida/meta, puedes usar dos iPhones que se sincronizan de forma inalambrica."
+      },
+      "models": {
+        "question": "Que modelos de iPhone son compatibles?",
+        "answer": "TrackSpeed funciona con iPhone XS y posteriores (iOS 17+). Para el mejor rendimiento, recomendamos iPhone 12 Pro o mas reciente."
+      },
+      "accuracy": {
+        "question": "Que tan preciso es el cronometraje?",
+        "answer": "TrackSpeed alcanza una precisión de ~4ms usando interpolacion sub-frame y correccion de rolling shutter. Al usar dos dispositivos, nuestra sincronización de reloj asegura que ambas puertas esten alineadas para parciales precisos."
+      },
+      "competitions": {
+        "question": "Puedo usar TrackSpeed en competencias oficiales?",
+        "answer": "TrackSpeed esta disenado para entrenamiento y cronometraje no oficial. Para competencias oficiales, usa equipamiento de cronometraje certificado segun lo requiera el organismo rector de tu deporte."
+      },
+      "connecting": {
+        "question": "Como conecto dos telefonos?",
+        "answer": "Ambos dispositivos necesitan tener TrackSpeed instalado. Un dispositivo crea una sesion como 'anfitrion' y el otro se une. Los dispositivos se conectan automaticamente via red punto a punto, no se requiere conexión a internet."
+      },
+      "cancel": {
+        "question": "Como cancelo mi suscripción?",
+        "answer": "Las suscripciónes se gestionan a traves de tu Apple ID. Ve a Ajustes \u2192 [Tu nombre] \u2192 Suscripciónes \u2192 TrackSpeed \u2192 Cancelar suscripción."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Solucion de problemas",
+    "items": {
+      "noDetection": {
+        "issue": "La app no detecta los cruces",
+        "solutions": [
+          "Asegurate de tener buena iluminacion: la camara necesita ver claramente al atleta",
+          "Posiciona el telefono para que el atleta pase perpendicular a la vista de la camara",
+          "Asegurate de que el torso del atleta sea visible en el cuadro",
+          "Intenta usar una configuración de FPS mas alta (60 o 120fps) en ajustes"
+        ]
+      },
+      "noConnection": {
+        "issue": "Los dos dispositivos no se conectan",
+        "solutions": [
+          "Asegurate de que ambos dispositivos tengan WiFi y Bluetooth activados",
+          "Ambos dispositivos deben estar a menos de 10 metros entre si",
+          "Intenta cerrar y reabrir la app en ambos dispositivos",
+          "Asegurate de que ambos dispositivos tengan la ultima version de TrackSpeed"
+        ]
+      },
+      "thermal": {
+        "issue": "La app va lenta o se calienta",
+        "solutions": [
+          "Retira la funda del telefono para mejorar la refrigeracion",
+          "Evita la luz solar directa sobre el dispositivo",
+          "Cierra otras apps en segundo plano",
+          "Toma descansos entre sesiones de cronometraje"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Solicitudes de funciones y comentarios",
+    "description": "Nos encanta escuchar a nuestros usuarios! Visita nuestro <feedbackLink>tablero de comentarios</feedbackLink> para votar ideas, sugerir nuevas funciones o reportar errores. Tambien puedes escribirnos a <emailLink>feedback@mytrackspeed.com</emailLink>."
+  }
+}

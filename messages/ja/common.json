@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "機能",
+    "howItWorks": "使い方",
+    "technology": "テクノロジー",
+    "support": "サポート",
+    "blog": "ブログ",
+    "about": "概要",
+    "appStore": "App Store",
+    "openMenu": "メニューを開く",
+    "navigation": "ナビゲーション",
+    "downloadOnThe": "からダウンロード",
+    "language": "言語"
+  },
+  "footer": {
+    "tagline": "iPhoneを使ったプロフェッショナルなスプリントタイミング。追加のハードウェアは不要です。",
+    "product": "製品",
+    "download": "ダウンロード",
+    "resources": "リソース",
+    "feedback": "フィードバック",
+    "legal": "法的情報",
+    "termsAndConditions": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "copyright": "© {year} TrackSpeed. All rights reserved.",
+    "madeForAthletes": "アスリートのために、アスリートが作りました。",
+    "affiliates": "アフィリエイト"
+  },
+  "cookie": {
+    "message": "サイトの利用状況の分析と体験の向上のためにCookieを使用しています。",
+    "accept": "同意する",
+    "decline": "拒否する"
+  },
+  "cta": {
+    "downloadForIos": "iOSでダウンロード",
+    "downloadOnAppStore": "App Storeでダウンロード",
+    "tryFree": "TrackSpeedを無料で試す"
+  }
+}

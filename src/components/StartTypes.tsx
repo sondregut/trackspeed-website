@@ -2,45 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function StartTypes() {
+  const t = useTranslations("home");
   const [selected, setSelected] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const startTypes = [
-    {
-      title: "Flying Start",
-      description: "Run through at full speed. First gate crossing starts the timer automatically. Perfect for max velocity testing.",
-      useCase: "Speed testing, flying 10m/20m/30m",
-      image: "/start-flying.png",
-    },
-    {
-      title: "Touch Release",
-      description: "Place finger on screen, lift to start. Captures reaction time just like blocks at a real track meet.",
-      useCase: "40 yard dash, combine testing",
-      image: "/start-touch.png",
-    },
-    {
-      title: "Countdown",
-      description: "3... 2... 1... BEEP! A visual and audio countdown gives you a predictable start signal. Great for consistent training.",
-      useCase: "Solo training, timed intervals",
-      image: "/start-countdown.png",
-    },
-    {
-      title: "Voice Command",
-      description: '"On your marks... Set... GO!" AI voice commands with realistic timing based on official rules.',
-      useCase: "Solo training, group starts",
-      image: "/start-voice.png",
-    },
-    {
-      title: "Start in Frame",
-      description: "Begin stationary in the camera view, then take off. Timer starts when you leave the frame. No second device needed.",
-      useCase: "Solo training, single phone setup",
-      image: "/start-frame.png",
-    },
-  ];
+  const typeKeys = ["flying", "touch", "countdown", "voice", "frame"] as const;
+  const typeImages = ["/start-flying.png", "/start-touch.png", "/start-countdown.png", "/start-voice.png", "/start-frame.png"];
 
   useEffect(() => {
     const observerOptions = {
@@ -73,10 +45,10 @@ export default function StartTypes() {
         <ScrollReveal>
           <div className="text-center pt-28 pb-16">
             <h2 className="text-section mb-4">
-              Five ways to start your sprint
+              {t("startTypes.title")}
             </h2>
             <p className="text-body max-w-2xl mx-auto">
-              Choose the start method that matches your training goals
+              {t("startTypes.subtitle")}
             </p>
           </div>
         </ScrollReveal>
@@ -88,11 +60,11 @@ export default function StartTypes() {
               <div className="iphone-mockup w-[280px] mx-auto">
                 <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
                   <div className="relative w-full h-full">
-                    {startTypes.map((type, index) => (
+                    {typeKeys.map((key, index) => (
                       <Image
                         key={index}
-                        src={type.image}
-                        alt={type.title}
+                        src={typeImages[index]}
+                        alt={t(`startTypes.types.${key}.title`)}
                         width={280}
                         height={606}
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
@@ -105,7 +77,7 @@ export default function StartTypes() {
               </div>
               {/* Dots indicator */}
               <div className="flex justify-center gap-2 mt-6">
-                {startTypes.map((_, index) => (
+                {typeKeys.map((key, index) => (
                   <button
                     key={index}
                     onClick={() => {
@@ -115,7 +87,7 @@ export default function StartTypes() {
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === selected ? "bg-foreground scale-125" : "bg-border"
                     }`}
-                    aria-label={`View ${startTypes[index].title}`}
+                    aria-label={`View ${t(`startTypes.types.${key}.title`)}`}
                   />
                 ))}
               </div>
@@ -124,7 +96,7 @@ export default function StartTypes() {
 
           {/* Start type cards */}
           <div className="space-y-6 pb-28">
-            {startTypes.map((type, index) => (
+            {typeKeys.map((key, index) => (
               <div
                 key={index}
                 ref={(el) => { cardRefs.current[index] = el; }}
@@ -140,8 +112,8 @@ export default function StartTypes() {
                   <div className="iphone-mockup w-[200px] mx-auto">
                     <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
                       <Image
-                        src={type.image}
-                        alt={type.title}
+                        src={typeImages[index]}
+                        alt={t(`startTypes.types.${key}.title`)}
                         width={200}
                         height={433}
                         className="w-full h-full object-cover"
@@ -151,13 +123,13 @@ export default function StartTypes() {
                 </div>
 
                 <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  {type.title}
+                  {t(`startTypes.types.${key}.title`)}
                 </h3>
                 <p className="mb-3 text-muted">
-                  {type.description}
+                  {t(`startTypes.types.${key}.description`)}
                 </p>
                 <p className="text-sm font-medium text-text-secondary">
-                  Best for: {type.useCase}
+                  {t("startTypes.bestFor", { useCase: t(`startTypes.types.${key}.useCase`) })}
                 </p>
               </div>
             ))}

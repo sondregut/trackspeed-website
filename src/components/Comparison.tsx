@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -13,78 +14,44 @@ import {
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Comparison() {
-  const features = [
-    {
-      name: "Price",
-      trackspeed: "Free / $8.99/mo*",
-      freelap: "$500 - $2,000+",
-      brower: "$1,500 - $5,000+",
-      dashr: "$500 - $1,500+",
-      stopwatch: "$10 - $50",
-      highlight: true,
-    },
-    {
-      name: "Accuracy",
-      trackspeed: "~4ms",
-      freelap: "±20ms",
-      brower: "±50-60ms**",
-      dashr: "±10ms",
-      stopwatch: "±200ms",
-      highlight: true,
-    },
-    {
-      name: "Chest Detection",
-      trackspeed: "Yes (torso only)",
-      freelap: "No (any body part)",
-      brower: "No (beam break)",
-      dashr: "No (beam break)",
-      stopwatch: "Visual guess",
-      highlight: true,
-    },
-    {
-      name: "Setup Time",
-      trackspeed: "< 1 min",
-      freelap: "5-10 min",
-      brower: "10-20 min",
-      dashr: "5-10 min",
-      stopwatch: "Instant",
-      highlight: true,
-    },
-    {
-      name: "Hardware",
-      trackspeed: "iPhone only",
-      freelap: "Sensors + chips",
-      brower: "Gates + pads",
-      dashr: "Laser gates",
-      stopwatch: "None",
-      highlight: true,
-    },
-    {
-      name: "Split Times",
-      trackspeed: true,
-      freelap: true,
-      brower: true,
-      dashr: true,
-      stopwatch: false,
-    },
-    {
-      name: "Photo Finish",
-      trackspeed: true,
-      freelap: false,
-      brower: false,
-      dashr: false,
-      stopwatch: false,
-      highlight: true,
-    },
-    {
-      name: "Portability",
-      trackspeed: "Pocket-sized",
-      freelap: "Carry bag",
-      brower: "Carry bag",
-      dashr: "Carry bag",
-      stopwatch: "Pocket-sized",
-    },
-  ];
+  const t = useTranslations("home");
+
+  const featureKeys = ["price", "accuracy", "chestDetection", "setupTime", "hardware", "splitTimes", "photoFinish", "portability"] as const;
+  const competitorKeys = ["freelap", "brower", "dashr", "stopwatch"] as const;
+
+  const features = featureKeys.map((key) => {
+    if (key === "splitTimes") {
+      return {
+        name: t(`comparison.features.${key}`),
+        trackspeed: true as string | boolean,
+        freelap: true as string | boolean,
+        brower: true as string | boolean,
+        dashr: true as string | boolean,
+        stopwatch: false as string | boolean,
+        highlight: false,
+      };
+    }
+    if (key === "photoFinish") {
+      return {
+        name: t(`comparison.features.${key}`),
+        trackspeed: true as string | boolean,
+        freelap: false as string | boolean,
+        brower: false as string | boolean,
+        dashr: false as string | boolean,
+        stopwatch: false as string | boolean,
+        highlight: true,
+      };
+    }
+    return {
+      name: t(`comparison.features.${key}`),
+      trackspeed: t(`comparison.trackspeed.${key}`) as string | boolean,
+      freelap: t(`comparison.freelap.${key}`) as string | boolean,
+      brower: t(`comparison.brower.${key}`) as string | boolean,
+      dashr: t(`comparison.dashr.${key}`) as string | boolean,
+      stopwatch: t(`comparison.stopwatch.${key}`) as string | boolean,
+      highlight: ["price", "accuracy", "chestDetection", "setupTime", "hardware", "portability"].includes(key),
+    };
+  });
 
   const renderValue = (value: string | boolean) => {
     if (value === true) {
@@ -114,10 +81,10 @@ export default function Comparison() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <h2 className="text-section mb-4">
-              How we compare
+              {t("comparison.title")}
             </h2>
             <p className="text-body">
-              Professional timing without the professional price tag
+              {t("comparison.subtitle")}
             </p>
           </div>
         </ScrollReveal>
@@ -130,13 +97,13 @@ export default function Comparison() {
                 <TableHeader>
                   <TableRow className="border-b-0 bg-bg-mint">
                     <TableHead className="text-left py-5 px-6 font-medium text-sm uppercase tracking-wider h-auto text-muted border-b border-border">
-                      Feature
+                      {t("comparison.feature")}
                     </TableHead>
                     <TableHead className="py-5 px-4 text-center h-auto border-b border-border">
                       <div className="inline-flex flex-col items-center gap-1">
                         <span className="font-bold text-foreground">TrackSpeed</span>
                         <Badge className="text-[10px] px-2 py-0.5 bg-[#D1FAE5] border-transparent text-accent-green">
-                          YOU ARE HERE
+                          {t("comparison.youAreHere")}
                         </Badge>
                       </div>
                     </TableHead>
@@ -186,7 +153,7 @@ export default function Comparison() {
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-lg text-foreground">TrackSpeed</span>
                   <Badge className="text-[10px] px-2 py-1 bg-[#D1FAE5] border-transparent text-accent-green">
-                    YOU ARE HERE
+                    {t("comparison.youAreHere")}
                   </Badge>
                 </div>
               </CardHeader>
@@ -225,9 +192,11 @@ export default function Comparison() {
         </ScrollReveal>
 
         <div className="text-center text-xs mt-8 space-y-1 text-muted">
-          <p>*$8.99/mo or $49.99/yr. Prices are approximate.</p>
-          <p>**Per <a href="https://www.researchgate.net/publication/266796025" className="underline hover:no-underline text-text-secondary" target="_blank" rel="noopener">peer-reviewed study</a>: Brower found &quot;not reliable enough to monitor small changes for elite athletes&quot;</p>
-          <p>Beam systems trigger on any body part (hand/leg), not chest. TrackSpeed is designed for training, not official competition.</p>
+          <p>{t("comparison.footnotes.pricing")}</p>
+          <p>{t.rich("comparison.footnotes.browerStudy", {
+            link: (chunks) => <a key="brower-link" href="https://www.researchgate.net/publication/266796025" className="underline hover:no-underline text-text-secondary" target="_blank" rel="noopener">{chunks}</a>,
+          })}</p>
+          <p>{t("comparison.footnotes.beamNote")}</p>
         </div>
 
         <div className="text-center mt-10">

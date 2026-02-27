@@ -1,0 +1,38 @@
+{
+  "title": "Feature-Wünsche & Feedback",
+  "subtitle": "Stimme für Ideen ab, die du sehen möchtest, oder schlage eigene vor.",
+  "submitIdea": "Idee einreichen",
+  "submitAnIdea": "Eine Idee einreichen",
+  "titleLabel": "Titel *",
+  "titlePlaceholder": "Ein kurzer, beschreibender Titel",
+  "descriptionLabel": "Beschreibung",
+  "descriptionPlaceholder": "Erkläre, was du dir wünschst und warum es nützlich wäre...",
+  "categoryLabel": "Kategorie",
+  "categories": {
+    "all": "Alle",
+    "features": "Funktionen",
+    "bugs": "Fehler",
+    "improvements": "Verbesserungen",
+    "featureRequest": "Feature-Wunsch",
+    "bugReport": "Fehlerbericht",
+    "improvement": "Verbesserung"
+  },
+  "yourName": "Dein Name (optional)",
+  "anonymous": "Anonym",
+  "submitting": "Wird eingereicht...",
+  "submit": "Einreichen",
+  "status": {
+    "open": "Offen",
+    "planned": "Geplant",
+    "inProgress": "In Arbeit",
+    "completed": "Abgeschlossen"
+  },
+  "noIdeasYet": "Noch keine Ideen",
+  "beFirstToSubmit": "Sei der Erste, der einen Feature-Wunsch einreicht!",
+  "loadingComments": "Kommentare werden geladen...",
+  "noComments": "Noch keine Kommentare. Sei der Erste, der seine Meinung teilt!",
+  "namePlaceholder": "Dein Name (optional)",
+  "commentPlaceholder": "Kommentar schreiben...",
+  "post": "Posten",
+  "team": "Team"
+}

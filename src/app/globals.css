@@ -237,6 +237,13 @@ html {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Dark card for admin/dark sections */
+.card-gunmetal {
+  background: #1A1A1A;
+  border: 1px solid #3D3D3D;
+  color: #E8E8E6;
+}
+
 /* Feature card - Cal AI style */
 .card-feature {
   background: #FFFFFF;
@@ -345,4 +352,39 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* CJK / Arabic / Devanagari font fallbacks */
+[lang="ja"] { font-family: var(--font-cjk), var(--font-inter), sans-serif; }
+[lang="ko"] { font-family: var(--font-cjk), var(--font-inter), sans-serif; }
+[lang="zh-Hans"] { font-family: var(--font-cjk), var(--font-inter), sans-serif; }
+[lang="ar"] { font-family: var(--font-arabic), var(--font-inter), sans-serif; }
+[lang="hi"] { font-family: var(--font-devanagari), var(--font-inter), sans-serif; }
+
+/* RTL support for Arabic */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
 }

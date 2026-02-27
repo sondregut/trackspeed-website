@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "Özellikler",
+    "howItWorks": "Nasıl Çalışır",
+    "technology": "Teknoloji",
+    "support": "Destek",
+    "blog": "Blog",
+    "about": "Hakkımızda",
+    "appStore": "App Store",
+    "openMenu": "Menüyü aç",
+    "navigation": "Gezinme",
+    "downloadOnThe": "İndir",
+    "language": "Dil"
+  },
+  "footer": {
+    "tagline": "iPhone'unla profesyonel sprint zamanlama. Ekstra donanıma gerek yok.",
+    "product": "Ürün",
+    "download": "İndir",
+    "resources": "Kaynaklar",
+    "feedback": "Geri Bildirim",
+    "legal": "Yasal",
+    "termsAndConditions": "Şartlar ve Koşullar",
+    "privacyPolicy": "Gizlilik Politikası",
+    "copyright": "© {year} TrackSpeed. Tüm hakları saklıdır.",
+    "madeForAthletes": "Sporcular için, sporcular tarafından yapıldı.",
+    "affiliates": "İş Ortakları"
+  },
+  "cookie": {
+    "message": "Site kullanımını analiz etmek ve deneyimini iyileştirmek için çerezler kullanıyoruz.",
+    "accept": "Kabul Et",
+    "decline": "Reddet"
+  },
+  "cta": {
+    "downloadForIos": "iOS için indir",
+    "downloadOnAppStore": "App Store'dan indir",
+    "tryFree": "TrackSpeed'i ücretsiz dene"
+  }
+}

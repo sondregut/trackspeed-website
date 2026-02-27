@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "Recursos",
+    "howItWorks": "Como funciona",
+    "technology": "Tecnologia",
+    "support": "Suporte",
+    "blog": "Blog",
+    "about": "Sobre",
+    "appStore": "App Store",
+    "openMenu": "Abrir menu",
+    "navigation": "Navegacao",
+    "downloadOnThe": "Baixar na",
+    "language": "Idioma"
+  },
+  "footer": {
+    "tagline": "Cronometragem profissional de sprints com seu iPhone. Sem hardware extra.",
+    "product": "Produto",
+    "download": "Baixar",
+    "resources": "Recursos",
+    "feedback": "Feedback",
+    "legal": "Legal",
+    "termsAndConditions": "Termos e condicoes",
+    "privacyPolicy": "Politica de privacidade",
+    "copyright": "\u00a9 {year} TrackSpeed. Todos os direitos reservados.",
+    "madeForAthletes": "Feito para atletas, por atletas.",
+    "affiliates": "Afiliados"
+  },
+  "cookie": {
+    "message": "Usamos cookies para analisar o uso do site e melhorar sua experiencia.",
+    "accept": "Aceitar",
+    "decline": "Recusar"
+  },
+  "cta": {
+    "downloadForIos": "Baixar para iOS",
+    "downloadOnAppStore": "Baixar na App Store",
+    "tryFree": "Experimente o TrackSpeed gratis"
+  }
+}

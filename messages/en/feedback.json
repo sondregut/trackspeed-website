@@ -1,0 +1,38 @@
+{
+  "title": "Feature Requests & Feedback",
+  "subtitle": "Vote on ideas you want to see, or suggest your own.",
+  "submitIdea": "Submit Idea",
+  "submitAnIdea": "Submit an Idea",
+  "titleLabel": "Title *",
+  "titlePlaceholder": "A short, descriptive title",
+  "descriptionLabel": "Description",
+  "descriptionPlaceholder": "Explain what you'd like and why it would be useful...",
+  "categoryLabel": "Category",
+  "categories": {
+    "all": "All",
+    "features": "Features",
+    "bugs": "Bugs",
+    "improvements": "Improvements",
+    "featureRequest": "Feature Request",
+    "bugReport": "Bug Report",
+    "improvement": "Improvement"
+  },
+  "yourName": "Your Name (optional)",
+  "anonymous": "Anonymous",
+  "submitting": "Submitting...",
+  "submit": "Submit",
+  "status": {
+    "open": "Open",
+    "planned": "Planned",
+    "inProgress": "In Progress",
+    "completed": "Completed"
+  },
+  "noIdeasYet": "No ideas yet",
+  "beFirstToSubmit": "Be the first to submit a feature request!",
+  "loadingComments": "Loading comments...",
+  "noComments": "No comments yet. Be the first to share your thoughts!",
+  "namePlaceholder": "Your name (optional)",
+  "commentPlaceholder": "Add a comment...",
+  "post": "Post",
+  "team": "Team"
+}

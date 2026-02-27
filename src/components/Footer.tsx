@@ -1,9 +1,14 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import AppleIcon from "@/components/icons/AppleIcon";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("common");
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-bg-mint">
       <Separator />
@@ -22,7 +27,7 @@ export default function Footer() {
               <span className="text-lg font-bold text-foreground">TrackSpeed</span>
             </Link>
             <p className="text-sm max-w-xs text-muted">
-              Professional sprint timing using your iPhone. No extra hardware needed.
+              {t("footer.tagline")}
             </p>
 
             {/* App Store download */}
@@ -32,8 +37,8 @@ export default function Footer() {
             >
               <AppleIcon className="w-5 h-5" />
               <div className="flex flex-col leading-tight">
-                <span className="text-[10px] opacity-80">Download on the</span>
-                <span className="text-sm font-semibold -mt-0.5">App Store</span>
+                <span className="text-[10px] opacity-80">{t("nav.downloadOnThe")}</span>
+                <span className="text-sm font-semibold -mt-0.5">{t("nav.appStore")}</span>
               </div>
             </a>
 
@@ -78,21 +83,21 @@ export default function Footer() {
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-foreground">Product</h4>
+            <h4 className="font-semibold mb-4 text-foreground">{t("footer.product")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#features" className="text-muted transition-colors hover:opacity-70">
-                  Features
+                <Link href="/#features" className="text-muted transition-colors hover:opacity-70">
+                  {t("nav.features")}
                 </Link>
               </li>
               <li>
-                <Link href="#how-it-works" className="text-muted transition-colors hover:opacity-70">
-                  How It Works
+                <Link href="/#how-it-works" className="text-muted transition-colors hover:opacity-70">
+                  {t("nav.howItWorks")}
                 </Link>
               </li>
               <li>
                 <Link href="/technology" className="text-muted transition-colors hover:opacity-70">
-                  Technology
+                  {t("nav.technology")}
                 </Link>
               </li>
               <li>
@@ -100,7 +105,7 @@ export default function Footer() {
                   href="https://apps.apple.com/app/trackspeed"
                   className="text-muted transition-colors hover:opacity-70"
                 >
-                  Download
+                  {t("footer.download")}
                 </a>
               </li>
             </ul>
@@ -108,21 +113,26 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-foreground">Resources</h4>
+            <h4 className="font-semibold mb-4 text-foreground">{t("footer.resources")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/support" className="text-muted transition-colors hover:opacity-70">
-                  Support
+                  {t("nav.support")}
                 </Link>
               </li>
               <li>
                 <Link href="/feedback" className="text-muted transition-colors hover:opacity-70">
-                  Feedback
+                  {t("footer.feedback")}
                 </Link>
               </li>
               <li>
                 <Link href="/blog" className="text-muted transition-colors hover:opacity-70">
-                  Blog
+                  {t("nav.blog")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-muted transition-colors hover:opacity-70">
+                  {t("nav.about")}
                 </Link>
               </li>
             </ul>
@@ -130,16 +140,16 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-foreground">Legal</h4>
+            <h4 className="font-semibold mb-4 text-foreground">{t("footer.legal")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/terms" className="text-muted transition-colors hover:opacity-70">
-                  Terms & Conditions
+                  {t("footer.termsAndConditions")}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-muted transition-colors hover:opacity-70">
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </Link>
               </li>
             </ul>
@@ -148,18 +158,18 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-border">
           <p className="text-sm text-muted">
-            &copy; {new Date().getFullYear()} TrackSpeed. All rights reserved.
+            {t("footer.copyright", { year })}
           </p>
           <div className="flex items-center gap-6">
             <p className="text-sm text-text-secondary">
-              Made for athletes, by athletes.
+              {t("footer.madeForAthletes")}
             </p>
-            <Link
+            <NextLink
               href="/influencer/apply"
               className="text-xs text-muted transition-opacity hover:opacity-70"
             >
-              Affiliates
-            </Link>
+              {t("footer.affiliates")}
+            </NextLink>
           </div>
         </div>
       </div>

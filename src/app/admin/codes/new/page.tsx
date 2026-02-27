@@ -51,7 +51,7 @@ export default function CreateCodePage() {
         >
           &larr; Back to Dashboard
         </Link>
-        <h1 className="text-2xl font-bold">Create Promo Code</h1>
+        <h1 className="text-2xl font-bold text-white">Create Promo Code</h1>
         <p className="text-[#9B9A97] mt-1">Create a new promotional code</p>
       </div>
 

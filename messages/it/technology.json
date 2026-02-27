@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "Come il cronometraggio sprint con iPhone raggiunge ~4ms di precisione",
+    "description": "Scopri come TrackSpeed usa la fotocamera del tuo iPhone per offrire cronometraggio sprint con precisione al millisecondo — senza attrezzatura extra."
+  },
+  "backToHome": "Torna alla home",
+  "heroTitle": "Come raggiungiamo ~4ms di precisione nel cronometraggio",
+  "heroSubtitle": "Il tuo iPhone ha già tutto il necessario per un cronometraggio sprint di precisione — una fotocamera ad alta frequenza di fotogrammi, un giroscopio preciso e un potente processore. Ecco cosa rende possibile tutto questo.",
+  "sections": {
+    "subFrame": {
+      "title": "Precisione sub-fotogramma",
+      "desc": "Gli atleti raramente attraversano il gate nel momento esatto in cui viene catturato un fotogramma. Il nostro sistema analizza più fotogrammi per individuare il momento esatto dell'attraversamento tra un fotogramma e l'altro — raggiungendo una precisione di interpolazione sub-millisecondo che va ben oltre l'intervallo nativo della fotocamera."
+    },
+    "corrections": {
+      "title": "Correzioni basate sulla fisica",
+      "desc": "Le fotocamere iPhone scansionano ogni fotogramma dall'alto verso il basso nell'arco di diversi millisecondi, introducendo uno sfasamento temporale in base alla posizione dell'atleta nell'inquadratura. Correggiamo automaticamente questo e altri artefatti di temporizzazione a livello hardware per eliminare l'errore sistematico."
+    },
+    "clockSync": {
+      "title": "Sincronizzazione dell'orologio tra dispositivi",
+      "desc": "Quando si usano due iPhone — uno alla partenza e uno all'arrivo — i loro orologi devono essere allineati entro pochi millisecondi. Il nostro protocollo di sincronizzazione raggiunge un allineamento di ±3-5ms tra i dispositivi. Durante la sincronizzazione, tieni entrambi i telefoni a circa 10 metri l'uno dall'altro per i migliori risultati. Una volta sincronizzati, puoi spostarli quanto vuoi."
+    },
+    "bodyTracking": {
+      "title": "Tracciamento corporeo, non rottura di fascio",
+      "desc": "I gate laser si attivano con ciò che rompe il fascio per primo — un braccio teso, un ginocchio o il petto. Questo varia a seconda della tecnica di corsa e genera inconsistenza. TrackSpeed traccia la massa corporea dell'atleta per determinare quando il torso attraversa la linea, esattamente come funziona il cronometraggio ufficiale."
+    }
+  },
+  "accuracy": {
+    "title": "Il risultato",
+    "value": "~4ms",
+    "label": "Precisione effettiva di cronometraggio",
+    "desc": "L'interpolazione sub-fotogramma, le correzioni fisiche e la sincronizzazione degli orologi si combinano per offrire una precisione di cronometraggio che rivaleggia con l'hardware dedicato — usando solo il tuo iPhone."
+  },
+  "professionalComparison": {
+    "title": "Come si confronta",
+    "system": "Sistema",
+    "resolution": "Risoluzione",
+    "detection": "Rilevamento",
+    "cost": "Costo",
+    "fat": {
+      "name": "FAT (Ufficiale)",
+      "resolution": "0.001s",
+      "detection": "Fotocamera photo finish",
+      "cost": "$10,000+"
+    },
+    "laserGates": {
+      "name": "Gate laser",
+      "resolution": "±50-200ms*",
+      "detection": "Prima rottura del fascio",
+      "cost": "$500-2000"
+    },
+    "trackspeed": {
+      "name": "TrackSpeed",
+      "resolution": "~4ms",
+      "detection": "Tracciamento corporeo",
+      "cost": "Il tuo iPhone"
+    },
+    "laserNote": "*I gate laser si attivano a velocità sub-millisecondo, ma i punti di attivazione inconsistenti (braccio vs. petto) possono causare variazioni di 50-200ms tra le corse dello stesso atleta."
+  },
+  "cta": {
+    "title": "Pronto a cronometrare il tuo allenamento?",
+    "subtitle": "Scarica TrackSpeed e sperimenta la precisione al millisecondo usando solo il tuo iPhone.",
+    "download": "Scarica su App Store",
+    "compare": "Scopri come TrackSpeed si confronta con altri metodi di cronometraggio"
+  }
+}

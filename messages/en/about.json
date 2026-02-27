@@ -1,0 +1,37 @@
+{
+  "title": "Athletes building for athletes",
+  "intro": "TrackSpeed was born on the track. We're active competitive athletes who got tired of inaccurate timing tools \u2014 so we built our own.",
+  "story1": "As track and field athletes training at the highest level, we needed accurate timing for our sprints and approach runs \u2014 but the options were either expensive laser gate systems with inconsistent trigger points, or a coach with a stopwatch and human reaction time error. Neither was good enough.",
+  "story2": "We realized that the iPhone in everyone's pocket already had the hardware to solve this \u2014 a high frame rate camera, precise gyroscope, and enough processing power for real-time computer vision. So we built TrackSpeed: a timing system that uses frame-by-frame motion detection and sub-frame interpolation to deliver millisecond-accurate results, no extra equipment needed.",
+  "team": {
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Co-Founder & Lead Developer",
+      "bio1": "Professional pole vaulter and two-time Olympian (Tokyo 2020, Paris 2024) representing Norway. NCAA champion at Princeton University, where he tied the all-time collegiate indoor record at 6.00m. Holds Ivy League records in both indoor and outdoor pole vault. Gold medalist at the European Athletics Indoor Championships.",
+      "bio2": "Founder & Lead Developer. Princeton B.A., UT Austin M.Ed."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Co-Founder & Jumpers World",
+      "bio1": "Long jumper representing North Macedonia and national record holder (7.91m). Named North Macedonian Athlete of the Year. Competed at the European Athletics Indoor Championships and European Athletics Team Championships. University of Arkansas alum.",
+      "bio2": "Co-Founder of TrackSpeed and Founder of Jumpers World \u2014 one of the largest track & field media brands. Deep network across the athletics community with firsthand understanding of what athletes need."
+    },
+    "simen": {
+      "name": "Simen Guttormsen",
+      "role": "Engineer",
+      "bio1": "Olympic pole vaulter representing Norway. NCAA champion and ACC record holder at Duke University, where he was a three-time All-American. Previously a two-time All-American at Princeton.",
+      "bio2": "Full-stack co-developer of TrackSpeed \u2014 contributes across the entire codebase, from architecture decisions and code reviews to feature development. Princeton B.E. in Operations Research and Financial Engineering, Duke M.S. in Economics and Computation."
+    }
+  },
+  "teamNote": "Built by athletes, for athletes.",
+  "cta": {
+    "title": "Ready to time your training?",
+    "subtitle": "Download TrackSpeed and experience millisecond precision with just your iPhone.",
+    "download": "Download on the App Store",
+    "learnMore": "Learn how our timing technology works"
+  },
+  "metadata": {
+    "title": "About \u2014 TrackSpeed",
+    "description": "Meet the athletes behind TrackSpeed. Active competitive athletes building precision sprint timing for every athlete."
+  }
+}

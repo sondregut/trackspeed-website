@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "Sprint Timing App for iPhone - Free, No Hardware",
+    "description": "Turn your iPhone into a timing system. ~4ms accuracy, 120fps detection, multi-device sync. Free for track coaches and athletes."
+  },
+  "hero": {
+    "socialProof": "Loved by olympians",
+    "title": "TrackSpeed",
+    "subtitle": "Sprint timing with just your iPhone",
+    "description": "Turn your iPhone into a professional timing system. No extra hardware, no calibration, instant results.",
+    "downloadCta": "Download on the App Store",
+    "stats": {
+      "accuracy": "Accuracy",
+      "setup": "Setup",
+      "hardware": "Hardware"
+    }
+  },
+  "testimonials": {
+    "title": "Loved by your favorite olympians",
+    "subtitle": "From high school track to the Olympic Games",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Olympic Pole Vaulter",
+      "quote": "I use TrackSpeed to dial in my run-up before competitions. The accuracy is impressive and I always know exactly what speed I'm hitting at takeoff."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Macedonian Long Jump Record Holder",
+      "quote": "As a long jumper, speed is everything. I time all my sprints with TrackSpeed and love how quick and easy it is to set up. It even tracks my long jump takeoff speed!"
+    }
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "subtitle": "Get started in under a minute",
+    "step": "Step {number}",
+    "steps": {
+      "connect": {
+        "title": "Connect phones",
+        "description": "Pair your iPhones together. They sync automatically over Wi-Fi."
+      },
+      "start": {
+        "title": "Start your session",
+        "description": "Choose from five start methods\u2014flying start, touch release, countdown, voice commands, or start in frame."
+      },
+      "position": {
+        "title": "Position your phone",
+        "description": "Place your phone at the finish line. No calibration needed."
+      },
+      "time": {
+        "title": "Get your time",
+        "description": "Run your sprint and get instant results with millisecond accuracy."
+      }
+    }
+  },
+  "features": {
+    "title": "Professional timing, zero equipment",
+    "subtitle": "Everything you need is already in your pocket",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "Timing Accuracy" },
+      "sync": { "value": "2+", "label": "Device Sync" },
+      "hardware": { "value": "0", "label": "Extra Hardware" }
+    },
+    "smartDetection": {
+      "title": "Smart Detection",
+      "description": "Camera-based motion detection triggers timing automatically when you cross the line."
+    },
+    "multiDeviceSync": {
+      "title": "Multi-Device Sync",
+      "description": "Connect iPhones wirelessly. Millisecond-accurate clock synchronization between gates."
+    },
+    "instantResults": {
+      "title": "Instant Results",
+      "description": "See your time the moment you cross. No manual stopwatch delays."
+    },
+    "trackProgress": {
+      "title": "Track Progress",
+      "description": "Save sessions, view history, and track improvement over time."
+    }
+  },
+  "startTypes": {
+    "title": "Five ways to start your sprint",
+    "subtitle": "Choose the start method that matches your training goals",
+    "bestFor": "Best for: {useCase}",
+    "types": {
+      "flying": {
+        "title": "Flying Start",
+        "description": "Run through at full speed. First gate crossing starts the timer automatically. Perfect for max velocity testing.",
+        "useCase": "Speed testing, flying 10m/20m/30m"
+      },
+      "touch": {
+        "title": "Touch Release",
+        "description": "Place finger on screen, lift to start. Captures reaction time just like blocks at a real track meet.",
+        "useCase": "40 yard dash, combine testing"
+      },
+      "countdown": {
+        "title": "Countdown",
+        "description": "3... 2... 1... BEEP! A visual and audio countdown gives you a predictable start signal. Great for consistent training.",
+        "useCase": "Solo training, timed intervals"
+      },
+      "voice": {
+        "title": "Voice Command",
+        "description": "\"On your marks... Set... GO!\" AI voice commands with realistic timing based on official rules.",
+        "useCase": "Solo training, group starts"
+      },
+      "frame": {
+        "title": "Start in Frame",
+        "description": "Begin stationary in the camera view, then take off. Timer starts when you leave the frame. No second device needed.",
+        "useCase": "Solo training, single phone setup"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "Connect multiple phones for precise timing",
+    "description": "Use one iPhone at the start line and another at the finish. Add more phones for split times at any distance.",
+    "wirelessConnection": {
+      "title": "Wireless Connection",
+      "description": "Phones connect automatically via peer-to-peer WiFi. No internet required."
+    },
+    "millisecondSync": {
+      "title": "Millisecond-Accurate Sync",
+      "description": "NTP-style clock synchronization ensures accurate timing across devices."
+    },
+    "unlimitedGates": {
+      "title": "Unlimited Gates",
+      "description": "Add split timing with 3+ phones. Track acceleration phases and top speed."
+    }
+  },
+  "comparison": {
+    "title": "How we compare",
+    "subtitle": "Professional timing without the professional price tag",
+    "feature": "Feature",
+    "youAreHere": "YOU ARE HERE",
+    "features": {
+      "price": "Price",
+      "accuracy": "Accuracy",
+      "chestDetection": "Chest Detection",
+      "setupTime": "Setup Time",
+      "hardware": "Hardware",
+      "splitTimes": "Split Times",
+      "photoFinish": "Photo Finish",
+      "portability": "Portability"
+    },
+    "trackspeed": {
+      "price": "Free / $8.99/mo*",
+      "accuracy": "~4ms",
+      "chestDetection": "Yes (torso only)",
+      "setupTime": "< 1 min",
+      "hardware": "iPhone only",
+      "portability": "Pocket-sized"
+    },
+    "freelap": {
+      "price": "$500 - $2,000+",
+      "accuracy": "\u00b120ms",
+      "chestDetection": "No (any body part)",
+      "setupTime": "5-10 min",
+      "hardware": "Sensors + chips",
+      "portability": "Carry bag"
+    },
+    "brower": {
+      "price": "$1,500 - $5,000+",
+      "accuracy": "\u00b150-60ms**",
+      "chestDetection": "No (beam break)",
+      "setupTime": "10-20 min",
+      "hardware": "Gates + pads",
+      "portability": "Carry bag"
+    },
+    "dashr": {
+      "price": "$500 - $1,500+",
+      "accuracy": "\u00b110ms",
+      "chestDetection": "No (beam break)",
+      "setupTime": "5-10 min",
+      "hardware": "Laser gates",
+      "portability": "Carry bag"
+    },
+    "stopwatch": {
+      "price": "$10 - $50",
+      "accuracy": "\u00b1200ms",
+      "chestDetection": "Visual guess",
+      "setupTime": "Instant",
+      "hardware": "None",
+      "portability": "Pocket-sized"
+    },
+    "footnotes": {
+      "pricing": "*$8.99/mo or $49.99/yr. Prices are approximate.",
+      "browerStudy": "**Per <link>peer-reviewed study</link>: Brower found \"not reliable enough to monitor small changes for elite athletes\"",
+      "beamNote": "Beam systems trigger on any body part (hand/leg), not chest. TrackSpeed is designed for training, not official competition."
+    }
+  },
+  "timingTechnology": {
+    "title": "The science behind sub-frame precision",
+    "subtitle": "How we achieve ~4ms accuracy with standard iPhone cameras",
+    "frameCapture": "120fps capture = 8.3ms between frames",
+    "formula": "position = velocity \u00d7 time + offset",
+    "formulaLabel": "Trajectory regression (3+ frames)",
+    "formulaResult": "Solve for crossing time with sub-frame precision",
+    "beyondFrameByFrame": "Beyond frame-by-frame timing",
+    "learnHowItWorks": "Learn how it works",
+    "motionDetection": {
+      "title": "Motion Detection",
+      "description": "Frame differencing identifies moving objects. Blob analysis finds the largest motion region (your body) and tracks its leading edge toward the gate."
+    },
+    "trajectoryRegression": {
+      "title": "Trajectory Regression",
+      "description": "We track position across multiple frames and use linear regression to calculate the precise moment you crossed the gate line\u2014even between frames."
+    },
+    "rollingShutterCorrection": {
+      "title": "Rolling Shutter Correction",
+      "description": "iPhone cameras scan top-to-bottom over ~5-12ms. We measure where you crossed vertically and compensate for the exact scan timing at that position."
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms Effective Accuracy",
+      "description": "The combination of 120fps capture, multi-frame trajectory analysis, and rolling shutter correction delivers timing precision comparable to professional systems."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "Frame interval at 120fps" },
+      "interpolation": { "value": "~0.5ms", "label": "Interpolation resolution" },
+      "accuracy": { "value": "~4ms", "label": "Effective timing accuracy" }
+    }
+  },
+  "ctaSection": {
+    "title": "Ready to time faster?",
+    "subtitle": "Download TrackSpeed and start training with precision timing today.",
+    "accuracy": "~4ms accuracy",
+    "setup": "<1 min setup",
+    "noHardware": "No extra hardware",
+    "freeNote": "Free to download. Premium features available."
+  }
+}

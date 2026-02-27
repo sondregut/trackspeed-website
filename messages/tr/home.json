@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "iPhone için Sprint Zamanlama Uygulaması - Ücretsiz, Donanım Gerektirmez",
+    "description": "iPhone'unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, 120fps algılama, çoklu cihaz senkronizasyonu. Antrenörler ve sporcular için ücretsiz."
+  },
+  "hero": {
+    "socialProof": "Olimpiyatçıların tercihi",
+    "title": "TrackSpeed",
+    "subtitle": "Sadece iPhone'unla sprint zamanlama",
+    "description": "iPhone'unu profesyonel bir zamanlama sistemine dönüştür. Ekstra donanım yok, kalibrasyon yok, anında sonuç.",
+    "downloadCta": "App Store'dan indir",
+    "stats": {
+      "accuracy": "Doğruluk",
+      "setup": "Kurulum",
+      "hardware": "Donanım"
+    }
+  },
+  "testimonials": {
+    "title": "En sevdiğin olimpiyatçıların tercihi",
+    "subtitle": "Lise pistinden Olimpiyat Oyunları'na",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Olimpik Sırıkla Atlamacı",
+      "quote": "Yarışmalardan önce koşu mesafemi ayarlamak için TrackSpeed kullanıyorum. Doğruluğu etkileyici ve kalkışta hangi hıza ulaştığımı her zaman tam olarak biliyorum."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Makedonya Uzun Atlama Rekortmeni",
+      "quote": "Uzun atlamacı olarak hız her şeydir. Tüm sprintlerimi TrackSpeed ile zamanlıyorum ve kurulumunun ne kadar hızlı ve kolay olduğunu seviyorum. Uzun atlama kalkış hızımı bile takip ediyor!"
+    }
+  },
+  "howItWorks": {
+    "title": "Nasıl çalışır",
+    "subtitle": "Bir dakikadan kısa sürede başla",
+    "step": "Adım {number}",
+    "steps": {
+      "connect": {
+        "title": "Telefonları bağla",
+        "description": "iPhone'larını birbirine eşle. Wi-Fi üzerinden otomatik olarak senkronize olurlar."
+      },
+      "start": {
+        "title": "Oturumunu başlat",
+        "description": "Beş başlangıç yöntemi arasından seç — uçarak başlangıç, dokunarak bırakma, geri sayım, sesli komutlar veya kare içinde başlangıç."
+      },
+      "position": {
+        "title": "Telefonunu konumlandır",
+        "description": "Telefonunu bitiş çizgisine yerleştir. Kalibrasyon gerekmez."
+      },
+      "time": {
+        "title": "Zamanını al",
+        "description": "Sprintini koş ve milisaniye doğruluğuyla anında sonuçları al."
+      }
+    }
+  },
+  "features": {
+    "title": "Profesyonel zamanlama, sıfır ekipman",
+    "subtitle": "İhtiyacın olan her şey zaten cebinde",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "Zamanlama Doğruluğu" },
+      "sync": { "value": "2+", "label": "Cihaz Senkronizasyonu" },
+      "hardware": { "value": "0", "label": "Ekstra Donanım" }
+    },
+    "smartDetection": {
+      "title": "Akıllı Algılama",
+      "description": "Kamera tabanlı hareket algılama, çizgiyi geçtiğinde zamanlamayı otomatik olarak tetikler."
+    },
+    "multiDeviceSync": {
+      "title": "Çoklu Cihaz Senkronizasyonu",
+      "description": "iPhone'ları kablosuz olarak bağla. Kapılar arasında milisaniye hassasiyetinde saat senkronizasyonu."
+    },
+    "instantResults": {
+      "title": "Anında Sonuçlar",
+      "description": "Geçtiğin an zamanını gör. Manuel kronometre gecikmesi yok."
+    },
+    "trackProgress": {
+      "title": "İlerlemeyi Takip Et",
+      "description": "Oturumları kaydet, geçmişi görüntüle ve zaman içindeki gelişimi takip et."
+    }
+  },
+  "startTypes": {
+    "title": "Sprintini başlatmanın beş yolu",
+    "subtitle": "Antrenman hedeflerine uyan başlangıç yöntemini seç",
+    "bestFor": "En uygun: {useCase}",
+    "types": {
+      "flying": {
+        "title": "Uçarak Başlangıç",
+        "description": "Tam hızda koş. İlk kapı geçişi zamanlayıcıyı otomatik başlatır. Maksimum hız testi için mükemmel.",
+        "useCase": "Hız testi, uçarak 10m/20m/30m"
+      },
+      "touch": {
+        "title": "Dokunarak Bırakma",
+        "description": "Parmağını ekrana koy, kaldırarak başla. Gerçek bir yarışma gibi reaksiyon süresini yakalar.",
+        "useCase": "40 yard koşusu, kombayn testleri"
+      },
+      "countdown": {
+        "title": "Geri Sayım",
+        "description": "3... 2... 1... BİP! Görsel ve sesli geri sayım öngörülebilir bir başlangıç sinyali verir. Tutarlı antrenman için harika.",
+        "useCase": "Tek başına antrenman, zamanlı aralıklar"
+      },
+      "voice": {
+        "title": "Sesli Komut",
+        "description": "\"Yerlerinize... Hazır... Başla!\" Resmi kurallara dayanan gerçekçi zamanlamalı yapay zeka sesli komutları.",
+        "useCase": "Tek başına antrenman, grup çıkışları"
+      },
+      "frame": {
+        "title": "Kare İçinde Başlangıç",
+        "description": "Kamera görüşünde hareketsiz başla, sonra fırla. Kareden çıktığında zamanlayıcı başlar. İkinci cihaza gerek yok.",
+        "useCase": "Tek başına antrenman, tek telefon kurulumu"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "Hassas zamanlama için birden fazla telefon bağla",
+    "description": "Bir iPhone'u başlangıç çizgisine, diğerini bitişe koy. Herhangi bir mesafede ara süreler için daha fazla telefon ekle.",
+    "wirelessConnection": {
+      "title": "Kablosuz Bağlantı",
+      "description": "Telefonlar eşler arası WiFi ile otomatik bağlanır. İnternet gerekmez."
+    },
+    "millisecondSync": {
+      "title": "Milisaniye Hassasiyetinde Senkronizasyon",
+      "description": "NTP tarzı saat senkronizasyonu cihazlar arasında doğru zamanlamayı garanti eder."
+    },
+    "unlimitedGates": {
+      "title": "Sınırsız Kapılar",
+      "description": "3+ telefonla ara süre ölçümü ekle. Hızlanma aşamalarını ve en yüksek hızı takip et."
+    }
+  },
+  "comparison": {
+    "title": "Nasıl karşılaştırılır",
+    "subtitle": "Profesyonel fiyat etiketi olmadan profesyonel zamanlama",
+    "feature": "Özellik",
+    "youAreHere": "BURADASIN",
+    "features": {
+      "price": "Fiyat",
+      "accuracy": "Doğruluk",
+      "chestDetection": "Göğüs Algılama",
+      "setupTime": "Kurulum Süresi",
+      "hardware": "Donanım",
+      "splitTimes": "Ara Süreler",
+      "photoFinish": "Fotoğraflı Bitiş",
+      "portability": "Taşınabilirlik"
+    },
+    "trackspeed": {
+      "price": "Ücretsiz / $8.99/ay*",
+      "accuracy": "~4ms",
+      "chestDetection": "Evet (sadece gövde)",
+      "setupTime": "< 1 dk",
+      "hardware": "Sadece iPhone",
+      "portability": "Cep boyutunda"
+    },
+    "freelap": {
+      "price": "$500 - $2,000+",
+      "accuracy": "±20ms",
+      "chestDetection": "Hayır (herhangi bir vücut bölümü)",
+      "setupTime": "5-10 dk",
+      "hardware": "Sensörler + çipler",
+      "portability": "Taşıma çantası"
+    },
+    "brower": {
+      "price": "$1,500 - $5,000+",
+      "accuracy": "±50-60ms**",
+      "chestDetection": "Hayır (ışın kesme)",
+      "setupTime": "10-20 dk",
+      "hardware": "Kapılar + pedler",
+      "portability": "Taşıma çantası"
+    },
+    "dashr": {
+      "price": "$500 - $1,500+",
+      "accuracy": "±10ms",
+      "chestDetection": "Hayır (ışın kesme)",
+      "setupTime": "5-10 dk",
+      "hardware": "Lazer kapılar",
+      "portability": "Taşıma çantası"
+    },
+    "stopwatch": {
+      "price": "$10 - $50",
+      "accuracy": "±200ms",
+      "chestDetection": "Görsel tahmin",
+      "setupTime": "Anında",
+      "hardware": "Yok",
+      "portability": "Cep boyutunda"
+    },
+    "footnotes": {
+      "pricing": "*$8.99/ay veya $49.99/yıl. Fiyatlar yaklaşıktır.",
+      "browerStudy": "**<link>Hakemli çalışmaya</link> göre: Brower \"elit sporcular için küçük değişiklikleri izlemeye yetecek kadar güvenilir bulunmadı\"",
+      "beamNote": "Işın sistemleri herhangi bir vücut bölümüne (el/bacak) tetiklenir, göğse değil. TrackSpeed antrenman için tasarlanmıştır, resmi yarışmalar için değil."
+    }
+  },
+  "timingTechnology": {
+    "title": "Kare altı hassasiyetin arkasındaki bilim",
+    "subtitle": "Standart iPhone kameralarıyla ~4ms doğruluğu nasıl elde ediyoruz",
+    "frameCapture": "120fps yakalama = kareler arasında 8.3ms",
+    "formula": "position = velocity × time + offset",
+    "formulaLabel": "Yörünge regresyonu (3+ kare)",
+    "formulaResult": "Kare altı hassasiyetle geçiş zamanını hesapla",
+    "beyondFrameByFrame": "Kare kare zamanlamanın ötesinde",
+    "learnHowItWorks": "Nasıl çalıştığını öğren",
+    "motionDetection": {
+      "title": "Hareket Algılama",
+      "description": "Kare farkı hareketli nesneleri belirler. Blob analizi en büyük hareket bölgesini (vücudun) bulur ve ön kenarını kapıya doğru takip eder."
+    },
+    "trajectoryRegression": {
+      "title": "Yörünge Regresyonu",
+      "description": "Birden fazla kare boyunca konumu takip eder ve kapı çizgisini geçtiğin anı — kareler arasında bile — doğrusal regresyonla hesaplarız."
+    },
+    "rollingShutterCorrection": {
+      "title": "Yuvarlanan Panjur Düzeltmesi",
+      "description": "iPhone kameraları her kareyi yukarıdan aşağıya ~5-12ms'de tarar. Dikey olarak nerede geçtiğini ölçer ve o konumdaki kesin tarama zamanlamasını telafi ederiz."
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms Etkin Doğruluk",
+      "description": "120fps yakalama, çok kareli yörünge analizi ve yuvarlanan panjur düzeltmesinin birleşimi, profesyonel sistemlere denk zamanlama hassasiyeti sunar."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "120fps'de kare aralığı" },
+      "interpolation": { "value": "~0.5ms", "label": "İnterpolasyon çözünürlüğü" },
+      "accuracy": { "value": "~4ms", "label": "Etkin zamanlama doğruluğu" }
+    }
+  },
+  "ctaSection": {
+    "title": "Daha hızlı zamanlama için hazır mısın?",
+    "subtitle": "TrackSpeed'i indir ve bugün hassas zamanlamayla antrenman yapmaya başla.",
+    "accuracy": "~4ms doğruluk",
+    "setup": "<1 dk kurulum",
+    "noHardware": "Ekstra donanım yok",
+    "freeNote": "İndirmesi ücretsiz. Premium özellikler mevcut."
+  }
+}

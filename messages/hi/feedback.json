@@ -1,0 +1,38 @@
+{
+  "title": "फ़ीचर रिक्वेस्ट और फ़ीडबैक",
+  "subtitle": "जो आइडिया तुम देखना चाहते हो उस पर वोट करो, या अपना सुझाव दो।",
+  "submitIdea": "आइडिया भेजो",
+  "submitAnIdea": "एक आइडिया भेजो",
+  "titleLabel": "शीर्षक *",
+  "titlePlaceholder": "एक छोटा, वर्णनात्मक शीर्षक",
+  "descriptionLabel": "विवरण",
+  "descriptionPlaceholder": "बताओ तुम क्या चाहते हो और यह क्यों उपयोगी होगा...",
+  "categoryLabel": "श्रेणी",
+  "categories": {
+    "all": "सभी",
+    "features": "फ़ीचर्स",
+    "bugs": "बग्स",
+    "improvements": "सुधार",
+    "featureRequest": "फ़ीचर रिक्वेस्ट",
+    "bugReport": "बग रिपोर्ट",
+    "improvement": "सुधार"
+  },
+  "yourName": "तुम्हारा नाम (वैकल्पिक)",
+  "anonymous": "अनाम",
+  "submitting": "भेजा जा रहा है...",
+  "submit": "भेजो",
+  "status": {
+    "open": "खुला",
+    "planned": "प्लान किया गया",
+    "inProgress": "प्रगति में",
+    "completed": "पूरा हुआ"
+  },
+  "noIdeasYet": "अभी कोई आइडिया नहीं",
+  "beFirstToSubmit": "पहला फ़ीचर रिक्वेस्ट भेजने वाले बनो!",
+  "loadingComments": "कमेंट्स लोड हो रहे हैं...",
+  "noComments": "अभी कोई कमेंट्स नहीं। अपने विचार साझा करने वाले पहले बनो!",
+  "namePlaceholder": "तुम्हारा नाम (वैकल्पिक)",
+  "commentPlaceholder": "एक कमेंट जोड़ो...",
+  "post": "पोस्ट",
+  "team": "टीम"
+}

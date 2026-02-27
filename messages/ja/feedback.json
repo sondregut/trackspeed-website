@@ -1,0 +1,38 @@
+{
+  "title": "機能リクエスト＆フィードバック",
+  "subtitle": "気になるアイデアに投票するか、自分のアイデアを提案しましょう。",
+  "submitIdea": "アイデアを送信",
+  "submitAnIdea": "アイデアを送信する",
+  "titleLabel": "タイトル *",
+  "titlePlaceholder": "簡潔でわかりやすいタイトル",
+  "descriptionLabel": "説明",
+  "descriptionPlaceholder": "ご要望とその理由を説明してください...",
+  "categoryLabel": "カテゴリ",
+  "categories": {
+    "all": "すべて",
+    "features": "機能",
+    "bugs": "バグ",
+    "improvements": "改善",
+    "featureRequest": "機能リクエスト",
+    "bugReport": "バグ報告",
+    "improvement": "改善提案"
+  },
+  "yourName": "お名前（任意）",
+  "anonymous": "匿名",
+  "submitting": "送信中...",
+  "submit": "送信",
+  "status": {
+    "open": "未対応",
+    "planned": "計画中",
+    "inProgress": "進行中",
+    "completed": "完了"
+  },
+  "noIdeasYet": "まだアイデアがありません",
+  "beFirstToSubmit": "最初の機能リクエストを送信しましょう！",
+  "loadingComments": "コメントを読み込み中...",
+  "noComments": "まだコメントがありません。最初にご意見をお聞かせください！",
+  "namePlaceholder": "お名前（任意）",
+  "commentPlaceholder": "コメントを追加...",
+  "post": "投稿",
+  "team": "チーム"
+}

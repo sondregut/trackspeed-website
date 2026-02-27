@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Blog - Sprint Zamanlama İpuçları, Rehberler ve Teknoloji",
+    "description": "Sprint zamanlama teknolojisi, antrenman egzersizleri ve telefon tabanlı zamanlamadan en iyi şekilde yararlanma hakkında ipuçları, rehberler ve derinlemesine incelemeler."
+  },
+  "title": "Blog",
+  "subtitle": "Doğru zamanlamayla daha hızlı olmanı sağlayacak rehberler, karşılaştırmalar ve antrenman ipuçları.",
+  "readMore": "Devamını oku",
+  "englishOnly": "Bu makale yalnızca İngilizce olarak mevcuttur.",
+  "cta": {
+    "title": "Sprintlerini zamanlamaya hazır mısın?",
+    "description": "TrackSpeed'i indir ve iPhone'undan doğru, tutarlı zamanlama verisi almaya başla.",
+    "download": "App Store'dan indir"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "Sprint Zamanlama Sistemleri Alıcı Rehberi: Kapılar, Uygulamalar ve Kronometreler",
+      "excerpt": "iPhone'un aynı antrenman doğruluğunu ücretsiz sunarken zamanlama kapılarına neden $2,500 harcayasın? Lazer kapılar, kamera tabanlı zamanlama ve kronometrelerin tam karşılaştırması."
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "Telefonunla 40 Yard Koşusunu Doğru Şekilde Nasıl Zamanlarsın",
+      "excerpt": "Sadece iPhone'unu kullanarak güvenilir, tekrarlanabilir 40 yard koşu süreleri nasıl alınır — pahalı lazer kapılar veya kronometre hataları olmadan."
+    },
+    "sprint-timing-systems-compared": {
+      "title": "Sprint Zamanlama Sistemleri Karşılaştırması: Lazer Kapılar vs Kamera vs Kronometre",
+      "excerpt": "En yaygın sprint zamanlama yöntemlerinin objektif karşılaştırması — doğruluk, maliyet, tutarlılık ve senin durumun için hangisi en iyi."
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "Pist Antrenmanı için Çoklu Telefon Sprint Zamanlaması Nasıl Kurulur",
+      "excerpt": "Pist antrenmanında başlangıç ve bitiş çizgilerinde ara süre ölçümü için iki iPhone kurmanın adım adım rehberi."
+    },
+    "improve-sprint-speed-training": {
+      "title": "Doğru Zamanlamadan Yararlanan 4 Sprint Antrenman Egzersizi",
+      "excerpt": "Hassas, tutarlı zamanlama verisine sahip olmanın tahmin etmekle ilerlemenizi bilmek arasındaki farkı yarattığı özel egzersizler."
+    },
+    "what-is-photo-finish-timing": {
+      "title": "Fotoğraflı Bitiş Zamanlaması Nedir ve Nasıl Çalışır?",
+      "excerpt": "Fotoğraflı bitiş teknolojisinin açık bir anlatımı — Olimpik düzeydeki çizgi tarama kameralarından modern akıllı telefon tabanlı yaklaşımlara."
+    }
+  }
+}

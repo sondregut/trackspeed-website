@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Blog - Consigli, guide e tecnologia di cronometraggio sprint",
+    "description": "Consigli, guide e approfondimenti sulla tecnologia di cronometraggio sprint, esercizi di allenamento e come ottenere il massimo dal cronometraggio con telefono."
+  },
+  "title": "Blog",
+  "subtitle": "Guide, confronti e consigli di allenamento per aiutarti a diventare piu veloce con un cronometraggio preciso.",
+  "readMore": "Leggi di piu",
+  "englishOnly": "Questo articolo e disponibile solo in inglese.",
+  "cta": {
+    "title": "Pronto a cronometrare i tuoi sprint?",
+    "description": "Scarica TrackSpeed e inizia a ottenere dati di cronometraggio precisi e coerenti dal tuo iPhone.",
+    "download": "Scarica sull'App Store"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "Guida all'acquisto dei sistemi di cronometraggio: gate, app e cronometri a confronto",
+      "excerpt": "Perche spendere $2,500 per gate di cronometraggio quando il tuo iPhone offre la stessa precisione di allenamento gratis? Confronto completo tra gate laser, cronometraggio con fotocamera e cronometri."
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "Come cronometrare le 40 yard con precisione usando il telefono",
+      "excerpt": "Scopri come ottenere tempi affidabili e ripetibili sulle 40 yard usando solo il tuo iPhone \u2014 senza costosi gate laser o errori del cronometro."
+    },
+    "sprint-timing-systems-compared": {
+      "title": "Sistemi di cronometraggio sprint a confronto: gate laser vs fotocamera vs cronometro",
+      "excerpt": "Un confronto obiettivo dei metodi di cronometraggio sprint piu comuni \u2014 precisione, costo, coerenza e qual e il migliore per la tua situazione."
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "Come configurare il cronometraggio sprint multi-telefono per gli allenamenti",
+      "excerpt": "Guida passo passo per configurare due iPhone per il cronometraggio con tempi intermedi alle linee di partenza e arrivo durante gli allenamenti."
+    },
+    "improve-sprint-speed-training": {
+      "title": "4 esercizi di allenamento sprint che beneficiano del cronometraggio preciso",
+      "excerpt": "Esercizi specifici dove avere dati di cronometraggio precisi e coerenti fa la differenza tra tirare a indovinare e conoscere davvero i tuoi progressi."
+    },
+    "what-is-photo-finish-timing": {
+      "title": "Cos'e il cronometraggio photo finish e come funziona?",
+      "excerpt": "Una spiegazione chiara della tecnologia photo finish \u2014 dalle fotocamere a scansione lineare di livello olimpico agli approcci moderni basati su smartphone."
+    }
+  }
+}

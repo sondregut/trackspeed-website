@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "功能",
+    "howItWorks": "使用方法",
+    "technology": "技术",
+    "support": "支持",
+    "blog": "博客",
+    "about": "关于",
+    "appStore": "App Store",
+    "openMenu": "打开菜单",
+    "navigation": "导航",
+    "downloadOnThe": "下载于",
+    "language": "语言"
+  },
+  "footer": {
+    "tagline": "使用iPhone进行专业短跑计时。无需额外硬件。",
+    "product": "产品",
+    "download": "下载",
+    "resources": "资源",
+    "feedback": "反馈",
+    "legal": "法律信息",
+    "termsAndConditions": "条款与条件",
+    "privacyPolicy": "隐私政策",
+    "copyright": "© {year} TrackSpeed. All rights reserved.",
+    "madeForAthletes": "由运动员打造，为运动员服务。",
+    "affiliates": "联盟推广"
+  },
+  "cookie": {
+    "message": "我们使用Cookie来分析网站使用情况并改善您的体验。",
+    "accept": "接受",
+    "decline": "拒绝"
+  },
+  "cta": {
+    "downloadForIos": "下载iOS版",
+    "downloadOnAppStore": "在App Store下载",
+    "tryFree": "免费试用TrackSpeed"
+  }
+}

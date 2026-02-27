@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Aide & FAQ – Dépannage chronométrage de sprint",
+    "description": "Obtiens de l'aide avec TrackSpeed. FAQ sur la configuration du chronométrage de sprint, la synchronisation multi-appareils, la détection de franchissement et la gestion des abonnements."
+  },
+  "title": "Aide",
+  "lastUpdated": "Dernière mise à jour : 14 février 2026",
+  "contact": {
+    "title": "Nous contacter",
+    "description": "Si tu as besoin d'aide avec TrackSpeed ou si tu as des questions, nous sommes là pour t'aider.",
+    "email": "E-mail :",
+    "responseTime": "Nous répondons généralement sous 24 à 48 heures."
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": {
+      "howItWorks": {
+        "question": "Comment fonctionne TrackSpeed ?",
+        "answer": "TrackSpeed utilise la caméra de ton iPhone pour détecter quand un athlète franchit la porte de chronométrage. L'app utilise la détection de mouvement par caméra pour identifier quand le torse de l'athlète franchit la porte, offrant un chronométrage précis à la milliseconde."
+      },
+      "equipment": {
+        "question": "Ai-je besoin d'un équipement spécial ?",
+        "answer": "Non ! TrackSpeed fonctionne avec juste ton iPhone. Pour les temps intermédiaires ou les portes départ/arrivée, tu peux utiliser deux iPhones qui se synchronisent sans fil."
+      },
+      "models": {
+        "question": "Quels modèles d'iPhone sont compatibles ?",
+        "answer": "TrackSpeed fonctionne avec l'iPhone XS et les modèles suivants (iOS 17+). Pour de meilleures performances, nous recommandons l'iPhone 12 Pro ou plus récent."
+      },
+      "accuracy": {
+        "question": "Quelle est la précision du chronométrage ?",
+        "answer": "TrackSpeed atteint ~4ms de précision grâce à l'interpolation sub-frame et la correction du rolling shutter. Avec deux appareils, notre synchronisation d'horloge assure l'alignement des deux portes pour des temps intermédiaires précis."
+      },
+      "competitions": {
+        "question": "Puis-je utiliser TrackSpeed en compétition officielle ?",
+        "answer": "TrackSpeed est conçu pour l'entraînement et le chronométrage non officiel. Pour les compétitions officielles, utilise un équipement de chronométrage certifié conformément aux exigences de ta fédération sportive."
+      },
+      "connecting": {
+        "question": "Comment connecter deux téléphones ensemble ?",
+        "answer": "Les deux appareils doivent avoir TrackSpeed installé. Un appareil crée une session en tant qu'« hôte » et l'autre la rejoint. Les appareils se connectent automatiquement via le réseau peer-to-peer — aucune connexion internet requise."
+      },
+      "cancel": {
+        "question": "Comment annuler mon abonnement ?",
+        "answer": "Les abonnements sont gérés via ton identifiant Apple. Va dans Réglages → [Ton nom] → Abonnements → TrackSpeed → Annuler l'abonnement."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Dépannage",
+    "items": {
+      "noDetection": {
+        "issue": "L'app ne détecte pas les franchissements",
+        "solutions": [
+          "Assure-toi d'avoir un bon éclairage — la caméra doit voir clairement l'athlète",
+          "Positionne le téléphone pour que l'athlète passe perpendiculairement au champ de la caméra",
+          "Vérifie que le torse de l'athlète est visible dans le cadre",
+          "Essaie un réglage FPS plus élevé (60 ou 120fps) dans les paramètres"
+        ]
+      },
+      "noConnection": {
+        "issue": "Deux appareils ne se connectent pas",
+        "solutions": [
+          "Vérifie que le WiFi et le Bluetooth sont activés sur les deux appareils",
+          "Les deux appareils doivent être à moins de 10 mètres l'un de l'autre",
+          "Essaie de fermer et rouvrir l'app sur les deux appareils",
+          "Vérifie que les deux appareils utilisent la dernière version de TrackSpeed"
+        ]
+      },
+      "thermal": {
+        "issue": "L'app est lente ou l'appareil chauffe",
+        "solutions": [
+          "Retire la coque du téléphone pour améliorer le refroidissement",
+          "Évite l'exposition directe au soleil",
+          "Ferme les autres apps en arrière-plan",
+          "Fais des pauses entre les sessions de chronométrage"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Demandes de fonctionnalités & Feedback",
+    "description": "On adore avoir de vos nouvelles ! Visite notre <feedbackLink>tableau de feedback</feedbackLink> pour voter sur des idées, suggérer de nouvelles fonctionnalités ou signaler des bugs. Tu peux aussi nous écrire à <emailLink>feedback@mytrackspeed.com</emailLink>."
+  }
+}

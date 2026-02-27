@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "Funksjoner",
+    "howItWorks": "Slik fungerer det",
+    "technology": "Teknologi",
+    "support": "Hjelp",
+    "blog": "Blogg",
+    "about": "Om oss",
+    "appStore": "App Store",
+    "openMenu": "Åpne meny",
+    "navigation": "Navigasjon",
+    "downloadOnThe": "Last ned fra",
+    "language": "Språk"
+  },
+  "footer": {
+    "tagline": "Profesjonell sprinttidtaking med din iPhone. Ingen ekstra maskinvare nødvendig.",
+    "product": "Produkt",
+    "download": "Last ned",
+    "resources": "Ressurser",
+    "feedback": "Tilbakemelding",
+    "legal": "Juridisk",
+    "termsAndConditions": "Vilkår og betingelser",
+    "privacyPolicy": "Personvernerklæring",
+    "copyright": "© {year} TrackSpeed. Alle rettigheter forbeholdt.",
+    "madeForAthletes": "Laget for utøvere, av utøvere.",
+    "affiliates": "Samarbeidspartnere"
+  },
+  "cookie": {
+    "message": "Vi bruker informasjonskapsler for å analysere bruk av nettstedet og forbedre opplevelsen din.",
+    "accept": "Godta",
+    "decline": "Avslå"
+  },
+  "cta": {
+    "downloadForIos": "Last ned for iOS",
+    "downloadOnAppStore": "Last ned fra App Store",
+    "tryFree": "Prøv TrackSpeed gratis"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Demandes de fonctionnalités & Feedback",
+  "subtitle": "Vote pour les idées que tu veux voir, ou propose les tiennes.",
+  "submitIdea": "Soumettre une idée",
+  "submitAnIdea": "Soumettre une idée",
+  "titleLabel": "Titre *",
+  "titlePlaceholder": "Un titre court et descriptif",
+  "descriptionLabel": "Description",
+  "descriptionPlaceholder": "Explique ce que tu souhaites et pourquoi ce serait utile...",
+  "categoryLabel": "Catégorie",
+  "categories": {
+    "all": "Tout",
+    "features": "Fonctionnalités",
+    "bugs": "Bugs",
+    "improvements": "Améliorations",
+    "featureRequest": "Demande de fonctionnalité",
+    "bugReport": "Rapport de bug",
+    "improvement": "Amélioration"
+  },
+  "yourName": "Ton nom (optionnel)",
+  "anonymous": "Anonyme",
+  "submitting": "Envoi en cours...",
+  "submit": "Envoyer",
+  "status": {
+    "open": "Ouvert",
+    "planned": "Planifié",
+    "inProgress": "En cours",
+    "completed": "Terminé"
+  },
+  "noIdeasYet": "Pas encore d'idées",
+  "beFirstToSubmit": "Sois le premier à soumettre une demande de fonctionnalité !",
+  "loadingComments": "Chargement des commentaires...",
+  "noComments": "Pas encore de commentaires. Sois le premier à partager ton avis !",
+  "namePlaceholder": "Ton nom (optionnel)",
+  "commentPlaceholder": "Ajouter un commentaire...",
+  "post": "Publier",
+  "team": "Équipe"
+}

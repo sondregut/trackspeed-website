@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="card-gunmetal rounded-2xl p-8">
-          <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
+          <h1 className="text-2xl font-bold text-center mb-6 text-white">Admin Login</h1>
           <Suspense fallback={<div className="text-center text-[#9B9A97]">Loading...</div>}>
             <LoginForm />
           </Suspense>

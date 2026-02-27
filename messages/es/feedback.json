@@ -1,0 +1,38 @@
+{
+  "title": "Solicitudes de funciones y comentarios",
+  "subtitle": "Vota por las ideas que quieres ver o sugiere las tuyas.",
+  "submitIdea": "Enviar idea",
+  "submitAnIdea": "Enviar una idea",
+  "titleLabel": "Titulo *",
+  "titlePlaceholder": "Un titulo breve y descriptivo",
+  "descriptionLabel": "Descripcion",
+  "descriptionPlaceholder": "Explica que te gustaria y por que seria util...",
+  "categoryLabel": "Categoria",
+  "categories": {
+    "all": "Todas",
+    "features": "Funciones",
+    "bugs": "Errores",
+    "improvements": "Mejoras",
+    "featureRequest": "Solicitud de funcion",
+    "bugReport": "Reporte de error",
+    "improvement": "Mejora"
+  },
+  "yourName": "Tu nombre (opcional)",
+  "anonymous": "Anonimo",
+  "submitting": "Enviando...",
+  "submit": "Enviar",
+  "status": {
+    "open": "Abierto",
+    "planned": "Planeado",
+    "inProgress": "En progreso",
+    "completed": "Completado"
+  },
+  "noIdeasYet": "Aun no hay ideas",
+  "beFirstToSubmit": "Se el primero en enviar una solicitud de funcion!",
+  "loadingComments": "Cargando comentarios...",
+  "noComments": "Aun no hay comentarios. Se el primero en compartir tu opinion!",
+  "namePlaceholder": "Tu nombre (opcional)",
+  "commentPlaceholder": "Agregar un comentario...",
+  "post": "Publicar",
+  "team": "Equipo"
+}

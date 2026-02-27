@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "기능",
+    "howItWorks": "사용 방법",
+    "technology": "기술",
+    "support": "지원",
+    "blog": "블로그",
+    "about": "소개",
+    "appStore": "App Store",
+    "openMenu": "메뉴 열기",
+    "navigation": "탐색",
+    "downloadOnThe": "에서 다운로드",
+    "language": "언어"
+  },
+  "footer": {
+    "tagline": "iPhone을 이용한 프로 스프린트 타이밍. 추가 장비가 필요 없습니다.",
+    "product": "제품",
+    "download": "다운로드",
+    "resources": "리소스",
+    "feedback": "피드백",
+    "legal": "법적 정보",
+    "termsAndConditions": "이용약관",
+    "privacyPolicy": "개인정보 처리방침",
+    "copyright": "© {year} TrackSpeed. All rights reserved.",
+    "madeForAthletes": "선수가 선수를 위해 만들었습니다.",
+    "affiliates": "제휴"
+  },
+  "cookie": {
+    "message": "사이트 이용 분석 및 사용자 경험 개선을 위해 쿠키를 사용합니다.",
+    "accept": "동의",
+    "decline": "거부"
+  },
+  "cta": {
+    "downloadForIos": "iOS용 다운로드",
+    "downloadOnAppStore": "App Store에서 다운로드",
+    "tryFree": "TrackSpeed 무료 체험"
+  }
+}

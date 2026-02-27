@@ -1,23 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 export default function MultiDevice() {
-  const features = [
-    {
-      title: "Wireless Connection",
-      description: "Phones connect automatically via peer-to-peer WiFi. No internet required.",
-    },
-    {
-      title: "Millisecond-Accurate Sync",
-      description: "NTP-style clock synchronization ensures accurate timing across devices.",
-    },
-    {
-      title: "Unlimited Gates",
-      description: "Add split timing with 3+ phones. Track acceleration phases and top speed.",
-    },
-  ];
+  const t = useTranslations("home");
+
+  const featureKeys = ["wirelessConnection", "millisecondSync", "unlimitedGates"] as const;
 
   return (
     <section id="multi-device" className="section-padding px-6">
@@ -26,15 +16,14 @@ export default function MultiDevice() {
           <ScrollReveal>
             <div>
               <h2 className="text-section mb-6">
-                Connect multiple phones for precise timing
+                {t("multiDevice.title")}
               </h2>
               <p className="text-body mb-10">
-                Use one iPhone at the start line and another at the finish.
-                Add more phones for split times at any distance.
+                {t("multiDevice.description")}
               </p>
 
               <StaggerContainer className="space-y-6">
-                {features.map((feature, index) => (
+                {featureKeys.map((key, index) => (
                   <StaggerItem key={index}>
                     <div className="flex gap-4">
                       <div className="icon-box flex-shrink-0">
@@ -43,8 +32,8 @@ export default function MultiDevice() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-1 text-foreground">{feature.title}</h3>
-                        <p className="text-muted">{feature.description}</p>
+                        <h3 className="text-lg font-semibold mb-1 text-foreground">{t(`multiDevice.${key}.title`)}</h3>
+                        <p className="text-muted">{t(`multiDevice.${key}.description`)}</p>
                       </div>
                     </div>
                   </StaggerItem>

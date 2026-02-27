@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "features": "फ़ीचर्स",
+    "howItWorks": "कैसे काम करता है",
+    "technology": "टेक्नोलॉजी",
+    "support": "सहायता",
+    "blog": "ब्लॉग",
+    "about": "हमारे बारे में",
+    "appStore": "App Store",
+    "openMenu": "मेनू खोलें",
+    "navigation": "नेविगेशन",
+    "downloadOnThe": "डाउनलोड करें",
+    "language": "भाषा"
+  },
+  "footer": {
+    "tagline": "अपने iPhone से प्रोफेशनल स्प्रिंट टाइमिंग। किसी अतिरिक्त हार्डवेयर की ज़रूरत नहीं।",
+    "product": "प्रोडक्ट",
+    "download": "डाउनलोड",
+    "resources": "रिसोर्सेज़",
+    "feedback": "फ़ीडबैक",
+    "legal": "कानूनी",
+    "termsAndConditions": "नियम और शर्तें",
+    "privacyPolicy": "प्राइवेसी पॉलिसी",
+    "copyright": "© {year} TrackSpeed. सर्वाधिकार सुरक्षित।",
+    "madeForAthletes": "एथलीट्स के लिए, एथलीट्स द्वारा बनाया गया।",
+    "affiliates": "एफ़िलिएट्स"
+  },
+  "cookie": {
+    "message": "हम साइट के उपयोग का विश्लेषण करने और तुम्हारा अनुभव बेहतर बनाने के लिए कुकीज़ का उपयोग करते हैं।",
+    "accept": "स्वीकार करें",
+    "decline": "अस्वीकार करें"
+  },
+  "cta": {
+    "downloadForIos": "iOS के लिए डाउनलोड करें",
+    "downloadOnAppStore": "App Store से डाउनलोड करें",
+    "tryFree": "TrackSpeed मुफ़्त आज़माएं"
+  }
+}

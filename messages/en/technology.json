@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "How iPhone Sprint Timing Achieves ~4ms Accuracy",
+    "description": "Learn how TrackSpeed uses your iPhone's camera to deliver millisecond-accurate sprint timing — no extra equipment required."
+  },
+  "backToHome": "Back to home",
+  "heroTitle": "How We Achieve ~4ms Timing Accuracy",
+  "heroSubtitle": "Your iPhone already has everything needed for precision sprint timing — a high frame rate camera, precise gyroscope, and powerful processor. Here's what that enables.",
+  "sections": {
+    "subFrame": {
+      "title": "Sub-Frame Precision",
+      "desc": "Athletes rarely cross the gate at the exact moment a frame is captured. Our system analyzes multiple frames to pinpoint the crossing moment between frames — achieving sub-millisecond interpolation accuracy that goes far beyond the camera's native frame interval."
+    },
+    "corrections": {
+      "title": "Physics-Based Corrections",
+      "desc": "iPhone cameras scan each frame from top to bottom over several milliseconds, introducing a timing offset depending on where the athlete appears in frame. We automatically correct for this and other hardware-level timing artifacts to eliminate systematic error."
+    },
+    "clockSync": {
+      "title": "Multi-Device Clock Sync",
+      "desc": "When using two iPhones — one at the start and one at the finish — their clocks need to agree within milliseconds. Our synchronization protocol achieves ±3-5ms alignment between devices. During sync, keep both phones within about 10 meters of each other for best results. Once synced, move them as far apart as needed."
+    },
+    "bodyTracking": {
+      "title": "Body Tracking, Not Beam Breaking",
+      "desc": "Laser gates trigger on whatever breaks the beam first — an outstretched arm, a knee, or the chest. This varies by running form and creates inconsistency. TrackSpeed tracks the chest crossing the line, matching how official timing works."
+    }
+  },
+  "accuracy": {
+    "title": "The Result",
+    "value": "~4ms",
+    "label": "Effective timing accuracy",
+    "desc": "Sub-frame interpolation, physics corrections, and clock synchronization combine to deliver timing precision that rivals dedicated hardware — using just your iPhone."
+  },
+  "professionalComparison": {
+    "title": "How This Compares",
+    "system": "System",
+    "resolution": "Resolution",
+    "detection": "Detection",
+    "cost": "Cost",
+    "fat": {
+      "name": "FAT (Official)",
+      "resolution": "0.001s",
+      "detection": "Photo finish camera",
+      "cost": "$10,000+"
+    },
+    "laserGates": {
+      "name": "Laser Gates",
+      "resolution": "±50-200ms*",
+      "detection": "First beam break",
+      "cost": "$500-2000"
+    },
+    "trackspeed": {
+      "name": "TrackSpeed",
+      "resolution": "~4ms",
+      "detection": "Body tracking",
+      "cost": "Your iPhone"
+    },
+    "laserNote": "*Laser gates trigger with sub-millisecond speed, but inconsistent trigger points (arm vs chest) can cause 50-200ms variation between runs for the same athlete."
+  },
+  "cta": {
+    "title": "Ready to time your training?",
+    "subtitle": "Download TrackSpeed and experience millisecond precision with just your iPhone.",
+    "download": "Download on the App Store",
+    "compare": "See how TrackSpeed compares to other timing methods"
+  }
+}

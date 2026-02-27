@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Blogg – Tips, guider og teknologi for sprinttidtaking",
+    "description": "Tips, guider og dypdykk i sprinttidtakingsteknologi, treningsøvelser og hvordan du får mest mulig ut av telefonbasert tidtaking."
+  },
+  "title": "Blogg",
+  "subtitle": "Guider, sammenligninger og treningstips som hjelper deg bli raskere med nøyaktig tidtaking.",
+  "readMore": "Les mer",
+  "englishOnly": "Denne artikkelen er kun tilgjengelig på engelsk.",
+  "cta": {
+    "title": "Klar for å ta tiden på sprintene dine?",
+    "description": "Last ned TrackSpeed og begynn å få nøyaktige, konsistente tidsdata fra iPhonen din.",
+    "download": "Last ned fra App Store"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "Kjøpeguide for sprinttidtakingssystemer: Porter, apper og stoppeklokker sammenlignet",
+      "excerpt": "Hvorfor bruke $2 500 på tidtakingsporter når iPhonen din gir samme treningsnøyaktighet gratis? Komplett sammenligning av laserporter, kamerabasert tidtaking og stoppeklokker."
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "Slik tar du tiden på en 40-yard dash nøyaktig med telefonen",
+      "excerpt": "Lær hvordan du får pålitelige, repeterbare 40-yard dash-tider med bare iPhonen din – uten dyre laserporter eller stoppeklokkefeil."
+    },
+    "sprint-timing-systems-compared": {
+      "title": "Sprinttidtakingssystemer sammenlignet: Laserporter vs. kamera vs. stoppeklokke",
+      "excerpt": "En objektiv sammenligning av de vanligste sprinttidtakingsmetodene – nøyaktighet, kostnad, konsistens og hvilken som passer best for din situasjon."
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "Slik setter du opp flertelefon-sprinttidtaking for friidrettstrening",
+      "excerpt": "Steg-for-steg-guide for å sette opp to iPhoner for mellomtidtaking ved start- og mållinje under trening."
+    },
+    "improve-sprint-speed-training": {
+      "title": "4 sprinttreningsøvelser som drar nytte av nøyaktig tidtaking",
+      "excerpt": "Spesifikke øvelser der presis, konsistent tidsdata utgjør forskjellen mellom å gjette og å vite."
+    },
+    "what-is-photo-finish-timing": {
+      "title": "Hva er målfoto-tidtaking og hvordan fungerer det?",
+      "excerpt": "En tydelig forklaring av målfototeknologi – fra linjeskannkameraer på olympisk nivå til moderne smarttelefonbaserte tilnærminger."
+    }
+  }
+}

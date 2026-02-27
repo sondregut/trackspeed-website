@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +12,13 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import AppleIcon from "@/components/icons/AppleIcon";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const t = useTranslations("common.nav");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -50,76 +53,90 @@ export default function Navbar() {
           {/* Desktop nav - centered links */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/#features" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Features
+              {t("features")}
             </Link>
             <Link href="/#how-it-works" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              How It Works
+              {t("howItWorks")}
             </Link>
             <Link href="/technology" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Technology
+              {t("technology")}
             </Link>
             <Link href="/support" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Support
+              {t("support")}
             </Link>
             <Link href="/blog" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
-              Blog
+              {t("blog")}
+            </Link>
+            <Link href="/about" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+              {t("about")}
             </Link>
           </div>
 
-          {/* App Store button */}
-          <Button asChild className="hidden md:flex bg-black text-white hover:bg-gray-800 rounded-lg px-3 py-1.5 h-auto">
-            <a href="https://apps.apple.com/app/trackspeed">
-              <AppleIcon className="w-4 h-4" />
-              <span className="text-xs font-semibold">App Store</span>
-            </a>
-          </Button>
+          {/* Language switcher + App Store button */}
+          <div className="hidden md:flex items-center gap-3">
+            <LanguageSwitcher />
+            <Button asChild className="bg-black text-white hover:bg-gray-800 rounded-lg px-3 py-1.5 h-auto">
+              <a href="https://apps.apple.com/app/trackspeed">
+                <AppleIcon className="w-4 h-4" />
+                <span className="text-xs font-semibold">{t("appStore")}</span>
+              </a>
+            </Button>
+          </div>
 
           {/* Mobile menu - Sheet */}
           <Sheet>
             <SheetTrigger asChild>
               <button
                 className="md:hidden p-2 text-foreground"
-                aria-label="Open menu"
+                aria-label={t("openMenu")}
               >
                 <Menu className="w-6 h-6" />
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px]">
-              <SheetTitle className="sr-only">Navigation</SheetTitle>
+              <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
               <nav className="flex flex-col gap-4 mt-8">
                 <SheetClose asChild>
                   <Link href="/#features" className="text-sm font-bold text-muted">
-                    Features
+                    {t("features")}
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/#how-it-works" className="text-sm font-bold text-muted">
-                    How It Works
+                    {t("howItWorks")}
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/technology" className="text-sm font-bold text-muted">
-                    Technology
+                    {t("technology")}
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/support" className="text-sm font-bold text-muted">
-                    Support
+                    {t("support")}
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/blog" className="text-sm font-bold text-muted">
-                    Blog
+                    {t("blog")}
                   </Link>
                 </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/about" className="text-sm font-bold text-muted">
+                    {t("about")}
+                  </Link>
+                </SheetClose>
+                <div className="mt-2">
+                  <LanguageSwitcher />
+                </div>
                 <a
                   href="https://apps.apple.com/app/trackspeed"
                   className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg w-fit mt-2"
                 >
                   <AppleIcon className="w-5 h-5" />
                   <div className="flex flex-col leading-tight">
-                    <span className="text-[10px] opacity-80">Download on the</span>
-                    <span className="text-sm font-semibold -mt-0.5">App Store</span>
+                    <span className="text-[10px] opacity-80">{t("downloadOnThe")}</span>
+                    <span className="text-sm font-semibold -mt-0.5">{t("appStore")}</span>
                   </div>
                 </a>
               </nav>

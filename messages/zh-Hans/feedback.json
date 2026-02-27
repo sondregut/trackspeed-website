@@ -1,0 +1,38 @@
+{
+  "title": "功能请求与反馈",
+  "subtitle": "为您感兴趣的想法投票，或提出您自己的建议。",
+  "submitIdea": "提交想法",
+  "submitAnIdea": "提交一个想法",
+  "titleLabel": "标题 *",
+  "titlePlaceholder": "简短、描述性的标题",
+  "descriptionLabel": "描述",
+  "descriptionPlaceholder": "说明您想要什么以及为什么它会有用...",
+  "categoryLabel": "分类",
+  "categories": {
+    "all": "全部",
+    "features": "功能",
+    "bugs": "缺陷",
+    "improvements": "改进",
+    "featureRequest": "功能请求",
+    "bugReport": "缺陷报告",
+    "improvement": "改进建议"
+  },
+  "yourName": "您的姓名（可选）",
+  "anonymous": "匿名",
+  "submitting": "提交中...",
+  "submit": "提交",
+  "status": {
+    "open": "待处理",
+    "planned": "已计划",
+    "inProgress": "进行中",
+    "completed": "已完成"
+  },
+  "noIdeasYet": "暂无想法",
+  "beFirstToSubmit": "成为第一个提交功能请求的人！",
+  "loadingComments": "加载评论中...",
+  "noComments": "暂无评论。成为第一个分享想法的人！",
+  "namePlaceholder": "您的姓名（可选）",
+  "commentPlaceholder": "添加评论...",
+  "post": "发布",
+  "team": "团队"
+}

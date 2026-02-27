@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Hjelp og FAQ – Feilsøking sprinttidtaking",
+    "description": "Få hjelp med TrackSpeed. FAQ om oppsett av sprinttidtaking, flerenhetssynkronisering, kryssingsdeteksjon og abonnementshåndtering."
+  },
+  "title": "Hjelp",
+  "lastUpdated": "Sist oppdatert: 14. februar 2026",
+  "contact": {
+    "title": "Kontakt oss",
+    "description": "Hvis du trenger hjelp med TrackSpeed eller har spørsmål, er vi her for å hjelpe deg.",
+    "email": "E-post:",
+    "responseTime": "Vi svarer vanligvis innen 24–48 timer."
+  },
+  "faq": {
+    "title": "Ofte stilte spørsmål",
+    "items": {
+      "howItWorks": {
+        "question": "Hvordan fungerer TrackSpeed?",
+        "answer": "TrackSpeed bruker kameraet på iPhonen din for å oppdage når en utøver krysser tidtakingsporten. Appen bruker kamerabasert bevegelsesdeteksjon for å identifisere når utøverens overkropp krysser porten, og gir millisekundnøyaktig tidtaking."
+      },
+      "equipment": {
+        "question": "Trenger jeg spesielt utstyr?",
+        "answer": "Nei! TrackSpeed fungerer med bare iPhonen din. For mellomtider eller start-/målporter kan du bruke to iPhoner som synkroniserer seg trådløst."
+      },
+      "models": {
+        "question": "Hvilke iPhone-modeller støttes?",
+        "answer": "TrackSpeed fungerer med iPhone XS og nyere (iOS 17+). For best ytelse anbefaler vi iPhone 12 Pro eller nyere."
+      },
+      "accuracy": {
+        "question": "Hvor nøyaktig er tidtakingen?",
+        "answer": "TrackSpeed oppnår ~4ms tidtakingsnøyaktighet ved hjelp av sub-frame-interpolasjon og rolling shutter-korreksjon. Ved bruk av to enheter sikrer vår klokkesynkronisering at begge portene er justert for nøyaktige mellomtider."
+      },
+      "competitions": {
+        "question": "Kan jeg bruke TrackSpeed i offisielle konkurranser?",
+        "answer": "TrackSpeed er laget for trening og uoffisiell tidtaking. For offisielle konkurranser, bruk sertifisert tidtakingsutstyr som kreves av ditt idrettsforbund."
+      },
+      "connecting": {
+        "question": "Hvordan kobler jeg to telefoner sammen?",
+        "answer": "Begge enhetene må ha TrackSpeed installert. Én enhet oppretter en økt som «vert», og den andre blir med. Enhetene kobler seg automatisk via peer-to-peer-nettverk – ingen internettforbindelse nødvendig."
+      },
+      "cancel": {
+        "question": "Hvordan kansellerer jeg abonnementet mitt?",
+        "answer": "Abonnementer administreres via Apple-ID-en din. Gå til Innstillinger → [Ditt navn] → Abonnementer → TrackSpeed → Kanseller abonnement."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Feilsøking",
+    "items": {
+      "noDetection": {
+        "issue": "Appen oppdager ikke kryssinger",
+        "solutions": [
+          "Sørg for godt lys – kameraet må tydelig se utøveren",
+          "Plasser telefonen slik at utøveren passerer vinkelrett på kamerabildet",
+          "Pass på at utøverens overkropp er synlig i bildet",
+          "Prøv en høyere FPS-innstilling (60 eller 120fps) i innstillingene"
+        ]
+      },
+      "noConnection": {
+        "issue": "To enheter kobler seg ikke til",
+        "solutions": [
+          "Sørg for at begge enhetene har WiFi og Bluetooth aktivert",
+          "Begge enhetene bør være innenfor ca. 10 meter fra hverandre",
+          "Prøv å lukke og åpne appen på begge enhetene",
+          "Sørg for at begge enhetene kjører nyeste versjon av TrackSpeed"
+        ]
+      },
+      "thermal": {
+        "issue": "Appen er treg eller enheten blir varm",
+        "solutions": [
+          "Fjern telefondekselet for bedre kjøling",
+          "Unngå direkte sollys på enheten",
+          "Lukk andre apper som kjører i bakgrunnen",
+          "Ta pauser mellom tidtakingsøktene"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Funksjonsønsker og tilbakemeldinger",
+    "description": "Vi elsker å høre fra brukerne våre! Besøk vår <feedbackLink>tilbakemeldingstavle</feedbackLink> for å stemme på ideer, foreslå nye funksjoner eller rapportere feil. Du kan også sende oss e-post på <emailLink>feedback@mytrackspeed.com</emailLink>."
+  }
+}

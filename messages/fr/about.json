@@ -1,0 +1,37 @@
+{
+  "title": "Des athlètes qui construisent pour les athlètes",
+  "intro": "TrackSpeed est né sur la piste. Nous sommes des athlètes de compétition en activité qui en avaient assez des outils de chronométrage imprécis — alors nous avons créé le nôtre.",
+  "story1": "En tant qu'athlètes d'athlétisme s'entraînant au plus haut niveau, nous avions besoin d'un chronométrage précis pour nos sprints et courses d'élan — mais les options étaient soit des systèmes laser coûteux avec des points de déclenchement incohérents, soit un entraîneur avec un chronomètre et l'erreur du temps de réaction humain. Aucune des deux n'était satisfaisante.",
+  "story2": "Nous avons réalisé que l'iPhone dans la poche de chacun avait déjà le matériel nécessaire — une caméra haute fréquence, un gyroscope précis et assez de puissance de calcul pour la vision par ordinateur en temps réel. Alors nous avons créé TrackSpeed : un système de chronométrage qui utilise la détection de mouvement image par image et l'interpolation sub-frame pour fournir des résultats précis à la milliseconde, sans équipement supplémentaire.",
+  "team": {
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Co-fondateur & Développeur principal",
+      "bio1": "Perchiste professionnel et double olympien (Tokyo 2020, Paris 2024) représentant la Norvège. Champion NCAA à Princeton University, où il a égalé le record historique universitaire en salle à 6,00m. Détenteur des records Ivy League en salle et en plein air au saut à la perche. Médaillé d'or aux Championnats d'Europe d'athlétisme en salle.",
+      "bio2": "Fondateur & Développeur principal. Princeton B.A., UT Austin M.Ed."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Co-fondateur & Jumpers World",
+      "bio1": "Sauteur en longueur représentant la Macédoine du Nord et recordman national (7,91m). Nommé Athlète de l'année en Macédoine du Nord. A participé aux Championnats d'Europe d'athlétisme en salle et aux Championnats d'Europe par équipes. Diplômé de l'University of Arkansas.",
+      "bio2": "Co-fondateur de TrackSpeed et fondateur de Jumpers World — l'une des plus grandes marques média en athlétisme. Un réseau profond dans la communauté athlétique avec une compréhension de première main des besoins des athlètes."
+    },
+    "simen": {
+      "name": "Simen Guttormsen",
+      "role": "Ingénieur",
+      "bio1": "Perchiste olympique représentant la Norvège. Champion NCAA et détenteur du record ACC à Duke University, où il a été trois fois All-American. Précédemment deux fois All-American à Princeton.",
+      "bio2": "Co-développeur full-stack de TrackSpeed — contribue sur l'ensemble de la base de code, des décisions d'architecture et revues de code au développement de fonctionnalités. Princeton B.E. en Operations Research and Financial Engineering, Duke M.S. en Economics and Computation."
+    }
+  },
+  "teamNote": "Créé par des athlètes, pour des athlètes.",
+  "cta": {
+    "title": "Prêt à chronométrer ton entraînement ?",
+    "subtitle": "Télécharge TrackSpeed et découvre la précision à la milliseconde avec juste ton iPhone.",
+    "download": "Télécharger sur l'App Store",
+    "learnMore": "Découvre comment fonctionne notre technologie de chronométrage"
+  },
+  "metadata": {
+    "title": "À propos — TrackSpeed",
+    "description": "Découvre les athlètes derrière TrackSpeed. Des athlètes de compétition en activité qui construisent un chronométrage de sprint précis pour chaque athlète."
+  }
+}

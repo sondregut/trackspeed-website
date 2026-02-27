@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Blog – Tipps, Guides & Technologie zur Sprintzeitmessung",
+    "description": "Tipps, Anleitungen und Hintergrundwissen zu Sprintzeitmess-Technologie, Trainingübungen und wie du das Beste aus der Handy-Zeitmessung herausholst."
+  },
+  "title": "Blog",
+  "subtitle": "Anleitungen, Vergleiche und Trainingstipps, die dir helfen, mit genauer Zeitmessung schneller zu werden.",
+  "readMore": "Weiterlesen",
+  "englishOnly": "Dieser Artikel ist nur auf Englisch verfügbar.",
+  "cta": {
+    "title": "Bereit, deine Sprints zu messen?",
+    "description": "Lade TrackSpeed herunter und erhalte genaue, konsistente Zeitdaten von deinem iPhone.",
+    "download": "Im App Store laden"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "Kaufberatung für Sprintzeitmesssysteme: Lichtschranken, Apps und Stoppuhren im Vergleich",
+      "excerpt": "Warum $2.500 für Lichtschranken ausgeben, wenn dein iPhone die gleiche Trainingsgenauigkeit kostenlos liefert? Kompletter Vergleich von Lasertoren, kamerabasierter Zeitmessung und Stoppuhren."
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "Wie du einen 40-Yard-Dash genau mit deinem Handy misst",
+      "excerpt": "Erfahre, wie du zuverlässige, wiederholbare 40-Yard-Dash-Zeiten nur mit deinem iPhone bekommst – ohne teure Lasertore oder Stoppuhr-Fehler."
+    },
+    "sprint-timing-systems-compared": {
+      "title": "Sprintzeitmesssysteme im Vergleich: Lasertore vs. Kamera vs. Stoppuhr",
+      "excerpt": "Ein objektiver Vergleich der gängigsten Sprintzeitmess-Methoden – Genauigkeit, Kosten, Konsistenz und welche für deine Situation am besten ist."
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "So richtest du Multi-Handy-Sprintzeitmessung für das Lauftraining ein",
+      "excerpt": "Schritt-für-Schritt-Anleitung, wie du zwei iPhones für Zwischenzeitmessung an Start- und Ziellinie im Training einrichtest."
+    },
+    "improve-sprint-speed-training": {
+      "title": "4 Sprinttraining-Übungen, die von genauer Zeitmessung profitieren",
+      "excerpt": "Konkrete Übungen, bei denen präzise, konsistente Zeitdaten den Unterschied zwischen Raten und Wissen machen."
+    },
+    "what-is-photo-finish-timing": {
+      "title": "Was ist Fotofinish-Zeitmessung und wie funktioniert sie?",
+      "excerpt": "Eine verständliche Erklärung der Fotofinish-Technologie – von Zeilenkameras auf olympischem Niveau bis zu modernen Smartphone-Ansätzen."
+    }
+  }
+}

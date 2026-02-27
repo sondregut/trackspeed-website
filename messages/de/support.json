@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Hilfe & FAQ – Fehlerbehebung Sprintzeitmessung",
+    "description": "Hilfe zu TrackSpeed. FAQ zur Einrichtung der Sprintzeitmessung, Multi-Geräte-Synchronisation, Überquerungserkennung und Abo-Verwaltung."
+  },
+  "title": "Hilfe",
+  "lastUpdated": "Zuletzt aktualisiert: 14. Februar 2026",
+  "contact": {
+    "title": "Kontakt",
+    "description": "Wenn du Hilfe mit TrackSpeed brauchst oder Fragen hast, sind wir für dich da.",
+    "email": "E-Mail:",
+    "responseTime": "Wir antworten in der Regel innerhalb von 24–48 Stunden."
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "items": {
+      "howItWorks": {
+        "question": "Wie funktioniert TrackSpeed?",
+        "answer": "TrackSpeed nutzt die Kamera deines iPhones, um zu erkennen, wann ein Athlet den Messpunkt überquert. Die App verwendet kamerabasierte Bewegungserkennung, um zu identifizieren, wann der Oberkörper des Athleten den Messpunkt passiert, und liefert millisekundengenaue Zeitmessung."
+      },
+      "equipment": {
+        "question": "Brauche ich spezielle Ausrüstung?",
+        "answer": "Nein! TrackSpeed funktioniert nur mit deinem iPhone. Für Zwischenzeiten oder Start-/Ziel-Messpunkte kannst du zwei iPhones verwenden, die sich kabellos synchronisieren."
+      },
+      "models": {
+        "question": "Welche iPhone-Modelle werden unterstützt?",
+        "answer": "TrackSpeed funktioniert ab iPhone XS (iOS 17+). Für beste Leistung empfehlen wir iPhone 12 Pro oder neuer."
+      },
+      "accuracy": {
+        "question": "Wie genau ist die Zeitmessung?",
+        "answer": "TrackSpeed erreicht ~4ms Messgenauigkeit durch Sub-Frame-Interpolation und Rolling-Shutter-Korrektur. Bei zwei Geräten sorgt unsere Uhren-Synchronisation dafür, dass beide Messpunkte für genaue Zwischenzeiten abgeglichen sind."
+      },
+      "competitions": {
+        "question": "Kann ich TrackSpeed bei offiziellen Wettkämpfen verwenden?",
+        "answer": "TrackSpeed ist für Training und inoffizielle Zeitmessung konzipiert. Für offizielle Wettkämpfe verwende bitte zertifizierte Zeitmessgeräte gemäß den Anforderungen deines Sportverbands."
+      },
+      "connecting": {
+        "question": "Wie verbinde ich zwei Handys miteinander?",
+        "answer": "Beide Geräte müssen TrackSpeed installiert haben. Ein Gerät erstellt als \u201EHost\u201C eine Session und das andere tritt bei. Die Geräte verbinden sich automatisch über Peer-to-Peer-Netzwerk – keine Internetverbindung nötig."
+      },
+      "cancel": {
+        "question": "Wie kündige ich mein Abo?",
+        "answer": "Abonnements werden über deine Apple-ID verwaltet. Gehe zu Einstellungen → [Dein Name] → Abonnements → TrackSpeed → Abo kündigen."
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "Fehlerbehebung",
+    "items": {
+      "noDetection": {
+        "issue": "Die App erkennt keine Überquerungen",
+        "solutions": [
+          "Stelle sicher, dass die Beleuchtung gut ist – die Kamera muss den Athleten klar sehen können",
+          "Positioniere das Handy so, dass der Athlet senkrecht zur Kamerasicht vorbeiläuft",
+          "Stelle sicher, dass der Oberkörper des Athleten im Bild sichtbar ist",
+          "Versuche eine höhere FPS-Einstellung (60 oder 120fps) in den Einstellungen"
+        ]
+      },
+      "noConnection": {
+        "issue": "Zwei Geräte verbinden sich nicht",
+        "solutions": [
+          "Stelle sicher, dass beide Geräte WiFi und Bluetooth aktiviert haben",
+          "Beide Geräte sollten nicht weiter als ca. 10 Meter voneinander entfernt sein",
+          "Versuche die App auf beiden Geräten zu schließen und neu zu öffnen",
+          "Stelle sicher, dass beide Geräte die neueste Version von TrackSpeed verwenden"
+        ]
+      },
+      "thermal": {
+        "issue": "Die App ist langsam oder das Gerät wird heiß",
+        "solutions": [
+          "Entferne die Handyhülle, um die Kühlung zu verbessern",
+          "Vermeide direkte Sonneneinstrahlung auf das Gerät",
+          "Schließe andere Apps, die im Hintergrund laufen",
+          "Mache Pausen zwischen den Zeitmess-Sessions"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "Feature-Wünsche & Feedback",
+    "description": "Wir freuen uns über Feedback! Besuche unser <feedbackLink>Feedback-Board</feedbackLink>, um über Ideen abzustimmen, neue Funktionen vorzuschlagen oder Fehler zu melden. Du kannst uns auch per E-Mail erreichen unter <emailLink>feedback@mytrackspeed.com</emailLink>."
+  }
+}

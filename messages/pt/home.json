@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "App de cronometragem de sprints para iPhone - Gratis, sem hardware",
+    "description": "Transforme seu iPhone em um sistema de cronometragem. Precisão de ~4ms, detecção a 120fps, sincronização multidispositivo. Gratis para treinadores e atletas."
+  },
+  "hero": {
+    "socialProof": "Amado por olimpicos",
+    "title": "TrackSpeed",
+    "subtitle": "Cronometragem de sprints apenas com seu iPhone",
+    "description": "Transforme seu iPhone em um sistema de cronometragem profissional. Sem hardware extra, sem calibracao, resultados instantaneos.",
+    "downloadCta": "Baixar na App Store",
+    "stats": {
+      "accuracy": "Precisão",
+      "setup": "Configuração",
+      "hardware": "Hardware"
+    }
+  },
+  "testimonials": {
+    "title": "Amado pelos seus olimpicos favoritos",
+    "subtitle": "Do atletismo escolar ate os Jogos Olimpicos",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Saltador com vara olimpico",
+      "quote": "Uso o TrackSpeed para ajustar minha corrida de aproximacao antes das competicoes. A precisão e impressionante e sempre sei exatamente a velocidade que estou atingindo na decolagem."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Recordista nacional de salto em distancia da Macedonia",
+      "quote": "Como saltador em distancia, velocidade e tudo. Cronometo todos os meus sprints com o TrackSpeed e adoro como e rapido e facil de configurar. Ele ate mede minha velocidade de decolagem no salto em distancia!"
+    }
+  },
+  "howItWorks": {
+    "title": "Como funciona",
+    "subtitle": "Comece em menos de um minuto",
+    "step": "Passo {number}",
+    "steps": {
+      "connect": {
+        "title": "Conecte os telefones",
+        "description": "Emparelhe seus iPhones. Eles sincronizam automaticamente via Wi-Fi."
+      },
+      "start": {
+        "title": "Inicie sua sessao",
+        "description": "Escolha entre cinco metodos de largada: largada lancada, liberacao por toque, contagem regressiva, comandos de voz ou largada no quadro."
+      },
+      "position": {
+        "title": "Posicione seu telefone",
+        "description": "Coloque seu telefone na linha de chegada. Nenhuma calibracao necessaria."
+      },
+      "time": {
+        "title": "Veja seu tempo",
+        "description": "Corra seu sprint e receba resultados instantaneos com precisão de milissegundos."
+      }
+    }
+  },
+  "features": {
+    "title": "Cronometragem profissional, zero equipamento",
+    "subtitle": "Tudo que voce precisa ja esta no seu bolso",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "Precisão de cronometragem" },
+      "sync": { "value": "2+", "label": "Sincronização de dispositivos" },
+      "hardware": { "value": "0", "label": "Hardware extra" }
+    },
+    "smartDetection": {
+      "title": "Detecção inteligente",
+      "description": "A detecção de movimento por camera aciona a cronometragem automaticamente quando voce cruza a linha."
+    },
+    "multiDeviceSync": {
+      "title": "Sincronização multidispositivo",
+      "description": "Conecte iPhones sem fio. Sincronização de relogio com precisão de milissegundos entre portoes."
+    },
+    "instantResults": {
+      "title": "Resultados instantaneos",
+      "description": "Veja seu tempo no momento em que cruza. Sem atrasos de cronômetro manual."
+    },
+    "trackProgress": {
+      "title": "Acompanhe seu progresso",
+      "description": "Salve sessoes, consulte o historico e acompanhe sua evolucao ao longo do tempo."
+    }
+  },
+  "startTypes": {
+    "title": "Cinco formas de iniciar seu sprint",
+    "subtitle": "Escolha o metodo de largada que combina com seus objetivos de treino",
+    "bestFor": "Ideal para: {useCase}",
+    "types": {
+      "flying": {
+        "title": "Largada lancada",
+        "description": "Passe em velocidade maxima. O primeiro cruzamento do portão inicia o cronômetro automaticamente. Perfeito para testes de velocidade maxima.",
+        "useCase": "Testes de velocidade, 10m/20m/30m lancados"
+      },
+      "touch": {
+        "title": "Liberacao por toque",
+        "description": "Coloque o dedo na tela, levante para iniciar. Captura o tempo de reacao como os blocos em uma competicao real.",
+        "useCase": "40 jardas, testes de combine"
+      },
+      "countdown": {
+        "title": "Contagem regressiva",
+        "description": "3... 2... 1... BIP! Uma contagem regressiva visual e sonora da um sinal de largada previsivel. Otimo para treinos consistentes.",
+        "useCase": "Treino individual, intervalos cronometrados"
+      },
+      "voice": {
+        "title": "Comando de voz",
+        "description": "\"Aos seus lugares... Prontos... JA!\" Comandos de voz com IA e tempos realistas baseados em regras oficiais.",
+        "useCase": "Treino individual, largadas em grupo"
+      },
+      "frame": {
+        "title": "Largada no quadro",
+        "description": "Comece parado na vista da camera e depois arranque. O cronômetro inicia quando voce sai do quadro. Nao precisa de um segundo dispositivo.",
+        "useCase": "Treino individual, configuração com um telefone"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "Conecte varios telefones para cronometragem precisa",
+    "description": "Use um iPhone na linha de largada e outro na chegada. Adicione mais telefones para parciais em qualquer distancia.",
+    "wirelessConnection": {
+      "title": "Conexão sem fio",
+      "description": "Os telefones se conectam automaticamente via WiFi ponto a ponto. Sem necessidade de internet."
+    },
+    "millisecondSync": {
+      "title": "Sincronização com precisão de milissegundos",
+      "description": "A sincronização de relogio tipo NTP garante cronometragem precisa entre dispositivos."
+    },
+    "unlimitedGates": {
+      "title": "Portoes ilimitados",
+      "description": "Adicione parciais com 3 ou mais telefones. Acompanhe fases de aceleracao e velocidade maxima."
+    }
+  },
+  "comparison": {
+    "title": "Como nos comparamos",
+    "subtitle": "Cronometragem profissional sem o preco profissional",
+    "feature": "Recurso",
+    "youAreHere": "VOCE ESTA AQUI",
+    "features": {
+      "price": "Preco",
+      "accuracy": "Precisão",
+      "chestDetection": "Detecção de peito",
+      "setupTime": "Tempo de configuração",
+      "hardware": "Hardware",
+      "splitTimes": "Parciais",
+      "photoFinish": "Photo Finish",
+      "portability": "Portabilidade"
+    },
+    "trackspeed": {
+      "price": "Gratis / $8.99/mes*",
+      "accuracy": "~4ms",
+      "chestDetection": "Sim (apenas torso)",
+      "setupTime": "< 1 min",
+      "hardware": "Apenas iPhone",
+      "portability": "Cabe no bolso"
+    },
+    "freelap": {
+      "price": "$500 - $2,000+",
+      "accuracy": "\u00b120ms",
+      "chestDetection": "Nao (qualquer parte do corpo)",
+      "setupTime": "5-10 min",
+      "hardware": "Sensores + chips",
+      "portability": "Bolsa de transporte"
+    },
+    "brower": {
+      "price": "$1,500 - $5,000+",
+      "accuracy": "\u00b150-60ms**",
+      "chestDetection": "Nao (corte de feixe)",
+      "setupTime": "10-20 min",
+      "hardware": "Portoes + bases",
+      "portability": "Bolsa de transporte"
+    },
+    "dashr": {
+      "price": "$500 - $1,500+",
+      "accuracy": "\u00b110ms",
+      "chestDetection": "Nao (corte de feixe)",
+      "setupTime": "5-10 min",
+      "hardware": "Portoes laser",
+      "portability": "Bolsa de transporte"
+    },
+    "stopwatch": {
+      "price": "$10 - $50",
+      "accuracy": "\u00b1200ms",
+      "chestDetection": "Estimativa visual",
+      "setupTime": "Instantaneo",
+      "hardware": "Nenhum",
+      "portability": "Cabe no bolso"
+    },
+    "footnotes": {
+      "pricing": "*$8.99/mes ou $49.99/ano. Os precos sao aproximados.",
+      "browerStudy": "**Segundo um <link>estudo revisado por pares</link>: Brower mostrou-se \"nao confiavel o suficiente para monitorar pequenas mudancas em atletas de elite\"",
+      "beamNote": "Sistemas de feixe sao acionados por qualquer parte do corpo (mao/perna), nao pelo peito. O TrackSpeed foi projetado para treino, nao para competicoes oficiais."
+    }
+  },
+  "timingTechnology": {
+    "title": "A ciencia por tras da precisão sub-frame",
+    "subtitle": "Como alcancamos precisão de ~4ms com cameras padrao de iPhone",
+    "frameCapture": "Captura a 120fps = 8.3ms entre quadros",
+    "formula": "posicao = velocidade \u00d7 tempo + deslocamento",
+    "formulaLabel": "Regressao de trajetoria (3+ quadros)",
+    "formulaResult": "Calcula o momento do cruzamento com precisão sub-frame",
+    "beyondFrameByFrame": "Alem da cronometragem quadro a quadro",
+    "learnHowItWorks": "Saiba como funciona",
+    "motionDetection": {
+      "title": "Detecção de movimento",
+      "description": "A diferenca entre quadros identifica objetos em movimento. A analise de manchas encontra a maior regiao de movimento (seu corpo) e rastreia sua borda dianteira em direcao ao portão."
+    },
+    "trajectoryRegression": {
+      "title": "Regressao de trajetoria",
+      "description": "Rastreamos a posicao ao longo de varios quadros e usamos regressao linear para calcular o momento preciso em que voce cruzou a linha do portão - mesmo entre quadros."
+    },
+    "rollingShutterCorrection": {
+      "title": "Correcao de rolling shutter",
+      "description": "As cameras de iPhone escaneiam de cima para baixo em ~5-12ms. Medimos onde voce cruzou verticalmente e compensamos o tempo exato de varredura nessa posicao."
+    },
+    "effectiveAccuracy": {
+      "title": "Precisão efetiva de ~4ms",
+      "description": "A combinacao de captura a 120fps, analise de trajetoria multi-quadro e correcao de rolling shutter entrega precisão de cronometragem comparavel a sistemas profissionais."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "Intervalo entre quadros a 120fps" },
+      "interpolation": { "value": "~0.5ms", "label": "Resolucao de interpolacao" },
+      "accuracy": { "value": "~4ms", "label": "Precisão efetiva de cronometragem" }
+    }
+  },
+  "ctaSection": {
+    "title": "Pronto para cronometrar mais rapido?",
+    "subtitle": "Baixe o TrackSpeed e comece a treinar com cronometragem de precisão hoje.",
+    "accuracy": "Precisão de ~4ms",
+    "setup": "Configuração em <1 min",
+    "noHardware": "Sem hardware extra",
+    "freeNote": "Download gratis. Recursos premium disponiveis."
+  }
+}

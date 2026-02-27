@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Blog - Sprint Timing Tips, Guides & Technology",
+    "description": "Tips, guides, and deep dives on sprint timing technology, training drills, and getting the most out of phone-based timing."
+  },
+  "title": "Blog",
+  "subtitle": "Guides, comparisons, and training tips to help you get faster with accurate timing.",
+  "readMore": "Read more",
+  "englishOnly": "This article is available in English only.",
+  "cta": {
+    "title": "Ready to time your sprints?",
+    "description": "Download TrackSpeed and start getting accurate, consistent timing data from your iPhone.",
+    "download": "Download on the App Store"
+  },
+  "posts": {
+    "sprint-timing-gates-buyers-guide": {
+      "title": "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
+      "excerpt": "Why spend $2,500 on timing gates when your iPhone delivers the same training accuracy for free? Complete comparison of laser gates, camera-based timing, and stopwatches."
+    },
+    "how-to-time-a-40-yard-dash": {
+      "title": "How to Time a 40-Yard Dash Accurately with Your Phone",
+      "excerpt": "Learn how to get reliable, repeatable 40-yard dash times using just your iPhone \u2014 no expensive laser gates or stopwatch errors."
+    },
+    "sprint-timing-systems-compared": {
+      "title": "Sprint Timing Systems Compared: Laser Gates vs Camera vs Stopwatch",
+      "excerpt": "An objective comparison of the most common sprint timing methods \u2014 accuracy, cost, consistency, and which is best for your situation."
+    },
+    "multi-phone-sprint-timing-setup": {
+      "title": "How to Set Up Multi-Phone Sprint Timing for Track Practice",
+      "excerpt": "Step-by-step guide to setting up two iPhones for split timing at start and finish lines during track practice."
+    },
+    "improve-sprint-speed-training": {
+      "title": "4 Sprint Training Drills That Benefit from Accurate Timing",
+      "excerpt": "Specific drills where having precise, consistent timing data makes the difference between guessing and knowing your progress."
+    },
+    "what-is-photo-finish-timing": {
+      "title": "What Is Photo Finish Timing and How Does It Work?",
+      "excerpt": "A clear explanation of photo finish technology \u2014 from Olympic-grade line-scan cameras to modern smartphone-based approaches."
+    }
+  }
+}

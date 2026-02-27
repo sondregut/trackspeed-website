@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "iPhone用スプリントタイミングアプリ - 無料、ハードウェア不要",
+    "description": "iPhoneをタイミングシステムに。~4msの精度、120fps検出、マルチデバイス同期。陸上コーチとアスリートのための無料アプリ。"
+  },
+  "hero": {
+    "socialProof": "オリンピック選手に愛用されています",
+    "title": "TrackSpeed",
+    "subtitle": "iPhoneだけでスプリントタイミング",
+    "description": "iPhoneをプロフェッショナルなタイミングシステムに。追加ハードウェア不要、キャリブレーション不要、即座に結果を表示。",
+    "downloadCta": "App Storeでダウンロード",
+    "stats": {
+      "accuracy": "精度",
+      "setup": "セットアップ",
+      "hardware": "ハードウェア"
+    }
+  },
+  "testimonials": {
+    "title": "オリンピック選手に愛用されています",
+    "subtitle": "高校陸上からオリンピックまで",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "オリンピック棒高跳び選手",
+      "quote": "試合前の助走の調整にTrackSpeedを使っています。精度が素晴らしく、踏み切りの速度を常に正確に把握できます。"
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "マケドニア走り幅跳び記録保持者",
+      "quote": "走り幅跳びの選手にとって、スピードがすべてです。すべてのスプリントをTrackSpeedで計測しています。セットアップが素早く簡単なところが気に入っています。走り幅跳びの踏み切り速度も測定できるんです！"
+    }
+  },
+  "howItWorks": {
+    "title": "使い方",
+    "subtitle": "1分以内にスタート",
+    "step": "ステップ {number}",
+    "steps": {
+      "connect": {
+        "title": "スマートフォンを接続",
+        "description": "iPhoneをペアリングします。Wi-Fi経由で自動的に同期します。"
+      },
+      "start": {
+        "title": "セッションを開始",
+        "description": "5つのスタート方法から選択 — フライングスタート、タッチリリース、カウントダウン、音声コマンド、フレーム内スタート。"
+      },
+      "position": {
+        "title": "スマートフォンを設置",
+        "description": "フィニッシュラインにスマートフォンを置きます。キャリブレーションは不要です。"
+      },
+      "time": {
+        "title": "タイムを取得",
+        "description": "スプリントを走り、ミリ秒精度の結果を即座に取得できます。"
+      }
+    }
+  },
+  "features": {
+    "title": "プロの計時、機材ゼロ",
+    "subtitle": "必要なものはすべてポケットの中に",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "タイミング精度" },
+      "sync": { "value": "2+", "label": "デバイス同期" },
+      "hardware": { "value": "0", "label": "追加ハードウェア" }
+    },
+    "smartDetection": {
+      "title": "スマート検知",
+      "description": "カメラベースのモーション検知が、ラインを通過した瞬間に自動的にタイミングを記録します。"
+    },
+    "multiDeviceSync": {
+      "title": "マルチデバイス同期",
+      "description": "iPhoneをワイヤレスで接続。ゲート間でミリ秒精度のクロック同期を実現します。"
+    },
+    "instantResults": {
+      "title": "即時結果",
+      "description": "通過した瞬間にタイムを表示。手動ストップウォッチの遅延はありません。"
+    },
+    "trackProgress": {
+      "title": "進歩を記録",
+      "description": "セッションを保存し、履歴を確認し、時系列での成長を追跡できます。"
+    }
+  },
+  "startTypes": {
+    "title": "5つのスタート方法",
+    "subtitle": "トレーニング目的に合ったスタート方法を選択",
+    "bestFor": "最適な用途: {useCase}",
+    "types": {
+      "flying": {
+        "title": "フライングスタート",
+        "description": "全速力で走り抜けます。最初のゲート通過で自動的にタイマーが開始。最大速度テストに最適です。",
+        "useCase": "スピードテスト、フライング 10m/20m/30m"
+      },
+      "touch": {
+        "title": "タッチリリース",
+        "description": "画面に指を置き、離してスタート。本番のトラックミートのブロックのように反応時間を計測します。",
+        "useCase": "40ヤードダッシュ、コンバインテスト"
+      },
+      "countdown": {
+        "title": "カウントダウン",
+        "description": "3... 2... 1... ビープ！視覚と音声のカウントダウンで一定のスタート信号を提供。安定したトレーニングに最適です。",
+        "useCase": "個人練習、インターバルタイミング"
+      },
+      "voice": {
+        "title": "音声コマンド",
+        "description": "「位置について… 用意… ドン！」公式ルールに基づいたリアルなタイミングのAI音声コマンド。",
+        "useCase": "個人練習、グループスタート"
+      },
+      "frame": {
+        "title": "フレーム内スタート",
+        "description": "カメラの視野内で静止した状態から出発。フレームから出た時にタイマーが開始します。2台目のデバイスは不要です。",
+        "useCase": "個人練習、スマートフォン1台でのセットアップ"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "複数のスマートフォンを接続して正確な計時",
+    "description": "スタートラインに1台、フィニッシュラインにもう1台のiPhoneを使用。さらにスマートフォンを追加して任意の距離でスプリットタイムを計測できます。",
+    "wirelessConnection": {
+      "title": "ワイヤレス接続",
+      "description": "ピアツーピアWiFiで自動的に接続。インターネット接続は不要です。"
+    },
+    "millisecondSync": {
+      "title": "ミリ秒精度の同期",
+      "description": "NTPスタイルのクロック同期により、デバイス間で正確なタイミングを保証します。"
+    },
+    "unlimitedGates": {
+      "title": "無制限のゲート",
+      "description": "3台以上のスマートフォンでスプリットタイミングを追加。加速フェーズとトップスピードを追跡できます。"
+    }
+  },
+  "comparison": {
+    "title": "他製品との比較",
+    "subtitle": "プロフェッショナルな計時をプロの価格なしで",
+    "feature": "機能",
+    "youAreHere": "今ここ",
+    "features": {
+      "price": "価格",
+      "accuracy": "精度",
+      "chestDetection": "胸部検知",
+      "setupTime": "セットアップ時間",
+      "hardware": "ハードウェア",
+      "splitTimes": "スプリットタイム",
+      "photoFinish": "フォトフィニッシュ",
+      "portability": "携帯性"
+    },
+    "trackspeed": {
+      "price": "無料 / $8.99/月*",
+      "accuracy": "~4ms",
+      "chestDetection": "あり（胴体のみ）",
+      "setupTime": "1分未満",
+      "hardware": "iPhoneのみ",
+      "portability": "ポケットサイズ"
+    },
+    "freelap": {
+      "price": "$500 - $2,000+",
+      "accuracy": "±20ms",
+      "chestDetection": "なし（体のどこでも反応）",
+      "setupTime": "5〜10分",
+      "hardware": "センサー + チップ",
+      "portability": "キャリーバッグ"
+    },
+    "brower": {
+      "price": "$1,500 - $5,000+",
+      "accuracy": "±50-60ms**",
+      "chestDetection": "なし（ビームブレイク）",
+      "setupTime": "10〜20分",
+      "hardware": "ゲート + パッド",
+      "portability": "キャリーバッグ"
+    },
+    "dashr": {
+      "price": "$500 - $1,500+",
+      "accuracy": "±10ms",
+      "chestDetection": "なし（ビームブレイク）",
+      "setupTime": "5〜10分",
+      "hardware": "レーザーゲート",
+      "portability": "キャリーバッグ"
+    },
+    "stopwatch": {
+      "price": "$10 - $50",
+      "accuracy": "±200ms",
+      "chestDetection": "目視による推測",
+      "setupTime": "即座",
+      "hardware": "なし",
+      "portability": "ポケットサイズ"
+    },
+    "footnotes": {
+      "pricing": "*月額$8.99または年額$49.99。価格は概算です。",
+      "browerStudy": "**<link>査読済み研究</link>によると: Browerは「エリート選手の微細な変化をモニターするには信頼性が不十分」と結論。",
+      "beamNote": "ビームシステムは体のどの部位（手/脚）でもトリガーされ、胸部ではありません。TrackSpeedはトレーニング向けに設計されており、公式大会用ではありません。"
+    }
+  },
+  "timingTechnology": {
+    "title": "サブフレーム精度の科学",
+    "subtitle": "標準的なiPhoneカメラで~4msの精度を実現する方法",
+    "frameCapture": "120fpsキャプチャ = フレーム間隔8.3ms",
+    "formula": "position = velocity × time + offset",
+    "formulaLabel": "軌跡回帰（3フレーム以上）",
+    "formulaResult": "サブフレーム精度で通過時刻を算出",
+    "beyondFrameByFrame": "フレーム単位を超えたタイミング",
+    "learnHowItWorks": "仕組みを詳しく見る",
+    "motionDetection": {
+      "title": "モーション検知",
+      "description": "フレーム間差分により動く物体を特定。ブロブ解析で最大のモーション領域（体）を見つけ、ゲートに向かう先端を追跡します。"
+    },
+    "trajectoryRegression": {
+      "title": "軌跡回帰",
+      "description": "複数フレームにわたって位置を追跡し、線形回帰を使用してゲートラインを通過した正確な瞬間を算出します — フレーム間であっても。"
+    },
+    "rollingShutterCorrection": {
+      "title": "ローリングシャッター補正",
+      "description": "iPhoneのカメラは上から下へ約5〜12msかけてスキャンします。通過した垂直位置を測定し、その位置での正確なスキャンタイミングを補正します。"
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms 実効精度",
+      "description": "120fpsキャプチャ、マルチフレーム軌跡解析、ローリングシャッター補正の組み合わせにより、プロフェッショナルシステムに匹敵するタイミング精度を実現します。"
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "120fpsでのフレーム間隔" },
+      "interpolation": { "value": "~0.5ms", "label": "補間分解能" },
+      "accuracy": { "value": "~4ms", "label": "実効タイミング精度" }
+    }
+  },
+  "ctaSection": {
+    "title": "もっと速くなる準備はできましたか？",
+    "subtitle": "TrackSpeedをダウンロードして、今日から精密なタイミングでトレーニングを始めましょう。",
+    "accuracy": "~4ms精度",
+    "setup": "1分未満のセットアップ",
+    "noHardware": "追加ハードウェア不要",
+    "freeNote": "無料でダウンロード。プレミアム機能もご利用いただけます。"
+  }
+}

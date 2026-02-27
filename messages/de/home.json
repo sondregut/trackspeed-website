@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "title": "Sprint-Zeitmessung fürs iPhone – Kostenlos, ohne Hardware",
+    "description": "Verwandle dein iPhone in ein Zeitmesssystem. ~4ms Genauigkeit, 120fps Erkennung, Multi-Geräte-Synchronisation. Kostenlos für Trainer und Athleten."
+  },
+  "hero": {
+    "socialProof": "Beliebt bei Olympioniken",
+    "title": "TrackSpeed",
+    "subtitle": "Sprintzeitmessung nur mit deinem iPhone",
+    "description": "Verwandle dein iPhone in ein professionelles Zeitmesssystem. Keine zusätzliche Hardware, keine Kalibrierung, sofortige Ergebnisse.",
+    "downloadCta": "Im App Store laden",
+    "stats": {
+      "accuracy": "Genauigkeit",
+      "setup": "Einrichtung",
+      "hardware": "Hardware"
+    }
+  },
+  "testimonials": {
+    "title": "Beliebt bei deinen Lieblings-Olympioniken",
+    "subtitle": "Von der Schulleichtathletik bis zu den Olympischen Spielen",
+    "sondre": {
+      "name": "Sondre Guttormsen",
+      "role": "Olympischer Stabhochspringer",
+      "quote": "Ich nutze TrackSpeed, um meinen Anlauf vor Wettkämpfen zu optimieren. Die Genauigkeit ist beeindruckend und ich weiß immer genau, welche Geschwindigkeit ich beim Absprung habe."
+    },
+    "andreas": {
+      "name": "Andreas Trajkovski",
+      "role": "Mazedonischer Weitsprung-Rekordhalter",
+      "quote": "Als Weitspringer ist Geschwindigkeit alles. Ich messe alle meine Sprints mit TrackSpeed und finde es super, wie schnell und einfach die Einrichtung ist. Es misst sogar meine Absprunggeschwindigkeit beim Weitsprung!"
+    }
+  },
+  "howItWorks": {
+    "title": "So funktioniert's",
+    "subtitle": "In weniger als einer Minute startklar",
+    "step": "Schritt {number}",
+    "steps": {
+      "connect": {
+        "title": "Handys verbinden",
+        "description": "Verbinde deine iPhones miteinander. Sie synchronisieren sich automatisch über Wi-Fi."
+      },
+      "start": {
+        "title": "Session starten",
+        "description": "Wähle aus fünf Startmethoden – fliegender Start, Touch-Auslöser, Countdown, Sprachbefehle oder Start im Bild."
+      },
+      "position": {
+        "title": "Handy positionieren",
+        "description": "Platziere dein Handy an der Ziellinie. Keine Kalibrierung nötig."
+      },
+      "time": {
+        "title": "Zeit erhalten",
+        "description": "Laufe deinen Sprint und erhalte sofort Ergebnisse mit Millisekunden-Genauigkeit."
+      }
+    }
+  },
+  "features": {
+    "title": "Professionelle Zeitmessung, null Equipment",
+    "subtitle": "Alles was du brauchst, hast du bereits in der Tasche",
+    "stats": {
+      "accuracy": { "value": "~4ms", "label": "Messgenauigkeit" },
+      "sync": { "value": "2+", "label": "Geräte-Sync" },
+      "hardware": { "value": "0", "label": "Zusätzliche Hardware" }
+    },
+    "smartDetection": {
+      "title": "Intelligente Erkennung",
+      "description": "Kamerabasierte Bewegungserkennung löst die Zeitmessung automatisch aus, wenn du die Linie überquerst."
+    },
+    "multiDeviceSync": {
+      "title": "Multi-Geräte-Sync",
+      "description": "Verbinde iPhones kabellos. Millisekunden-genaue Uhren-Synchronisation zwischen den Messpunkten."
+    },
+    "instantResults": {
+      "title": "Sofortige Ergebnisse",
+      "description": "Sieh deine Zeit in dem Moment, in dem du die Linie überquerst. Keine Stoppuhr-Verzögerungen."
+    },
+    "trackProgress": {
+      "title": "Fortschritt verfolgen",
+      "description": "Speichere Sessions, sieh dir den Verlauf an und verfolge deine Verbesserung über die Zeit."
+    }
+  },
+  "startTypes": {
+    "title": "Fünf Wege, deinen Sprint zu starten",
+    "subtitle": "Wähle die Startmethode, die zu deinen Trainingszielen passt",
+    "bestFor": "Ideal für: {useCase}",
+    "types": {
+      "flying": {
+        "title": "Fliegender Start",
+        "description": "Laufe mit voller Geschwindigkeit durch. Das erste Durchqueren des Messpunkts startet den Timer automatisch. Perfekt für Maximalgeschwindigkeitstests.",
+        "useCase": "Geschwindigkeitstests, fliegende 10m/20m/30m"
+      },
+      "touch": {
+        "title": "Touch-Auslöser",
+        "description": "Finger auf den Bildschirm legen, abheben zum Starten. Erfasst die Reaktionszeit genau wie Startblöcke bei einem echten Wettkampf.",
+        "useCase": "40-Yard-Dash, Combine-Tests"
+      },
+      "countdown": {
+        "title": "Countdown",
+        "description": "3... 2... 1... PIEP! Ein visueller und akustischer Countdown gibt dir ein verlässliches Startsignal. Ideal für konstantes Training.",
+        "useCase": "Einzeltraining, Intervalle"
+      },
+      "voice": {
+        "title": "Sprachbefehl",
+        "description": "\"Auf die Plätze... Fertig... LOS!\" KI-Sprachbefehle mit realistischem Timing basierend auf offiziellen Regeln.",
+        "useCase": "Einzeltraining, Gruppenstarts"
+      },
+      "frame": {
+        "title": "Start im Bild",
+        "description": "Beginne stehend im Kamerabild und sprinte dann los. Der Timer startet, wenn du das Bild verlässt. Kein zweites Gerät nötig.",
+        "useCase": "Einzeltraining, Einzel-Handy-Setup"
+      }
+    }
+  },
+  "multiDevice": {
+    "title": "Verbinde mehrere Handys für präzise Zeitmessung",
+    "description": "Nutze ein iPhone an der Startlinie und ein anderes an der Ziellinie. Füge weitere Handys für Zwischenzeiten bei beliebigen Distanzen hinzu.",
+    "wirelessConnection": {
+      "title": "Kabellose Verbindung",
+      "description": "Handys verbinden sich automatisch über Peer-to-Peer WiFi. Kein Internet nötig."
+    },
+    "millisecondSync": {
+      "title": "Millisekunden-genaue Synchronisation",
+      "description": "NTP-basierte Uhren-Synchronisation sorgt für genaue Zeitmessung zwischen den Geräten."
+    },
+    "unlimitedGates": {
+      "title": "Unbegrenzte Messpunkte",
+      "description": "Füge Zwischenzeiten mit 3+ Handys hinzu. Verfolge Beschleunigungsphasen und Höchstgeschwindigkeit."
+    }
+  },
+  "comparison": {
+    "title": "So schneiden wir ab",
+    "subtitle": "Professionelle Zeitmessung ohne den professionellen Preis",
+    "feature": "Funktion",
+    "youAreHere": "DAS BIST DU",
+    "features": {
+      "price": "Preis",
+      "accuracy": "Genauigkeit",
+      "chestDetection": "Brusterkennung",
+      "setupTime": "Einrichtungszeit",
+      "hardware": "Hardware",
+      "splitTimes": "Zwischenzeiten",
+      "photoFinish": "Fotofinish",
+      "portability": "Tragbarkeit"
+    },
+    "trackspeed": {
+      "price": "Kostenlos / $8.99/Monat*",
+      "accuracy": "~4ms",
+      "chestDetection": "Ja (nur Oberkörper)",
+      "setupTime": "< 1 Min",
+      "hardware": "Nur iPhone",
+      "portability": "Hosentaschenformat"
+    },
+    "freelap": {
+      "price": "$500 – $2.000+",
+      "accuracy": "±20ms",
+      "chestDetection": "Nein (beliebiges Körperteil)",
+      "setupTime": "5–10 Min",
+      "hardware": "Sensoren + Chips",
+      "portability": "Tragetasche"
+    },
+    "brower": {
+      "price": "$1.500 – $5.000+",
+      "accuracy": "±50–60ms**",
+      "chestDetection": "Nein (Lichtschranke)",
+      "setupTime": "10–20 Min",
+      "hardware": "Tore + Matten",
+      "portability": "Tragetasche"
+    },
+    "dashr": {
+      "price": "$500 – $1.500+",
+      "accuracy": "±10ms",
+      "chestDetection": "Nein (Lichtschranke)",
+      "setupTime": "5–10 Min",
+      "hardware": "Lasertore",
+      "portability": "Tragetasche"
+    },
+    "stopwatch": {
+      "price": "$10 – $50",
+      "accuracy": "±200ms",
+      "chestDetection": "Visuelle Schätzung",
+      "setupTime": "Sofort",
+      "hardware": "Keine",
+      "portability": "Hosentaschenformat"
+    },
+    "footnotes": {
+      "pricing": "*$8.99/Monat oder $49.99/Jahr. Preise sind ungefähre Angaben.",
+      "browerStudy": "**Laut <link>einer begutachteten Studie</link>: Brower wurde als \u201Enicht zuverlässig genug, um kleine Veränderungen bei Spitzenathleten zu messen\u201C befunden",
+      "beamNote": "Lichtschranken-Systeme lösen bei jedem Körperteil (Hand/Bein) aus, nicht nur bei der Brust. TrackSpeed ist für das Training konzipiert, nicht für offizielle Wettkämpfe."
+    }
+  },
+  "timingTechnology": {
+    "title": "Die Wissenschaft hinter Sub-Frame-Präzision",
+    "subtitle": "Wie wir ~4ms Genauigkeit mit Standard-iPhone-Kameras erreichen",
+    "frameCapture": "120fps Aufnahme = 8.3ms zwischen Frames",
+    "formula": "Position = Geschwindigkeit × Zeit + Offset",
+    "formulaLabel": "Trajektorien-Regression (3+ Frames)",
+    "formulaResult": "Berechnung des Überquerungszeitpunkts mit Sub-Frame-Präzision",
+    "beyondFrameByFrame": "Über Frame-für-Frame-Messung hinaus",
+    "learnHowItWorks": "Erfahre, wie es funktioniert",
+    "motionDetection": {
+      "title": "Bewegungserkennung",
+      "description": "Frame-Differenzierung identifiziert bewegte Objekte. Blob-Analyse findet die größte Bewegungsregion (deinen Körper) und verfolgt ihre Vorderkante zum Messpunkt."
+    },
+    "trajectoryRegression": {
+      "title": "Trajektorien-Regression",
+      "description": "Wir verfolgen die Position über mehrere Frames und verwenden lineare Regression, um den genauen Moment der Messpunkt-Überquerung zu berechnen – auch zwischen Frames."
+    },
+    "rollingShutterCorrection": {
+      "title": "Rolling-Shutter-Korrektur",
+      "description": "iPhone-Kameras scannen von oben nach unten über ~5–12ms. Wir messen, wo du vertikal überquert hast und kompensieren das genaue Scan-Timing an dieser Position."
+    },
+    "effectiveAccuracy": {
+      "title": "~4ms effektive Genauigkeit",
+      "description": "Die Kombination aus 120fps Aufnahme, Multi-Frame-Trajektorienanalyse und Rolling-Shutter-Korrektur liefert eine Messpräzision vergleichbar mit professionellen Systemen."
+    },
+    "stats": {
+      "frameInterval": { "value": "8.3ms", "label": "Frame-Intervall bei 120fps" },
+      "interpolation": { "value": "~0.5ms", "label": "Interpolationsauflösung" },
+      "accuracy": { "value": "~4ms", "label": "Effektive Messgenauigkeit" }
+    }
+  },
+  "ctaSection": {
+    "title": "Bereit, schneller zu messen?",
+    "subtitle": "Lade TrackSpeed herunter und starte noch heute mit präziser Zeitmessung im Training.",
+    "accuracy": "~4ms Genauigkeit",
+    "setup": "<1 Min Einrichtung",
+    "noHardware": "Keine zusätzliche Hardware",
+    "freeNote": "Kostenlos herunterladen. Premium-Funktionen verfügbar."
+  }
+}

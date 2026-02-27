@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "帮助与常见问题 - 短跑计时故障排除",
+    "description": "TrackSpeed 帮助中心。关于短跑计时设置、多设备同步、过线检测和订阅管理的常见问题解答。"
+  },
+  "title": "支持",
+  "lastUpdated": "最后更新：2026年2月14日",
+  "contact": {
+    "title": "联系我们",
+    "description": "如果您在使用 TrackSpeed 时遇到问题或有任何疑问，我们很乐意为您提供帮助。",
+    "email": "电子邮件：",
+    "responseTime": "我们通常在 24-48 小时内回复。"
+  },
+  "faq": {
+    "title": "常见问题",
+    "items": {
+      "howItWorks": {
+        "question": "TrackSpeed 是如何工作的？",
+        "answer": "TrackSpeed 使用 iPhone 的摄像头来检测运动员何时穿越计时门。该应用通过基于摄像头的动作检测来识别运动员的躯干穿越计时门的时刻，提供毫秒级精度的计时结果。"
+      },
+      "equipment": {
+        "question": "我需要特殊设备吗？",
+        "answer": "不需要！TrackSpeed 只需您的 iPhone 即可运行。若需分段计时或起点/终点门，您可以使用两台通过无线同步的 iPhone。"
+      },
+      "models": {
+        "question": "支持哪些 iPhone 型号？",
+        "answer": "TrackSpeed 适用于 iPhone XS 及更新型号（iOS 17+）。为获得最佳性能，我们建议使用 iPhone 12 Pro 或更新型号。"
+      },
+      "accuracy": {
+        "question": "计时精度如何？",
+        "answer": "TrackSpeed 通过子帧插值和滚动快门校正实现约 ~4ms 的计时精度。使用两台设备时，时钟同步确保两个计时门精确对齐，以获得准确的分段时间。"
+      },
+      "competitions": {
+        "question": "我可以在正式比赛中使用 TrackSpeed 吗？",
+        "answer": "TrackSpeed 专为训练和非正式计时而设计。在正式比赛中，请使用您所在运动项目管理机构要求的认证计时设备。"
+      },
+      "connecting": {
+        "question": "如何连接两台手机？",
+        "answer": "两台设备都需要安装 TrackSpeed。一台设备作为\u201C主机\u201D创建会话，另一台加入该会话。设备通过点对点网络自动连接，无需互联网连接。"
+      },
+      "cancel": {
+        "question": "如何取消订阅？",
+        "answer": "订阅通过您的 Apple ID 进行管理。请前往\u201C设置\u201D → [您的姓名] → \u201C订阅\u201D → TrackSpeed → \u201C取消订阅\u201D。"
+      }
+    }
+  },
+  "troubleshooting": {
+    "title": "故障排除",
+    "items": {
+      "noDetection": {
+        "issue": "应用未检测到过线",
+        "solutions": [
+          "确保光线充足——摄像头需要清晰地看到运动员",
+          "将手机放置在运动员垂直穿越摄像头视野的位置",
+          "确保运动员的躯干在画面中可见",
+          "尝试在设置中使用更高的帧率（60 或 120fps）"
+        ]
+      },
+      "noConnection": {
+        "issue": "两台设备无法连接",
+        "solutions": [
+          "确保两台设备都已启用 WiFi 和蓝牙",
+          "两台设备应在 30 英尺（约 9 米）范围内",
+          "尝试在两台设备上关闭后重新打开应用",
+          "确保两台设备都运行最新版本的 TrackSpeed"
+        ]
+      },
+      "thermal": {
+        "issue": "应用运行缓慢或设备发热",
+        "solutions": [
+          "取下手机壳以帮助散热",
+          "避免设备直接暴露在阳光下",
+          "关闭后台运行的其他应用",
+          "在计时会话之间休息一段时间"
+        ]
+      }
+    }
+  },
+  "feedbackSection": {
+    "title": "功能请求与反馈",
+    "description": "我们非常欢迎用户的反馈！请访问我们的<feedbackLink>反馈板</feedbackLink>为您喜欢的想法投票、提出新功能建议或报告错误。您也可以发送电子邮件至<emailLink>feedback@mytrackspeed.com</emailLink>联系我们。"
+  }
+}
