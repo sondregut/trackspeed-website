@@ -6,7 +6,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const t = await getTranslations({locale, namespace: 'blog'});
   return {
     title: t('posts.multi-phone-sprint-timing-setup.title'),
-    description: "Step-by-step guide to setting up two or more iPhones for accurate split timing at start and finish lines during track practice. No internet required.",
+    description: "Step-by-step guide to setting up two or more phones for accurate split timing at start and finish lines during track practice. No internet required.",
     alternates: {
       canonical: 'https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup',
     },
@@ -26,7 +26,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
     headline:
       "How to Set Up Multi-Phone Sprint Timing for Track Practice",
     description:
-      "Step-by-step guide to setting up two or more iPhones for accurate split timing at start and finish lines during track practice. No internet required.",
+      "Step-by-step guide to setting up two or more phones for accurate split timing at start and finish lines during track practice. No internet required.",
     keywords: "multi phone timing, split timing setup",
     author: {
       "@type": "Organization",
@@ -104,7 +104,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Use two or more iPhones as synchronized timing gates to capture
+            Use two or more phones as synchronized timing gates to capture
             true elapsed time, split times, and eliminate reaction-time
             errors during training.
           </p>
@@ -205,15 +205,15 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                       className="font-semibold"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      2 or more iPhones
+                      2 or more phones
                     </div>
                     <div
                       className="text-sm"
                       style={{ color: "var(--text-muted)" }}
                     >
                       Any model that runs iOS 17 or later. They do not need to
-                      be the same model -- an iPhone 12 at the start and an
-                      iPhone 15 at the finish works fine.
+                      be the same model -- an older phone at the start and a
+                      newer one at the finish works fine.
                     </div>
                   </div>
                 </div>
@@ -327,7 +327,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 Step A: Position the phones
               </h3>
               <p className="text-body mb-6">
-                Place one iPhone at the start line and the other at the finish
+                Place one phone at the start line and the other at the finish
                 line. Each phone should be perpendicular to the lane the athlete
                 will run through, with the camera pointing across the lane at
                 approximately chest height. This ensures the detection system
@@ -440,7 +440,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 Adding a Third Phone
               </h3>
               <p className="text-body mb-6">
-                To capture split times, place an additional iPhone at the
+                To capture split times, place an additional phone at the
                 intermediate distance you want to measure -- for example, at the
                 20-meter mark of a 40-yard dash, or at the 60-meter mark of a
                 100-meter sprint. Set it up the same way as the start and finish
@@ -642,7 +642,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
               Ready to set up multi-phone timing?
             </h2>
             <p className="text-body mb-8">
-              Download TrackSpeed on each iPhone you plan to use, head to the
+              Download TrackSpeed on each phone you plan to use, head to the
               track, and follow the steps above. Accurate split timing is
               minutes away.
             </p>

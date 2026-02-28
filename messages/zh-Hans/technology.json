@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "iPhone短跑计时如何实现~4ms精度",
-    "description": "了解TrackSpeed如何使用iPhone的摄像头实现毫秒级精度的短跑计时——无需额外设备。"
+    "title": "phone短跑计时如何实现~4ms精度",
+    "description": "了解TrackSpeed如何使用phone的摄像头实现毫秒级精度的短跑计时——无需额外设备。"
   },
   "backToHome": "返回首页",
   "heroTitle": "如何实现~4ms计时精度",
-  "heroSubtitle": "您的iPhone已经具备精准短跑计时所需的一切——高帧率摄像头、精密陀螺仪和强大的处理器。以下是它实现的原理。",
+  "heroSubtitle": "您的phone已经具备精准短跑计时所需的一切——高帧率摄像头、精密陀螺仪和强大的处理器。以下是它实现的原理。",
   "sections": {
     "subFrame": {
       "title": "亚帧精度",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "基于物理的校正",
-      "desc": "iPhone摄像头从上到下扫描每一帧需要数毫秒，这会根据运动员出现在画面中的位置引入时间偏移。我们自动校正这些以及其他硬件级时间误差，消除系统性误差。"
+      "desc": "phone摄像头从上到下扫描每一帧需要数毫秒，这会根据运动员出现在画面中的位置引入时间偏移。我们自动校正这些以及其他硬件级时间误差，消除系统性误差。"
     },
     "clockSync": {
       "title": "多设备时钟同步",
-      "desc": "使用两部iPhone——一部在起点，一部在终点——它们的时钟需要在毫秒级别保持一致。我们的同步协议实现设备间±3-5ms的对齐精度。同步时请将两部手机保持在约10米范围内以获得最佳效果。同步完成后，可以根据需要移至任意距离。"
+      "desc": "使用两部phone——一部在起点，一部在终点——它们的时钟需要在毫秒级别保持一致。我们的同步协议实现设备间±3-5ms的对齐精度。同步时请将两部手机保持在约10米范围内以获得最佳效果。同步完成后，可以根据需要移至任意距离。"
     },
     "bodyTracking": {
       "title": "身体追踪而非光束中断",
@@ -28,7 +28,7 @@
     "title": "结果",
     "value": "~4ms",
     "label": "有效计时精度",
-    "desc": "亚帧插值、物理校正和时钟同步相结合，仅用iPhone即可提供媲美专用硬件的计时精度。"
+    "desc": "亚帧插值、物理校正和时钟同步相结合，仅用phone即可提供媲美专用硬件的计时精度。"
   },
   "professionalComparison": {
     "title": "对比其他系统",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "身体追踪",
-      "cost": "您的iPhone"
+      "cost": "您的phone"
     },
     "laserNote": "*激光门以亚毫秒速度触发，但不一致的触发点（手臂 vs 胸部）可能导致同一运动员不同次跑步之间产生50-200ms的偏差。"
   },
   "cta": {
     "title": "准备好计时训练了吗？",
-    "subtitle": "下载TrackSpeed，用iPhone体验毫秒级精度。",
+    "subtitle": "下载TrackSpeed，用phone体验毫秒级精度。",
     "download": "在App Store下载",
     "compare": "查看TrackSpeed与其他计时方法的对比"
   }

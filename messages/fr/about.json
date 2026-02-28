@@ -2,7 +2,7 @@
   "title": "Des athlètes qui construisent pour les athlètes",
   "intro": "TrackSpeed est né sur la piste. Nous sommes des athlètes de compétition en activité qui en avaient assez des outils de chronométrage imprécis — alors nous avons créé le nôtre.",
   "story1": "En tant qu'athlètes d'athlétisme s'entraînant au plus haut niveau, nous avions besoin d'un chronométrage précis pour nos sprints et courses d'élan — mais les options étaient soit des systèmes laser coûteux avec des points de déclenchement incohérents, soit un entraîneur avec un chronomètre et l'erreur du temps de réaction humain. Aucune des deux n'était satisfaisante.",
-  "story2": "Nous avons réalisé que l'iPhone dans la poche de chacun avait déjà le matériel nécessaire — une caméra haute fréquence, un gyroscope précis et assez de puissance de calcul pour la vision par ordinateur en temps réel. Alors nous avons créé TrackSpeed : un système de chronométrage qui utilise la détection de mouvement image par image et l'interpolation sub-frame pour fournir des résultats précis à la milliseconde, sans équipement supplémentaire.",
+  "story2": "Nous avons réalisé que l'phone dans la poche de chacun avait déjà le matériel nécessaire — une caméra haute fréquence, un gyroscope précis et assez de puissance de calcul pour la vision par ordinateur en temps réel. Alors nous avons créé TrackSpeed : un système de chronométrage qui utilise la détection de mouvement image par image et l'interpolation sub-frame pour fournir des résultats précis à la milliseconde, sans équipement supplémentaire.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Créé par des athlètes, pour des athlètes.",
   "cta": {
     "title": "Prêt à chronométrer ton entraînement ?",
-    "subtitle": "Télécharge TrackSpeed et découvre la précision à la milliseconde avec juste ton iPhone.",
+    "subtitle": "Télécharge TrackSpeed et découvre la précision à la milliseconde avec juste ton phone.",
     "download": "Télécharger sur l'App Store",
     "learnMore": "Découvre comment fonctionne notre technologie de chronométrage"
   },

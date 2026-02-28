@@ -1,7 +1,7 @@
 {
   "name": "TrackSpeed",
   "short_name": "TrackSpeed",
-  "description": "Sprint timing app for iPhone. ~4ms accuracy, no hardware needed.",
+  "description": "Sprint timing app for phone. ~4ms accuracy, no hardware needed.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#F5F5F7",

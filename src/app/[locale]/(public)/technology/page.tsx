@@ -23,9 +23,9 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
   const techArticleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: "How iPhone Sprint Timing Achieves ~4ms Accuracy",
+    headline: "How Phone Sprint Timing Achieves ~4ms Accuracy",
     description:
-      "Learn how TrackSpeed uses your iPhone's camera to deliver millisecond-accurate sprint timing.",
+      "Learn how TrackSpeed uses your phone's camera to deliver millisecond-accurate sprint timing.",
     author: {
       "@type": "Organization",
       name: "TrackSpeed",

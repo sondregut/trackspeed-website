@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "How iPhone Sprint Timing Achieves ~4ms Accuracy",
-    "description": "Learn how TrackSpeed uses your iPhone's camera to deliver millisecond-accurate sprint timing — no extra equipment required."
+    "title": "How Phone Sprint Timing Achieves ~4ms Accuracy",
+    "description": "Learn how TrackSpeed uses your phone's camera to deliver millisecond-accurate sprint timing — no extra equipment required."
   },
   "backToHome": "Back to home",
   "heroTitle": "How We Achieve ~4ms Timing Accuracy",
-  "heroSubtitle": "Your iPhone already has everything needed for precision sprint timing — a high frame rate camera, precise gyroscope, and powerful processor. Here's what that enables.",
+  "heroSubtitle": "Your phone already has everything needed for precision sprint timing — a high frame rate camera, precise gyroscope, and powerful processor. Here's what that enables.",
   "sections": {
     "subFrame": {
       "title": "Sub-Frame Precision",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Physics-Based Corrections",
-      "desc": "iPhone cameras scan each frame from top to bottom over several milliseconds, introducing a timing offset depending on where the athlete appears in frame. We automatically correct for this and other hardware-level timing artifacts to eliminate systematic error."
+      "desc": "Phone cameras scan each frame from top to bottom over several milliseconds, introducing a timing offset depending on where the athlete appears in frame. We automatically correct for this and other hardware-level timing artifacts to eliminate systematic error."
     },
     "clockSync": {
       "title": "Multi-Device Clock Sync",
-      "desc": "When using two iPhones — one at the start and one at the finish — their clocks need to agree within milliseconds. Our synchronization protocol achieves ±3-5ms alignment between devices. During sync, keep both phones within about 10 meters of each other for best results. Once synced, move them as far apart as needed."
+      "desc": "When using two phones — one at the start and one at the finish — their clocks need to agree within milliseconds. Our synchronization protocol achieves ±3-5ms alignment between devices. During sync, keep both phones within about 10 meters of each other for best results. Once synced, move them as far apart as needed."
     },
     "bodyTracking": {
       "title": "Body Tracking, Not Beam Breaking",
@@ -28,7 +28,7 @@
     "title": "The Result",
     "value": "~4ms",
     "label": "Effective timing accuracy",
-    "desc": "Sub-frame interpolation, physics corrections, and clock synchronization combine to deliver timing precision that rivals dedicated hardware — using just your iPhone."
+    "desc": "Sub-frame interpolation, physics corrections, and clock synchronization combine to deliver timing precision that rivals dedicated hardware — using just your phone."
   },
   "professionalComparison": {
     "title": "How This Compares",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Body tracking",
-      "cost": "Your iPhone"
+      "cost": "Your phone"
     },
     "laserNote": "*Laser gates trigger with sub-millisecond speed, but inconsistent trigger points (arm vs chest) can cause 50-200ms variation between runs for the same athlete."
   },
   "cta": {
     "title": "Ready to time your training?",
-    "subtitle": "Download TrackSpeed and experience millisecond precision with just your iPhone.",
+    "subtitle": "Download TrackSpeed and experience millisecond precision with just your phone.",
     "download": "Download on the App Store",
     "compare": "See how TrackSpeed compares to other timing methods"
   }

@@ -66,7 +66,7 @@ function ProPageContent() {
               Get TrackSpeed
             </h1>
             <p className="text-gray-300 mb-2">
-              Professional sprint timing on your iPhone
+              Professional sprint timing on your phone
             </p>
             <div className="bg-[#5C8DB8]/20 border border-[#5C8DB8]/50 rounded-lg p-4 mb-6">
               <p className="text-[#8BB8E0] font-semibold">

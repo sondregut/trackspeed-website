@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Sprint Timing App for iPhone - Free, No Hardware",
-    "description": "Turn your iPhone into a timing system. ~4ms accuracy, 120fps detection, multi-device sync. Free for track coaches and athletes."
+    "title": "Sprint Timing App for Phone - Free, No Hardware",
+    "description": "Turn your phone into a timing system. ~4ms accuracy, 120fps detection, multi-device sync. Free for track coaches and athletes."
   },
   "hero": {
     "socialProof": "Loved by olympians",
     "title": "TrackSpeed",
-    "subtitle": "Sprint timing with just your iPhone",
-    "description": "Turn your iPhone into a professional timing system. No extra hardware, no calibration, instant results.",
+    "subtitle": "Sprint timing with just your phone",
+    "description": "Turn your phone into a professional timing system. No extra hardware, no calibration, instant results.",
     "downloadCta": "Download on the App Store",
     "stats": {
       "accuracy": "Accuracy",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "Connect phones",
-        "description": "Pair your iPhones together. They sync automatically over Wi-Fi."
+        "description": "Pair your phones together. They sync automatically over Wi-Fi."
       },
       "start": {
         "title": "Start your session",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "Multi-Device Sync",
-      "description": "Connect iPhones wirelessly. Millisecond-accurate clock synchronization between gates."
+      "description": "Connect phones wirelessly. Millisecond-accurate clock synchronization between gates."
     },
     "instantResults": {
       "title": "Instant Results",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "Connect multiple phones for precise timing",
-    "description": "Use one iPhone at the start line and another at the finish. Add more phones for split times at any distance.",
+    "description": "Use one phone at the start line and another at the finish. Add more phones for split times at any distance.",
     "wirelessConnection": {
       "title": "Wireless Connection",
       "description": "Phones connect automatically via peer-to-peer WiFi. No internet required."
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "Yes (torso only)",
       "setupTime": "< 1 min",
-      "hardware": "iPhone only",
+      "hardware": "Phone only",
       "portability": "Pocket-sized"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "The science behind sub-frame precision",
-    "subtitle": "How we achieve ~4ms accuracy with standard iPhone cameras",
+    "subtitle": "How we achieve ~4ms accuracy with standard phone cameras",
     "frameCapture": "120fps capture = 8.3ms between frames",
     "formula": "position = velocity \u00d7 time + offset",
     "formulaLabel": "Trajectory regression (3+ frames)",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "Rolling Shutter Correction",
-      "description": "iPhone cameras scan top-to-bottom over ~5-12ms. We measure where you crossed vertically and compensate for the exact scan timing at that position."
+      "description": "Phone cameras scan top-to-bottom over ~5-12ms. We measure where you crossed vertically and compensate for the exact scan timing at that position."
     },
     "effectiveAccuracy": {
       "title": "~4ms Effective Accuracy",

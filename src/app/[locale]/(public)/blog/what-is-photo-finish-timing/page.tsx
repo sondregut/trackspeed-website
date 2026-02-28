@@ -402,7 +402,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                       className="text-xl font-bold mb-1"
                       style={{ color: "var(--accent-green)" }}
                     >
-                      Your iPhone
+                      Your phone
                     </div>
                     <div
                       className="text-xs"
@@ -450,7 +450,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
             <div className="card-feature p-6 md:p-8">
               <p className="text-body mb-6">
                 Modern smartphones have closed much of the gap between consumer
-                and professional hardware. An iPhone can capture video at 120
+                and professional hardware. A phone can capture video at 120
                 frames per second with precise frame timestamps, and it carries
                 a gyroscope, accelerometer, and a processor powerful enough to
                 run computer vision algorithms in real time. This combination
@@ -630,7 +630,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="text-sm"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    Works with any iPhone that supports 120fps video capture.
+                    Works with any phone that supports 120fps video capture.
                     Mount it on a tripod at the finish line and you are ready.
                   </p>
                 </div>
@@ -906,7 +906,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="font-medium hover:underline"
                     style={{ color: "#5C8DB8" }}
                   >
-                    How We Achieve ~4ms Timing Accuracy with Your iPhone
+                    How We Achieve ~4ms Timing Accuracy with Your Phone
                   </Link>
                   <span
                     className="text-sm ml-2"
@@ -938,7 +938,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="font-medium hover:underline"
                     style={{ color: "#5C8DB8" }}
                   >
-                    How to Time a 40-Yard Dash with Your iPhone
+                    How to Time a 40-Yard Dash with Your Phone
                   </Link>
                   <span
                     className="text-sm ml-2"
@@ -977,7 +977,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
             </h2>
             <p className="text-body mb-8">
               No specialized equipment, no setup complexity. Just mount your
-              iPhone at the finish line and start getting consistent,
+              phone at the finish line and start getting consistent,
               millisecond-resolution timing data.
             </p>
             <div className="flex flex-col items-center gap-4">

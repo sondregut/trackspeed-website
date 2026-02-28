@@ -410,7 +410,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 How It Works
               </h3>
               <p className="text-body mb-6">
-                Camera-based timing uses an iPhone&apos;s camera running at 30
+                Camera-based timing uses a phone&apos;s camera running at 30
                 to 120 frames per second to detect when a runner crosses a
                 virtual finish line in the video frame. Unlike laser gates that
                 trigger on the first beam break, camera-based systems like
@@ -463,7 +463,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 Requirements
               </h3>
               <p className="text-body mb-6">
-                You need an iPhone with a stable mount -- a tripod, a fence
+                You need a phone with a stable mount -- a tripod, a fence
                 clip, or even a shoe wedged against a wall. The phone needs to
                 remain still during timing because the detection algorithm
                 distinguishes camera shake from athlete movement using the
@@ -498,7 +498,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                     className="text-sm space-y-1"
                     style={{ color: "#166534" }}
                   >
-                    <li>No extra hardware -- uses your iPhone</li>
+                    <li>No extra hardware -- uses your phone</li>
                     <li>~4ms accuracy with sub-frame interpolation</li>
                     <li>Consistent body-mass detection</li>
                     <li>Finish photo thumbnails for review</li>
@@ -731,7 +731,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 </div>
                 <div style={{ color: "var(--text-muted)" }}>~4ms</div>
                 <div style={{ color: "var(--text-muted)" }}>High</div>
-                <div style={{ color: "var(--text-muted)" }}>Your iPhone</div>
+                <div style={{ color: "var(--text-muted)" }}>Your phone</div>
                 <div style={{ color: "var(--text-muted)" }}>Excellent</div>
                 <div style={{ color: "var(--text-muted)" }}>1-2 min</div>
               </div>
@@ -955,7 +955,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
             </h2>
             <p className="text-body mb-8">
               Download TrackSpeed and start getting consistent, accurate sprint
-              times from your iPhone -- no extra equipment required.
+              times from your phone -- no extra equipment required.
             </p>
             <div className="flex flex-col items-center gap-4">
               <a

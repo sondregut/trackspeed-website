@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "TrackSpeed nasıl çalışır?",
-        "answer": "TrackSpeed, bir sporcunun zamanlama kapısını ne zaman geçtiğini algılamak için iPhone kamerasını kullanır. Uygulama, sporcunun gövdesinin zamanlama kapısını ne zaman geçtiğini belirlemek için kamera tabanlı hareket algılama kullanarak milisaniye hassasiyetinde zamanlama sağlar."
+        "answer": "TrackSpeed, bir sporcunun zamanlama kapısını ne zaman geçtiğini algılamak için phone kamerasını kullanır. Uygulama, sporcunun gövdesinin zamanlama kapısını ne zaman geçtiğini belirlemek için kamera tabanlı hareket algılama kullanarak milisaniye hassasiyetinde zamanlama sağlar."
       },
       "equipment": {
         "question": "Özel ekipmana ihtiyacım var mı?",
-        "answer": "Hayır! TrackSpeed sadece iPhone'unla çalışır. Ara süre ölçümü veya başlangıç/bitiş kapıları için kablosuz olarak senkronize olan iki iPhone kullanabilirsin."
+        "answer": "Hayır! TrackSpeed sadece phone'unla çalışır. Ara süre ölçümü veya başlangıç/bitiş kapıları için kablosuz olarak senkronize olan iki phone kullanabilirsin."
       },
       "models": {
-        "question": "Hangi iPhone modelleri destekleniyor?",
-        "answer": "TrackSpeed, iPhone XS ve sonrası (iOS 17+) ile çalışır. En iyi performans için iPhone 12 Pro veya daha yenisini öneriyoruz."
+        "question": "Hangi phone modelleri destekleniyor?",
+        "answer": "TrackSpeed, phone XS ve sonrası (iOS 17+) ile çalışır. En iyi performans için phone 12 Pro veya daha yenisini öneriyoruz."
       },
       "accuracy": {
         "question": "Zamanlama ne kadar doğru?",

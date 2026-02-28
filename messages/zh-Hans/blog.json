@@ -9,17 +9,17 @@
   "englishOnly": "本文仅提供英文版。",
   "cta": {
     "title": "准备好计时短跑了吗？",
-    "description": "下载TrackSpeed，开始从iPhone获取精准、稳定的计时数据。",
+    "description": "下载TrackSpeed，开始从phone获取精准、稳定的计时数据。",
     "download": "在App Store下载"
   },
   "posts": {
     "sprint-timing-gates-buyers-guide": {
       "title": "短跑计时系统购买指南：计时门、应用和秒表全面对比",
-      "excerpt": "为什么要花$2,500买计时门？您的iPhone可以免费提供同等的训练精度。激光门、摄像头计时和秒表的完整对比。"
+      "excerpt": "为什么要花$2,500买计时门？您的phone可以免费提供同等的训练精度。激光门、摄像头计时和秒表的完整对比。"
     },
     "how-to-time-a-40-yard-dash": {
       "title": "如何用手机精确计时40码冲刺",
-      "excerpt": "了解如何仅用iPhone获得可靠、可重复的40码冲刺成绩——无需昂贵的激光门或秒表误差。"
+      "excerpt": "了解如何仅用phone获得可靠、可重复的40码冲刺成绩——无需昂贵的激光门或秒表误差。"
     },
     "sprint-timing-systems-compared": {
       "title": "短跑计时系统对比：激光门 vs 摄像头 vs 秒表",
@@ -27,7 +27,7 @@
     },
     "multi-phone-sprint-timing-setup": {
       "title": "如何在田径训练中设置多手机短跑计时",
-      "excerpt": "在田径训练中使用两部iPhone在起跑线和终点线设置分段计时的分步指南。"
+      "excerpt": "在田径训练中使用两部phone在起跑线和终点线设置分段计时的分步指南。"
     },
     "improve-sprint-speed-training": {
       "title": "4个受益于精准计时的短跑训练方法",

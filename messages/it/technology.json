@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Come il cronometraggio sprint con iPhone raggiunge ~4ms di precisione",
-    "description": "Scopri come TrackSpeed usa la fotocamera del tuo iPhone per offrire cronometraggio sprint con precisione al millisecondo — senza attrezzatura extra."
+    "title": "Come il cronometraggio sprint con phone raggiunge ~4ms di precisione",
+    "description": "Scopri come TrackSpeed usa la fotocamera del tuo phone per offrire cronometraggio sprint con precisione al millisecondo — senza attrezzatura extra."
   },
   "backToHome": "Torna alla home",
   "heroTitle": "Come raggiungiamo ~4ms di precisione nel cronometraggio",
-  "heroSubtitle": "Il tuo iPhone ha già tutto il necessario per un cronometraggio sprint di precisione — una fotocamera ad alta frequenza di fotogrammi, un giroscopio preciso e un potente processore. Ecco cosa rende possibile tutto questo.",
+  "heroSubtitle": "Il tuo phone ha già tutto il necessario per un cronometraggio sprint di precisione — una fotocamera ad alta frequenza di fotogrammi, un giroscopio preciso e un potente processore. Ecco cosa rende possibile tutto questo.",
   "sections": {
     "subFrame": {
       "title": "Precisione sub-fotogramma",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Correzioni basate sulla fisica",
-      "desc": "Le fotocamere iPhone scansionano ogni fotogramma dall'alto verso il basso nell'arco di diversi millisecondi, introducendo uno sfasamento temporale in base alla posizione dell'atleta nell'inquadratura. Correggiamo automaticamente questo e altri artefatti di temporizzazione a livello hardware per eliminare l'errore sistematico."
+      "desc": "Le fotocamere phone scansionano ogni fotogramma dall'alto verso il basso nell'arco di diversi millisecondi, introducendo uno sfasamento temporale in base alla posizione dell'atleta nell'inquadratura. Correggiamo automaticamente questo e altri artefatti di temporizzazione a livello hardware per eliminare l'errore sistematico."
     },
     "clockSync": {
       "title": "Sincronizzazione dell'orologio tra dispositivi",
-      "desc": "Quando si usano due iPhone — uno alla partenza e uno all'arrivo — i loro orologi devono essere allineati entro pochi millisecondi. Il nostro protocollo di sincronizzazione raggiunge un allineamento di ±3-5ms tra i dispositivi. Durante la sincronizzazione, tieni entrambi i telefoni a circa 10 metri l'uno dall'altro per i migliori risultati. Una volta sincronizzati, puoi spostarli quanto vuoi."
+      "desc": "Quando si usano due phone — uno alla partenza e uno all'arrivo — i loro orologi devono essere allineati entro pochi millisecondi. Il nostro protocollo di sincronizzazione raggiunge un allineamento di ±3-5ms tra i dispositivi. Durante la sincronizzazione, tieni entrambi i telefoni a circa 10 metri l'uno dall'altro per i migliori risultati. Una volta sincronizzati, puoi spostarli quanto vuoi."
     },
     "bodyTracking": {
       "title": "Tracciamento corporeo, non rottura di fascio",
@@ -28,7 +28,7 @@
     "title": "Il risultato",
     "value": "~4ms",
     "label": "Precisione effettiva di cronometraggio",
-    "desc": "L'interpolazione sub-fotogramma, le correzioni fisiche e la sincronizzazione degli orologi si combinano per offrire una precisione di cronometraggio che rivaleggia con l'hardware dedicato — usando solo il tuo iPhone."
+    "desc": "L'interpolazione sub-fotogramma, le correzioni fisiche e la sincronizzazione degli orologi si combinano per offrire una precisione di cronometraggio che rivaleggia con l'hardware dedicato — usando solo il tuo phone."
   },
   "professionalComparison": {
     "title": "Come si confronta",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Tracciamento corporeo",
-      "cost": "Il tuo iPhone"
+      "cost": "Il tuo phone"
     },
     "laserNote": "*I gate laser si attivano a velocità sub-millisecondo, ma i punti di attivazione inconsistenti (braccio vs. petto) possono causare variazioni di 50-200ms tra le corse dello stesso atleta."
   },
   "cta": {
     "title": "Pronto a cronometrare il tuo allenamento?",
-    "subtitle": "Scarica TrackSpeed e sperimenta la precisione al millisecondo usando solo il tuo iPhone.",
+    "subtitle": "Scarica TrackSpeed e sperimenta la precisione al millisecondo usando solo il tuo phone.",
     "download": "Scarica su App Store",
     "compare": "Scopri come TrackSpeed si confronta con altri metodi di cronometraggio"
   }

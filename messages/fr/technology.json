@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Comment le chronométrage de sprint sur iPhone atteint ~4ms de précision",
-    "description": "Découvre comment TrackSpeed utilise la caméra de ton iPhone pour fournir un chronométrage de sprint précis à la milliseconde — sans équipement supplémentaire."
+    "title": "Comment le chronométrage de sprint sur phone atteint ~4ms de précision",
+    "description": "Découvre comment TrackSpeed utilise la caméra de ton phone pour fournir un chronométrage de sprint précis à la milliseconde — sans équipement supplémentaire."
   },
   "backToHome": "Retour à l'accueil",
   "heroTitle": "Comment nous atteignons ~4ms de précision",
-  "heroSubtitle": "Ton iPhone a déjà tout ce qu'il faut pour un chronométrage de sprint précis — une caméra haute fréquence, un gyroscope précis et un processeur puissant. Voici ce que ça permet.",
+  "heroSubtitle": "Ton phone a déjà tout ce qu'il faut pour un chronométrage de sprint précis — une caméra haute fréquence, un gyroscope précis et un processeur puissant. Voici ce que ça permet.",
   "sections": {
     "subFrame": {
       "title": "Précision sub-frame",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Corrections basées sur la physique",
-      "desc": "Les caméras iPhone balayent chaque image de haut en bas sur plusieurs millisecondes, introduisant un décalage temporel selon la position de l'athlète dans l'image. Nous corrigeons automatiquement cela et d'autres artefacts de timing matériels pour éliminer les erreurs systématiques."
+      "desc": "Les caméras phone balayent chaque image de haut en bas sur plusieurs millisecondes, introduisant un décalage temporel selon la position de l'athlète dans l'image. Nous corrigeons automatiquement cela et d'autres artefacts de timing matériels pour éliminer les erreurs systématiques."
     },
     "clockSync": {
       "title": "Synchronisation d'horloge multi-appareils",
-      "desc": "Quand tu utilises deux iPhones — un au départ et un à l'arrivée — leurs horloges doivent être synchronisées à la milliseconde près. Notre protocole de synchronisation atteint ±3–5ms d'alignement entre les appareils. Pendant la synchronisation, garde les deux téléphones à environ 10 mètres l'un de l'autre pour de meilleurs résultats. Une fois synchronisés, éloigne-les autant que nécessaire."
+      "desc": "Quand tu utilises deux phones — un au départ et un à l'arrivée — leurs horloges doivent être synchronisées à la milliseconde près. Notre protocole de synchronisation atteint ±3–5ms d'alignement entre les appareils. Pendant la synchronisation, garde les deux téléphones à environ 10 mètres l'un de l'autre pour de meilleurs résultats. Une fois synchronisés, éloigne-les autant que nécessaire."
     },
     "bodyTracking": {
       "title": "Suivi du corps, pas coupure de faisceau",
@@ -28,7 +28,7 @@
     "title": "Le résultat",
     "value": "~4ms",
     "label": "Précision effective du chrono",
-    "desc": "L'interpolation sub-frame, les corrections physiques et la synchronisation d'horloge se combinent pour offrir une précision rivalisant avec le matériel dédié — avec juste ton iPhone."
+    "desc": "L'interpolation sub-frame, les corrections physiques et la synchronisation d'horloge se combinent pour offrir une précision rivalisant avec le matériel dédié — avec juste ton phone."
   },
   "professionalComparison": {
     "title": "Comment ça se compare",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Suivi du corps",
-      "cost": "Ton iPhone"
+      "cost": "Ton phone"
     },
     "laserNote": "*Les portes laser se déclenchent en sub-milliseconde, mais les points de déclenchement incohérents (bras vs poitrine) peuvent causer 50–200ms de variation entre les courses pour le même athlète."
   },
   "cta": {
     "title": "Prêt à chronométrer ton entraînement ?",
-    "subtitle": "Télécharge TrackSpeed et découvre la précision à la milliseconde avec juste ton iPhone.",
+    "subtitle": "Télécharge TrackSpeed et découvre la précision à la milliseconde avec juste ton phone.",
     "download": "Télécharger sur l'App Store",
     "compare": "Découvre comment TrackSpeed se compare aux autres méthodes de chronométrage"
   }

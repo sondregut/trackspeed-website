@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "TrackSpeed 是如何工作的？",
-        "answer": "TrackSpeed 使用 iPhone 的摄像头来检测运动员何时穿越计时门。该应用通过基于摄像头的动作检测来识别运动员的躯干穿越计时门的时刻，提供毫秒级精度的计时结果。"
+        "answer": "TrackSpeed 使用 phone 的摄像头来检测运动员何时穿越计时门。该应用通过基于摄像头的动作检测来识别运动员的躯干穿越计时门的时刻，提供毫秒级精度的计时结果。"
       },
       "equipment": {
         "question": "我需要特殊设备吗？",
-        "answer": "不需要！TrackSpeed 只需您的 iPhone 即可运行。若需分段计时或起点/终点门，您可以使用两台通过无线同步的 iPhone。"
+        "answer": "不需要！TrackSpeed 只需您的 phone 即可运行。若需分段计时或起点/终点门，您可以使用两台通过无线同步的 phone。"
       },
       "models": {
-        "question": "支持哪些 iPhone 型号？",
-        "answer": "TrackSpeed 适用于 iPhone XS 及更新型号（iOS 17+）。为获得最佳性能，我们建议使用 iPhone 12 Pro 或更新型号。"
+        "question": "支持哪些 phone 型号？",
+        "answer": "TrackSpeed 适用于 phone XS 及更新型号（iOS 17+）。为获得最佳性能，我们建议使用 phone 12 Pro 或更新型号。"
       },
       "accuracy": {
         "question": "计时精度如何？",

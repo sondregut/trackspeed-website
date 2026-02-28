@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "iPhone短跑计时应用 - 免费，无需硬件",
-    "description": "将iPhone变成计时系统。~4ms精度，120fps检测，多设备同步。为田径教练和运动员提供的免费应用。"
+    "title": "phone短跑计时应用 - 免费，无需硬件",
+    "description": "将phone变成计时系统。~4ms精度，120fps检测，多设备同步。为田径教练和运动员提供的免费应用。"
   },
   "hero": {
     "socialProof": "深受奥运选手喜爱",
     "title": "TrackSpeed",
-    "subtitle": "仅用iPhone即可进行短跑计时",
-    "description": "将iPhone变成专业计时系统。无需额外硬件，无需校准，即时显示结果。",
+    "subtitle": "仅用phone即可进行短跑计时",
+    "description": "将phone变成专业计时系统。无需额外硬件，无需校准，即时显示结果。",
     "downloadCta": "在App Store下载",
     "stats": {
       "accuracy": "精度",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "连接手机",
-        "description": "配对您的iPhone。通过Wi-Fi自动同步。"
+        "description": "配对您的phone。通过Wi-Fi自动同步。"
       },
       "start": {
         "title": "开始计时",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "多设备同步",
-      "description": "无线连接iPhone。计时门之间实现毫秒级精度的时钟同步。"
+      "description": "无线连接phone。计时门之间实现毫秒级精度的时钟同步。"
     },
     "instantResults": {
       "title": "即时结果",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "连接多部手机进行精确计时",
-    "description": "在起跑线和终点线各放一部iPhone。添加更多手机可在任意距离获取分段计时。",
+    "description": "在起跑线和终点线各放一部phone。添加更多手机可在任意距离获取分段计时。",
     "wirelessConnection": {
       "title": "无线连接",
       "description": "手机通过点对点WiFi自动连接。无需互联网。"
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "是（仅躯干）",
       "setupTime": "< 1分钟",
-      "hardware": "仅需iPhone",
+      "hardware": "仅需phone",
       "portability": "口袋大小"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "亚帧精度背后的科学",
-    "subtitle": "如何用标准iPhone摄像头实现~4ms精度",
+    "subtitle": "如何用标准phone摄像头实现~4ms精度",
     "frameCapture": "120fps拍摄 = 帧间隔8.3ms",
     "formula": "position = velocity × time + offset",
     "formulaLabel": "轨迹回归（3帧以上）",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "卷帘快门校正",
-      "description": "iPhone摄像头从上到下扫描约需5-12ms。我们测量您在垂直方向的通过位置，并补偿该位置的精确扫描时间。"
+      "description": "phone摄像头从上到下扫描约需5-12ms。我们测量您在垂直方向的通过位置，并补偿该位置的精确扫描时间。"
     },
     "effectiveAccuracy": {
       "title": "~4ms 有效精度",

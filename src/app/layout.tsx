@@ -17,16 +17,16 @@ const bricolage = Bricolage_Grotesque({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mytrackspeed.com"),
   title: {
-    default: "TrackSpeed - Sprint Timing App for iPhone",
+    default: "TrackSpeed - Sprint Timing App for Phone",
     template: "%s | TrackSpeed",
   },
   description:
-    "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS.",
+    "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS.",
   keywords: [
     "sprint timing",
     "track and field",
     "athletic timing",
-    "iPhone timing app",
+    "phone timing app",
     "photo finish app",
     "sprint stopwatch",
     "race timing app",
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: "TrackSpeed",
-    title: "TrackSpeed - Sprint Timing App for iPhone",
+    title: "TrackSpeed - Sprint Timing App for Phone",
     description:
-      "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
+      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
     type: "website",
     url: "https://mytrackspeed.com",
     images: [
@@ -57,15 +57,15 @@ export const metadata: Metadata = {
         url: "/photofinish_edit.png",
         width: 881,
         height: 1816,
-        alt: "TrackSpeed photo finish timing review on iPhone",
+        alt: "TrackSpeed photo finish timing review on phone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TrackSpeed - Sprint Timing App for iPhone",
+    title: "TrackSpeed - Sprint Timing App for Phone",
     description:
-      "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
+      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
     images: ["/photofinish_edit.png"],
   },
   icons: {
@@ -109,7 +109,7 @@ export default function RootLayout({
               operatingSystem: "iOS",
               applicationCategory: "SportsApplication",
               description:
-                "Turn your iPhone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
+                "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
               offers: [
                 {
                   "@type": "Offer",

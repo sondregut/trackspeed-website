@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "Come funziona TrackSpeed?",
-        "answer": "TrackSpeed usa la fotocamera del tuo iPhone per rilevare quando un atleta attraversa il gate di cronometraggio. L'app utilizza il rilevamento del movimento tramite fotocamera per identificare quando il torso dell'atleta attraversa il gate, fornendo cronometraggio con precisione al millisecondo."
+        "answer": "TrackSpeed usa la fotocamera del tuo phone per rilevare quando un atleta attraversa il gate di cronometraggio. L'app utilizza il rilevamento del movimento tramite fotocamera per identificare quando il torso dell'atleta attraversa il gate, fornendo cronometraggio con precisione al millisecondo."
       },
       "equipment": {
         "question": "Ho bisogno di attrezzatura speciale?",
-        "answer": "No! TrackSpeed funziona solo con il tuo iPhone. Per tempi intermedi o gate di partenza/arrivo, puoi usare due iPhone che si sincronizzano automaticamente in wireless."
+        "answer": "No! TrackSpeed funziona solo con il tuo phone. Per tempi intermedi o gate di partenza/arrivo, puoi usare due phone che si sincronizzano automaticamente in wireless."
       },
       "models": {
-        "question": "Quali modelli di iPhone sono supportati?",
-        "answer": "TrackSpeed funziona con iPhone XS e successivi (iOS 17+). Per le migliori prestazioni, consigliamo iPhone 12 Pro o piu recente."
+        "question": "Quali modelli di phone sono supportati?",
+        "answer": "TrackSpeed funziona con phone XS e successivi (iOS 17+). Per le migliori prestazioni, consigliamo phone 12 Pro o piu recente."
       },
       "accuracy": {
         "question": "Quanto e preciso il cronometraggio?",

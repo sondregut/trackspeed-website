@@ -2,7 +2,7 @@
   "title": "Sporcular için sporcular tarafından",
   "intro": "TrackSpeed pistte doğdu. Yanlış zamanlama araçlarından bıkmış aktif yarışmacı sporcularız — bu yüzden kendimizinkini yaptık.",
   "story1": "En üst düzeyde antrenman yapan atletizm sporcuları olarak, sprintlerimiz ve yaklaşma koşularımız için doğru zamanlama gerekiyordu — ama seçenekler ya tutarsız tetikleme noktalarına sahip pahalı lazer kapı sistemleri ya da kronometre ve insan reaksiyon süresi hatası olan bir antrenördü. İkisi de yeterince iyi değildi.",
-  "story2": "Herkesin cebindeki iPhone'un bunu çözmek için gereken donanıma zaten sahip olduğunu fark ettik — yüksek kare hızlı kamera, hassas jiroskop ve gerçek zamanlı bilgisayarlı görü için yeterli işlem gücü. Böylece TrackSpeed'i yaptık: kare kare hareket algılama ve kare altı interpolasyon kullanarak milisaniye doğruluğunda sonuçlar veren bir zamanlama sistemi, ekstra ekipman gerektirmeden.",
+  "story2": "Herkesin cebindeki phone'un bunu çözmek için gereken donanıma zaten sahip olduğunu fark ettik — yüksek kare hızlı kamera, hassas jiroskop ve gerçek zamanlı bilgisayarlı görü için yeterli işlem gücü. Böylece TrackSpeed'i yaptık: kare kare hareket algılama ve kare altı interpolasyon kullanarak milisaniye doğruluğunda sonuçlar veren bir zamanlama sistemi, ekstra ekipman gerektirmeden.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Sporcular tarafından, sporcular için yapıldı.",
   "cta": {
     "title": "Antrenmanını zamanlamaya hazır mısın?",
-    "subtitle": "TrackSpeed'i indir ve sadece iPhone'unla milisaniye hassasiyetini deneyimle.",
+    "subtitle": "TrackSpeed'i indir ve sadece phone'unla milisaniye hassasiyetini deneyimle.",
     "download": "App Store'dan indir",
     "learnMore": "Zamanlama teknolojimizin nasıl çalıştığını öğren"
   },

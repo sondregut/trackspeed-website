@@ -2,7 +2,7 @@
   "title": "Atletas construindo para atletas",
   "intro": "O TrackSpeed nasceu na pista. Somos atletas competitivos que se cansaram de ferramentas de cronometragem imprecisas \u2014 entao construimos a nossa.",
   "story1": "Como atletas de atletismo treinando no mais alto nivel, precisavamos de cronometragem precisa para nossos sprints e corridas de aproximacao \u2014 mas as opcoes eram sistemas caros de portoes laser com pontos de acionamento inconsistentes, ou um treinador com cronômetro e erro de tempo de reacao humano. Nenhuma era boa o suficiente.",
-  "story2": "Percebemos que o iPhone no bolso de todos ja tinha o hardware para resolver isso \u2014 uma camera de alta taxa de quadros, giroscopio preciso e poder de processamento suficiente para visao computacional em tempo real. Entao construimos o TrackSpeed: um sistema de cronometragem que usa detecção de movimento quadro a quadro e interpolacao sub-frame para entregar resultados com precisão de milissegundos, sem equipamento extra.",
+  "story2": "Percebemos que o phone no bolso de todos ja tinha o hardware para resolver isso \u2014 uma camera de alta taxa de quadros, giroscopio preciso e poder de processamento suficiente para visao computacional em tempo real. Entao construimos o TrackSpeed: um sistema de cronometragem que usa detecção de movimento quadro a quadro e interpolacao sub-frame para entregar resultados com precisão de milissegundos, sem equipamento extra.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Feito por atletas, para atletas.",
   "cta": {
     "title": "Pronto para cronometrar seu treino?",
-    "subtitle": "Baixe o TrackSpeed e experimente precisão de milissegundos apenas com seu iPhone.",
+    "subtitle": "Baixe o TrackSpeed e experimente precisão de milissegundos apenas com seu phone.",
     "download": "Baixar na App Store",
     "learnMore": "Saiba como nossa tecnologia de cronometragem funciona"
   },

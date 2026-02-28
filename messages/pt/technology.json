@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Como a cronometragem com iPhone alcanca precisão de ~4ms",
-    "description": "Saiba como o TrackSpeed usa a camera do seu iPhone para entregar cronometragem de sprints com precisão de milissegundos — sem equipamento extra."
+    "title": "Como a cronometragem com phone alcanca precisão de ~4ms",
+    "description": "Saiba como o TrackSpeed usa a camera do seu phone para entregar cronometragem de sprints com precisão de milissegundos — sem equipamento extra."
   },
   "backToHome": "Voltar ao inicio",
   "heroTitle": "Como alcancamos precisão de ~4ms",
-  "heroSubtitle": "Seu iPhone ja tem tudo o que e necessario para cronometragem de precisão — uma camera de alta taxa de quadros, giroscopio preciso e processador potente. Veja o que isso possibilita.",
+  "heroSubtitle": "Seu phone ja tem tudo o que e necessario para cronometragem de precisão — uma camera de alta taxa de quadros, giroscopio preciso e processador potente. Veja o que isso possibilita.",
   "sections": {
     "subFrame": {
       "title": "Precisão sub-frame",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Correcoes baseadas em fisica",
-      "desc": "As cameras de iPhone escaneiam cada quadro de cima para baixo em varios milissegundos, introduzindo um desvio de tempo dependendo de onde o atleta aparece no quadro. Corrigimos automaticamente isso e outros artefatos de tempo em nivel de hardware para eliminar o erro sistematico."
+      "desc": "As cameras de phone escaneiam cada quadro de cima para baixo em varios milissegundos, introduzindo um desvio de tempo dependendo de onde o atleta aparece no quadro. Corrigimos automaticamente isso e outros artefatos de tempo em nivel de hardware para eliminar o erro sistematico."
     },
     "clockSync": {
       "title": "Sincronização de relogio multidispositivo",
-      "desc": "Ao usar dois iPhones — um na largada e outro na chegada — seus relogios precisam concordar com precisão de milissegundos. Nosso protocolo de sincronização alcanca alinhamento de ±3-5ms entre dispositivos. Durante a sincronização, mantenha os telefones a cerca de 10 metros de distancia para melhores resultados. Apos sincronizados, afaste-os o quanto precisar."
+      "desc": "Ao usar dois phones — um na largada e outro na chegada — seus relogios precisam concordar com precisão de milissegundos. Nosso protocolo de sincronização alcanca alinhamento de ±3-5ms entre dispositivos. Durante a sincronização, mantenha os telefones a cerca de 10 metros de distancia para melhores resultados. Apos sincronizados, afaste-os o quanto precisar."
     },
     "bodyTracking": {
       "title": "Rastreamento corporal, nao corte de feixe",
@@ -28,7 +28,7 @@
     "title": "O resultado",
     "value": "~4ms",
     "label": "Precisão efetiva de cronometragem",
-    "desc": "Interpolacao sub-frame, correcoes fisicas e sincronização de relogio se combinam para entregar precisão de cronometragem que rivaliza com hardware dedicado — usando apenas seu iPhone."
+    "desc": "Interpolacao sub-frame, correcoes fisicas e sincronização de relogio se combinam para entregar precisão de cronometragem que rivaliza com hardware dedicado — usando apenas seu phone."
   },
   "professionalComparison": {
     "title": "Como isso se compara",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Rastreamento corporal",
-      "cost": "Seu iPhone"
+      "cost": "Seu phone"
     },
     "laserNote": "*Portoes laser disparam com velocidade sub-milissegundo, mas pontos de acionamento inconsistentes (braco vs peito) podem causar variacoes de 50-200ms entre corridas para o mesmo atleta."
   },
   "cta": {
     "title": "Pronto para cronometrar seu treino?",
-    "subtitle": "Baixe o TrackSpeed e experimente precisão de milissegundos apenas com seu iPhone.",
+    "subtitle": "Baixe o TrackSpeed e experimente precisão de milissegundos apenas com seu phone.",
     "download": "Baixar na App Store",
     "compare": "Veja como o TrackSpeed se compara a outros metodos de cronometragem"
   }

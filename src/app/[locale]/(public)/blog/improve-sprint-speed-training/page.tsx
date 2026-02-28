@@ -695,7 +695,7 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
             <p className="text-body mb-8">
               Download TrackSpeed and turn every sprint rep into measurable
               data. No stopwatch errors, no extra equipment&mdash;just your
-              iPhone.
+              phone.
             </p>
             <div className="flex flex-col items-center gap-4">
               <a

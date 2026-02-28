@@ -40,10 +40,10 @@ const templates: Record<string, (d: TemplateData) => { subject: string; html: st
   welcome: (d) => ({
     subject: "[TEST] Welcome to TrackSpeed!",
     html: wrapTemplate(`<h1>Welcome to TrackSpeed!</h1><p>Hi ${d.name},</p>
-      <p>Thanks for downloading TrackSpeed! You're now ready to time sprints with professional-level accuracy using just your iPhone.</p>
+      <p>Thanks for downloading TrackSpeed! You're now ready to time sprints with professional-level accuracy using just your phone.</p>
       <div class="feature-box"><p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Here's what you can do:</p>
       <p style="margin:0 0 8px;font-size:14px;"><strong>Multiple Start Types</strong> - Flying, countdown, voice command, touch release & more</p>
-      <p style="margin:0 0 8px;font-size:14px;"><strong>Multi-Device</strong> - Connect two or more iPhones for start/finish timing</p>
+      <p style="margin:0 0 8px;font-size:14px;"><strong>Multi-Device</strong> - Connect two or more phones for start/finish timing</p>
       <p style="margin:0 0 8px;font-size:14px;"><strong>Photo Finish</strong> - Sub-frame accuracy with high-speed capture</p>
       <p style="margin:0;font-size:14px;"><strong>Track History</strong> - Monitor your progress over time</p></div>
       <hr><p>Happy sprinting!<br>The TrackSpeed Team</p>`),

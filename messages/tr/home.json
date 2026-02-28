@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "iPhone için Sprint Zamanlama Uygulaması - Ücretsiz, Donanım Gerektirmez",
-    "description": "iPhone'unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, 120fps algılama, çoklu cihaz senkronizasyonu. Antrenörler ve sporcular için ücretsiz."
+    "title": "phone için Sprint Zamanlama Uygulaması - Ücretsiz, Donanım Gerektirmez",
+    "description": "phone'unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, 120fps algılama, çoklu cihaz senkronizasyonu. Antrenörler ve sporcular için ücretsiz."
   },
   "hero": {
     "socialProof": "Olimpiyatçıların tercihi",
     "title": "TrackSpeed",
-    "subtitle": "Sadece iPhone'unla sprint zamanlama",
-    "description": "iPhone'unu profesyonel bir zamanlama sistemine dönüştür. Ekstra donanım yok, kalibrasyon yok, anında sonuç.",
+    "subtitle": "Sadece phone'unla sprint zamanlama",
+    "description": "phone'unu profesyonel bir zamanlama sistemine dönüştür. Ekstra donanım yok, kalibrasyon yok, anında sonuç.",
     "downloadCta": "App Store'dan indir",
     "stats": {
       "accuracy": "Doğruluk",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "Telefonları bağla",
-        "description": "iPhone'larını birbirine eşle. Wi-Fi üzerinden otomatik olarak senkronize olurlar."
+        "description": "phone'larını birbirine eşle. Wi-Fi üzerinden otomatik olarak senkronize olurlar."
       },
       "start": {
         "title": "Oturumunu başlat",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "Çoklu Cihaz Senkronizasyonu",
-      "description": "iPhone'ları kablosuz olarak bağla. Kapılar arasında milisaniye hassasiyetinde saat senkronizasyonu."
+      "description": "phone'ları kablosuz olarak bağla. Kapılar arasında milisaniye hassasiyetinde saat senkronizasyonu."
     },
     "instantResults": {
       "title": "Anında Sonuçlar",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "Hassas zamanlama için birden fazla telefon bağla",
-    "description": "Bir iPhone'u başlangıç çizgisine, diğerini bitişe koy. Herhangi bir mesafede ara süreler için daha fazla telefon ekle.",
+    "description": "Bir phone'u başlangıç çizgisine, diğerini bitişe koy. Herhangi bir mesafede ara süreler için daha fazla telefon ekle.",
     "wirelessConnection": {
       "title": "Kablosuz Bağlantı",
       "description": "Telefonlar eşler arası WiFi ile otomatik bağlanır. İnternet gerekmez."
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "Evet (sadece gövde)",
       "setupTime": "< 1 dk",
-      "hardware": "Sadece iPhone",
+      "hardware": "Sadece phone",
       "portability": "Cep boyutunda"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "Kare altı hassasiyetin arkasındaki bilim",
-    "subtitle": "Standart iPhone kameralarıyla ~4ms doğruluğu nasıl elde ediyoruz",
+    "subtitle": "Standart phone kameralarıyla ~4ms doğruluğu nasıl elde ediyoruz",
     "frameCapture": "120fps yakalama = kareler arasında 8.3ms",
     "formula": "position = velocity × time + offset",
     "formulaLabel": "Yörünge regresyonu (3+ kare)",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "Yuvarlanan Panjur Düzeltmesi",
-      "description": "iPhone kameraları her kareyi yukarıdan aşağıya ~5-12ms'de tarar. Dikey olarak nerede geçtiğini ölçer ve o konumdaki kesin tarama zamanlamasını telafi ederiz."
+      "description": "phone kameraları her kareyi yukarıdan aşağıya ~5-12ms'de tarar. Dikey olarak nerede geçtiğini ölçer ve o konumdaki kesin tarama zamanlamasını telafi ederiz."
     },
     "effectiveAccuracy": {
       "title": "~4ms Etkin Doğruluk",

@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "Hvordan fungerer TrackSpeed?",
-        "answer": "TrackSpeed bruker kameraet på iPhonen din for å oppdage når en utøver krysser tidtakingsporten. Appen bruker kamerabasert bevegelsesdeteksjon for å identifisere når utøverens overkropp krysser porten, og gir millisekundnøyaktig tidtaking."
+        "answer": "TrackSpeed bruker kameraet på phonen din for å oppdage når en utøver krysser tidtakingsporten. Appen bruker kamerabasert bevegelsesdeteksjon for å identifisere når utøverens overkropp krysser porten, og gir millisekundnøyaktig tidtaking."
       },
       "equipment": {
         "question": "Trenger jeg spesielt utstyr?",
-        "answer": "Nei! TrackSpeed fungerer med bare iPhonen din. For mellomtider eller start-/målporter kan du bruke to iPhoner som synkroniserer seg trådløst."
+        "answer": "Nei! TrackSpeed fungerer med bare phonen din. For mellomtider eller start-/målporter kan du bruke to phoner som synkroniserer seg trådløst."
       },
       "models": {
-        "question": "Hvilke iPhone-modeller støttes?",
-        "answer": "TrackSpeed fungerer med iPhone XS og nyere (iOS 17+). For best ytelse anbefaler vi iPhone 12 Pro eller nyere."
+        "question": "Hvilke phone-modeller støttes?",
+        "answer": "TrackSpeed fungerer med phone XS og nyere (iOS 17+). For best ytelse anbefaler vi phone 12 Pro eller nyere."
       },
       "accuracy": {
         "question": "Hvor nøyaktig er tidtakingen?",

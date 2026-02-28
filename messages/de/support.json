@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "Wie funktioniert TrackSpeed?",
-        "answer": "TrackSpeed nutzt die Kamera deines iPhones, um zu erkennen, wann ein Athlet den Messpunkt überquert. Die App verwendet kamerabasierte Bewegungserkennung, um zu identifizieren, wann der Oberkörper des Athleten den Messpunkt passiert, und liefert millisekundengenaue Zeitmessung."
+        "answer": "TrackSpeed nutzt die Kamera deines phones, um zu erkennen, wann ein Athlet den Messpunkt überquert. Die App verwendet kamerabasierte Bewegungserkennung, um zu identifizieren, wann der Oberkörper des Athleten den Messpunkt passiert, und liefert millisekundengenaue Zeitmessung."
       },
       "equipment": {
         "question": "Brauche ich spezielle Ausrüstung?",
-        "answer": "Nein! TrackSpeed funktioniert nur mit deinem iPhone. Für Zwischenzeiten oder Start-/Ziel-Messpunkte kannst du zwei iPhones verwenden, die sich kabellos synchronisieren."
+        "answer": "Nein! TrackSpeed funktioniert nur mit deinem phone. Für Zwischenzeiten oder Start-/Ziel-Messpunkte kannst du zwei phones verwenden, die sich kabellos synchronisieren."
       },
       "models": {
-        "question": "Welche iPhone-Modelle werden unterstützt?",
-        "answer": "TrackSpeed funktioniert ab iPhone XS (iOS 17+). Für beste Leistung empfehlen wir iPhone 12 Pro oder neuer."
+        "question": "Welche phone-Modelle werden unterstützt?",
+        "answer": "TrackSpeed funktioniert ab phone XS (iOS 17+). Für beste Leistung empfehlen wir phone 12 Pro oder neuer."
       },
       "accuracy": {
         "question": "Wie genau ist die Zeitmessung?",

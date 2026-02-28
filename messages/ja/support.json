@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "TrackSpeedはどのように動作しますか？",
-        "answer": "TrackSpeedはiPhoneのカメラを使用して、選手がタイミングゲートを通過するタイミングを検知します。カメラベースのモーション検知により選手の胴体がタイミングゲートを通過した瞬間を識別し、ミリ秒精度のタイミングを提供します。"
+        "answer": "TrackSpeedはphoneのカメラを使用して、選手がタイミングゲートを通過するタイミングを検知します。カメラベースのモーション検知により選手の胴体がタイミングゲートを通過した瞬間を識別し、ミリ秒精度のタイミングを提供します。"
       },
       "equipment": {
         "question": "特別な機材は必要ですか？",
-        "answer": "いいえ！TrackSpeedはiPhoneだけで動作します。スプリットタイミングやスタート/フィニッシュゲートには、ワイヤレスで同期する2台のiPhoneを使用できます。"
+        "answer": "いいえ！TrackSpeedはphoneだけで動作します。スプリットタイミングやスタート/フィニッシュゲートには、ワイヤレスで同期する2台のphoneを使用できます。"
       },
       "models": {
-        "question": "対応しているiPhoneモデルは？",
-        "answer": "TrackSpeedはiPhone XS以降（iOS 17+）で動作します。最高のパフォーマンスのために、iPhone 12 Pro以降をお勧めします。"
+        "question": "対応しているphoneモデルは？",
+        "answer": "TrackSpeedはphone XS以降（iOS 17+）で動作します。最高のパフォーマンスのために、phone 12 Pro以降をお勧めします。"
       },
       "accuracy": {
         "question": "タイミングの精度は？",

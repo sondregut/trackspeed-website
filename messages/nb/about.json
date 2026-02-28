@@ -2,7 +2,7 @@
   "title": "Utøvere som bygger for utøvere",
   "intro": "TrackSpeed ble til på løpebanen. Vi er aktive konkurranseutøvere som ble lei av unøyaktige tidtakingsverktøy – så vi bygde vårt eget.",
   "story1": "Som friidrettsutøvere som trener på toppnivå, trengte vi nøyaktig tidtaking for sprintene og tilløpene våre – men alternativene var enten dyre lasersystemer med inkonsistente utløsningspunkter, eller en trener med stoppeklokke og menneskelig reaksjonstidsfeil. Ingen av delene var bra nok.",
-  "story2": "Vi innså at iPhonen i alles lomme allerede hadde maskinvaren som trengtes – et kamera med høy bildefrekvens, presist gyroskop og nok prosesseringskraft for sanntids datasyn. Så vi bygde TrackSpeed: et tidtakingssystem som bruker bilde-for-bilde bevegelsesdeteksjon og sub-frame-interpolasjon for å levere millisekundnøyaktige resultater, uten ekstra utstyr.",
+  "story2": "Vi innså at phonen i alles lomme allerede hadde maskinvaren som trengtes – et kamera med høy bildefrekvens, presist gyroskop og nok prosesseringskraft for sanntids datasyn. Så vi bygde TrackSpeed: et tidtakingssystem som bruker bilde-for-bilde bevegelsesdeteksjon og sub-frame-interpolasjon for å levere millisekundnøyaktige resultater, uten ekstra utstyr.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Bygget av utøvere, for utøvere.",
   "cta": {
     "title": "Klar for å ta tiden på treningen?",
-    "subtitle": "Last ned TrackSpeed og opplev millisekundpresisjon med bare din iPhone.",
+    "subtitle": "Last ned TrackSpeed og opplev millisekundpresisjon med bare din phone.",
     "download": "Last ned fra App Store",
     "learnMore": "Lær hvordan tidtakingsteknologien vår fungerer"
   },

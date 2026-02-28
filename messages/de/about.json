@@ -2,7 +2,7 @@
   "title": "Athleten bauen für Athleten",
   "intro": "TrackSpeed entstand auf der Laufbahn. Wir sind aktive Wettkampfathleten, die genug von ungenauen Zeitmessungen hatten – also haben wir unsere eigene gebaut.",
   "story1": "Als Leichtathleten, die auf höchstem Niveau trainieren, brauchten wir genaue Zeitmessung für unsere Sprints und Anläufe – aber die Optionen waren entweder teure Laserschranken mit uneinheitlichen Auslösepunkten oder ein Trainer mit Stoppuhr und menschlicher Reaktionszeitverzögerung. Beides war nicht gut genug.",
-  "story2": "Uns wurde klar, dass das iPhone in jeder Tasche bereits die nötige Hardware hat – eine Kamera mit hoher Bildrate, präzises Gyroskop und genug Rechenleistung für Echtzeit-Computer-Vision. Also haben wir TrackSpeed gebaut: ein Zeitmesssystem, das Frame-für-Frame-Bewegungserkennung und Sub-Frame-Interpolation nutzt, um millisekundengenaue Ergebnisse zu liefern – ohne zusätzliches Equipment.",
+  "story2": "Uns wurde klar, dass das phone in jeder Tasche bereits die nötige Hardware hat – eine Kamera mit hoher Bildrate, präzises Gyroskop und genug Rechenleistung für Echtzeit-Computer-Vision. Also haben wir TrackSpeed gebaut: ein Zeitmesssystem, das Frame-für-Frame-Bewegungserkennung und Sub-Frame-Interpolation nutzt, um millisekundengenaue Ergebnisse zu liefern – ohne zusätzliches Equipment.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Von Athleten gebaut, für Athleten.",
   "cta": {
     "title": "Bereit, dein Training zu messen?",
-    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem iPhone.",
+    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem phone.",
     "download": "Im App Store laden",
     "learnMore": "Erfahre, wie unsere Zeitmess-Technologie funktioniert"
   },

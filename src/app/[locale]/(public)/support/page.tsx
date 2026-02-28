@@ -110,7 +110,7 @@ export default async function SupportPage({params}: {params: Promise<{locale: st
             {troubleshootingKeys.map((key) => (
               <div key={key} className="card-feature rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-3">{t(`troubleshooting.items.${key}.issue`)}</h3>
-                <ul className="list-disc list-inside space-y-2 text-muted">
+                <ul className="list-disc pl-5 space-y-2 text-muted">
                   {(t.raw(`troubleshooting.items.${key}.solutions`) as string[]).map((solution: string, i: number) => (
                     <li key={i}>{solution}</li>
                   ))}

@@ -6,7 +6,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const t = await getTranslations({locale, namespace: 'blog'});
   return {
     title: t('posts.sprint-timing-gates-buyers-guide.title'),
-    description: "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your iPhone delivers the same training accuracy as $2,500 laser gates.",
+    description: "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your phone delivers the same training accuracy as $2,500 laser gates.",
     alternates: {
       canonical: 'https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide',
     },
@@ -26,7 +26,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
     headline:
       "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
     description:
-      "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your iPhone delivers the same training accuracy as $2,500 laser gates.",
+      "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your phone delivers the same training accuracy as $2,500 laser gates.",
     keywords: [
       "sprint timing gates",
       "timing gates for track",
@@ -115,7 +115,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}
           >
-            Why spend $2,500 on timing gates when your iPhone delivers the same
+            Why spend $2,500 on timing gates when your phone delivers the same
             training accuracy for free? An honest comparison of what actually
             matters for sprint training.
           </p>

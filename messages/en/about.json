@@ -2,7 +2,7 @@
   "title": "Athletes building for athletes",
   "intro": "TrackSpeed was born on the track. We're active competitive athletes who got tired of inaccurate timing tools \u2014 so we built our own.",
   "story1": "As track and field athletes training at the highest level, we needed accurate timing for our sprints and approach runs \u2014 but the options were either expensive laser gate systems with inconsistent trigger points, or a coach with a stopwatch and human reaction time error. Neither was good enough.",
-  "story2": "We realized that the iPhone in everyone's pocket already had the hardware to solve this \u2014 a high frame rate camera, precise gyroscope, and enough processing power for real-time computer vision. So we built TrackSpeed: a timing system that uses frame-by-frame motion detection and sub-frame interpolation to deliver millisecond-accurate results, no extra equipment needed.",
+  "story2": "We realized that the phone in everyone's pocket already had the hardware to solve this \u2014 a high frame rate camera, precise gyroscope, and enough processing power for real-time computer vision. So we built TrackSpeed: a timing system that uses frame-by-frame motion detection and sub-frame interpolation to deliver millisecond-accurate results, no extra equipment needed.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Built by athletes, for athletes.",
   "cta": {
     "title": "Ready to time your training?",
-    "subtitle": "Download TrackSpeed and experience millisecond precision with just your iPhone.",
+    "subtitle": "Download TrackSpeed and experience millisecond precision with just your phone.",
     "download": "Download on the App Store",
     "learnMore": "Learn how our timing technology works"
   },

@@ -152,7 +152,7 @@ export default function PitchDeck() {
             className="text-xl md:text-2xl lg:text-3xl font-medium mb-6"
             style={{ color: "var(--text-muted)" }}
           >
-            Professional sprint timing with just an iPhone
+            Professional sprint timing with just a phone
           </p>
           <p
             className="text-base md:text-lg mb-12 max-w-xl mx-auto"
@@ -221,10 +221,10 @@ export default function PitchDeck() {
             <div>
               <SlideLabel>The Solution</SlideLabel>
               <h2 className="text-section mb-6">
-                Your iPhone is the timing system
+                Your phone is the timing system
               </h2>
               <p className="text-body mb-8">
-                TrackSpeed turns any iPhone into a professional-grade timing gate.
+                TrackSpeed turns any phone into a professional-grade timing gate.
                 The camera captures at 30–120fps while computer vision detects when a
                 runner&apos;s chest crosses the frame. Linear interpolation delivers
                 sub-frame precision. No calibration, no extra hardware. Sync two phones
@@ -261,7 +261,7 @@ export default function PitchDeck() {
             <Step
               number="1"
               title="Place phones"
-              description="Set an iPhone at the start line and one at the finish line. Tap to connect via peer-to-peer."
+              description="Set a phone at the start line and one at the finish line. Tap to connect via peer-to-peer."
               image="/connect.png"
             />
             <Step
@@ -301,7 +301,7 @@ export default function PitchDeck() {
                 </svg>
               }
               title="120fps in every pocket"
-              description="iPhone cameras now shoot 120fps natively. The hardware for precise timing already exists in over a billion devices."
+              description="Phone cameras now shoot 120fps natively. The hardware for precise timing already exists in over a billion devices."
             />
             <WhyNowCard
               icon={

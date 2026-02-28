@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Wie iPhone-Sprintzeitmessung ~4ms Genauigkeit erreicht",
-    "description": "Erfahre, wie TrackSpeed die Kamera deines iPhones nutzt, um millisekundengenaue Sprintzeitmessung zu liefern – ohne zusätzliches Equipment."
+    "title": "Wie phone-Sprintzeitmessung ~4ms Genauigkeit erreicht",
+    "description": "Erfahre, wie TrackSpeed die Kamera deines phones nutzt, um millisekundengenaue Sprintzeitmessung zu liefern – ohne zusätzliches Equipment."
   },
   "backToHome": "Zurück zur Startseite",
   "heroTitle": "Wie wir ~4ms Messgenauigkeit erreichen",
-  "heroSubtitle": "Dein iPhone hat bereits alles, was du für präzise Sprintzeitmessung brauchst – eine Kamera mit hoher Bildrate, präzises Gyroskop und leistungsstarken Prozessor. So nutzen wir das.",
+  "heroSubtitle": "Dein phone hat bereits alles, was du für präzise Sprintzeitmessung brauchst – eine Kamera mit hoher Bildrate, präzises Gyroskop und leistungsstarken Prozessor. So nutzen wir das.",
   "sections": {
     "subFrame": {
       "title": "Sub-Frame-Präzision",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Physikbasierte Korrekturen",
-      "desc": "iPhone-Kameras scannen jedes Bild von oben nach unten über mehrere Millisekunden, was je nach Position des Athleten im Bild einen Zeitversatz einführt. Wir korrigieren dies und andere hardwarebedingte Zeitartefakte automatisch, um systematische Fehler zu eliminieren."
+      "desc": "phone-Kameras scannen jedes Bild von oben nach unten über mehrere Millisekunden, was je nach Position des Athleten im Bild einen Zeitversatz einführt. Wir korrigieren dies und andere hardwarebedingte Zeitartefakte automatisch, um systematische Fehler zu eliminieren."
     },
     "clockSync": {
       "title": "Multi-Geräte-Uhren-Sync",
-      "desc": "Bei der Verwendung von zwei iPhones – eins am Start, eins im Ziel – müssen deren Uhren auf Millisekunden übereinstimmen. Unser Synchronisationsprotokoll erreicht ±3–5ms Abgleich zwischen den Geräten. Halte während der Synchronisation beide Handys in ca. 10 Metern Nähe für beste Ergebnisse. Nach der Synchronisation kannst du sie beliebig weit auseinander platzieren."
+      "desc": "Bei der Verwendung von zwei phones – eins am Start, eins im Ziel – müssen deren Uhren auf Millisekunden übereinstimmen. Unser Synchronisationsprotokoll erreicht ±3–5ms Abgleich zwischen den Geräten. Halte während der Synchronisation beide Handys in ca. 10 Metern Nähe für beste Ergebnisse. Nach der Synchronisation kannst du sie beliebig weit auseinander platzieren."
     },
     "bodyTracking": {
       "title": "Körperverfolgung statt Lichtschranke",
@@ -28,7 +28,7 @@
     "title": "Das Ergebnis",
     "value": "~4ms",
     "label": "Effektive Messgenauigkeit",
-    "desc": "Sub-Frame-Interpolation, physikalische Korrekturen und Uhren-Synchronisation ergeben zusammen eine Messpräzision, die mit dedizierter Hardware mithalten kann – nur mit deinem iPhone."
+    "desc": "Sub-Frame-Interpolation, physikalische Korrekturen und Uhren-Synchronisation ergeben zusammen eine Messpräzision, die mit dedizierter Hardware mithalten kann – nur mit deinem phone."
   },
   "professionalComparison": {
     "title": "Wie das im Vergleich abschneidet",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Körperverfolgung",
-      "cost": "Dein iPhone"
+      "cost": "Dein phone"
     },
     "laserNote": "*Lasertore lösen mit Sub-Millisekunden-Geschwindigkeit aus, aber inkonsistente Auslösepunkte (Arm vs. Brust) können 50–200ms Variation zwischen Läufen für denselben Athleten verursachen."
   },
   "cta": {
     "title": "Bereit, dein Training zu messen?",
-    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem iPhone.",
+    "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem phone.",
     "download": "Im App Store laden",
     "compare": "Sieh, wie TrackSpeed im Vergleich zu anderen Zeitmess-Methoden abschneidet"
   }

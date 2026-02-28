@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "App de chronométrage de sprint pour iPhone – Gratuit, sans matériel",
-    "description": "Transforme ton iPhone en système de chronométrage. ~4ms de précision, détection à 120fps, synchronisation multi-appareils. Gratuit pour les entraîneurs et athlètes."
+    "title": "App de chronométrage de sprint pour phone – Gratuit, sans matériel",
+    "description": "Transforme ton phone en système de chronométrage. ~4ms de précision, détection à 120fps, synchronisation multi-appareils. Gratuit pour les entraîneurs et athlètes."
   },
   "hero": {
     "socialProof": "Adopté par des olympiens",
     "title": "TrackSpeed",
-    "subtitle": "Chronomètre tes sprints avec ton iPhone",
-    "description": "Transforme ton iPhone en système de chronométrage professionnel. Pas de matériel supplémentaire, pas de calibration, résultats instantanés.",
+    "subtitle": "Chronomètre tes sprints avec ton phone",
+    "description": "Transforme ton phone en système de chronométrage professionnel. Pas de matériel supplémentaire, pas de calibration, résultats instantanés.",
     "downloadCta": "Télécharger sur l'App Store",
     "stats": {
       "accuracy": "Précision",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "Connecter les téléphones",
-        "description": "Apparie tes iPhones entre eux. Ils se synchronisent automatiquement via Wi-Fi."
+        "description": "Apparie tes phones entre eux. Ils se synchronisent automatiquement via Wi-Fi."
       },
       "start": {
         "title": "Lancer ta session",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "Sync multi-appareils",
-      "description": "Connecte tes iPhones sans fil. Synchronisation d'horloge à la milliseconde entre les portes."
+      "description": "Connecte tes phones sans fil. Synchronisation d'horloge à la milliseconde entre les portes."
     },
     "instantResults": {
       "title": "Résultats instantanés",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "Connecte plusieurs téléphones pour un chronométrage précis",
-    "description": "Utilise un iPhone à la ligne de départ et un autre à l'arrivée. Ajoute d'autres téléphones pour des temps intermédiaires à n'importe quelle distance.",
+    "description": "Utilise un phone à la ligne de départ et un autre à l'arrivée. Ajoute d'autres téléphones pour des temps intermédiaires à n'importe quelle distance.",
     "wirelessConnection": {
       "title": "Connexion sans fil",
       "description": "Les téléphones se connectent automatiquement en WiFi peer-to-peer. Pas besoin d'internet."
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "Oui (torse uniquement)",
       "setupTime": "< 1 min",
-      "hardware": "iPhone uniquement",
+      "hardware": "phone uniquement",
       "portability": "Tient dans la poche"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "La science derrière la précision sub-frame",
-    "subtitle": "Comment nous atteignons ~4ms de précision avec les caméras iPhone standard",
+    "subtitle": "Comment nous atteignons ~4ms de précision avec les caméras phone standard",
     "frameCapture": "Capture à 120fps = 8.3ms entre les images",
     "formula": "position = vitesse × temps + décalage",
     "formulaLabel": "Régression de trajectoire (3+ images)",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "Correction du rolling shutter",
-      "description": "Les caméras iPhone balayent de haut en bas sur ~5–12ms. Nous mesurons où tu as franchi verticalement et compensons le timing exact de balayage à cette position."
+      "description": "Les caméras phone balayent de haut en bas sur ~5–12ms. Nous mesurons où tu as franchi verticalement et compensons le timing exact de balayage à cette position."
     },
     "effectiveAccuracy": {
       "title": "~4ms de précision effective",

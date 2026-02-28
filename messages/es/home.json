@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "App de cronometraje de sprints para iPhone - Gratis, sin hardware",
-    "description": "Convierte tu iPhone en un sistema de cronometraje. Precisión de ~4ms, detección a 120fps, sincronización multidispositivo. Gratis para entrenadores y atletas."
+    "title": "App de cronometraje de sprints para phone - Gratis, sin hardware",
+    "description": "Convierte tu phone en un sistema de cronometraje. Precisión de ~4ms, detección a 120fps, sincronización multidispositivo. Gratis para entrenadores y atletas."
   },
   "hero": {
     "socialProof": "Preferida por olimpicos",
     "title": "TrackSpeed",
-    "subtitle": "Cronometraje de sprints solo con tu iPhone",
-    "description": "Convierte tu iPhone en un sistema de cronometraje profesional. Sin hardware extra, sin calibracion, resultados al instante.",
+    "subtitle": "Cronometraje de sprints solo con tu phone",
+    "description": "Convierte tu phone en un sistema de cronometraje profesional. Sin hardware extra, sin calibracion, resultados al instante.",
     "downloadCta": "Descargar en el App Store",
     "stats": {
       "accuracy": "Precisión",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "Conecta los telefonos",
-        "description": "Empareja tus iPhones. Se sincronizan automaticamente por Wi-Fi."
+        "description": "Empareja tus phones. Se sincronizan automaticamente por Wi-Fi."
       },
       "start": {
         "title": "Inicia tu sesion",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "Sincronización multidispositivo",
-      "description": "Conecta iPhones de forma inalambrica. Sincronización de reloj con precisión de milisegundos entre puertas."
+      "description": "Conecta phones de forma inalambrica. Sincronización de reloj con precisión de milisegundos entre puertas."
     },
     "instantResults": {
       "title": "Resultados instantaneos",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "Conecta multiples telefonos para cronometraje preciso",
-    "description": "Usa un iPhone en la linea de salida y otro en la meta. Agrega mas telefonos para parciales a cualquier distancia.",
+    "description": "Usa un phone en la linea de salida y otro en la meta. Agrega mas telefonos para parciales a cualquier distancia.",
     "wirelessConnection": {
       "title": "Conexión inalambrica",
       "description": "Los telefonos se conectan automaticamente via WiFi punto a punto. No se requiere internet."
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "Si (solo torso)",
       "setupTime": "< 1 min",
-      "hardware": "Solo iPhone",
+      "hardware": "Solo phone",
       "portability": "Cabe en el bolsillo"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "La ciencia detras de la precisión sub-frame",
-    "subtitle": "Como logramos una precisión de ~4ms con camaras estandar de iPhone",
+    "subtitle": "Como logramos una precisión de ~4ms con camaras estandar de phone",
     "frameCapture": "Captura a 120fps = 8.3ms entre cuadros",
     "formula": "posicion = velocidad \u00d7 tiempo + desplazamiento",
     "formulaLabel": "Regresion de trayectoria (3+ cuadros)",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "Correccion de rolling shutter",
-      "description": "Las camaras de iPhone escanean de arriba a abajo en ~5-12ms. Medimos donde cruzaste verticalmente y compensamos el tiempo exacto de escaneo en esa posicion."
+      "description": "Las camaras de phone escanean de arriba a abajo en ~5-12ms. Medimos donde cruzaste verticalmente y compensamos el tiempo exacto de escaneo en esa posicion."
     },
     "effectiveAccuracy": {
       "title": "Precisión efectiva de ~4ms",

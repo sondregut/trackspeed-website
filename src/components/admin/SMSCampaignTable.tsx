@@ -120,7 +120,7 @@ function PreviewModal({
                 {editedMessage}
               </div>
               <div className="text-xs text-[#787774] mt-2 text-center">
-                Preview (iPhone)
+                Preview (phone)
               </div>
             </div>
           </div>

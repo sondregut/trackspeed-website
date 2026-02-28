@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     slug: "sprint-timing-gates-buyers-guide",
     title: "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
     excerpt:
-      "Why spend $2,500 on timing gates when your iPhone delivers the same training accuracy for free? Complete comparison of laser gates, camera-based timing, and stopwatches.",
+      "Why spend $2,500 on timing gates when your phone delivers the same training accuracy for free? Complete comparison of laser gates, camera-based timing, and stopwatches.",
     date: "2026-02-17",
     lastModified: "2026-02-17",
     category: "Comparisons",
@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     slug: "how-to-time-a-40-yard-dash",
     title: "How to Time a 40-Yard Dash Accurately with Your Phone",
     excerpt:
-      "Learn how to get reliable, repeatable 40-yard dash times using just your iPhone — no expensive laser gates or stopwatch errors.",
+      "Learn how to get reliable, repeatable 40-yard dash times using just your phone — no expensive laser gates or stopwatch errors.",
     date: "2026-02-10",
     lastModified: "2026-02-10",
     category: "Guides",
@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
     slug: "multi-phone-sprint-timing-setup",
     title: "How to Set Up Multi-Phone Sprint Timing for Track Practice",
     excerpt:
-      "Step-by-step guide to setting up two iPhones for split timing at start and finish lines during track practice.",
+      "Step-by-step guide to setting up two phones for split timing at start and finish lines during track practice.",
     date: "2026-02-05",
     lastModified: "2026-02-05",
     category: "Guides",

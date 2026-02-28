@@ -6,7 +6,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const t = await getTranslations({locale, namespace: 'blog'});
   return {
     title: t('posts.how-to-time-a-40-yard-dash.title'),
-    description: "Learn how to get reliable, repeatable 40-yard dash times using just your iPhone. Eliminate stopwatch error with phone-based computer vision timing.",
+    description: "Learn how to get reliable, repeatable 40-yard dash times using just your phone. Eliminate stopwatch error with phone-based computer vision timing.",
     alternates: {
       canonical: 'https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash',
     },
@@ -25,7 +25,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
     "@type": "BlogPosting",
     headline: "How to Time a 40-Yard Dash Accurately with Your Phone",
     description:
-      "Learn how to get reliable, repeatable 40-yard dash times using just your iPhone. Eliminate stopwatch error with phone-based computer vision timing.",
+      "Learn how to get reliable, repeatable 40-yard dash times using just your phone. Eliminate stopwatch error with phone-based computer vision timing.",
     author: {
       "@type": "Organization",
       name: "TrackSpeed",
@@ -107,7 +107,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
             The 40-yard dash is the gold standard speed test for football
             players, but getting a reliable time usually means expensive
             equipment or inconsistent stopwatch reads. Here is how to get
-            accurate, repeatable results using just your iPhone.
+            accurate, repeatable results using just your phone.
           </p>
         </div>
       </section>
@@ -233,13 +233,13 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                       className="font-semibold"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      An iPhone with TrackSpeed installed
+                      A phone with TrackSpeed installed
                     </div>
                     <div
                       className="text-sm"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      Any iPhone that supports iOS 17 or later. TrackSpeed uses
+                      Any phone that supports iOS 17 or later. TrackSpeed uses
                       your phone&apos;s camera and computer vision to
                       automatically detect when a runner crosses the finish line.
                     </div>
@@ -289,7 +289,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                       className="font-semibold"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      A second iPhone (for the start gate)
+                      A second phone (for the start gate)
                     </div>
                     <div
                       className="text-sm"
@@ -373,7 +373,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 Position Your Phone at the Finish
               </h3>
               <p className="text-body mb-6">
-                Place your iPhone on a tripod or stable surface at the finish
+                Place your phone on a tripod or stable surface at the finish
                 line, about 3 to 5 feet to the side of the lane. The camera
                 should be aimed perpendicular to the running direction so the
                 athlete runs across the frame from one side to the other. This
@@ -458,7 +458,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
             </div>
             <div className="card-feature p-6 md:p-8">
               <p className="text-body mb-6">
-                TrackSpeed uses two iPhones — one at the start line and one at
+                TrackSpeed uses two phones — one at the start line and one at
                 the finish line — to create a fully automated timing gate.
                 Both phones detect crossings automatically using computer
                 vision, so there&apos;s zero human reaction time in the
@@ -565,7 +565,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 Let the Phone Warm Up
               </h3>
               <p className="text-body mb-6">
-                If your iPhone has been in a cold car or bag, give it a minute
+                If your phone has been in a cold car or bag, give it a minute
                 to reach operating temperature before starting your session.
                 Cold batteries deliver less consistent power, and the camera
                 sensor performs best at normal operating temperatures. Open the
@@ -595,7 +595,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 Use a Tripod or Stable Mount
               </h3>
               <p className="text-body mb-6">
-                TrackSpeed uses the iPhone&apos;s gyroscope to detect camera
+                TrackSpeed uses the phone&apos;s gyroscope to detect camera
                 shake and will only arm the detector when the device is stable.
                 Hand-holding the phone can work in a pinch, but you will spend
                 more time waiting for the stability indicator to turn green

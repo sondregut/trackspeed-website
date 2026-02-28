@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "Comment fonctionne TrackSpeed ?",
-        "answer": "TrackSpeed utilise la caméra de ton iPhone pour détecter quand un athlète franchit la porte de chronométrage. L'app utilise la détection de mouvement par caméra pour identifier quand le torse de l'athlète franchit la porte, offrant un chronométrage précis à la milliseconde."
+        "answer": "TrackSpeed utilise la caméra de ton phone pour détecter quand un athlète franchit la porte de chronométrage. L'app utilise la détection de mouvement par caméra pour identifier quand le torse de l'athlète franchit la porte, offrant un chronométrage précis à la milliseconde."
       },
       "equipment": {
         "question": "Ai-je besoin d'un équipement spécial ?",
-        "answer": "Non ! TrackSpeed fonctionne avec juste ton iPhone. Pour les temps intermédiaires ou les portes départ/arrivée, tu peux utiliser deux iPhones qui se synchronisent sans fil."
+        "answer": "Non ! TrackSpeed fonctionne avec juste ton phone. Pour les temps intermédiaires ou les portes départ/arrivée, tu peux utiliser deux phones qui se synchronisent sans fil."
       },
       "models": {
-        "question": "Quels modèles d'iPhone sont compatibles ?",
-        "answer": "TrackSpeed fonctionne avec l'iPhone XS et les modèles suivants (iOS 17+). Pour de meilleures performances, nous recommandons l'iPhone 12 Pro ou plus récent."
+        "question": "Quels modèles d'phone sont compatibles ?",
+        "answer": "TrackSpeed fonctionne avec l'phone XS et les modèles suivants (iOS 17+). Pour de meilleures performances, nous recommandons l'phone 12 Pro ou plus récent."
       },
       "accuracy": {
         "question": "Quelle est la précision du chronométrage ?",

@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Como el cronometraje con iPhone alcanza una precisión de ~4ms",
-    "description": "Descubre como TrackSpeed usa la camara de tu iPhone para ofrecer cronometraje de sprints con precisión de milisegundos, sin equipamiento extra."
+    "title": "Como el cronometraje con phone alcanza una precisión de ~4ms",
+    "description": "Descubre como TrackSpeed usa la camara de tu phone para ofrecer cronometraje de sprints con precisión de milisegundos, sin equipamiento extra."
   },
   "backToHome": "Volver al inicio",
   "heroTitle": "Como alcanzamos una precisión de ~4ms",
-  "heroSubtitle": "Tu iPhone ya tiene todo lo necesario para cronometraje de precisión: una camara de alta frecuencia de cuadros, giroscopio preciso y procesador potente. Esto es lo que permite.",
+  "heroSubtitle": "Tu phone ya tiene todo lo necesario para cronometraje de precisión: una camara de alta frecuencia de cuadros, giroscopio preciso y procesador potente. Esto es lo que permite.",
   "sections": {
     "subFrame": {
       "title": "Precisión sub-frame",
@@ -13,11 +13,11 @@
     },
     "corrections": {
       "title": "Correcciones basadas en fisica",
-      "desc": "Las camaras de iPhone escanean cada cuadro de arriba a abajo en varios milisegundos, introduciendo un desfase de tiempo segun donde aparece el atleta en el cuadro. Corregimos automaticamente esto y otros artefactos de tiempo a nivel de hardware para eliminar el error sistematico."
+      "desc": "Las camaras de phone escanean cada cuadro de arriba a abajo en varios milisegundos, introduciendo un desfase de tiempo segun donde aparece el atleta en el cuadro. Corregimos automaticamente esto y otros artefactos de tiempo a nivel de hardware para eliminar el error sistematico."
     },
     "clockSync": {
       "title": "Sincronización de reloj multidispositivo",
-      "desc": "Al usar dos iPhones, uno en la salida y otro en la meta, sus relojes necesitan coincidir con precisión de milisegundos. Nuestro protocolo de sincronización logra una alineacion de ±3-5ms entre dispositivos. Durante la sincronización, manten ambos telefonos a unos 10 metros de distancia para mejores resultados. Una vez sincronizados, separalos tanto como necesites."
+      "desc": "Al usar dos phones, uno en la salida y otro en la meta, sus relojes necesitan coincidir con precisión de milisegundos. Nuestro protocolo de sincronización logra una alineacion de ±3-5ms entre dispositivos. Durante la sincronización, manten ambos telefonos a unos 10 metros de distancia para mejores resultados. Una vez sincronizados, separalos tanto como necesites."
     },
     "bodyTracking": {
       "title": "Seguimiento corporal, no corte de haz",
@@ -28,7 +28,7 @@
     "title": "El resultado",
     "value": "~4ms",
     "label": "Precisión efectiva de cronometraje",
-    "desc": "La interpolacion sub-frame, las correcciones fisicas y la sincronización de reloj se combinan para ofrecer una precisión de cronometraje que rivaliza con hardware dedicado, usando solo tu iPhone."
+    "desc": "La interpolacion sub-frame, las correcciones fisicas y la sincronización de reloj se combinan para ofrecer una precisión de cronometraje que rivaliza con hardware dedicado, usando solo tu phone."
   },
   "professionalComparison": {
     "title": "Como se compara",
@@ -52,13 +52,13 @@
       "name": "TrackSpeed",
       "resolution": "~4ms",
       "detection": "Seguimiento corporal",
-      "cost": "Tu iPhone"
+      "cost": "Tu phone"
     },
     "laserNote": "*Las puertas laser se activan con velocidad sub-milisegundo, pero los puntos de activacion inconsistentes (brazo vs pecho) pueden causar variaciones de 50-200ms entre carreras para el mismo atleta."
   },
   "cta": {
     "title": "Listo para cronometrar tu entrenamiento?",
-    "subtitle": "Descarga TrackSpeed y experimenta precisión de milisegundos solo con tu iPhone.",
+    "subtitle": "Descarga TrackSpeed y experimenta precisión de milisegundos solo con tu phone.",
     "download": "Descargar en el App Store",
     "compare": "Ve como TrackSpeed se compara con otros metodos de cronometraje"
   }

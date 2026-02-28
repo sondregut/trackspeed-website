@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "iPhone用スプリントタイミングアプリ - 無料、ハードウェア不要",
-    "description": "iPhoneをタイミングシステムに。~4msの精度、120fps検出、マルチデバイス同期。陸上コーチとアスリートのための無料アプリ。"
+    "title": "phone用スプリントタイミングアプリ - 無料、ハードウェア不要",
+    "description": "phoneをタイミングシステムに。~4msの精度、120fps検出、マルチデバイス同期。陸上コーチとアスリートのための無料アプリ。"
   },
   "hero": {
     "socialProof": "オリンピック選手に愛用されています",
     "title": "TrackSpeed",
-    "subtitle": "iPhoneだけでスプリントタイミング",
-    "description": "iPhoneをプロフェッショナルなタイミングシステムに。追加ハードウェア不要、キャリブレーション不要、即座に結果を表示。",
+    "subtitle": "phoneだけでスプリントタイミング",
+    "description": "phoneをプロフェッショナルなタイミングシステムに。追加ハードウェア不要、キャリブレーション不要、即座に結果を表示。",
     "downloadCta": "App Storeでダウンロード",
     "stats": {
       "accuracy": "精度",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "スマートフォンを接続",
-        "description": "iPhoneをペアリングします。Wi-Fi経由で自動的に同期します。"
+        "description": "phoneをペアリングします。Wi-Fi経由で自動的に同期します。"
       },
       "start": {
         "title": "セッションを開始",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "マルチデバイス同期",
-      "description": "iPhoneをワイヤレスで接続。ゲート間でミリ秒精度のクロック同期を実現します。"
+      "description": "phoneをワイヤレスで接続。ゲート間でミリ秒精度のクロック同期を実現します。"
     },
     "instantResults": {
       "title": "即時結果",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "複数のスマートフォンを接続して正確な計時",
-    "description": "スタートラインに1台、フィニッシュラインにもう1台のiPhoneを使用。さらにスマートフォンを追加して任意の距離でスプリットタイムを計測できます。",
+    "description": "スタートラインに1台、フィニッシュラインにもう1台のphoneを使用。さらにスマートフォンを追加して任意の距離でスプリットタイムを計測できます。",
     "wirelessConnection": {
       "title": "ワイヤレス接続",
       "description": "ピアツーピアWiFiで自動的に接続。インターネット接続は不要です。"
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "あり（胴体のみ）",
       "setupTime": "1分未満",
-      "hardware": "iPhoneのみ",
+      "hardware": "phoneのみ",
       "portability": "ポケットサイズ"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "サブフレーム精度の科学",
-    "subtitle": "標準的なiPhoneカメラで~4msの精度を実現する方法",
+    "subtitle": "標準的なphoneカメラで~4msの精度を実現する方法",
     "frameCapture": "120fpsキャプチャ = フレーム間隔8.3ms",
     "formula": "position = velocity × time + offset",
     "formulaLabel": "軌跡回帰（3フレーム以上）",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "ローリングシャッター補正",
-      "description": "iPhoneのカメラは上から下へ約5〜12msかけてスキャンします。通過した垂直位置を測定し、その位置での正確なスキャンタイミングを補正します。"
+      "description": "phoneのカメラは上から下へ約5〜12msかけてスキャンします。通過した垂直位置を測定し、その位置での正確なスキャンタイミングを補正します。"
     },
     "effectiveAccuracy": {
       "title": "~4ms 実効精度",

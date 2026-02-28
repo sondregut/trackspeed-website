@@ -16,15 +16,15 @@
     "items": {
       "howItWorks": {
         "question": "How does TrackSpeed work?",
-        "answer": "TrackSpeed uses your iPhone's camera to detect when an athlete crosses the timing gate. The app uses camera-based motion detection to identify when the athlete's torso crosses the timing gate, providing millisecond-accurate timing."
+        "answer": "TrackSpeed uses your phone's camera to detect when an athlete crosses the timing gate. The app uses camera-based motion detection to identify when the athlete's torso crosses the timing gate, providing millisecond-accurate timing."
       },
       "equipment": {
         "question": "Do I need special equipment?",
-        "answer": "No! TrackSpeed works with just your iPhone. For split timing or start/finish gates, you can use two iPhones that sync together wirelessly."
+        "answer": "No! TrackSpeed works with just your phone. For split timing or start/finish gates, you can use two phones that sync together wirelessly."
       },
       "models": {
-        "question": "What iPhone models are supported?",
-        "answer": "TrackSpeed works with iPhone XS and later (iOS 17+). For best performance, we recommend iPhone 12 Pro or newer."
+        "question": "What phone models are supported?",
+        "answer": "TrackSpeed requires iOS 17 or later. For best performance, we recommend models with 120fps camera support."
       },
       "accuracy": {
         "question": "How accurate is the timing?",

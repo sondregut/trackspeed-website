@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Sprinttidtaking-app for iPhone – Gratis, uten maskinvare",
-    "description": "Gjør iPhonen din om til et tidtakingssystem. ~4ms nøyaktighet, 120fps deteksjon, synkronisering av flere enheter. Gratis for trenere og utøvere."
+    "title": "Sprinttidtaking-app for phone – Gratis, uten maskinvare",
+    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, 120fps deteksjon, synkronisering av flere enheter. Gratis for trenere og utøvere."
   },
   "hero": {
     "socialProof": "Elsket av olympiere",
     "title": "TrackSpeed",
-    "subtitle": "Sprinttidtaking med bare din iPhone",
-    "description": "Gjør iPhonen din om til et profesjonelt tidtakingssystem. Ingen ekstra maskinvare, ingen kalibrering, umiddelbare resultater.",
+    "subtitle": "Sprinttidtaking med bare din phone",
+    "description": "Gjør phonen din om til et profesjonelt tidtakingssystem. Ingen ekstra maskinvare, ingen kalibrering, umiddelbare resultater.",
     "downloadCta": "Last ned fra App Store",
     "stats": {
       "accuracy": "Nøyaktighet",
@@ -36,7 +36,7 @@
     "steps": {
       "connect": {
         "title": "Koble til telefoner",
-        "description": "Par iPhonene dine sammen. De synkroniserer seg automatisk over Wi-Fi."
+        "description": "Par phonene dine sammen. De synkroniserer seg automatisk over Wi-Fi."
       },
       "start": {
         "title": "Start økten",
@@ -66,7 +66,7 @@
     },
     "multiDeviceSync": {
       "title": "Flerenhetssynkronisering",
-      "description": "Koble iPhoner trådløst. Millisekundnøyaktig klokkesynkronisering mellom portene."
+      "description": "Koble phoner trådløst. Millisekundnøyaktig klokkesynkronisering mellom portene."
     },
     "instantResults": {
       "title": "Umiddelbare resultater",
@@ -111,7 +111,7 @@
   },
   "multiDevice": {
     "title": "Koble sammen flere telefoner for presis tidtaking",
-    "description": "Bruk én iPhone ved startlinjen og en annen ved mål. Legg til flere telefoner for mellomtider på hvilken som helst distanse.",
+    "description": "Bruk én phone ved startlinjen og en annen ved mål. Legg til flere telefoner for mellomtider på hvilken som helst distanse.",
     "wirelessConnection": {
       "title": "Trådløs tilkobling",
       "description": "Telefonene kobler seg automatisk via peer-to-peer WiFi. Ingen internett nødvendig."
@@ -145,7 +145,7 @@
       "accuracy": "~4ms",
       "chestDetection": "Ja (kun overkropp)",
       "setupTime": "< 1 min",
-      "hardware": "Kun iPhone",
+      "hardware": "Kun phone",
       "portability": "Lommeformat"
     },
     "freelap": {
@@ -188,7 +188,7 @@
   },
   "timingTechnology": {
     "title": "Vitenskapen bak sub-frame-presisjon",
-    "subtitle": "Slik oppnår vi ~4ms nøyaktighet med vanlige iPhone-kameraer",
+    "subtitle": "Slik oppnår vi ~4ms nøyaktighet med vanlige phone-kameraer",
     "frameCapture": "120fps opptak = 8.3ms mellom bilder",
     "formula": "posisjon = hastighet × tid + forskyvning",
     "formulaLabel": "Baneregresjon (3+ bilder)",
@@ -205,7 +205,7 @@
     },
     "rollingShutterCorrection": {
       "title": "Rolling shutter-korreksjon",
-      "description": "iPhone-kameraer skanner fra topp til bunn over ~5–12ms. Vi måler hvor du krysset vertikalt og kompenserer for den nøyaktige skannetimingen på den posisjonen."
+      "description": "phone-kameraer skanner fra topp til bunn over ~5–12ms. Vi måler hvor du krysset vertikalt og kompenserer for den nøyaktige skannetimingen på den posisjonen."
     },
     "effectiveAccuracy": {
       "title": "~4ms effektiv nøyaktighet",

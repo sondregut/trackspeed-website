@@ -2,7 +2,7 @@
   "title": "Atletas construyendo para atletas",
   "intro": "TrackSpeed nacio en la pista. Somos atletas activos en competencia que se cansaron de herramientas de cronometraje imprecisas, asi que construimos la nuestra.",
   "story1": "Como atletas de atletismo entrenando al mas alto nivel, necesitabamos cronometraje preciso para nuestros sprints y carreras de aproximación, pero las opciones eran sistemas de puertas laser costosos con puntos de activacion inconsistentes, o un entrenador con cronómetro y error de tiempo de reaccion humano. Ninguna era suficiente.",
-  "story2": "Nos dimos cuenta de que el iPhone en el bolsillo de todos ya tenia el hardware para resolver esto: una camara de alta frecuencia de cuadros, un giroscopio preciso y suficiente potencia de procesamiento para vision por computadora en tiempo real. Asi que construimos TrackSpeed: un sistema de cronometraje que usa detección de movimiento cuadro a cuadro e interpolacion sub-frame para ofrecer resultados con precisión de milisegundos, sin equipamiento extra.",
+  "story2": "Nos dimos cuenta de que el phone en el bolsillo de todos ya tenia el hardware para resolver esto: una camara de alta frecuencia de cuadros, un giroscopio preciso y suficiente potencia de procesamiento para vision por computadora en tiempo real. Asi que construimos TrackSpeed: un sistema de cronometraje que usa detección de movimiento cuadro a cuadro e interpolacion sub-frame para ofrecer resultados con precisión de milisegundos, sin equipamiento extra.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
@@ -26,7 +26,7 @@
   "teamNote": "Hecho por atletas, para atletas.",
   "cta": {
     "title": "Listo para cronometrar tu entrenamiento?",
-    "subtitle": "Descarga TrackSpeed y experimenta precisión de milisegundos solo con tu iPhone.",
+    "subtitle": "Descarga TrackSpeed y experimenta precisión de milisegundos solo con tu phone.",
     "download": "Descargar en el App Store",
     "learnMore": "Descubre como funciona nuestra tecnologia de cronometraje"
   },
