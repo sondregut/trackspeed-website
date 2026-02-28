@@ -155,11 +155,11 @@ export default function RedemptionsPage() {
             </div>
           ) : (
             <div className="card-gunmetal rounded-xl overflow-x-auto">
-              <table className="w-full min-w-[600px]">
+              <table className="w-full min-w-[750px]">
                 <thead>
                   <tr className="border-b border-[#3D3D3D]">
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Device ID</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">User</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Type</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Status</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Redeemed</th>
@@ -182,9 +182,20 @@ export default function RedemptionsPage() {
                           </code>
                         </td>
                         <td className="px-4 py-4">
-                          <span className="text-sm text-[#9B9A97] font-mono">
-                            {redemption.device_id.substring(0, 12)}...
-                          </span>
+                          {redemption.user_name || redemption.user_email ? (
+                            <div>
+                              {redemption.user_name && (
+                                <p className="text-sm text-white">{redemption.user_name}</p>
+                              )}
+                              {redemption.user_email && (
+                                <p className="text-xs text-[#9B9A97]">{redemption.user_email}</p>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-sm text-[#9B9A97] font-mono">
+                              {redemption.device_id.substring(0, 12)}...
+                            </span>
+                          )}
                         </td>
                         <td className="px-4 py-4 text-sm capitalize text-[#9B9A97]">
                           {redemption.promo_codes?.type || "Unknown"}

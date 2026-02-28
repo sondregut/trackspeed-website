@@ -21,6 +21,8 @@ export interface PromoRedemption {
   device_id: string
   pro_expires_at: string | null
   redeemed_at: string
+  user_name: string | null
+  user_email: string | null
   // Joined fields
   promo_codes?: PromoCode
 }
