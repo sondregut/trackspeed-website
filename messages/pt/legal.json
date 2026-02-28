@@ -6,5 +6,9 @@
   "terms": {
     "title": "Termos e condicoes",
     "description": "Termos e condicoes do app de cronometragem TrackSpeed. Cobre assinaturas, uso aceitavel e responsabilidade."
+  },
+  "deleteAccount": {
+    "title": "Excluir sua conta",
+    "description": "Como excluir sua conta e dados do TrackSpeed. Instruções passo a passo e alternativa por e-mail para solicitações de exclusão de conta."
   }
 }

@@ -6,5 +6,9 @@
   "terms": {
     "title": "Nutzungsbedingungen",
     "description": "Nutzungsbedingungen für die TrackSpeed Sprint-Zeitmess-App. Umfasst Abonnements, zulässige Nutzung und Haftung."
+  },
+  "deleteAccount": {
+    "title": "Konto löschen",
+    "description": "So löschen Sie Ihr TrackSpeed-Konto und Ihre Daten. Schritt-für-Schritt-Anleitung und E-Mail-Alternative für Kontolöschungsanfragen."
   }
 }

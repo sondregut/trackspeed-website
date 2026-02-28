@@ -6,5 +6,9 @@
   "terms": {
     "title": "Vilkår og betingelser",
     "description": "Vilkår og betingelser for TrackSpeed sprinttidtaking-appen. Dekker abonnementer, akseptabel bruk og ansvar."
+  },
+  "deleteAccount": {
+    "title": "Slett kontoen din",
+    "description": "Slik sletter du TrackSpeed-kontoen din og dataene dine. Trinnvis veiledning og e-postalternativ for slettingsforespørsler."
   }
 }

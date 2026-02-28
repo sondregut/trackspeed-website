@@ -6,5 +6,9 @@
   "terms": {
     "title": "Conditions d'utilisation",
     "description": "Conditions d'utilisation de l'application de chronométrage de sprint TrackSpeed. Couvre les abonnements, l'utilisation acceptable et la responsabilité."
+  },
+  "deleteAccount": {
+    "title": "Supprimer votre compte",
+    "description": "Comment supprimer votre compte et vos données TrackSpeed. Instructions étape par étape et alternative par e-mail pour les demandes de suppression de compte."
   }
 }

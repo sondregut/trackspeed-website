@@ -23,7 +23,7 @@ export default async function DeleteAccountPage({params}: {params: Promise<{loca
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. How to Delete Your Account</h2>
           <p className="text-[#9B9A97] mb-2">You can delete your account directly from the TrackSpeed app:</p>
-          <ol className="list-decimal list-inside text-[#9B9A97] space-y-1">
+          <ol className="list-decimal pl-5 text-[#9B9A97] space-y-1">
             <li>Open the TrackSpeed app</li>
             <li>Go to <strong className="text-white">Settings</strong></li>
             <li>Tap <strong className="text-white">Account</strong></li>
@@ -38,14 +38,14 @@ export default async function DeleteAccountPage({params}: {params: Promise<{loca
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">2. What Gets Deleted</h2>
           <p className="text-[#9B9A97] mb-2">When you delete your account, the following data is permanently removed:</p>
-          <ul className="list-disc list-inside text-[#9B9A97] space-y-1">
-            <li><strong className="text-white">Account information:</strong> Your name, email address, and authentication credentials</li>
-            <li><strong className="text-white">Profile data:</strong> Display name and any profile details you provided</li>
-            <li><strong className="text-white">Timing sessions:</strong> All recorded sprint timing sessions and results</li>
-            <li><strong className="text-white">Run data:</strong> Individual run times, splits, and personal records</li>
-            <li><strong className="text-white">Subscription data:</strong> Subscription status and billing history linked to your account</li>
-            <li><strong className="text-white">Photos and thumbnails:</strong> Any crossing photos or session thumbnails stored on our servers</li>
-            <li><strong className="text-white">Device tokens:</strong> Push notification tokens and device identifiers</li>
+          <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
+            <li>Your name, email address, and authentication credentials</li>
+            <li>Display name and profile details</li>
+            <li>All recorded sprint timing sessions and results</li>
+            <li>Individual run times, splits, and personal records</li>
+            <li>Subscription status and billing history</li>
+            <li>Crossing photos and session thumbnails</li>
+            <li>Push notification tokens and device identifiers</li>
           </ul>
         </section>
 
@@ -61,7 +61,7 @@ export default async function DeleteAccountPage({params}: {params: Promise<{loca
           <p className="text-[#9B9A97] mb-2">
             If you are unable to access the app to delete your account, you can request deletion by email:
           </p>
-          <ul className="list-disc list-inside text-[#9B9A97] space-y-1">
+          <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>
               Email{" "}
               <a href="mailto:privacy@mytrackspeed.com?subject=Account%20Deletion%20Request" className="text-[#5C8DB8] hover:underline">
@@ -76,15 +76,15 @@ export default async function DeleteAccountPage({params}: {params: Promise<{loca
 
         <section>
           <h2 className="text-xl font-bold mb-3">5. Additional Notes</h2>
-          <ul className="list-disc list-inside text-[#9B9A97] space-y-1">
+          <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>
-              <strong className="text-white">Cancel your subscription first:</strong> If you have an active subscription, cancel it through the{" "}
+              If you have an active subscription, cancel it through the{" "}
               <a href="https://play.google.com/store/account/subscriptions" className="text-[#5C8DB8] hover:underline">Google Play Store</a>
               {" "}or{" "}
               <a href="https://apps.apple.com/account/subscriptions" className="text-[#5C8DB8] hover:underline">App Store</a>
               {" "}before deleting your account. Deleting your account does not automatically cancel your subscription.
             </li>
-            <li><strong className="text-white">Deletion is permanent:</strong> Once your account is deleted, your data cannot be recovered.</li>
+            <li>Once your account is deleted, your data cannot be recovered. Deletion is permanent and irreversible.</li>
             <li>
               For questions about your data, see our{" "}
               <a href="/privacy" className="text-[#5C8DB8] hover:underline">Privacy Policy</a>

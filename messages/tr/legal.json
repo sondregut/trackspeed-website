@@ -6,5 +6,9 @@
   "terms": {
     "title": "Şartlar ve Koşullar",
     "description": "TrackSpeed sprint zamanlama uygulamasının şartları ve koşulları. Abonelikler, kabul edilebilir kullanım ve sorumluluğu kapsar."
+  },
+  "deleteAccount": {
+    "title": "Hesabınızı silin",
+    "description": "TrackSpeed hesabınızı ve verilerinizi nasıl silersiniz. Adım adım talimatlar ve hesap silme talepleri için e-posta alternatifi."
   }
 }

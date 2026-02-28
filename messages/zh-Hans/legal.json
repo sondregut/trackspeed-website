@@ -6,5 +6,9 @@
   "terms": {
     "title": "条款与条件",
     "description": "TrackSpeed短跑计时应用的条款与条件。涵盖订阅、可接受使用和责任条款。"
+  },
+  "deleteAccount": {
+    "title": "删除您的账户",
+    "description": "如何删除您的TrackSpeed账户和数据。逐步操作说明和通过电子邮件请求删除账户的备选方案。"
   }
 }
