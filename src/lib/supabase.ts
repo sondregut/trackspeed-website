@@ -23,6 +23,7 @@ export interface PromoRedemption {
   redeemed_at: string
   user_name: string | null
   user_email: string | null
+  attribution_source: string | null
   // Joined fields
   promo_codes?: PromoCode & {
     influencer_id: string | null

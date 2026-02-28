@@ -80,8 +80,10 @@ export default function InfluencerDashboardPage() {
     setTimeout(() => setCodeCopied(false), 2000)
   }
 
+  const INFLUENCER_FREE_CODE = process.env.NEXT_PUBLIC_INFLUENCER_FREE_CODE ?? 'TRACKSPEED0106'
+
   const copyFreeCode = async () => {
-    await navigator.clipboard.writeText("TRACKSPEED0106")
+    await navigator.clipboard.writeText(INFLUENCER_FREE_CODE)
     setFreeCodeCopied(true)
     setTimeout(() => setFreeCodeCopied(false), 2000)
   }
@@ -244,7 +246,7 @@ export default function InfluencerDashboardPage() {
           <div>
             <p className="text-sm text-[#9B9A97] mb-1">Your Free Access</p>
             <p className="text-2xl font-bold text-[#5C8DB8] font-mono">
-              TRACKSPEED0106
+              {INFLUENCER_FREE_CODE}
             </p>
             <p className="text-xs text-[#9B9A97] mt-1">
               Enter this code in the app to get free Pro access

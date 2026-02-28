@@ -9,19 +9,35 @@ export async function PATCH(
     const { id } = await params
     const body = await request.json()
 
-    // Only allow updating is_active for now
-    const { is_active } = body
+    const { is_active, max_uses } = body
 
-    if (typeof is_active !== 'boolean') {
+    // Build update object dynamically from provided fields
+    const updates: Record<string, unknown> = {}
+
+    if (typeof is_active === 'boolean') {
+      updates.is_active = is_active
+    }
+
+    if ('max_uses' in body) {
+      if (max_uses !== null && (!Number.isInteger(max_uses) || max_uses <= 0)) {
+        return NextResponse.json(
+          { error: 'max_uses must be a positive integer or null' },
+          { status: 400 }
+        )
+      }
+      updates.max_uses = max_uses
+    }
+
+    if (Object.keys(updates).length === 0) {
       return NextResponse.json(
-        { error: 'Invalid request body' },
+        { error: 'No valid fields to update' },
         { status: 400 }
       )
     }
 
     const { data, error } = await supabase
       .from('promo_codes')
-      .update({ is_active })
+      .update(updates)
       .eq('id', id)
       .select()
       .single()

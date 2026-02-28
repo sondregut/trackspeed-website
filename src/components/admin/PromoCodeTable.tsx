@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import type { PromoCode } from "@/lib/supabase";
 
 interface PromoCodeTableProps {
   codes: PromoCode[];
   onToggle: (id: string, isActive: boolean) => void;
   onDelete: (id: string) => void;
+  onUpdateMaxUses?: (id: string, maxUses: number | null) => void;
 }
 
 function formatDuration(days: number | null): string {
@@ -17,7 +19,88 @@ function formatDuration(days: number | null): string {
   return `${days} days`;
 }
 
-export default function PromoCodeTable({ codes, onToggle, onDelete }: PromoCodeTableProps) {
+function MaxUsesCell({
+  code,
+  onUpdateMaxUses,
+}: {
+  code: PromoCode;
+  onUpdateMaxUses?: (id: string, maxUses: number | null) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(
+    code.max_uses !== null ? String(code.max_uses) : ""
+  );
+
+  if (!onUpdateMaxUses) {
+    return (
+      <span>
+        {code.current_uses}
+        {code.max_uses !== null && (
+          <span className="text-[#787774]"> / {code.max_uses}</span>
+        )}
+      </span>
+    );
+  }
+
+  if (!editing) {
+    return (
+      <span>
+        {code.current_uses}
+        <button
+          onClick={() => {
+            setInputValue(code.max_uses !== null ? String(code.max_uses) : "");
+            setEditing(true);
+          }}
+          className="ml-1 text-[#5C8DB8] hover:text-[#4A7A9E] transition-colors"
+          title="Edit max uses"
+        >
+          {code.max_uses !== null ? (
+            <span className="text-[#787774] hover:text-[#5C8DB8]"> / {code.max_uses}</span>
+          ) : (
+            <span className="text-[#787774] hover:text-[#5C8DB8] text-xs"> / ∞</span>
+          )}
+        </button>
+      </span>
+    );
+  }
+
+  function handleSave() {
+    const trimmed = inputValue.trim();
+    if (trimmed === "" || trimmed.toLowerCase() === "unlimited") {
+      onUpdateMaxUses!(code.id, null);
+    } else {
+      const num = parseInt(trimmed, 10);
+      if (!isNaN(num) && num > 0) {
+        onUpdateMaxUses!(code.id, num);
+      } else {
+        // Invalid input — reset
+        setInputValue(code.max_uses !== null ? String(code.max_uses) : "");
+      }
+    }
+    setEditing(false);
+  }
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      {code.current_uses} /
+      <input
+        autoFocus
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onBlur={handleSave}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSave();
+          if (e.key === "Escape") setEditing(false);
+        }}
+        placeholder="∞"
+        className="w-16 px-1 py-0.5 text-sm rounded bg-[#2B2E32] border border-[#5C8DB8] text-white focus:outline-none"
+      />
+    </span>
+  );
+}
+
+export default function PromoCodeTable({ codes, onToggle, onDelete, onUpdateMaxUses }: PromoCodeTableProps) {
   return (
     <div className="card-gunmetal rounded-xl overflow-x-auto">
       <table className="w-full min-w-[700px]">
@@ -52,10 +135,7 @@ export default function PromoCodeTable({ codes, onToggle, onDelete }: PromoCodeT
                 {formatDuration(code.duration_days)}
               </td>
               <td className="px-4 py-4 text-sm text-white">
-                {code.current_uses}
-                {code.max_uses && (
-                  <span className="text-[#787774]"> / {code.max_uses}</span>
-                )}
+                <MaxUsesCell code={code} onUpdateMaxUses={onUpdateMaxUses} />
               </td>
               <td className="px-4 py-4">
                 <span

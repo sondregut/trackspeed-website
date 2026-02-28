@@ -28,6 +28,27 @@ export default function RedemptionsPage() {
     fetchRedemptions();
   }, []);
 
+  async function handleRevoke(id: string) {
+    if (!confirm("Revoke Pro access for this redemption? This will immediately expire their access.")) return;
+
+    try {
+      const res = await fetch("/api/admin/redemptions", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ redemption_id: id, action: "revoke" }),
+      });
+      if (!res.ok) throw new Error("Failed to revoke");
+      // Optimistic local update
+      setRedemptions((prev) =>
+        prev.map((r) =>
+          r.id === id ? { ...r, pro_expires_at: new Date().toISOString() } : r
+        )
+      );
+    } catch {
+      setError("Failed to revoke access");
+    }
+  }
+
   // Compute stats
   const stats = useMemo(() => {
     const uniqueCodes = new Set(redemptions.map((r) => r.promo_codes?.code).filter(Boolean));
@@ -229,15 +250,17 @@ export default function RedemptionsPage() {
             </div>
           ) : (
             <div className="card-gunmetal rounded-xl overflow-x-auto">
-              <table className="w-full min-w-[850px]">
+              <table className="w-full min-w-[1000px]">
                 <thead>
                   <tr className="border-b border-[#3D3D3D]">
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code Owner</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Redeemed By</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Type</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Source</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Status</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Redeemed</th>
+                    <th className="px-4 py-3 text-right text-sm font-medium text-[#9B9A97]">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -249,6 +272,7 @@ export default function RedemptionsPage() {
                     const isActive = isForever || (!isDistantPast && !isExpired);
                     const isTrial = isDistantPast;
                     const influencer = redemption.promo_codes?.influencers;
+                    const canRevoke = isActive && !isTrial;
 
                     return (
                       <tr key={redemption.id} className="border-b border-[#3D3D3D] last:border-0 hover:bg-[#2B2E32]/50">
@@ -286,6 +310,9 @@ export default function RedemptionsPage() {
                         <td className="px-4 py-4 text-sm capitalize text-[#9B9A97]">
                           {redemption.promo_codes?.type || "Unknown"}
                         </td>
+                        <td className="px-4 py-4 text-sm text-[#9B9A97]">
+                          {redemption.attribution_source || <span className="text-[#3D3D3D]">—</span>}
+                        </td>
                         <td className="px-4 py-4">
                           {isTrial ? (
                             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#5C8DB8]/10 text-[#5C8DB8]">
@@ -303,6 +330,16 @@ export default function RedemptionsPage() {
                         </td>
                         <td className="px-4 py-4 text-sm text-[#9B9A97]">
                           {new Date(redemption.redeemed_at).toLocaleString()}
+                        </td>
+                        <td className="px-4 py-4 text-right">
+                          {canRevoke && (
+                            <button
+                              onClick={() => handleRevoke(redemption.id)}
+                              className="px-3 py-1 rounded text-sm bg-[#FC0726]/10 text-[#FC0726] hover:bg-[#FC0726]/20 transition-colors"
+                            >
+                              Revoke
+                            </button>
+                          )}
                         </td>
                       </tr>
                     );

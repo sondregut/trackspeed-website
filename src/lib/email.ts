@@ -3,6 +3,7 @@ import { getSupabaseAdmin } from '@/lib/supabase'
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const FROM_EMAIL = process.env.FROM_EMAIL || 'TrackSpeed <noreply@hello.mytrackspeed.com>'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://mytrackspeed.com'
+const INFLUENCER_FREE_CODE = process.env.NEXT_PUBLIC_INFLUENCER_FREE_CODE ?? 'TRACKSPEED0106'
 
 // Base styles for all emails
 const baseStyles = `
@@ -73,12 +74,12 @@ export const emailTemplates = {
       </p>
       <div class="code-box">
         <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">YOUR FREE ACCESS CODE</p>
-        <p style="font-size:28px;font-weight:700;color:#5C8DB8;margin:0;font-family:monospace;">TRACKSPEED0106</p>
+        <p style="font-size:28px;font-weight:700;color:#5C8DB8;margin:0;font-family:monospace;">${INFLUENCER_FREE_CODE}</p>
         <p style="font-size:13px;color:#525f7f;margin:8px 0 0;">Enter this in the app to get free Pro access — no subscription needed.</p>
       </div>
       <div class="feature-box">
         <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Next steps:</p>
-        <p style="font-size:14px;margin:0 0 8px;"><strong>1.</strong> Enter <strong>TRACKSPEED0106</strong> in the app to unlock Pro</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>1.</strong> Enter <strong>${INFLUENCER_FREE_CODE}</strong> in the app to unlock Pro</p>
         <p style="font-size:14px;margin:0 0 8px;"><strong>2.</strong> Log in to your dashboard</p>
         <p style="font-size:14px;margin:0 0 8px;"><strong>3.</strong> Connect Stripe to receive payouts</p>
         <p style="font-size:14px;margin:0;"><strong>4.</strong> Share your code (<strong>${data.code}</strong>) with your audience</p>

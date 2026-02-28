@@ -55,6 +55,20 @@ export default function PromoCodesPage() {
     }
   }
 
+  async function handleUpdateMaxUses(id: string, maxUses: number | null) {
+    try {
+      const res = await fetch(`/api/admin/codes/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ max_uses: maxUses }),
+      });
+      if (!res.ok) throw new Error("Failed to update max uses");
+      fetchCodes();
+    } catch {
+      setError("Failed to update max uses");
+    }
+  }
+
   return (
     <div className="p-4 sm:p-6 max-w-6xl mx-auto">
       {/* Header */}
@@ -94,6 +108,7 @@ export default function PromoCodesPage() {
           codes={codes}
           onToggle={handleToggle}
           onDelete={handleDelete}
+          onUpdateMaxUses={handleUpdateMaxUses}
         />
       )}
     </div>
