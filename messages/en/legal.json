@@ -6,5 +6,9 @@
   "terms": {
     "title": "Terms & Conditions",
     "description": "Terms and conditions for the TrackSpeed sprint timing app. Covers subscriptions, acceptable use, and liability."
+  },
+  "deleteAccount": {
+    "title": "Delete Your Account",
+    "description": "How to delete your TrackSpeed account and data. Step-by-step instructions and email fallback for account deletion requests."
   }
 }
