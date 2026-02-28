@@ -128,11 +128,11 @@ export default function AdminInfluencersPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">Influencer Management</h1>
-          <p className="text-[#9B9A97]">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Influencer Management</h1>
+          <p className="text-[#9B9A97] text-sm sm:text-base">
             Review applications and manage affiliate accounts
           </p>
         </div>
@@ -141,7 +141,7 @@ export default function AdminInfluencersPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white focus:outline-none focus:border-[#5C8DB8]"
+          className="px-4 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white focus:outline-none focus:border-[#5C8DB8] self-start sm:self-auto"
         >
           <option value="all">All Status</option>
           <option value="pending">Pending</option>
@@ -158,7 +158,7 @@ export default function AdminInfluencersPage() {
       )}
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <div className="bg-[#1A1A1A] rounded-xl p-4">
           <p className="text-sm text-[#9B9A97]">Total</p>
           <p className="text-2xl font-bold text-white">{influencers.length}</p>
@@ -186,13 +186,13 @@ export default function AdminInfluencersPage() {
       </div>
 
       {/* Influencers Table */}
-      <div className="bg-[#1A1A1A] rounded-xl overflow-hidden">
+      <div className="bg-[#1A1A1A] rounded-xl overflow-x-auto">
         {influencers.length === 0 ? (
           <div className="p-8 text-center text-[#9B9A97]">
             No influencers found
           </div>
         ) : (
-          <table className="w-full">
+          <table className="w-full min-w-[800px]">
             <thead>
               <tr className="border-b border-[#3D3D3D]">
                 <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">
@@ -277,8 +277,8 @@ export default function AdminInfluencersPage() {
 
       {/* Influencer Detail Modal */}
       {selectedInfluencer && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
-          <div className="bg-[#1A1A1A] rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center sm:p-6 z-50">
+          <div className="bg-[#1A1A1A] rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 max-w-lg w-full max-h-[85vh] sm:max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">
                 {selectedInfluencer.name}

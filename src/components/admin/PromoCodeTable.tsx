@@ -19,8 +19,8 @@ function formatDuration(days: number | null): string {
 
 export default function PromoCodeTable({ codes, onToggle, onDelete }: PromoCodeTableProps) {
   return (
-    <div className="card-gunmetal rounded-xl overflow-hidden">
-      <table className="w-full">
+    <div className="card-gunmetal rounded-xl overflow-x-auto">
+      <table className="w-full min-w-[700px]">
         <thead>
           <tr className="border-b border-[#3D3D3D]">
             <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code</th>

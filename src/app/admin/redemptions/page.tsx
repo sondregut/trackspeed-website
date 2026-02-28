@@ -68,7 +68,7 @@ export default function RedemptionsPage() {
   }, [stats.codeCounts]);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-8">
         <Link
@@ -154,8 +154,8 @@ export default function RedemptionsPage() {
               <p className="text-[#9B9A97]">No redemptions{filterCode !== "all" ? ` for ${filterCode}` : " yet"}</p>
             </div>
           ) : (
-            <div className="card-gunmetal rounded-xl overflow-hidden">
-              <table className="w-full">
+            <div className="card-gunmetal rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[600px]">
                 <thead>
                   <tr className="border-b border-[#3D3D3D]">
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code</th>

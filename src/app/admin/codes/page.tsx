@@ -56,16 +56,16 @@ export default function PromoCodesPage() {
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-white">Promo Codes</h1>
-          <p className="text-[#9B9A97] mt-1">Manage promotional codes for TrackSpeed</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Promo Codes</h1>
+          <p className="text-[#9B9A97] mt-1 text-sm sm:text-base">Manage promotional codes for TrackSpeed</p>
         </div>
         <Link
           href="/admin/codes/new"
-          className="btn-primary px-4 py-2 rounded-lg font-medium"
+          className="btn-primary px-4 py-2 rounded-lg font-medium text-center self-start sm:self-auto"
         >
           Create Code
         </Link>
