@@ -44,6 +44,7 @@ export default function InfluencerDashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
   const [codeCopied, setCodeCopied] = useState(false)
+  const [freeCodeCopied, setFreeCodeCopied] = useState(false)
 
   const fetchStats = useCallback(async () => {
     try {
@@ -76,6 +77,12 @@ export default function InfluencerDashboardPage() {
     await navigator.clipboard.writeText(stats.influencer.code)
     setCodeCopied(true)
     setTimeout(() => setCodeCopied(false), 2000)
+  }
+
+  const copyFreeCode = async () => {
+    await navigator.clipboard.writeText("TRACKSPEED0106")
+    setFreeCodeCopied(true)
+    setTimeout(() => setFreeCodeCopied(false), 2000)
   }
 
   const formatCurrency = (cents: number) => {
@@ -221,6 +228,27 @@ export default function InfluencerDashboardPage() {
             className="px-4 py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] text-white text-sm font-medium rounded-lg transition-colors"
           >
             {codeCopied ? "Copied!" : "Copy Code"}
+          </button>
+        </div>
+      </div>
+
+      {/* Free Access Card */}
+      <div className="bg-[#1A1A1A] rounded-2xl p-6 mb-6 border border-[#5C8DB8]/20">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-[#9B9A97] mb-1">Your Free Access</p>
+            <p className="text-2xl font-bold text-[#5C8DB8] font-mono">
+              TRACKSPEED0106
+            </p>
+            <p className="text-xs text-[#9B9A97] mt-1">
+              Enter this code in the app to get free Pro access
+            </p>
+          </div>
+          <button
+            onClick={copyFreeCode}
+            className="px-4 py-2 bg-[#2B2E32] hover:bg-[#3D3D3D] text-white text-sm font-medium rounded-lg transition-colors border border-[#5C8DB8]/30"
+          >
+            {freeCodeCopied ? "Copied!" : "Copy Code"}
           </button>
         </div>
       </div>

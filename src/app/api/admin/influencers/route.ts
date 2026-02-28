@@ -110,6 +110,12 @@ export async function PATCH(request: NextRequest) {
           })
         }
 
+        // Reactivate any previously deactivated codes (e.g., after suspension)
+        await supabase
+          .from('promo_codes')
+          .update({ is_active: true })
+          .eq('influencer_id', id)
+
         // Send approval email
         await sendEmail({
           to: influencer.email,
@@ -118,6 +124,14 @@ export async function PATCH(request: NextRequest) {
           metadata: { influencer_id: id },
         })
       }
+    }
+
+    // Deactivate all promo codes when suspending
+    if (status === 'suspended') {
+      await supabase
+        .from('promo_codes')
+        .update({ is_active: false })
+        .eq('influencer_id', id)
     }
 
     const { error } = await supabase

@@ -71,11 +71,17 @@ export const emailTemplates = {
       <p style="text-align:center;margin:32px 0;">
         <a href="${BASE_URL}/influencer/login" class="btn">Access Your Dashboard</a>
       </p>
+      <div class="code-box">
+        <p style="font-size:14px;color:#525f7f;margin:0 0 8px;">YOUR FREE ACCESS CODE</p>
+        <p style="font-size:28px;font-weight:700;color:#5C8DB8;margin:0;font-family:monospace;">TRACKSPEED0106</p>
+        <p style="font-size:13px;color:#525f7f;margin:8px 0 0;">Enter this in the app to get free Pro access — no subscription needed.</p>
+      </div>
       <div class="feature-box">
         <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Next steps:</p>
-        <p style="font-size:14px;margin:0 0 8px;"><strong>1.</strong> Log in to your dashboard</p>
-        <p style="font-size:14px;margin:0 0 8px;"><strong>2.</strong> Connect Stripe to receive payouts</p>
-        <p style="font-size:14px;margin:0;"><strong>3.</strong> Share your code with your audience</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>1.</strong> Enter <strong>TRACKSPEED0106</strong> in the app to unlock Pro</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>2.</strong> Log in to your dashboard</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>3.</strong> Connect Stripe to receive payouts</p>
+        <p style="font-size:14px;margin:0;"><strong>4.</strong> Share your code (<strong>${data.code}</strong>) with your audience</p>
       </div>
       <hr>
       <p>Thanks for partnering with us!</p>
