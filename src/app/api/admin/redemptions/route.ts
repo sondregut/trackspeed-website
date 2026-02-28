@@ -9,7 +9,13 @@ export async function GET() {
       promo_codes (
         code,
         type,
-        duration_days
+        duration_days,
+        influencer_id,
+        influencers (
+          id,
+          name,
+          email
+        )
       )
     `)
     .order('redeemed_at', { ascending: false })

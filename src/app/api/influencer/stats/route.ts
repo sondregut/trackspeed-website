@@ -40,6 +40,24 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false })
       .limit(20)
 
+    // Get redemption count for this influencer's promo code
+    const { data: codeData } = await supabase
+      .from('promo_codes')
+      .select('id')
+      .eq('influencer_id', influencerId)
+      .limit(1)
+      .single()
+
+    let codeRedemptions = 0
+    if (codeData) {
+      const { count } = await supabase
+        .from('promo_redemptions')
+        .select('*', { count: 'exact', head: true })
+        .eq('code_id', codeData.id)
+
+      codeRedemptions = count || 0
+    }
+
     // Calculate pending vs transferred earnings
     const pendingEarningsCents = commissions
       ?.filter((c) => c.status === 'pending')
@@ -60,6 +78,7 @@ export async function GET(request: NextRequest) {
         totalSignups: influencer.total_signups,
         totalConversions: influencer.total_conversions,
         totalEarningsCents: influencer.total_earnings_cents,
+        codeRedemptions,
       },
       earnings: {
         totalCents: influencer.total_earnings_cents,

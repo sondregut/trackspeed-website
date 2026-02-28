@@ -15,6 +15,7 @@ interface InfluencerStats {
     totalSignups: number
     totalConversions: number
     totalEarningsCents: number
+    codeRedemptions: number
   }
   earnings: {
     totalCents: number
@@ -222,6 +223,11 @@ export default function InfluencerDashboardPage() {
             <p className="text-xs text-[#9B9A97] mt-1">
               Users get 30-day trial when they use your code
             </p>
+            {stats.influencer.codeRedemptions > 0 && (
+              <p className="text-sm text-[#5C8DB8] mt-2 font-medium">
+                {stats.influencer.codeRedemptions} {stats.influencer.codeRedemptions === 1 ? "person has" : "people have"} used your code
+              </p>
+            )}
           </div>
           <button
             onClick={copyCode}

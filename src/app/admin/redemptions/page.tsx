@@ -9,6 +9,7 @@ export default function RedemptionsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filterCode, setFilterCode] = useState<string>("all");
+  const [filterOwner, setFilterOwner] = useState<string>("all");
 
   useEffect(() => {
     async function fetchRedemptions() {
@@ -32,18 +33,30 @@ export default function RedemptionsPage() {
     const uniqueCodes = new Set(redemptions.map((r) => r.promo_codes?.code).filter(Boolean));
     const uniqueDevices = new Set(redemptions.map((r) => r.device_id));
     const activeRedemptions = redemptions.filter((r) => {
-      if (!r.pro_expires_at) return true; // Forever
+      if (!r.pro_expires_at) return true;
       const expires = new Date(r.pro_expires_at);
-      // Date.distantPast check — trial codes set this to year 0001
       if (expires.getFullYear() < 2000) return false;
       return expires > new Date();
     });
 
     // Per-code breakdown
-    const codeCounts: Record<string, number> = {};
+    const codeCounts: Record<string, { count: number; owner: string | null }> = {};
     for (const r of redemptions) {
       const code = r.promo_codes?.code || "Unknown";
-      codeCounts[code] = (codeCounts[code] || 0) + 1;
+      if (!codeCounts[code]) {
+        codeCounts[code] = {
+          count: 0,
+          owner: r.promo_codes?.influencers?.name || null,
+        };
+      }
+      codeCounts[code].count += 1;
+    }
+
+    // Per-owner breakdown
+    const ownerCounts: Record<string, number> = {};
+    for (const r of redemptions) {
+      const owner = r.promo_codes?.influencers?.name || "Direct";
+      ownerCounts[owner] = (ownerCounts[owner] || 0) + 1;
     }
 
     return {
@@ -52,20 +65,37 @@ export default function RedemptionsPage() {
       uniqueDevices: uniqueDevices.size,
       activeProUsers: activeRedemptions.length,
       codeCounts,
+      ownerCounts,
     };
   }, [redemptions]);
 
   // Filter redemptions
   const filteredRedemptions = useMemo(() => {
-    if (filterCode === "all") return redemptions;
-    return redemptions.filter((r) => r.promo_codes?.code === filterCode);
-  }, [redemptions, filterCode]);
+    let filtered = redemptions;
+    if (filterCode !== "all") {
+      filtered = filtered.filter((r) => r.promo_codes?.code === filterCode);
+    }
+    if (filterOwner !== "all") {
+      if (filterOwner === "Direct") {
+        filtered = filtered.filter((r) => !r.promo_codes?.influencers);
+      } else {
+        filtered = filtered.filter((r) => r.promo_codes?.influencers?.name === filterOwner);
+      }
+    }
+    return filtered;
+  }, [redemptions, filterCode, filterOwner]);
 
-  // Sorted code list for dropdown
+  // Sorted code list for chips
   const codeList = useMemo(() => {
     return Object.entries(stats.codeCounts)
-      .sort((a, b) => b[1] - a[1]);
+      .sort((a, b) => b[1].count - a[1].count);
   }, [stats.codeCounts]);
+
+  // Sorted owner list for chips
+  const ownerList = useMemo(() => {
+    return Object.entries(stats.ownerCounts)
+      .sort((a, b) => b[1] - a[1]);
+  }, [stats.ownerCounts]);
 
   return (
     <div className="p-4 sm:p-6 max-w-6xl mx-auto">
@@ -78,7 +108,7 @@ export default function RedemptionsPage() {
           &larr; Back to Dashboard
         </Link>
         <h1 className="text-2xl font-bold text-white">Redemptions</h1>
-        <p className="text-[#9B9A97] mt-1">Track all promo code usage</p>
+        <p className="text-[#9B9A97] mt-1">Track all promo code usage and ownership</p>
       </div>
 
       {error && (
@@ -113,15 +143,56 @@ export default function RedemptionsPage() {
             </div>
           </div>
 
-          {/* Per-Code Breakdown */}
+          {/* Filter by Code Owner */}
+          {ownerList.length > 1 && (
+            <div className="card-gunmetal rounded-xl p-4 mb-4">
+              <p className="text-sm font-medium text-[#9B9A97] mb-3">Filter by Code Owner</p>
+              <div className="flex flex-wrap gap-2">
+                {ownerList.map(([owner, count]) => (
+                  <button
+                    key={owner}
+                    onClick={() => {
+                      setFilterOwner(filterOwner === owner ? "all" : owner);
+                      setFilterCode("all");
+                    }}
+                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                      filterOwner === owner
+                        ? "bg-[#5C8DB8] text-white"
+                        : "bg-[#2B2E32] text-[#9B9A97] hover:text-white hover:bg-[#3D3D3D]"
+                    }`}
+                  >
+                    <span>{owner}</span>
+                    <span className={`font-medium ${
+                      filterOwner === owner ? "text-white/80" : "text-white"
+                    }`}>
+                      {count}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              {filterOwner !== "all" && (
+                <button
+                  onClick={() => setFilterOwner("all")}
+                  className="mt-3 text-xs text-[#9B9A97] hover:text-white transition-colors"
+                >
+                  Clear filter
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Filter by Code */}
           {codeList.length > 0 && (
             <div className="card-gunmetal rounded-xl p-4 mb-6">
               <p className="text-sm font-medium text-[#9B9A97] mb-3">Redemptions by Code</p>
               <div className="flex flex-wrap gap-2">
-                {codeList.map(([code, count]) => (
+                {codeList.map(([code, { count, owner }]) => (
                   <button
                     key={code}
-                    onClick={() => setFilterCode(filterCode === code ? "all" : code)}
+                    onClick={() => {
+                      setFilterCode(filterCode === code ? "all" : code);
+                      setFilterOwner("all");
+                    }}
                     className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-mono transition-colors ${
                       filterCode === code
                         ? "bg-[#5C8DB8] text-white"
@@ -129,6 +200,9 @@ export default function RedemptionsPage() {
                     }`}
                   >
                     <span>{code}</span>
+                    {owner && (
+                      <span className="font-sans text-xs opacity-60">({owner})</span>
+                    )}
                     <span className={`font-sans font-medium ${
                       filterCode === code ? "text-white/80" : "text-white"
                     }`}>
@@ -151,15 +225,16 @@ export default function RedemptionsPage() {
           {/* Redemption Table */}
           {filteredRedemptions.length === 0 ? (
             <div className="card-gunmetal rounded-xl p-8 text-center">
-              <p className="text-[#9B9A97]">No redemptions{filterCode !== "all" ? ` for ${filterCode}` : " yet"}</p>
+              <p className="text-[#9B9A97]">No redemptions{filterCode !== "all" ? ` for ${filterCode}` : filterOwner !== "all" ? ` from ${filterOwner}` : " yet"}</p>
             </div>
           ) : (
             <div className="card-gunmetal rounded-xl overflow-x-auto">
-              <table className="w-full min-w-[750px]">
+              <table className="w-full min-w-[850px]">
                 <thead>
                   <tr className="border-b border-[#3D3D3D]">
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">User</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Code Owner</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Redeemed By</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Type</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Status</th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">Redeemed</th>
@@ -172,7 +247,8 @@ export default function RedemptionsPage() {
                     const isExpired = expiresAt && !isDistantPast && expiresAt <= new Date();
                     const isForever = !expiresAt;
                     const isActive = isForever || (!isDistantPast && !isExpired);
-                    const isTrial = isDistantPast; // Trial codes set distantPast
+                    const isTrial = isDistantPast;
+                    const influencer = redemption.promo_codes?.influencers;
 
                     return (
                       <tr key={redemption.id} className="border-b border-[#3D3D3D] last:border-0 hover:bg-[#2B2E32]/50">
@@ -180,6 +256,16 @@ export default function RedemptionsPage() {
                           <code className="px-2 py-1 rounded bg-[#2B2E32] text-[#68A1D6] font-mono text-sm">
                             {redemption.promo_codes?.code || "Unknown"}
                           </code>
+                        </td>
+                        <td className="px-4 py-4">
+                          {influencer ? (
+                            <div>
+                              <p className="text-sm text-white">{influencer.name}</p>
+                              <p className="text-xs text-[#9B9A97]">{influencer.email}</p>
+                            </div>
+                          ) : (
+                            <span className="text-sm text-[#9B9A97]">Direct</span>
+                          )}
                         </td>
                         <td className="px-4 py-4">
                           {redemption.user_name || redemption.user_email ? (

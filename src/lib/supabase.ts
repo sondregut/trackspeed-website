@@ -24,7 +24,14 @@ export interface PromoRedemption {
   user_name: string | null
   user_email: string | null
   // Joined fields
-  promo_codes?: PromoCode
+  promo_codes?: PromoCode & {
+    influencer_id: string | null
+    influencers?: {
+      id: string
+      name: string
+      email: string
+    } | null
+  }
 }
 
 // Influencer types
