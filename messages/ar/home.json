@@ -9,6 +9,7 @@
     "subtitle": "قياس سرعة العدو بـ phone فقط",
     "description": "حوّل phone إلى نظام قياس زمني احترافي. بدون معدات إضافية، بدون معايرة، نتائج فورية.",
     "downloadCta": "حمّل من App Store",
+    "downloadAndroid": "متوفر على Google Play",
     "stats": {
       "accuracy": "الدقة",
       "setup": "الإعداد",
@@ -223,6 +224,8 @@
     "accuracy": "دقة ~4ms",
     "setup": "إعداد أقل من دقيقة",
     "noHardware": "بدون معدات إضافية",
+    "downloadIos": "تحميل لنظام iOS",
+    "downloadAndroid": "تحميل لنظام Android",
     "freeNote": "مجاني للتحميل. ميزات بريميوم متاحة."
   }
 }

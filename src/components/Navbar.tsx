@@ -12,6 +12,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import AppleIcon from "@/components/icons/AppleIcon";
+import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -81,6 +82,12 @@ export default function Navbar() {
                 <span className="text-xs font-semibold">{t("appStore")}</span>
               </a>
             </Button>
+            <Button asChild className="bg-black text-white hover:bg-gray-800 rounded-lg px-3 py-1.5 h-auto">
+              <a href="https://play.google.com/store/apps/details?id=com.trackspeed.android">
+                <GooglePlayIcon className="w-4 h-4" />
+                <span className="text-xs font-semibold">{t("googlePlay")}</span>
+              </a>
+            </Button>
           </div>
 
           {/* Mobile menu - Sheet */}
@@ -137,6 +144,16 @@ export default function Navbar() {
                   <div className="flex flex-col leading-tight">
                     <span className="text-[10px] opacity-80">{t("downloadOnThe")}</span>
                     <span className="text-sm font-semibold -mt-0.5">{t("appStore")}</span>
+                  </div>
+                </a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.trackspeed.android"
+                  className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg w-fit mt-1"
+                >
+                  <GooglePlayIcon className="w-5 h-5" />
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-[10px] opacity-80">{t("getItOn")}</span>
+                    <span className="text-sm font-semibold -mt-0.5">{t("googlePlay")}</span>
                   </div>
                 </a>
               </nav>

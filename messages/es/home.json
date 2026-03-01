@@ -9,6 +9,7 @@
     "subtitle": "Cronometraje de sprints solo con tu phone",
     "description": "Convierte tu phone en un sistema de cronometraje profesional. Sin hardware extra, sin calibracion, resultados al instante.",
     "downloadCta": "Descargar en el App Store",
+    "downloadAndroid": "Disponible en Google Play",
     "stats": {
       "accuracy": "Precisión",
       "setup": "Configuración",
@@ -223,6 +224,8 @@
     "accuracy": "Precisión de ~4ms",
     "setup": "Configuración en <1 min",
     "noHardware": "Sin hardware extra",
+    "downloadIos": "Descargar para iOS",
+    "downloadAndroid": "Descargar para Android",
     "freeNote": "Descarga gratis. Funciones premium disponibles."
   }
 }

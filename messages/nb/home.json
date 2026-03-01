@@ -9,6 +9,7 @@
     "subtitle": "Sprinttidtaking med bare din phone",
     "description": "Gjør phonen din om til et profesjonelt tidtakingssystem. Ingen ekstra maskinvare, ingen kalibrering, umiddelbare resultater.",
     "downloadCta": "Last ned fra App Store",
+    "downloadAndroid": "Hent den på Google Play",
     "stats": {
       "accuracy": "Nøyaktighet",
       "setup": "Oppsett",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms nøyaktighet",
     "setup": "<1 min oppsett",
     "noHardware": "Ingen ekstra maskinvare",
+    "downloadIos": "Last ned for iOS",
+    "downloadAndroid": "Last ned for Android",
     "freeNote": "Gratis å laste ned. Premium-funksjoner tilgjengelig."
   }
 }

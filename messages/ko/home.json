@@ -9,6 +9,7 @@
     "subtitle": "phone만으로 단거리 타이밍 측정",
     "description": "phone을 전문 타이밍 시스템으로 변환하세요. 추가 하드웨어 없이, 보정 없이, 즉각적인 결과.",
     "downloadCta": "App Store에서 다운로드",
+    "downloadAndroid": "Google Play에서 다운로드",
     "stats": {
       "accuracy": "정확도",
       "setup": "설정",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms 정확도",
     "setup": "1분 미만 설정",
     "noHardware": "추가 하드웨어 불필요",
+    "downloadIos": "iOS용 다운로드",
+    "downloadAndroid": "Android용 다운로드",
     "freeNote": "무료 다운로드. 프리미엄 기능 이용 가능."
   }
 }

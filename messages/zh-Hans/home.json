@@ -9,6 +9,7 @@
     "subtitle": "仅用phone即可进行短跑计时",
     "description": "将phone变成专业计时系统。无需额外硬件，无需校准，即时显示结果。",
     "downloadCta": "在App Store下载",
+    "downloadAndroid": "在Google Play下载",
     "stats": {
       "accuracy": "精度",
       "setup": "设置",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms精度",
     "setup": "不到1分钟设置",
     "noHardware": "无需额外硬件",
+    "downloadIos": "下载iOS版",
+    "downloadAndroid": "下载Android版",
     "freeNote": "免费下载。提供高级功能。"
   }
 }

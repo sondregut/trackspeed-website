@@ -9,6 +9,7 @@
     "subtitle": "Sadece phone'unla sprint zamanlama",
     "description": "phone'unu profesyonel bir zamanlama sistemine dönüştür. Ekstra donanım yok, kalibrasyon yok, anında sonuç.",
     "downloadCta": "App Store'dan indir",
+    "downloadAndroid": "Google Play'den edinin",
     "stats": {
       "accuracy": "Doğruluk",
       "setup": "Kurulum",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms doğruluk",
     "setup": "<1 dk kurulum",
     "noHardware": "Ekstra donanım yok",
+    "downloadIos": "iOS için indir",
+    "downloadAndroid": "Android için indir",
     "freeNote": "İndirmesi ücretsiz. Premium özellikler mevcut."
   }
 }

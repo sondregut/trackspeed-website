@@ -9,6 +9,7 @@
     "subtitle": "Sprintzeitmessung nur mit deinem phone",
     "description": "Verwandle dein phone in ein professionelles Zeitmesssystem. Keine zusätzliche Hardware, keine Kalibrierung, sofortige Ergebnisse.",
     "downloadCta": "Im App Store laden",
+    "downloadAndroid": "Jetzt bei Google Play",
     "stats": {
       "accuracy": "Genauigkeit",
       "setup": "Einrichtung",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms Genauigkeit",
     "setup": "<1 Min Einrichtung",
     "noHardware": "Keine zusätzliche Hardware",
+    "downloadIos": "Für iOS herunterladen",
+    "downloadAndroid": "Für Android herunterladen",
     "freeNote": "Kostenlos herunterladen. Premium-Funktionen verfügbar."
   }
 }

@@ -9,6 +9,7 @@
     "subtitle": "Chronomètre tes sprints avec ton phone",
     "description": "Transforme ton phone en système de chronométrage professionnel. Pas de matériel supplémentaire, pas de calibration, résultats instantanés.",
     "downloadCta": "Télécharger sur l'App Store",
+    "downloadAndroid": "Télécharger sur Google Play",
     "stats": {
       "accuracy": "Précision",
       "setup": "Installation",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms de précision",
     "setup": "<1 min d'installation",
     "noHardware": "Aucun matériel supplémentaire",
+    "downloadIos": "Télécharger pour iOS",
+    "downloadAndroid": "Télécharger pour Android",
     "freeNote": "Gratuit au téléchargement. Fonctionnalités premium disponibles."
   }
 }

@@ -9,6 +9,7 @@
     "subtitle": "Sprint timing with just your phone",
     "description": "Turn your phone into a professional timing system. No extra hardware, no calibration, instant results.",
     "downloadCta": "Download on the App Store",
+    "downloadAndroid": "Get it on Google Play",
     "stats": {
       "accuracy": "Accuracy",
       "setup": "Setup",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms accuracy",
     "setup": "<1 min setup",
     "noHardware": "No extra hardware",
+    "downloadIos": "Download for iOS",
+    "downloadAndroid": "Get it on Android",
     "freeNote": "Free to download. Premium features available."
   }
 }

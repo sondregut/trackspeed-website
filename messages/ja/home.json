@@ -9,6 +9,7 @@
     "subtitle": "phoneだけでスプリントタイミング",
     "description": "phoneをプロフェッショナルなタイミングシステムに。追加ハードウェア不要、キャリブレーション不要、即座に結果を表示。",
     "downloadCta": "App Storeでダウンロード",
+    "downloadAndroid": "Google Playで入手",
     "stats": {
       "accuracy": "精度",
       "setup": "セットアップ",
@@ -223,6 +224,8 @@
     "accuracy": "~4ms精度",
     "setup": "1分未満のセットアップ",
     "noHardware": "追加ハードウェア不要",
+    "downloadIos": "iOSでダウンロード",
+    "downloadAndroid": "Androidでダウンロード",
     "freeNote": "無料でダウンロード。プレミアム機能もご利用いただけます。"
   }
 }

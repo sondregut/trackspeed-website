@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
 import AppleIcon from "@/components/icons/AppleIcon";
+import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
 import { useInView, useSpring, useMotionValue } from "framer-motion";
 
 function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
@@ -83,6 +84,12 @@ export default function Hero() {
                   <a href="https://apps.apple.com/app/trackspeed">
                     <AppleIcon />
                     {t("hero.downloadCta")}
+                  </a>
+                </Button>
+                <Button asChild size="lg" className="bg-black text-white hover:bg-[#1a1a1a] rounded-[10px] px-5 py-3 h-auto text-base font-medium">
+                  <a href="https://play.google.com/store/apps/details?id=com.trackspeed.android">
+                    <GooglePlayIcon />
+                    {t("hero.downloadAndroid")}
                   </a>
                 </Button>
               </div>
