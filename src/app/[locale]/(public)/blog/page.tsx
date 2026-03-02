@@ -9,8 +9,29 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
   setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'blog'});
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Sprint Timing Tips & Guides",
+    description: "Guides, comparisons, and training tips for sprint timing.",
+    url: "https://mytrackspeed.com/blog",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: blogPosts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://mytrackspeed.com/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
+
   return (
     <div className="bg-hero min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       {/* Hero */}
       <section className="pt-32 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">

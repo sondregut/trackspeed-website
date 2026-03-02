@@ -23,6 +23,7 @@
       "bio2": "Full-stack co-developer of TrackSpeed \u2014 contributes across the entire codebase, from architecture decisions and code reviews to feature development. Princeton B.E. in Operations Research and Financial Engineering, Duke M.S. in Economics and Computation."
     }
   },
+  "teamHeading": "Our Team",
   "teamNote": "Built by athletes, for athletes.",
   "cta": {
     "title": "Ready to time your training?",
@@ -31,7 +32,7 @@
     "learnMore": "Learn how our timing technology works"
   },
   "metadata": {
-    "title": "About \u2014 TrackSpeed",
+    "title": "About TrackSpeed \u2014 Athletes Building Sprint Timing",
     "description": "Meet the athletes behind TrackSpeed. Active competitive athletes building precision sprint timing for every athlete."
   }
 }

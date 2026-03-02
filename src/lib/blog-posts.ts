@@ -6,6 +6,7 @@ export interface BlogPost {
   lastModified: string;
   category: string;
   readTime: string;
+  relatedSlugs?: string[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -18,6 +19,7 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-17",
     category: "Comparisons",
     readTime: "8 min read",
+    relatedSlugs: ["sprint-timing-systems-compared", "how-to-time-a-40-yard-dash"],
   },
   {
     slug: "how-to-time-a-40-yard-dash",
@@ -28,6 +30,7 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-10",
     category: "Guides",
     readTime: "5 min read",
+    relatedSlugs: ["multi-phone-sprint-timing-setup", "improve-sprint-speed-training"],
   },
   {
     slug: "sprint-timing-systems-compared",
@@ -38,6 +41,7 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-08",
     category: "Comparisons",
     readTime: "7 min read",
+    relatedSlugs: ["sprint-timing-gates-buyers-guide", "what-is-photo-finish-timing"],
   },
   {
     slug: "multi-phone-sprint-timing-setup",
@@ -48,6 +52,7 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-05",
     category: "Guides",
     readTime: "4 min read",
+    relatedSlugs: ["how-to-time-a-40-yard-dash", "improve-sprint-speed-training"],
   },
   {
     slug: "improve-sprint-speed-training",
@@ -58,6 +63,7 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-03",
     category: "Training",
     readTime: "5 min read",
+    relatedSlugs: ["how-to-time-a-40-yard-dash", "multi-phone-sprint-timing-setup"],
   },
   {
     slug: "what-is-photo-finish-timing",
@@ -68,5 +74,6 @@ export const blogPosts: BlogPost[] = [
     lastModified: "2026-02-01",
     category: "Technology",
     readTime: "5 min read",
+    relatedSlugs: ["sprint-timing-systems-compared", "sprint-timing-gates-buyers-guide"],
   },
 ];

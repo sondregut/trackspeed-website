@@ -23,6 +23,7 @@
       "bio2": "Fullstack-medutvikler av TrackSpeed – bidrar på tvers av hele kodebasen, fra arkitekturbeslutninger og kodegjennomganger til funksjonsutvikling. Princeton B.E. i Operations Research and Financial Engineering, Duke M.S. i Economics and Computation."
     }
   },
+  "teamHeading": "Vart team",
   "teamNote": "Bygget av utøvere, for utøvere.",
   "cta": {
     "title": "Klar for å ta tiden på treningen?",
@@ -31,7 +32,7 @@
     "learnMore": "Lær hvordan tidtakingsteknologien vår fungerer"
   },
   "metadata": {
-    "title": "Om oss — TrackSpeed",
+    "title": "Om TrackSpeed — Utovere som bygger sprinttidtaking",
     "description": "Møt utøverne bak TrackSpeed. Aktive konkurranseutøvere som bygger presis sprinttidtaking for alle utøvere."
   }
 }

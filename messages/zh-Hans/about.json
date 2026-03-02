@@ -23,6 +23,7 @@
       "bio2": "TrackSpeed的全栈联合开发者——从架构决策和代码审查到功能开发，贡献覆盖整个代码库。普林斯顿大学运筹学与金融工程学士，杜克大学经济学与计算科学硕士。"
     }
   },
+  "teamHeading": "我们的团队",
   "teamNote": "由运动员打造，为运动员服务。",
   "cta": {
     "title": "准备好计时训练了吗？",
@@ -31,7 +32,7 @@
     "learnMore": "了解我们的计时技术原理"
   },
   "metadata": {
-    "title": "关于 — TrackSpeed",
+    "title": "关于TrackSpeed — 运动员打造的短跑计时",
     "description": "认识TrackSpeed背后的运动员。活跃的竞技运动员为每一位运动员打造精准短跑计时。"
   }
 }

@@ -1,6 +1,7 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
 import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
+import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -989,6 +990,8 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
               </Link>
             </div>
           </section>
+
+          <RelatedPosts currentSlug="sprint-timing-systems-compared" t={(key) => t(key)} tHas={(key) => t.has(key)} locale={locale} />
         </div>
       </article>
     </div>

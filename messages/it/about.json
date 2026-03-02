@@ -23,6 +23,7 @@
       "bio2": "Co-sviluppatore full-stack di TrackSpeed \u2014 contribuisce a tutta la codebase, dalle decisioni architetturali e revisioni del codice allo sviluppo delle funzionalita. Laurea in Ingegneria a Princeton in Ricerca Operativa e Ingegneria Finanziaria, Master in Economia e Computazione a Duke."
     }
   },
+  "teamHeading": "Il nostro team",
   "teamNote": "Fatto da atleti, per atleti.",
   "cta": {
     "title": "Pronto a cronometrare il tuo allenamento?",
@@ -31,7 +32,7 @@
     "learnMore": "Scopri come funziona la nostra tecnologia di cronometraggio"
   },
   "metadata": {
-    "title": "Chi siamo \u2014 TrackSpeed",
+    "title": "Informazioni su TrackSpeed \u2014 Atleti che costruiscono cronometraggio sprint",
     "description": "Conosci gli atleti dietro TrackSpeed. Atleti agonisti attivi che costruiscono cronometraggio di precisione per ogni atleta."
   }
 }

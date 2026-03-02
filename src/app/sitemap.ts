@@ -91,7 +91,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${prefix}${path}`,
         lastModified: page.lastModified,
         changeFrequency: page.changeFrequency,
-        priority: (page.priority ?? 0.5) * 0.9, // slightly lower priority for non-English
+        priority: Math.round((page.priority ?? 0.5) * 0.9 * 100) / 100,
+        alternates: localeAlternates(path),
       });
     }
     for (const entry of blogEntries) {
@@ -100,7 +101,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${prefix}${path}`,
         lastModified: entry.lastModified,
         changeFrequency: entry.changeFrequency,
-        priority: (entry.priority ?? 0.5) * 0.9,
+        priority: Math.round((entry.priority ?? 0.5) * 0.9 * 100) / 100,
+        alternates: localeAlternates(path),
       });
     }
   }

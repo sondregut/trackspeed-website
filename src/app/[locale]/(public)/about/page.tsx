@@ -74,6 +74,9 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
       {/* Team */}
       <section className="pb-20 px-6">
         <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: "var(--text-primary)" }}>
+            {t('teamHeading')}
+          </h2>
           <div className="grid sm:grid-cols-3 gap-8">
             {/* Sondre */}
             <div className="card-feature p-6 md:p-8">
