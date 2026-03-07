@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Tienda - Equipo TrackSpeed",
+    "description": "Consigue el equipo que necesitas para cronometrar sprints con precisión. Trípodes, soportes y merchandising de TrackSpeed."
+  },
+  "hero": {
+    "title": "Tienda TrackSpeed",
+    "subtitle": "Todo lo que necesitas para un cronometraje de sprint preciso. Soportes estables, equipo de calidad y merchandising."
+  },
+  "products": {
+    "tripod": {
+      "name": "Trípode para phone",
+      "description": "Soporte estable para cronometraje de sprint preciso. Ajuste universal, ligero y fácil de instalar.",
+      "price": "29.99",
+      "longDescription": "El Trípode TrackSpeed está diseñado específicamente para cronometraje de sprints. Su pinza universal se adapta a cualquier teléfono, y las patas ajustables proporcionan estabilidad en cualquier superficie. Lo suficientemente ligero para tu bolsa y listo en segundos.",
+      "features": "Pinza universal,Altura y ángulo ajustables,Construcción aluminio ligero,Pies antideslizantes,Montaje rápido"
+    },
+    "tripodPro": {
+      "name": "Trípode Pro para phone",
+      "description": "Trípode premium con control remoto Bluetooth y amplia compatibilidad. Estabilidad extra en condiciones de viento.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "Camiseta TrackSpeed",
+      "description": "Representa la marca dentro y fuera de la pista. Mezcla de algodón suave, corte atlético.",
+      "price": "24.99",
+      "longDescription": "Muestra tu pasión por el cronometraje con la camiseta oficial TrackSpeed. Fabricada con una mezcla premium de algodón y poliéster para máximo confort. El corte atlético queda perfecto en la pista y fuera de ella.",
+      "features": "60% algodón / 40% poliéster,Corte atlético,Logo TrackSpeed serigrafiado,Lavable a máquina,Disponible en varias tallas"
+    },
+    "bundle": {
+      "name": "Bundle Trípode + Camiseta",
+      "description": "Llévate ambos y ahorra. Trípode para cronometraje preciso más la camiseta TrackSpeed.",
+      "price": "49.99",
+      "longDescription": "El pack perfecto para cualquier usuario de TrackSpeed. El trípode para un cronometraje estable y preciso junto con la camiseta TrackSpeed — todo a precio reducido.",
+      "features": "Trípode incluido,Camiseta TrackSpeed incluida,Ahorra vs compra individual,Todo lo que necesitas para empezar"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (De por vida)",
+      "badge": "Digital",
+      "description": "Desbloquea todas las funciones Pro para siempre con una sola compra. Sin suscripciones, sin renovaciones.",
+      "longDescription": "Obtén acceso permanente a todas las funciones de TrackSpeed Pro con un solo pago. La sincronización multidispositivo te permite usar dos teléfonos como puertas de salida y llegada simultáneamente. Captura a hasta 120fps para las imágenes más nítidas en el explorador de fotogramas y mantén un historial de sesiones ilimitado para seguir tu progreso durante meses y años. Las futuras funciones Pro están incluidas — compra una vez, benefíciate para siempre.",
+      "features": "Sincronización multidispositivo,Captura a 120fps,Explorador de fotogramas,Historial ilimitado",
+      "price": "139.00",
+      "priceLabel": "pago único"
+    }
+  },
+  "cart": {
+    "title": "Tu carrito",
+    "empty": "Tu carrito está vacío",
+    "addToCart": "Añadir al carrito",
+    "getInApp": "Obtener en la app",
+    "added": "Añadido",
+    "remove": "Eliminar",
+    "subtotal": "Subtotal",
+    "checkout": "Finalizar compra",
+    "comingSoon": "Próximamente",
+    "itemCount": "{count, plural, =0 {Sin artículos} =1 {1 artículo} other {# artículos}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Volver a la tienda",
+    "features": "Qué incluye"
+  }
+}

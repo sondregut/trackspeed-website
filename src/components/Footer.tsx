@@ -113,6 +113,12 @@ export default function Footer() {
                   {t("nav.technology")}
                 </Link>
               </li>
+              {/* TODO: Unhide when shop is ready */}
+              {/* <li>
+                <Link href="/shop" className="text-muted transition-colors hover:opacity-70">
+                  {t("nav.shop")}
+                </Link>
+              </li> */}
               <li>
                 <a
                   href="https://apps.apple.com/app/trackspeed"

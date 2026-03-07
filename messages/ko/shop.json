@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "스토어 - TrackSpeed 장비",
+    "description": "정확한 스프린트 타이밍에 필요한 장비를 만나보세요. 삼각대, 거치대, TrackSpeed 굿즈."
+  },
+  "hero": {
+    "title": "TrackSpeed 스토어",
+    "subtitle": "정확한 스프린트 타이밍에 필요한 모든 것. 안정적인 거치대, 고품질 장비, 브랜드 굿즈."
+  },
+  "products": {
+    "tripod": {
+      "name": "폰 삼각대",
+      "description": "정확한 스프린트 타이밍을 위한 안정적인 폰 거치대. 범용 호환, 가벼운 무게, 간편한 설치.",
+      "price": "29.99",
+      "longDescription": "TrackSpeed 폰 삼각대는 스프린트 타이밍을 위해 특별히 설계되었습니다. 범용 클램프로 모든 스마트폰에 호환되며, 조절 가능한 다리로 어떤 표면에서도 안정적입니다. 가방에 넣을 수 있을 만큼 가볍고 몇 초 만에 설치 가능합니다.",
+      "features": "범용 폰 클램프,높이 및 각도 조절 가능,경량 알루미늄 구조,미끄럼 방지 고무 발,퀵릴리스 마운트"
+    },
+    "tripodPro": {
+      "name": "폰 삼각대 Pro",
+      "description": "블루투스 리모컨과 넓은 호환성을 갖춘 프리미엄 삼각대. 바람이 부는 환경에서도 안정적.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed 티셔츠",
+      "description": "트랙 안팎에서 브랜드를 대표하세요. 부드러운 면 혼방, 운동용 핏.",
+      "price": "24.99",
+      "longDescription": "TrackSpeed 공식 티셔츠로 스프린트 타이밍에 대한 열정을 보여주세요. 프리미엄 면-폴리에스터 혼방 소재로 편안함을 제공합니다. 운동용 핏으로 트랙에서도 일상에서도 멋스럽습니다.",
+      "features": "60% 면 / 40% 폴리에스터,운동용 핏,TrackSpeed 로고 스크린 프린트,기계 세탁 가능,다양한 사이즈"
+    },
+    "bundle": {
+      "name": "삼각대 + 티셔츠 번들",
+      "description": "함께 구매하고 절약하세요. 정확한 타이밍 측정용 삼각대와 TrackSpeed 티셔츠.",
+      "price": "49.99",
+      "longDescription": "TrackSpeed 사용자를 위한 완벽한 스타터 팩. 안정적이고 정확한 타이밍 측정을 위한 삼각대와 TrackSpeed 티셔츠를 세트로 할인된 가격에 만나보세요.",
+      "features": "폰 삼각대 포함,TrackSpeed 티셔츠 포함,개별 구매보다 절약,시작에 필요한 모든 것"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (평생)",
+      "badge": "디지털",
+      "description": "한 번의 구매로 모든 Pro 기능을 영구적으로 잠금 해제하세요. 구독 없음, 갱신 없음.",
+      "longDescription": "한 번의 결제로 모든 TrackSpeed Pro 기능에 영구적으로 접근하세요. 멀티 디바이스 동기화를 통해 두 대의 폰을 출발 게이트와 도착 게이트로 동시에 사용할 수 있습니다. 최대 120fps로 캡처하여 가장 선명한 프레임 스크러버 이미지를 얻고, 무제한 세션 기록을 보관하여 수개월, 수년간의 발전을 추적하세요. 향후 Pro 기능도 포함됩니다 — 한 번 구매하고 영원히 혜택을 누리세요.",
+      "features": "멀티 디바이스 동기화,120fps 캡처,프레임 스크러버,무제한 기록",
+      "price": "139.00",
+      "priceLabel": "일회성 결제"
+    }
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다",
+    "addToCart": "장바구니에 추가",
+    "getInApp": "앱에서 받기",
+    "added": "추가됨",
+    "remove": "삭제",
+    "subtotal": "소계",
+    "checkout": "결제",
+    "comingSoon": "곧 출시",
+    "itemCount": "{count, plural, =0 {상품 없음} other {#개 상품}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "스토어로 돌아가기",
+    "features": "포함 항목"
+  }
+}

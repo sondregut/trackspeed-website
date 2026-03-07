@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface EmailCampaign {
   id: string;
@@ -67,6 +67,21 @@ function PreviewModal({
   templateKey: string;
   onClose: () => void;
 }) {
+  const [html, setHtml] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setHtml(null);
+    setError(null);
+    fetch(`/api/admin/emails/preview?template=${templateKey}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load preview (${res.status})`);
+        return res.text();
+      })
+      .then(setHtml)
+      .catch((err) => setError(err.message));
+  }, [templateKey]);
+
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
       <div className="bg-[#2B2E32] rounded-xl border border-[#3D3D3D] w-full max-w-3xl max-h-[90vh] flex flex-col">
@@ -84,11 +99,22 @@ function PreviewModal({
           </button>
         </div>
         <div className="flex-1 overflow-auto bg-[#f6f9fc]">
-          <iframe
-            src={`/api/admin/emails/preview?template=${templateKey}`}
-            className="w-full h-full min-h-[600px]"
-            title="Email Preview"
-          />
+          {error ? (
+            <div className="flex items-center justify-center h-full min-h-[600px] text-red-400 text-sm">
+              {error}
+            </div>
+          ) : html === null ? (
+            <div className="flex items-center justify-center h-full min-h-[600px] text-[#9B9A97] text-sm">
+              Loading preview...
+            </div>
+          ) : (
+            <iframe
+              srcDoc={html}
+              className="w-full h-full min-h-[600px]"
+              title="Email Preview"
+              sandbox="allow-same-origin"
+            />
+          )}
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ export default getRequestConfig(async ({requestLocale}) => {
     legal: (await import(`../../messages/${locale}/legal.json`)).default,
     feedback: (await import(`../../messages/${locale}/feedback.json`)).default,
     pitch: (await import(`../../messages/${locale}/pitch.json`)).default,
+    shop: (await import(`../../messages/${locale}/shop.json`)).default,
   };
 
   return {

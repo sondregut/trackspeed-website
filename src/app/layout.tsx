@@ -133,6 +133,13 @@ export default function RootLayout({
                   name: "TrackSpeed Pro (Monthly)",
                   priceValidUntil: "2027-12-31",
                 },
+                {
+                  "@type": "Offer",
+                  price: "139.00",
+                  priceCurrency: "USD",
+                  name: "TrackSpeed Pro (Lifetime)",
+                  priceValidUntil: "2027-12-31",
+                },
               ],
             }),
           }}

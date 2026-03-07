@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Shop - TrackSpeed Ausrüstung",
+    "description": "Hol dir die Ausrüstung für präzise Sprintzeitmessung. Stative, Halterungen und TrackSpeed-Merch."
+  },
+  "hero": {
+    "title": "TrackSpeed Shop",
+    "subtitle": "Alles, was du für präzise Sprintzeitmessung brauchst. Stabile Halterungen, hochwertige Ausrüstung und Merch."
+  },
+  "products": {
+    "tripod": {
+      "name": "Phone-Stativ",
+      "description": "Stabiles phone-Stativ für präzise Sprintzeitmessung. Universell passend, leicht und einfach aufzustellen.",
+      "longDescription": "Das TrackSpeed Phone-Stativ wurde speziell für Sprintzeitmessung entwickelt. Die universelle Klemme passt auf jedes Smartphone, und die verstellbaren Beine bieten felsenfeste Stabilität auf jeder Oberfläche — Rasen, Tartanbahn oder Beton. Leicht genug für die Tasche und in Sekunden aufgebaut.",
+      "features": "Universelle Smartphone-Klemme,Verstellbare Höhe & Winkel,Leichte Aluminium-Bauweise,Rutschfeste Gummifüße,Schnellverschluss-Halterung",
+      "price": "29.99"
+    },
+    "tripodPro": {
+      "name": "Phone-Stativ Pro",
+      "description": "Premium-Stativ mit Bluetooth-Fernbedienung und breiter Gerätekompatibilität. Extra Stabilität bei Wind.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed T-Shirt",
+      "description": "Zeig die Marke auf und neben der Bahn. Weiche Baumwollmischung, sportlicher Schnitt.",
+      "longDescription": "Zeig deine Liebe zur Sprintzeitmessung mit dem offiziellen TrackSpeed T-Shirt. Aus einer Premium-Baumwoll-Polyester-Mischung, die dich beim Aufwärmen und Abkühlen komfortabel hält. Der sportliche Schnitt sieht auf der Bahn und beim Kaffee danach gleich gut aus.",
+      "features": "60% Baumwolle / 40% Polyester,Sportlicher Schnitt,Siebdruck TrackSpeed-Logo,Maschinenwaschbar,In mehreren Größen verfügbar",
+      "price": "24.99"
+    },
+    "bundle": {
+      "name": "Stativ + T-Shirt Bundle",
+      "description": "Beides zusammen und sparen. Phone-Stativ für präzise Zeitmessung plus das TrackSpeed T-Shirt.",
+      "longDescription": "Das perfekte Starterset für jeden TrackSpeed-Nutzer. Hol dir das Phone-Stativ für stabile, präzise Sprintzeitmessung und das TrackSpeed T-Shirt — zusammen zum Vorteilspreis. Spare im Vergleich zum Einzelkauf.",
+      "features": "Phone-Stativ inklusive,TrackSpeed T-Shirt inklusive,Spare gegenüber Einzelkauf,Alles was du zum Starten brauchst",
+      "price": "49.99"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (Lifetime)",
+      "badge": "Digital",
+      "description": "Schalte alle Pro-Funktionen für immer mit einem einzigen Kauf frei. Kein Abo, keine Verlängerungen.",
+      "longDescription": "Erhalte dauerhaften Zugang zu allen TrackSpeed Pro-Funktionen mit einer einmaligen Zahlung. Multi-Geräte-Synchronisation ermöglicht dir, zwei Telefone gleichzeitig als Start- und Zieltor zu nutzen. Nimm mit bis zu 120fps auf für die schärfsten Frame-Scrubber-Bilder und behalte unbegrenzten Sitzungsverlauf, um deinen Fortschritt über Monate und Jahre zu verfolgen. Zukünftige Pro-Funktionen sind enthalten — einmal kaufen, für immer profitieren.",
+      "features": "Multi-Geräte-Synchronisation,120fps-Aufnahme,Frame-Scrubber,Unbegrenzter Verlauf",
+      "price": "139.00",
+      "priceLabel": "Einmalzahlung"
+    }
+  },
+  "cart": {
+    "title": "Dein Warenkorb",
+    "empty": "Dein Warenkorb ist leer",
+    "addToCart": "In den Warenkorb",
+    "getInApp": "In der App holen",
+    "added": "Hinzugefügt",
+    "remove": "Entfernen",
+    "subtotal": "Zwischensumme",
+    "checkout": "Zur Kasse",
+    "comingSoon": "Demnächst",
+    "itemCount": "{count, plural, =0 {Keine Artikel} =1 {1 Artikel} other {# Artikel}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Zurück zum Shop",
+    "features": "Was enthalten ist"
+  }
+}

@@ -71,6 +71,10 @@ export default function Navbar() {
             <Link href="/about" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               {t("about")}
             </Link>
+            {/* TODO: Unhide when shop is ready */}
+            {/* <Link href="/shop" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+              {t("shop")}
+            </Link> */}
           </div>
 
           {/* Language switcher + App Store button */}
@@ -133,6 +137,12 @@ export default function Navbar() {
                     {t("about")}
                   </Link>
                 </SheetClose>
+                {/* TODO: Unhide when shop is ready */}
+                {/* <SheetClose asChild>
+                  <Link href="/shop" className="text-sm font-bold text-muted">
+                    {t("shop")}
+                  </Link>
+                </SheetClose> */}
                 <div className="mt-2">
                   <LanguageSwitcher />
                 </div>

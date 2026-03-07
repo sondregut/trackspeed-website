@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Butikk - TrackSpeed-utstyr",
+    "description": "Skaff deg utstyret du trenger for nøyaktig sprinttidtaking. Stativer, fester og TrackSpeed-merch."
+  },
+  "hero": {
+    "title": "TrackSpeed Butikk",
+    "subtitle": "Alt du trenger for nøyaktig sprinttidtaking. Stabile fester, kvalitetsutstyr og merch."
+  },
+  "products": {
+    "tripod": {
+      "name": "Telefonstativ",
+      "description": "Stabilt telefonfeste for nøyaktig sprinttidtaking. Universell passform, lett og enkelt å sette opp.",
+      "price": "29.99",
+      "longDescription": "TrackSpeed telefonstativet er designet spesielt for sprinttidtaking. Den universelle klemmen passer alle telefoner, og de justerbare bena gir stabil støtte på alle overflater. Lett nok til å ha i bagen og klart på sekunder.",
+      "features": "Universell telefonklemme,Justerbar høyde og vinkel,Lett aluminiumskonstruksjon,Sklisikre gummiføtter,Hurtigutløserfeste"
+    },
+    "tripodPro": {
+      "name": "Telefonstativ Pro",
+      "description": "Premiumstativ med Bluetooth-fjernkontroll og bred enhetskompatibilitet. Ekstra stabilitet i vind.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed T-skjorte",
+      "description": "Vis frem merket på og utenfor banen. Myk bomullsblanding, atletisk passform.",
+      "price": "24.99",
+      "longDescription": "Vis din lidenskap for sprinttidtaking med den offisielle TrackSpeed T-skjorten. Laget av en premium bomull-polyester-blanding for optimal komfort. Den atletiske passformen ser bra ut på banen og utenfor.",
+      "features": "60% bomull / 40% polyester,Atletisk passform,Silketrykket TrackSpeed-logo,Maskinvaskbar,Tilgjengelig i flere størrelser"
+    },
+    "bundle": {
+      "name": "Stativ + T-skjorte Bundle",
+      "description": "Kjøp begge og spar. Telefonstativ for nøyaktig tidtaking pluss TrackSpeed T-skjorten.",
+      "price": "49.99",
+      "longDescription": "Den perfekte startpakken for alle TrackSpeed-brukere. Telefonstativ for stabil og nøyaktig tidtaking og TrackSpeed T-skjorten — samlet til en rabattert pris.",
+      "features": "Telefonstativ inkludert,TrackSpeed T-skjorte inkludert,Spar vs enkeltvis kjøp,Alt du trenger for å komme i gang"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (Lifetime)",
+      "badge": "Digitalt",
+      "description": "Lås opp alle Pro-funksjoner for alltid med et enkelt kjøp. Ingen abonnement, ingen fornyelser.",
+      "longDescription": "Få permanent tilgang til alle TrackSpeed Pro-funksjoner med én betaling. Multi-enhet-synkronisering lar deg bruke to telefoner som start- og målport samtidig. Ta opp med opptil 120fps for de skarpeste bildene i frame-scrubber, og behold ubegrenset økthistorikk for å følge fremgangen din over måneder og år. Fremtidige Pro-funksjoner er inkludert — kjøp én gang, nyt fordelene for alltid.",
+      "features": "Multi-enhet-synkronisering,120fps-opptak,Frame-scrubber,Ubegrenset historikk",
+      "price": "139.00",
+      "priceLabel": "engangsbetaling"
+    }
+  },
+  "cart": {
+    "title": "Din handlekurv",
+    "empty": "Handlekurven din er tom",
+    "addToCart": "Legg i handlekurv",
+    "getInApp": "Hent i appen",
+    "added": "Lagt til",
+    "remove": "Fjern",
+    "subtotal": "Delsum",
+    "checkout": "Til kassen",
+    "comingSoon": "Kommer snart",
+    "itemCount": "{count, plural, =0 {Ingen varer} =1 {1 vare} other {# varer}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Tilbake til butikken",
+    "features": "Hva som er inkludert"
+  }
+}

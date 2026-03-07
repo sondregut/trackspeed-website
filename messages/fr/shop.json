@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Boutique - Équipement TrackSpeed",
+    "description": "Obtenez l'équipement nécessaire pour un chronométrage de sprint précis. Trépieds, supports et produits TrackSpeed."
+  },
+  "hero": {
+    "title": "Boutique TrackSpeed",
+    "subtitle": "Tout ce qu'il vous faut pour un chronométrage de sprint précis. Supports stables, équipement de qualité et produits dérivés."
+  },
+  "products": {
+    "tripod": {
+      "name": "Trépied pour phone",
+      "description": "Support stable pour un chronométrage de sprint précis. Compatible avec tous les phones, léger et facile à installer.",
+      "price": "29.99",
+      "longDescription": "Le Trépied TrackSpeed est conçu spécifiquement pour le chronométrage de sprint. Sa pince universelle convient à tous les téléphones, et les pieds réglables offrent une stabilité optimale sur toute surface. Assez léger pour votre sac et prêt en quelques secondes.",
+      "features": "Pince universelle,Hauteur et angle réglables,Construction aluminium légère,Pieds antidérapants,Montage rapide"
+    },
+    "tripodPro": {
+      "name": "Trépied Pro pour phone",
+      "description": "Trépied premium avec télécommande Bluetooth et large compatibilité. Stabilité renforcée par temps venteux.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "T-Shirt TrackSpeed",
+      "description": "Portez la marque sur la piste et en dehors. Mélange coton doux, coupe athlétique.",
+      "price": "24.99",
+      "longDescription": "Montrez votre passion pour le chronométrage avec le T-Shirt officiel TrackSpeed. Fabriqué dans un mélange coton-polyester premium pour un confort optimal. La coupe athlétique est parfaite sur la piste comme en ville.",
+      "features": "60% coton / 40% polyester,Coupe athlétique,Logo TrackSpeed sérigraphié,Lavable en machine,Disponible en plusieurs tailles"
+    },
+    "bundle": {
+      "name": "Bundle Trépied + T-Shirt",
+      "description": "Achetez les deux et économisez. Trépied pour un chronométrage précis plus le T-Shirt TrackSpeed.",
+      "price": "49.99",
+      "longDescription": "Le pack parfait pour tout utilisateur TrackSpeed. Le trépied pour un chronométrage stable et précis et le T-Shirt TrackSpeed — le tout à prix réduit. Économisez par rapport à l'achat séparé.",
+      "features": "Trépied inclus,T-Shirt TrackSpeed inclus,Économisez vs achat séparé,Tout pour démarrer"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (Lifetime)",
+      "badge": "Numérique",
+      "description": "Débloquez toutes les fonctionnalités Pro pour toujours avec un seul achat. Pas d'abonnement, pas de renouvellement.",
+      "longDescription": "Obtenez un accès permanent à toutes les fonctionnalités TrackSpeed Pro en un seul paiement. La synchronisation multi-appareils vous permet d'utiliser deux téléphones simultanément comme portes de départ et d'arrivée. Capturez jusqu'à 120fps pour les images les plus nettes dans le défilement de frames, et conservez un historique de sessions illimité pour suivre vos progrès sur des mois et des années. Les futures fonctionnalités Pro sont incluses — achetez une fois, profitez pour toujours.",
+      "features": "Synchronisation multi-appareils,Capture 120fps,Défilement de frames,Historique illimité",
+      "price": "139.00",
+      "priceLabel": "paiement unique"
+    }
+  },
+  "cart": {
+    "title": "Votre panier",
+    "empty": "Votre panier est vide",
+    "addToCart": "Ajouter au panier",
+    "getInApp": "Obtenir dans l'app",
+    "added": "Ajouté",
+    "remove": "Supprimer",
+    "subtotal": "Sous-total",
+    "checkout": "Commander",
+    "comingSoon": "Bientôt disponible",
+    "itemCount": "{count, plural, =0 {Aucun article} =1 {1 article} other {# articles}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Retour à la boutique",
+    "features": "Ce qui est inclus"
+  }
+}

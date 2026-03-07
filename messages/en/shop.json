@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Shop - TrackSpeed Gear",
+    "description": "Get the gear you need for accurate sprint timing. Tripods, mounts, and TrackSpeed merch."
+  },
+  "hero": {
+    "title": "TrackSpeed Shop",
+    "subtitle": "Everything you need for accurate sprint timing. Stable mounts, quality gear, and merch to rep the brand."
+  },
+  "products": {
+    "tripod": {
+      "name": "Phone Tripod",
+      "description": "Stable phone mount for accurate sprint timing. Universal fit, lightweight, and easy to set up on any track.",
+      "longDescription": "The TrackSpeed Phone Tripod is designed specifically for sprint timing. Its universal clamp fits any phone, and the adjustable legs provide rock-solid stability on any surface — grass, track, or concrete. Lightweight enough to carry in your bag and set up in seconds.",
+      "features": "Universal phone clamp,Adjustable height & angle,Lightweight aluminum build,Non-slip rubber feet,Quick-release mount",
+      "price": "29.99"
+    },
+    "tripodPro": {
+      "name": "Phone Tripod Pro",
+      "description": "Premium tripod with Bluetooth remote and wide device compatibility. Extra stability for windy conditions.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed T-Shirt",
+      "description": "Rep the brand on and off the track. Soft cotton blend, athletic fit.",
+      "longDescription": "Show your love for sprint timing with the official TrackSpeed T-Shirt. Made from a premium cotton-polyester blend that keeps you comfortable during warm-ups and cool-downs. The athletic fit looks great whether you're at the track or grabbing coffee after practice.",
+      "features": "60% cotton / 40% polyester blend,Athletic fit,Screen-printed TrackSpeed logo,Machine washable,Available in multiple sizes",
+      "price": "24.99"
+    },
+    "bundle": {
+      "name": "Tripod + T-Shirt Bundle",
+      "description": "Get both and save. Phone tripod for accurate timing plus the TrackSpeed tee.",
+      "longDescription": "The perfect starter pack for any TrackSpeed user. Get the Phone Tripod for stable, accurate sprint timing and the TrackSpeed T-Shirt to rep the brand — bundled together at a discounted price. Save compared to buying each item separately.",
+      "features": "Phone Tripod included,TrackSpeed T-Shirt included,Save vs buying separately,Everything you need to get started",
+      "price": "49.99"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (Lifetime)",
+      "badge": "Digital",
+      "description": "Unlock every Pro feature forever with a single purchase. No subscriptions, no renewals.",
+      "longDescription": "Get permanent access to every TrackSpeed Pro feature with one payment. Multi-device sync lets you run two phones as start and finish gates simultaneously. Capture at up to 120fps for the sharpest possible frame scrubber images, and keep unlimited session history so you can track progress over months and years. Future Pro features are included — buy once, benefit forever.",
+      "features": "Multi-device sync,120fps capture,Frame scrubber,Unlimited history",
+      "price": "139.00",
+      "priceLabel": "one-time payment"
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "addToCart": "Add to Cart",
+    "getInApp": "Get in App",
+    "added": "Added",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "comingSoon": "Coming Soon",
+    "itemCount": "{count, plural, =0 {No items} =1 {1 item} other {# items}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Back to Shop",
+    "features": "What's Included"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Mağaza - TrackSpeed Ekipman",
+    "description": "Hassas sprint zamanlama için gerekli ekipmanı edinin. Tripodlar, aparatlar ve TrackSpeed ürünleri."
+  },
+  "hero": {
+    "title": "TrackSpeed Mağaza",
+    "subtitle": "Hassas sprint zamanlama için ihtiyacınız olan her şey. Sabit aparatlar, kaliteli ekipman ve marka ürünleri."
+  },
+  "products": {
+    "tripod": {
+      "name": "Telefon Tripodu",
+      "description": "Hassas sprint zamanlama için sabit telefon aparatı. Evrensel uyum, hafif ve kolay kurulum.",
+      "price": "29.99",
+      "longDescription": "TrackSpeed Telefon Tripodu özellikle sprint zamanlama için tasarlanmıştır. Evrensel kelepçe her telefona uyar ve ayarlanabilir ayaklar her yüzeyde sağlam destek sunar. Çantanıza sığacak kadar hafif ve saniyeler içinde kuruluma hazır.",
+      "features": "Evrensel telefon kelepçesi,Ayarlanabilir yükseklik ve açı,Hafif alüminyum yapı,Kaymaz kauçuk ayaklar,Hızlı serbest bırakma montajı"
+    },
+    "tripodPro": {
+      "name": "Telefon Tripodu Pro",
+      "description": "Bluetooth kumanda ve geniş cihaz uyumlu premium tripod. Rüzgarlı koşullarda ekstra stabilite.",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed Tişört",
+      "description": "Pistte ve dışında markayı temsil edin. Yumuşak pamuk karışımı, atletik kesim.",
+      "price": "24.99",
+      "longDescription": "TrackSpeed resmi tişörtü ile sprint zamanlamaya olan tutkunu göster. Premium pamuk-polyester karışımından üretildi. Atletik kesim pistte ve günlük hayatta harika görünür.",
+      "features": "%60 pamuk / %40 polyester,Atletik kesim,Serigrafi TrackSpeed logosu,Makine yıkamaya uygun,Birden fazla bedende mevcut"
+    },
+    "bundle": {
+      "name": "Tripod + Tişört Paket",
+      "description": "İkisini birden alın ve tasarruf edin. Hassas zamanlama için tripod ve TrackSpeed tişört.",
+      "price": "49.99",
+      "longDescription": "Her TrackSpeed kullanıcısı için mükemmel başlangıç paketi. Stabil ve hassas zamanlama için tripod ve TrackSpeed tişört — birlikte indirimli fiyatla.",
+      "features": "Telefon tripodu dahil,TrackSpeed tişört dahil,Tek tek almaya göre tasarruf,Başlamak için gereken her şey"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro (Ömür Boyu)",
+      "badge": "Dijital",
+      "description": "Tek bir satın almayla tüm Pro özelliklerin kilidini sonsuza kadar açın. Abonelik yok, yenileme yok.",
+      "longDescription": "Tek bir ödemeyle tüm TrackSpeed Pro özelliklerine kalıcı erişim elde edin. Çoklu cihaz senkronizasyonu ile iki telefonu aynı anda başlangıç ve bitiş kapısı olarak kullanabilirsiniz. En keskin kare tarayıcı görüntüleri için 120fps'ye kadar çekim yapın ve aylarca ve yıllarca gelişiminizi takip etmek için sınırsız oturum geçmişi saklayın. Gelecekteki Pro özellikleri dahildir — bir kez satın alın, sonsuza kadar faydalanın.",
+      "features": "Çoklu cihaz senkronizasyonu,120fps çekim,Kare tarayıcı,Sınırsız geçmiş",
+      "price": "139.00",
+      "priceLabel": "tek seferlik ödeme"
+    }
+  },
+  "cart": {
+    "title": "Sepetiniz",
+    "empty": "Sepetiniz boş",
+    "addToCart": "Sepete Ekle",
+    "getInApp": "Uygulamada Al",
+    "added": "Eklendi",
+    "remove": "Kaldır",
+    "subtotal": "Ara toplam",
+    "checkout": "Ödeme",
+    "comingSoon": "Yakında",
+    "itemCount": "{count, plural, =0 {Ürün yok} =1 {1 ürün} other {# ürün}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "Mağazaya dön",
+    "features": "Neler dahil"
+  }
+}

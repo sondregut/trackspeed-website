@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "商店 - TrackSpeed装备",
+    "description": "获取精准短跑计时所需的装备。三脚架、支架和TrackSpeed周边。"
+  },
+  "hero": {
+    "title": "TrackSpeed 商店",
+    "subtitle": "精准短跑计时所需的一切。稳定的支架、优质装备和品牌周边。"
+  },
+  "products": {
+    "tripod": {
+      "name": "手机三脚架",
+      "description": "为精准短跑计时打造的稳定手机支架。通用适配，轻巧便携，易于安装。",
+      "price": "29.99",
+      "longDescription": "TrackSpeed手机三脚架专为短跑计时设计。通用夹具适配任何手机，可调节支脚在任何地面上都能提供稳固支撑。轻便易携，几秒钟即可搭建完成。",
+      "features": "通用手机夹,可调节高度和角度,轻量铝合金结构,防滑橡胶脚垫,快拆式安装"
+    },
+    "tripodPro": {
+      "name": "手机三脚架 Pro",
+      "description": "配备蓝牙遥控器的高级三脚架，广泛兼容。大风条件下更加稳定。",
+      "price": "49.99"
+    },
+    "tshirt": {
+      "name": "TrackSpeed T恤",
+      "description": "在赛道内外展示品牌。柔软棉混纺面料，运动版型。",
+      "price": "24.99",
+      "longDescription": "穿上TrackSpeed官方T恤展现你对短跑计时的热爱。优质棉涤混纺面料带来舒适体验。运动版型无论在赛道上还是日常都很好看。",
+      "features": "60%棉 / 40%涤纶,运动版型,TrackSpeed标志丝印,可机洗,多种尺码可选"
+    },
+    "bundle": {
+      "name": "三脚架 + T恤 套装",
+      "description": "组合购买更优惠。精准计时三脚架加TrackSpeed T恤。",
+      "price": "49.99",
+      "longDescription": "TrackSpeed用户的完美入门套装。手机三脚架用于稳定精准的计时，加上TrackSpeed T恤——组合购买更优惠。",
+      "features": "手机三脚架包含,TrackSpeed T恤包含,比单独购买更省,一次搞定所需装备"
+    },
+    "lifetime": {
+      "name": "TrackSpeed Pro（终身版）",
+      "badge": "数字产品",
+      "description": "一次购买，永久解锁所有Pro功能。无需订阅，无需续费。",
+      "longDescription": "一次付款即可永久使用所有TrackSpeed Pro功能。多设备同步让你同时使用两部手机作为起点和终点门。以高达120fps的速度捕捉画面，获取最清晰的帧浏览器图像，并保留无限的训练历史记录，追踪数月乃至数年的进步。未来的Pro功能也包含在内——一次购买，终身受益。",
+      "features": "多设备同步,120fps捕捉,帧浏览器,无限历史记录",
+      "price": "139.00",
+      "priceLabel": "一次性付款"
+    }
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车为空",
+    "addToCart": "加入购物车",
+    "getInApp": "在应用内获取",
+    "added": "已添加",
+    "remove": "删除",
+    "subtotal": "小计",
+    "checkout": "结算",
+    "comingSoon": "即将推出",
+    "itemCount": "{count, plural, =0 {无商品} other {#件商品}}"
+  },
+  "currency": "$",
+  "detail": {
+    "backToShop": "返回商店",
+    "features": "包含内容"
+  }
+}
