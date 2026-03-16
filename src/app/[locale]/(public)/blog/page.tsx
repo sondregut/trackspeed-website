@@ -1,8 +1,7 @@
+import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
 import { blogPosts } from "@/lib/blog-posts";
-import AppleIcon from "@/components/icons/AppleIcon";
-import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
 
 export default async function BlogPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -110,22 +109,15 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
             <p className="text-body mb-6">
               {t('cta.description')}
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3">
-              <a
-                href="https://apps.apple.com/app/trackspeed/id6757509163"
-                className="btn-primary inline-flex items-center gap-3"
-              >
-                <AppleIcon className="w-5 h-5" />
-                {t('cta.download')}
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.trackspeed.android"
-                className="btn-primary inline-flex items-center gap-3"
-              >
-                <GooglePlayIcon className="w-5 h-5" />
-                {t('cta.download')}
-              </a>
-            </div>
+            <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <Image
+                src="/app-store-badge.svg"
+                alt="Download on the App Store"
+                width={120}
+                height={40}
+                className="h-[40px] w-auto"
+              />
+            </a>
           </div>
         </div>
       </section>

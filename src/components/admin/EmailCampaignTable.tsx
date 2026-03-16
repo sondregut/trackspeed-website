@@ -67,19 +67,46 @@ function PreviewModal({
   templateKey: string;
   onClose: () => void;
 }) {
-  const [html, setHtml] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [previewState, setPreviewState] = useState<{
+    status: "loading" | "success" | "error";
+    html: string;
+    error: string;
+  }>({
+    status: "loading",
+    html: "",
+    error: "",
+  });
 
   useEffect(() => {
-    setHtml(null);
-    setError(null);
-    fetch(`/api/admin/emails/preview?template=${templateKey}`)
+    const controller = new AbortController();
+
+    fetch(`/api/admin/emails/preview?template=${templateKey}`, {
+      signal: controller.signal,
+    })
       .then((res) => {
         if (!res.ok) throw new Error(`Failed to load preview (${res.status})`);
         return res.text();
       })
-      .then(setHtml)
-      .catch((err) => setError(err.message));
+      .then((html) => {
+        setPreviewState({
+          status: "success",
+          html,
+          error: "",
+        });
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        const message = err instanceof Error ? err.message : "Failed to load preview";
+        setPreviewState({
+          status: "error",
+          html: "",
+          error: message,
+        });
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, [templateKey]);
 
   return (
@@ -99,17 +126,17 @@ function PreviewModal({
           </button>
         </div>
         <div className="flex-1 overflow-auto bg-[#f6f9fc]">
-          {error ? (
+          {previewState.status === "error" ? (
             <div className="flex items-center justify-center h-full min-h-[600px] text-red-400 text-sm">
-              {error}
+              {previewState.error}
             </div>
-          ) : html === null ? (
+          ) : previewState.status === "loading" ? (
             <div className="flex items-center justify-center h-full min-h-[600px] text-[#9B9A97] text-sm">
               Loading preview...
             </div>
           ) : (
             <iframe
-              srcDoc={html}
+              srcDoc={previewState.html}
               className="w-full h-full min-h-[600px]"
               title="Email Preview"
               sandbox="allow-same-origin"
@@ -202,6 +229,7 @@ export default function EmailCampaignTable({
 
       {previewTemplate && (
         <PreviewModal
+          key={previewTemplate}
           templateKey={previewTemplate}
           onClose={() => setPreviewTemplate(null)}
         />

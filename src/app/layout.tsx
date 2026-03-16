@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | TrackSpeed",
   },
   description:
-    "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS and Android.",
+    "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS.",
   keywords: [
     "sprint timing",
     "track and field",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TrackSpeed - Sprint Timing App for Phone",
     description:
-      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS and Android.",
+      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
     images: ["/photofinish_edit.png"],
   },
   icons: {
@@ -106,9 +106,8 @@ export default function RootLayout({
               url: "https://mytrackspeed.com",
               downloadUrl: [
                 "https://apps.apple.com/app/trackspeed/id6757509163",
-                "https://play.google.com/store/apps/details?id=com.trackspeed.android",
               ],
-              operatingSystem: ["iOS", "Android"],
+              operatingSystem: ["iOS"],
               applicationCategory: "SportsApplication",
               description:
                 "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",

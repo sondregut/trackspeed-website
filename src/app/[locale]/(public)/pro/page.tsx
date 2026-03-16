@@ -76,18 +76,15 @@ function ProPageContent() {
                 Download the app to claim your discount
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a
-                href="https://apps.apple.com/app/trackspeed/id6757509163"
-                className="inline-block bg-[#5C8DB8] hover:bg-[#4A7BA6] text-white font-semibold py-3 px-8 rounded-full transition-colors"
-              >
-                Download on App Store
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.trackspeed.android"
-                className="inline-block bg-[#5C8DB8] hover:bg-[#4A7BA6] text-white font-semibold py-3 px-8 rounded-full transition-colors"
-              >
-                Download on Google Play
+            <div className="flex justify-center">
+              <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+                <img
+                  src="/app-store-badge.svg"
+                  alt="Download on the App Store"
+                  width={120}
+                  height={40}
+                  className="h-[40px] w-auto"
+                />
               </a>
             </div>
             <p className="text-gray-500 text-sm mt-4">

@@ -1,10 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
-import AppleIcon from "@/components/icons/AppleIcon";
-import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
+import Image from "next/image";
 
 export default function CTA() {
   const t = useTranslations("home");
@@ -41,19 +39,16 @@ export default function CTA() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="bg-white hover:bg-gray-100 rounded-2xl px-10 py-4 h-auto text-lg font-semibold text-foreground">
-              <a href="https://apps.apple.com/app/trackspeed">
-                <AppleIcon />
-                {t("ctaSection.downloadIos")}
-              </a>
-            </Button>
-            <Button asChild size="lg" className="bg-white hover:bg-gray-100 rounded-2xl px-10 py-4 h-auto text-lg font-semibold text-foreground">
-              <a href="https://play.google.com/store/apps/details?id=com.trackspeed.android">
-                <GooglePlayIcon />
-                {t("ctaSection.downloadAndroid")}
-              </a>
-            </Button>
+          <div className="flex justify-center">
+            <a href="https://apps.apple.com/app/trackspeed" className="inline-block hover:opacity-80 transition-opacity">
+              <Image
+                src="/app-store-badge.svg"
+                alt="Download on the App Store"
+                width={180}
+                height={60}
+                className="h-[52px] w-auto"
+              />
+            </a>
           </div>
           <p className="text-sm mt-6 text-text-on-dark-muted">
             {t("ctaSection.freeNote")}

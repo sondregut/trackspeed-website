@@ -5,10 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Avatar, AvatarImage, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
-import AppleIcon from "@/components/icons/AppleIcon";
-import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
 import { useInView, useSpring, useMotionValue } from "framer-motion";
 
 function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
@@ -79,19 +76,16 @@ export default function Hero() {
                 {t("hero.description")}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-12">
-                <Button asChild size="lg" className="bg-black text-white hover:bg-[#1a1a1a] rounded-[10px] px-5 py-3 h-auto text-base font-medium">
-                  <a href="https://apps.apple.com/app/trackspeed">
-                    <AppleIcon />
-                    {t("hero.downloadCta")}
-                  </a>
-                </Button>
-                <Button asChild size="lg" className="bg-black text-white hover:bg-[#1a1a1a] rounded-[10px] px-5 py-3 h-auto text-base font-medium">
-                  <a href="https://play.google.com/store/apps/details?id=com.trackspeed.android">
-                    <GooglePlayIcon />
-                    {t("hero.downloadAndroid")}
-                  </a>
-                </Button>
+              <div className="flex justify-center lg:justify-start mb-12">
+                <a href="https://apps.apple.com/app/trackspeed" className="inline-block hover:opacity-80 transition-opacity">
+                  <Image
+                    src="/app-store-badge.svg"
+                    alt="Download on the App Store"
+                    width={180}
+                    height={60}
+                    className="h-[52px] w-auto"
+                  />
+                </a>
               </div>
 
               {/* Stats */}

@@ -1,8 +1,6 @@
 import NextLink from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import AppleIcon from "@/components/icons/AppleIcon";
-import GooglePlayIcon from "@/components/icons/GooglePlayIcon";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
@@ -31,27 +29,19 @@ export default function Footer() {
               {t("footer.tagline")}
             </p>
 
-            {/* App Store downloads */}
-            <div className="flex flex-wrap gap-2 mt-4">
+            {/* App Store download */}
+            <div className="mt-4">
               <a
                 href="https://apps.apple.com/app/trackspeed"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg hover:bg-[#1a1a1a] transition-colors"
+                className="inline-block hover:opacity-80 transition-opacity"
               >
-                <AppleIcon className="w-5 h-5" />
-                <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] opacity-80">{t("nav.downloadOnThe")}</span>
-                  <span className="text-sm font-semibold -mt-0.5">{t("nav.appStore")}</span>
-                </div>
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.trackspeed.android"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg hover:bg-[#1a1a1a] transition-colors"
-              >
-                <GooglePlayIcon className="w-5 h-5" />
-                <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] opacity-80">{t("nav.getItOn")}</span>
-                  <span className="text-sm font-semibold -mt-0.5">{t("nav.googlePlay")}</span>
-                </div>
+                <Image
+                  src="/app-store-badge.svg"
+                  alt="Download on the App Store"
+                  width={120}
+                  height={40}
+                  className="h-[40px] w-auto"
+                />
               </a>
             </div>
 
@@ -125,14 +115,6 @@ export default function Footer() {
                   className="text-muted transition-colors hover:opacity-70"
                 >
                   {t("footer.downloadIos")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.trackspeed.android"
-                  className="text-muted transition-colors hover:opacity-70"
-                >
-                  {t("footer.downloadAndroid")}
                 </a>
               </li>
             </ul>
