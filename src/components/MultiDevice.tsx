@@ -46,7 +46,7 @@ export default function MultiDevice() {
             <div className="flex justify-center lg:justify-end">
               <div className="w-[280px] md:w-[320px]">
                 <Image
-                  src="/connect.png"
+                  src="/connect.webp"
                   alt="Multiple phones connected for timing"
                   width={1150}
                   height={2369}

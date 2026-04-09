@@ -42,7 +42,7 @@ export default function Testimonials() {
         {/* Testimonial cards */}
         <StaggerContainer className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
           <StaggerItem className="md:mt-6">
-            <TestimonialCard testimonial={testimonials[0]} variant="dark" />
+            <TestimonialCard testimonial={testimonials[0]} variant="dark" priority />
           </StaggerItem>
           <StaggerItem className="md:-mt-2">
             <TestimonialCard testimonial={testimonials[1]} variant="light" />
@@ -56,6 +56,7 @@ export default function Testimonials() {
 function TestimonialCard({
   testimonial,
   variant = "dark",
+  priority = false,
 }: {
   testimonial: {
     name: string;
@@ -66,6 +67,7 @@ function TestimonialCard({
     hasRealImage: boolean;
   };
   variant?: "dark" | "light";
+  priority?: boolean;
 }) {
   const isDark = variant === "dark";
 
@@ -86,6 +88,7 @@ function TestimonialCard({
             fill
             sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover"
+            priority={priority}
           />
         ) : (
           <div

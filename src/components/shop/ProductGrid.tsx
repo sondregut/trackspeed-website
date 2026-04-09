@@ -11,7 +11,7 @@ const PRODUCTS = [
     descriptionKey: "products.lifetime.description",
     priceKey: "products.lifetime.price",
     priceLabelKey: "products.lifetime.priceLabel",
-    image: "/photofinish_edit.png",
+    image: "/photofinish_edit.webp",
     isDigital: true,
   },
   {
@@ -27,7 +27,7 @@ const PRODUCTS = [
     nameKey: "products.tshirt.name",
     descriptionKey: "products.tshirt.description",
     priceKey: "products.tshirt.price",
-    image: "/shop/trackspeed-tshirt.png",
+    image: "/shop/trackspeed-tshirt.webp",
   },
   {
     id: "bundle",

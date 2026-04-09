@@ -22,7 +22,7 @@ const PRODUCTS: Record<string, { nameKey: string; descriptionKey: string; longDe
     longDescriptionKey: "products.tshirt.longDescription",
     featuresKey: "products.tshirt.features",
     priceKey: "products.tshirt.price",
-    image: "/shop/trackspeed-tshirt.png",
+    image: "/shop/trackspeed-tshirt.webp",
   },
   bundle: {
     nameKey: "products.bundle.name",
@@ -37,7 +37,7 @@ const PRODUCTS: Record<string, { nameKey: string; descriptionKey: string; longDe
     longDescriptionKey: "products.lifetime.longDescription",
     featuresKey: "products.lifetime.features",
     priceKey: "products.lifetime.price",
-    image: "/photofinish_edit.png",
+    image: "/photofinish_edit.webp",
     isDigital: true,
   },
 };

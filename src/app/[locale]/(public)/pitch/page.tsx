@@ -251,7 +251,7 @@ export default function PitchDeck() {
             <div className="flex justify-center">
               <div className="w-[220px] md:w-[260px]">
                 <Image
-                  src="/photofinish_edit.png"
+                  src="/photofinish_edit.webp"
                   alt="TrackSpeed photo finish review"
                   width={881}
                   height={1816}
@@ -274,19 +274,19 @@ export default function PitchDeck() {
               number="1"
               title="Place phones"
               description="Set a phone at the start line and one at the finish line. Tap to connect via peer-to-peer."
-              image="/connect.png"
+              image="/connect.webp"
             />
             <Step
               number="2"
               title="Run"
               description="Countdown syncs both devices. Photo finish detection triggers automatically when a runner crosses."
-              image="/tracksetup.png"
+              image="/tracksetup.webp"
             />
             <Step
               number="3"
               title="Review results"
               description="See split times, frame-by-frame scrubber, and photo finish confirmation — instantly."
-              image="/photofinish_edit.png"
+              image="/photofinish_edit.webp"
             />
           </div>
           <SlideNumber current={4} total={SLIDES.length} />

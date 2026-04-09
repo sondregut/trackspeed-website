@@ -8,7 +8,7 @@ export default function HowItWorks() {
   const t = useTranslations("home");
 
   const stepKeys = ["connect", "start", "position", "time"] as const;
-  const stepImages = ["/connect.png", "/tracksetup.png", "/setup.png", "/countdownstart.png"];
+  const stepImages = ["/connect.webp", "/tracksetup.webp", "/setup.webp", "/countdownstart.webp"];
 
   return (
     <section id="how-it-works" className="section-padding px-6 bg-sky-wash">

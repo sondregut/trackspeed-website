@@ -122,7 +122,7 @@ export default function Hero() {
                   style={{ background: 'radial-gradient(circle, rgba(92, 141, 184, 0.1) 0%, transparent 70%)' }}
                 />
                 <Image
-                  src="/photofinish_edit.png"
+                  src="/photofinish_edit.webp"
                   alt="TrackSpeed sprint timing app showing photo finish review on iPhone"
                   width={388}
                   height={800}
