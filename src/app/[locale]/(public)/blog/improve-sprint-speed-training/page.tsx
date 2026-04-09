@@ -28,10 +28,13 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
     headline: "4 Sprint Training Drills That Benefit from Accurate Timing",
     description:
       "Specific sprint training drills where precise, consistent timing data helps you track progress, break plateaus, and train smarter.",
+    image: "https://mytrackspeed.com/icon.png",
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -52,13 +55,29 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
     ],
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://mytrackspeed.com/blog" },
+      { "@type": "ListItem", position: 3, name: "4 Sprint Training Drills That Benefit from Accurate Timing" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(blogPostingJsonLd),
         }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Hero Section */}

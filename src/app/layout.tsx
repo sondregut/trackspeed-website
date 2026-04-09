@@ -98,46 +98,53 @@ export default function RootLayout({
         <CookieConsent />
         <script
           type="application/ld+json"
+          // JSON.stringify on static objects is safe — no user input
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               name: "TrackSpeed",
               url: "https://mytrackspeed.com",
-              downloadUrl: [
-                "https://apps.apple.com/app/trackspeed/id6757509163",
-              ],
-              operatingSystem: ["iOS"],
+              downloadUrl: "https://apps.apple.com/app/trackspeed/id6757509163",
+              operatingSystem: "iOS",
               applicationCategory: "SportsApplication",
               description:
                 "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
+              screenshot: [
+                "https://mytrackspeed.com/photofinish_edit.png",
+              ],
+              featureList: "Multi-device timing, 120fps camera detection, Sub-4ms accuracy, Photo finish review, Five start methods, Frame scrubber",
               offers: [
                 {
                   "@type": "Offer",
                   price: "0",
                   priceCurrency: "USD",
-                  name: "Free",
+                  description: "Free",
+                  availability: "https://schema.org/InStock",
                 },
                 {
                   "@type": "Offer",
                   price: "49.99",
                   priceCurrency: "USD",
-                  name: "TrackSpeed Pro (Annual)",
+                  description: "TrackSpeed Pro (Annual)",
                   priceValidUntil: "2027-12-31",
+                  availability: "https://schema.org/InStock",
                 },
                 {
                   "@type": "Offer",
                   price: "8.99",
                   priceCurrency: "USD",
-                  name: "TrackSpeed Pro (Monthly)",
+                  description: "TrackSpeed Pro (Monthly)",
                   priceValidUntil: "2027-12-31",
+                  availability: "https://schema.org/InStock",
                 },
                 {
                   "@type": "Offer",
                   price: "139.00",
                   priceCurrency: "USD",
-                  name: "TrackSpeed Pro (Lifetime)",
+                  description: "TrackSpeed Pro (Lifetime)",
                   priceValidUntil: "2027-12-31",
+                  availability: "https://schema.org/InStock",
                 },
               ],
             }),
@@ -145,6 +152,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
+          // Static JSON-LD — no user input
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -152,6 +160,34 @@ export default function RootLayout({
               name: "TrackSpeed",
               url: "https://mytrackspeed.com",
               logo: "https://mytrackspeed.com/icon.png",
+              description: "Professional sprint timing using your phone. No extra hardware needed. Founded by Olympic athletes.",
+              foundingDate: "2025",
+              sameAs: [
+                "https://apps.apple.com/app/trackspeed/id6757509163",
+                "https://x.com/trackspeedapp",
+                "https://instagram.com/mytrackspeed",
+                "https://tiktok.com/@trackspeedapp",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          // Static JSON-LD — no user input
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "TrackSpeed",
+              url: "https://mytrackspeed.com",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://mytrackspeed.com/blog?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
             }),
           }}
         />

@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t("metadata.title"),
     description: t("metadata.description"),
-    alternates: getAlternates("/shop"),
+    alternates: getAlternates("/shop", locale),
     openGraph: { type: "website" },
   };
 }

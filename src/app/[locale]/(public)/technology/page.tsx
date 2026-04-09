@@ -9,7 +9,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   return {
     title: t('metadata.title'),
     description: t('metadata.description'),
-    alternates: getAlternates('/technology'),
+    alternates: getAlternates('/technology', locale),
     openGraph: {
       type: "article",
     },
@@ -27,10 +27,13 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
     headline: "How Phone Sprint Timing Achieves ~4ms Accuracy",
     description:
       "Learn how TrackSpeed uses your phone's camera to deliver millisecond-accurate sprint timing.",
+    image: "https://mytrackspeed.com/icon.png",
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -43,11 +46,26 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
     mainEntityOfPage: "https://mytrackspeed.com/technology",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Technology" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">

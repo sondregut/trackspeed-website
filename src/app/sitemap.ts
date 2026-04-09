@@ -5,25 +5,28 @@ import { locales } from "@/i18n/routing";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://mytrackspeed.com";
 
+  const today = new Date().toISOString().split("T")[0];
+
   function localeAlternates(path: string) {
     const languages: Record<string, string> = {};
     for (const locale of locales) {
       languages[locale] = locale === "en" ? `${baseUrl}${path}` : `${baseUrl}/${locale}${path}`;
     }
+    languages["x-default"] = `${baseUrl}${path}`;
     return { languages };
   }
 
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: "2026-02-17",
+      lastModified: today,
       changeFrequency: "weekly",
       priority: 1,
       alternates: localeAlternates(""),
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: "2026-02-17",
+      lastModified: today,
       changeFrequency: "monthly",
       priority: 0.7,
       alternates: localeAlternates("/about"),
@@ -51,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/technology`,
-      lastModified: "2026-02-17",
+      lastModified: today,
       changeFrequency: "monthly",
       priority: 0.8,
       alternates: localeAlternates("/technology"),
@@ -65,7 +68,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: "2026-02-17",
+      lastModified: today,
       changeFrequency: "weekly",
       priority: 0.8,
       alternates: localeAlternates("/blog"),

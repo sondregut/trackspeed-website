@@ -82,8 +82,9 @@ function TestimonialCard({
         {testimonial.hasRealImage ? (
           <Image
             src={testimonial.image}
-            alt={testimonial.name}
+            alt={`${testimonial.name}, ${testimonial.role}`}
             fill
+            sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover"
           />
         ) : (

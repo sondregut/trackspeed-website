@@ -8,4 +8,17 @@ Disallow: /api/
 Disallow: /invite/
 Disallow: /pitch
 Disallow: /pro
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://mytrackspeed.com/sitemap.xml

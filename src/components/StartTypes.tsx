@@ -12,7 +12,7 @@ export default function StartTypes() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const typeKeys = ["flying", "touch", "countdown", "voice", "frame"] as const;
-  const typeImages = ["/start-flying.png", "/start-touch.png", "/start-countdown.png", "/start-voice.png", "/start-frame.png"];
+  const typeImages = ["/start-countdown.png", "/start-touch-release.png", "/start-countdown.png", "/start-touch-release.png", "/start-countdown.png"];
 
   useEffect(() => {
     const observerOptions = {
@@ -67,6 +67,7 @@ export default function StartTypes() {
                         alt={t(`startTypes.types.${key}.title`)}
                         width={280}
                         height={606}
+                        sizes="280px"
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                           index === selected ? "opacity-100" : "opacity-0"
                         }`}
@@ -116,6 +117,7 @@ export default function StartTypes() {
                         alt={t(`startTypes.types.${key}.title`)}
                         width={200}
                         height={433}
+                        sizes="200px"
                         className="w-full h-full object-cover"
                       />
                     </div>

@@ -30,10 +30,13 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
     description:
       "Step-by-step guide to setting up two or more phones for accurate split timing at start and finish lines during track practice. No internet required.",
     keywords: "multi phone timing, split timing setup",
+    image: "https://mytrackspeed.com/icon.png",
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -47,13 +50,29 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
       "https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://mytrackspeed.com/blog" },
+      { "@type": "ListItem", position: 3, name: "How to Set Up Multi-Phone Sprint Timing for Track Practice" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(blogPostJsonLd),
         }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Hero Section */}

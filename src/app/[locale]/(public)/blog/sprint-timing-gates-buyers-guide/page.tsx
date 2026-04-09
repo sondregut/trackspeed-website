@@ -29,6 +29,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
     description:
       "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your phone delivers the same training accuracy as $2,500 laser gates.",
+    image: "https://mytrackspeed.com/icon.png",
     keywords: [
       "sprint timing gates",
       "timing gates for track",
@@ -43,9 +44,11 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "sprint training equipment",
     ],
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -59,11 +62,27 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://mytrackspeed.com/blog" },
+      { "@type": "ListItem", position: 3, name: "Sprint Timing Systems Buyer's Guide" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Hero Section */}

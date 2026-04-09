@@ -43,6 +43,7 @@ export default function Navbar() {
               alt="TrackSpeed"
               width={28}
               height={28}
+              sizes="28px"
               className="rounded-lg"
             />
             <span className="text-lg font-bold text-foreground">TrackSpeed</span>
@@ -83,6 +84,7 @@ export default function Navbar() {
                 alt="Download on the App Store"
                 width={120}
                 height={40}
+                sizes="120px"
                 className="h-[34px] w-auto"
               />
             </a>
@@ -149,6 +151,7 @@ export default function Navbar() {
                     alt="Download on the App Store"
                     width={120}
                     height={40}
+                    sizes="120px"
                     className="h-[40px] w-auto"
                   />
                 </a>

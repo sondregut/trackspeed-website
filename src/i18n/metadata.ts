@@ -6,20 +6,23 @@ const baseUrl = 'https://mytrackspeed.com';
  * Generate hreflang alternates for a given path.
  * English uses no prefix, other locales get /{locale} prefix.
  */
-export function getAlternates(path: string) {
+export function getAlternates(path: string, locale?: string) {
   const languages: Record<string, string> = {};
-  for (const locale of locales) {
-    if (locale === 'en') {
-      languages[locale] = `${baseUrl}${path}`;
+  for (const l of locales) {
+    if (l === 'en') {
+      languages[l] = `${baseUrl}${path}`;
     } else {
-      languages[locale] = `${baseUrl}/${locale}${path}`;
+      languages[l] = `${baseUrl}/${l}${path}`;
     }
   }
-  // x-default points to English (unprefixed)
   languages['x-default'] = `${baseUrl}${path}`;
 
+  const canonical = locale && locale !== 'en'
+    ? `${baseUrl}/${locale}${path}`
+    : `${baseUrl}${path}`;
+
   return {
-    canonical: `${baseUrl}${path}`,
+    canonical,
     languages,
   };
 }

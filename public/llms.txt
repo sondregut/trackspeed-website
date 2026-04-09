@@ -1,0 +1,39 @@
+# TrackSpeed
+
+> TrackSpeed is an iOS app that turns your phone into a professional sprint timing system. ~4ms accuracy, 120fps detection, multi-device sync. No hardware needed. Free to download.
+
+## Key Facts
+
+- Founded by two-time Olympian Sondre Guttormsen, national record holder Andreas Trajkovski, and Olympic pole vaulter Simen Guttormsen
+- Uses camera-based motion detection with sub-frame interpolation for ~4ms effective timing accuracy
+- Supports multi-device peer-to-peer sync for start/finish line timing
+- Pricing: Free tier, $8.99/month, $49.99/year, $139 lifetime
+- iOS only (iPhone)
+- 13 languages supported
+
+## Pages
+
+- [Homepage](https://mytrackspeed.com): Product overview, features, pricing comparison, athlete testimonials
+- [Technology](https://mytrackspeed.com/technology): How sub-frame interpolation, rolling shutter correction, and clock sync achieve ~4ms accuracy
+- [About](https://mytrackspeed.com/about): Team bios — Olympic athletes and engineers behind TrackSpeed
+- [Support](https://mytrackspeed.com/support): FAQ, troubleshooting, contact information
+- [Blog](https://mytrackspeed.com/blog): Guides and comparisons for sprint timing
+
+## Blog Articles
+
+- [Sprint Timing Systems Buyer's Guide](https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide): Complete comparison of laser gates, camera apps, and stopwatches with 3-year cost analysis
+- [How to Time a 40-Yard Dash](https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash): Step-by-step guide to accurate 40-yard dash timing with a phone
+- [Sprint Timing Systems Compared](https://mytrackspeed.com/blog/sprint-timing-systems-compared): Laser gates vs camera vs stopwatch — accuracy, cost, consistency
+- [Multi-Phone Sprint Timing Setup](https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup): How to set up two phones for split timing at start and finish lines
+- [Sprint Training Drills](https://mytrackspeed.com/blog/improve-sprint-speed-training): 4 drills that benefit from accurate timing data
+- [What Is Photo Finish Timing](https://mytrackspeed.com/blog/what-is-photo-finish-timing): History and technology of photo finish from 1880s to smartphone era
+
+## Pricing Comparison
+
+| System | Price | Accuracy |
+|--------|-------|----------|
+| TrackSpeed | Free - $49.99/yr | ~4ms |
+| Freelap | $500 - $2,000+ | ~2ms |
+| Brower | $1,500 - $5,000+ | ~1ms |
+| DASHR | $500 - $1,500+ | ~1ms |
+| Manual stopwatch | $10 - $50 | ~200ms |

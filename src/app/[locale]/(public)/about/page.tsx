@@ -9,7 +9,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   return {
     title: t('metadata.title'),
     description: t('metadata.description'),
-    alternates: getAlternates('/about'),
+    alternates: getAlternates('/about', locale),
     openGraph: {
       type: "website",
     },

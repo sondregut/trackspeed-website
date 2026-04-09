@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t(product.nameKey)} - TrackSpeed Shop`,
     description: t(product.descriptionKey),
-    alternates: getAlternates(`/shop/${productId}`),
+    alternates: getAlternates(`/shop/${productId}`, locale),
     openGraph: { type: "website" },
   };
 }

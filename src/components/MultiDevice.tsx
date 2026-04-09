@@ -50,6 +50,7 @@ export default function MultiDevice() {
                   alt="Multiple phones connected for timing"
                   width={1150}
                   height={2369}
+                  sizes="(max-width: 768px) 280px, 320px"
                   className="w-full h-auto"
                 />
               </div>

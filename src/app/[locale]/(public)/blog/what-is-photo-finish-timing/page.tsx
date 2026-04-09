@@ -28,10 +28,13 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
     headline: "What Is Photo Finish Timing and How Does It Work?",
     description:
       "Learn how photo finish timing works, from its origins in 1880s horse racing to modern smartphone alternatives. Covers FAT systems, line-scan cameras, and how TrackSpeed adapts photo finish concepts for training.",
+    image: "https://mytrackspeed.com/icon.png",
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -46,11 +49,27 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
     keywords: ["photo finish timing", "how photo finish works"],
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://mytrackspeed.com/blog" },
+      { "@type": "ListItem", position: 3, name: "What Is Photo Finish Timing and How Does It Work?" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Hero Section */}

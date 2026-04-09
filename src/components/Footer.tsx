@@ -21,6 +21,7 @@ export default function Footer() {
                 alt="TrackSpeed"
                 width={32}
                 height={32}
+                sizes="32px"
                 className="rounded-lg"
               />
               <span className="text-lg font-bold text-foreground">TrackSpeed</span>
@@ -40,6 +41,7 @@ export default function Footer() {
                   alt="Download on the App Store"
                   width={120}
                   height={40}
+                  sizes="120px"
                   className="h-[40px] w-auto"
                 />
               </a>

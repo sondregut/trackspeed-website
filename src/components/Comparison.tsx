@@ -207,6 +207,7 @@ export default function Comparison() {
               alt="Download on the App Store"
               width={120}
               height={40}
+              sizes="120px"
               className="h-[40px] w-auto"
             />
           </a>

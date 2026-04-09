@@ -65,12 +65,12 @@ export default function Hero() {
                 <span className="font-bold text-muted">{t("hero.socialProof")}</span>
               </Badge>
 
-              <h1 className="text-hero mb-4">
+              <p className="text-hero mb-4">
                 {t("hero.title")}
-              </h1>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-6 text-muted">
+              </p>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-6 text-muted">
                 {t("hero.subtitle")}
-              </h2>
+              </h1>
 
               <p className="text-body mb-8 max-w-lg mx-auto lg:mx-0">
                 {t("hero.description")}
@@ -123,9 +123,11 @@ export default function Hero() {
                 />
                 <Image
                   src="/photofinish_edit.png"
-                  alt="TrackSpeed photo finish timing"
+                  alt="TrackSpeed sprint timing app showing photo finish review on iPhone"
                   width={881}
                   height={1816}
+                  priority
+                  sizes="(max-width: 768px) 280px, 320px"
                   className="w-full h-auto relative"
                 />
               </div>

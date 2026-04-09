@@ -28,10 +28,13 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
     headline: "How to Time a 40-Yard Dash Accurately with Your Phone",
     description:
       "Learn how to get reliable, repeatable 40-yard dash times using just your phone. Eliminate stopwatch error with phone-based computer vision timing.",
+    image: "https://mytrackspeed.com/icon.png",
     author: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
+      "@type": "Person",
+      name: "Sondre Guttormsen",
+      url: "https://instagram.com/sondre_pv",
+      jobTitle: "Co-Founder, TrackSpeed",
+      description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {
       "@type": "Organization",
@@ -52,11 +55,27 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
     ],
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://mytrackspeed.com/blog" },
+      { "@type": "ListItem", position: 3, name: "How to Time a 40-Yard Dash Accurately with Your Phone" },
+    ],
+  };
+
   return (
     <div className="bg-hero min-h-screen">
       <script
         type="application/ld+json"
+        // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Hero Section */}

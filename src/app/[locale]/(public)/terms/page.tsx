@@ -7,7 +7,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   return {
     title: t('terms.title'),
     description: t('terms.description'),
-    alternates: getAlternates('/terms'),
+    alternates: getAlternates('/terms', locale),
   };
 }
 

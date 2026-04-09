@@ -7,7 +7,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   return {
     title: t('deleteAccount.title'),
     description: t('deleteAccount.description'),
-    alternates: getAlternates('/delete-account'),
+    alternates: getAlternates('/delete-account', locale),
   };
 }
 

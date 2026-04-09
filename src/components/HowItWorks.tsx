@@ -33,6 +33,7 @@ export default function HowItWorks() {
                     alt={t(`howItWorks.steps.${key}.title`)}
                     width={368}
                     height={750}
+                    sizes="180px"
                     className="w-full h-auto"
                   />
                 </div>
