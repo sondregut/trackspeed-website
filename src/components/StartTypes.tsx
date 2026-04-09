@@ -12,7 +12,7 @@ export default function StartTypes() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const typeKeys = ["flying", "touch", "countdown", "voice", "frame"] as const;
-  const typeImages = ["/start-countdown.png", "/start-touch-release.png", "/start-countdown.png", "/start-touch-release.png", "/start-countdown.png"];
+  const typeImages = ["/start-flying.png", "/start-touch.png", "/start-countdown.png", "/start-voice.png", "/start-frame.png"];
 
   useEffect(() => {
     const observerOptions = {

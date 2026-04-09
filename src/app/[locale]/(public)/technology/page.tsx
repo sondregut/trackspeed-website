@@ -21,12 +21,21 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
   setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'technology'});
 
+  const faqItems = [
+    { question: t('faq.items.0.question'), answer: t('faq.items.0.answer') },
+    { question: t('faq.items.1.question'), answer: t('faq.items.1.answer') },
+    { question: t('faq.items.2.question'), answer: t('faq.items.2.answer') },
+    { question: t('faq.items.3.question'), answer: t('faq.items.3.answer') },
+    { question: t('faq.items.4.question'), answer: t('faq.items.4.answer') },
+    { question: t('faq.items.5.question'), answer: t('faq.items.5.answer') },
+  ];
+
   const techArticleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
     headline: "How Phone Sprint Timing Achieves ~4ms Accuracy",
     description:
-      "Learn how TrackSpeed uses your phone's camera to deliver millisecond-accurate sprint timing.",
+      "How TrackSpeed achieves ~4ms sprint timing accuracy: sub-frame interpolation, rolling shutter correction, and ±3-5ms multi-device clock sync — explained.",
     image: "https://mytrackspeed.com/icon.png",
     author: {
       "@type": "Person",
@@ -42,8 +51,21 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
       logo: "https://mytrackspeed.com/icon.png",
     },
     datePublished: "2026-02-01",
-    dateModified: "2026-02-27",
+    dateModified: "2026-04-08",
     mainEntityOfPage: "https://mytrackspeed.com/technology",
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
   const breadcrumbJsonLd = {
@@ -66,6 +88,11 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
         type="application/ld+json"
         // Static JSON-LD — no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // Static JSON-LD — no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">
@@ -95,7 +122,7 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
       {/* Article Content */}
       <article className="pb-24 px-6">
         <div className="max-w-3xl mx-auto">
-          {/* Four capability sections */}
+          {/* Four capability sections with detail paragraphs */}
           {(['subFrame', 'corrections', 'clockSync', 'bodyTracking'] as const).map((key, i) => (
             <section key={key} className="mb-10">
               <div className="flex items-center gap-3 mb-4">
@@ -104,9 +131,12 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
                   {t(`sections.${key}.title`)}
                 </h2>
               </div>
-              <div className="card-feature p-6 md:p-8">
+              <div className="card-feature p-6 md:p-8 space-y-4">
                 <p className="text-body">
                   {t(`sections.${key}.desc`)}
+                </p>
+                <p className="text-body" style={{ color: "var(--text-muted)" }}>
+                  {t(`sections.${key}.detail`)}
                 </p>
               </div>
             </section>
@@ -188,6 +218,59 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
               <div className="mt-4 text-xs" style={{ color: "var(--text-muted)" }}>
                 {t('professionalComparison.laserNote')}
               </div>
+            </div>
+          </section>
+
+          {/* Detection Pipeline Deep Dive */}
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+              {t('deepDive.title')}
+            </h2>
+            <p className="text-body mb-6">{t('deepDive.intro')}</p>
+            <div className="space-y-4">
+              {(['downsample', 'frameDiff', 'ccl', 'filters', 'crossing', 'interpolation'] as const).map((step) => (
+                <div key={step} className="card-feature p-5 md:p-6">
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
+                    {t(`deepDive.steps.${step}.title`)}
+                  </h3>
+                  <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                    {t(`deepDive.steps.${step}.desc`)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Device Stability & Thermal */}
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+              {t('stability.title')}
+            </h2>
+            <div className="card-feature p-6 md:p-8 space-y-4">
+              <p className="text-body">{t('stability.desc')}</p>
+              <p className="text-body" style={{ color: "var(--text-muted)" }}>{t('stability.thermal')}</p>
+            </div>
+          </section>
+
+          {/* FAQ Section */}
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
+              {t('faq.title')}
+            </h2>
+            <div className="space-y-4">
+              {faqItems.map((item, i) => (
+                <details key={i} className="card-feature p-5 md:p-6 group">
+                  <summary className="font-semibold cursor-pointer list-none flex items-center justify-between" style={{ color: "var(--text-primary)" }}>
+                    {item.question}
+                    <svg className="w-5 h-5 flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: "var(--text-muted)" }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <p className="mt-3 text-sm" style={{ color: "var(--text-muted)" }}>
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
             </div>
           </section>
 

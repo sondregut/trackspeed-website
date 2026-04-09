@@ -54,10 +54,10 @@ export const metadata: Metadata = {
     url: "https://mytrackspeed.com",
     images: [
       {
-        url: "/photofinish_edit.png",
-        width: 881,
-        height: 1816,
-        alt: "TrackSpeed photo finish timing review on phone",
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "TrackSpeed sprint timing app — ~4ms accuracy, 120fps detection, no hardware needed",
       },
     ],
   },
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     title: "TrackSpeed - Sprint Timing App for Phone",
     description:
       "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
-    images: ["/photofinish_edit.png"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [

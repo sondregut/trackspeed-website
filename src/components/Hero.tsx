@@ -124,8 +124,8 @@ export default function Hero() {
                 <Image
                   src="/photofinish_edit.png"
                   alt="TrackSpeed sprint timing app showing photo finish review on iPhone"
-                  width={881}
-                  height={1816}
+                  width={388}
+                  height={800}
                   priority
                   sizes="(max-width: 768px) 280px, 320px"
                   className="w-full h-auto relative"

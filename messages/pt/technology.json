@@ -9,26 +9,94 @@
   "sections": {
     "subFrame": {
       "title": "Precisão sub-frame",
-      "desc": "Os atletas raramente cruzam o portão no momento exato em que um quadro e capturado. Nosso sistema analisa multiplos quadros para identificar o momento do cruzamento entre quadros — alcancando precisão de interpolacao sub-milissegundo que vai muito alem do intervalo nativo da camera."
+      "desc": "Os atletas raramente cruzam o portão no momento exato em que um quadro e capturado. Nosso sistema analisa multiplos quadros para identificar o momento do cruzamento entre quadros — alcancando precisão de interpolacao sub-milissegundo que vai muito alem do intervalo nativo da camera.",
+      "detail": "The interpolation works by observing the athlete's torso position in at least 3 consecutive frames as they approach and cross the timing line. By fitting a linear motion model to these positions, we solve for the precise timestamp when the torso center crossed the gate position. Because human sprinting velocity is nearly constant over short distances (the 1-2 meter detection zone), the linear model produces highly accurate results."
     },
     "corrections": {
       "title": "Correcoes baseadas em fisica",
-      "desc": "As cameras de phone escaneiam cada quadro de cima para baixo em varios milissegundos, introduzindo um desvio de tempo dependendo de onde o atleta aparece no quadro. Corrigimos automaticamente isso e outros artefatos de tempo em nivel de hardware para eliminar o erro sistematico."
+      "desc": "As cameras de phone escaneiam cada quadro de cima para baixo em varios milissegundos, introduzindo um desvio de tempo dependendo de onde o atleta aparece no quadro. Corrigimos automaticamente isso e outros artefatos de tempo em nivel de hardware para eliminar o erro sistematico.",
+      "detail": "TrackSpeed automatically measures the rolling shutter duration for each device and applies a per-pixel timing correction. If an athlete's torso is detected at 40% of the frame height and the rolling shutter scan takes 10ms, we apply a 4ms correction to the timestamp. This correction is applied before interpolation, ensuring the trajectory regression operates on accurate timing data. The result: rolling shutter becomes a non-factor in the final timing."
     },
     "clockSync": {
       "title": "Sincronização de relogio multidispositivo",
-      "desc": "Ao usar dois phones — um na largada e outro na chegada — seus relogios precisam concordar com precisão de milissegundos. Nosso protocolo de sincronização alcanca alinhamento de ±3-5ms entre dispositivos. Durante a sincronização, mantenha os telefones a cerca de 10 metros de distancia para melhores resultados. Apos sincronizados, afaste-os o quanto precisar."
+      "desc": "Ao usar dois phones — um na largada e outro na chegada — seus relogios precisam concordar com precisão de milissegundos. Nosso protocolo de sincronização alcanca alinhamento de ±3-5ms entre dispositivos. Durante a sincronização, mantenha os telefones a cerca de 10 metros de distancia para melhores resultados. Apos sincronizados, afaste-os o quanto precisar.",
+      "detail": "The sync protocol sends multiple round-trip timing probes between the two phones via peer-to-peer WiFi. By measuring send and receive timestamps on both devices, we calculate the clock offset using the same mathematical principles as the Network Time Protocol (NTP). Multiple samples are taken and outliers are rejected, achieving ±3-5ms alignment between devices. During sync, keep both phones within about 10 meters of each other for best results. Once synced, move them as far apart as needed — the offset stays locked."
     },
     "bodyTracking": {
       "title": "Rastreamento corporal, nao corte de feixe",
-      "desc": "Portoes laser sao acionados pelo que rompe o feixe primeiro — um braco estendido, um joelho ou o peito. Isso varia conforme a tecnica de corrida e gera inconsistencia. O TrackSpeed rastreia a massa corporal do atleta para determinar quando seu torso cruza a linha, assim como funciona a cronometragem oficial."
+      "desc": "Portoes laser sao acionados pelo que rompe o feixe primeiro — um braco estendido, um joelho ou o peito. Isso varia conforme a tecnica de corrida e gera inconsistencia. O TrackSpeed rastreia a massa corporal do atleta para determinar quando seu torso cruza a linha, assim como funciona a cronometragem oficial.",
+      "detail": "TrackSpeed's detection engine replicates the official approach. Our geometry-based algorithm processes each video frame at 180×320 resolution, using frame differencing to detect motion, connected component labeling to identify body regions, and size/shape filters to isolate the torso from limbs. An arm-spike suppression algorithm prevents raised arms from triggering false crossings. The result: consistent chest-based timing that matches the official standard, unlike laser gates that trigger on the nearest body part."
     }
+  },
+  "deepDive": {
+    "title": "The Detection Pipeline",
+    "intro": "Every video frame captured by your phone's camera goes through a multi-stage detection pipeline. Here's what happens in the roughly 2ms it takes to process each frame:",
+    "steps": {
+      "downsample": {
+        "title": "1. Downsample & Extract Luma",
+        "desc": "The raw camera frame is downsampled to 180×320 pixels and converted to a grayscale (luma) image. This resolution is sufficient for accurate body detection while keeping processing fast enough for real-time analysis at 120fps."
+      },
+      "frameDiff": {
+        "title": "2. Frame Differencing",
+        "desc": "Each frame is compared against the previous frame (N-1 differencing). Pixels that changed significantly — above a fixed threshold of 15 — indicate motion. This produces a binary motion mask showing where the athlete is moving."
+      },
+      "ccl": {
+        "title": "3. Connected Component Labeling",
+        "desc": "The motion mask is analyzed using an 8-connected component labeling algorithm, which groups adjacent motion pixels into distinct blobs. Each blob is a candidate body region."
+      },
+      "filters": {
+        "title": "4. Size & Shape Filters",
+        "desc": "Candidate blobs are filtered by physical plausibility. A valid body region must be at least 33% of the frame height and 8% of the frame width. Fill ratio (minimum 0.20) and aspect ratio (maximum 1.2) filters reject noise, shadows, and camera shake artifacts."
+      },
+      "crossing": {
+        "title": "5. Gate Crossing Detection",
+        "desc": "When a validated body region crosses the timing line position, a crossing event is triggered. A 0.5-second cooldown prevents double-counting from the same athlete, and gate-occupied tracking ensures each crossing is recorded exactly once."
+      },
+      "interpolation": {
+        "title": "6. Position-Based Interpolation",
+        "desc": "The crossing timestamp is refined using trajectory regression across the surrounding frames. This is where the sub-frame precision comes from — converting a discrete frame event into a continuous-time measurement with ~4ms accuracy."
+      }
+    }
+  },
+  "stability": {
+    "title": "Device Stability & Thermal Management",
+    "desc": "Accurate detection requires a stable camera. TrackSpeed monitors your phone's gyroscope in real-time, alerting you if the device moves during timing. The IMU (Inertial Measurement Unit) detects rotation rates as small as 0.15 rad/s — about the level of vibration from a passing truck.",
+    "thermal": "Running the camera at 120fps is computationally intensive. TrackSpeed continuously monitors the device's thermal state and will warn you if the phone is overheating, which can cause frame drops and reduce timing accuracy. For sessions longer than 30 minutes, we recommend using 60fps, which maintains ~6ms accuracy with significantly lower thermal impact."
   },
   "accuracy": {
     "title": "O resultado",
     "value": "~4ms",
     "label": "Precisão efetiva de cronometragem",
     "desc": "Interpolacao sub-frame, correcoes fisicas e sincronização de relogio se combinam para entregar precisão de cronometragem que rivaliza com hardware dedicado — usando apenas seu phone."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "How accurate is phone-based sprint timing compared to laser gates?",
+        "answer": "TrackSpeed achieves ~4ms effective timing accuracy, which is more consistent than laser gates for training purposes. Laser gates have sub-millisecond trigger speed, but they trigger on whichever body part breaks the beam first — hand, knee, or chest — creating 50-200ms of run-to-run variability. TrackSpeed tracks the chest crossing, matching official timing standards and eliminating this inconsistency."
+      },
+      {
+        "question": "Does TrackSpeed work without internet or WiFi?",
+        "answer": "Yes. Single-phone timing works completely offline. Multi-phone timing uses peer-to-peer WiFi Direct between the devices — no internet connection or router needed. The phones connect directly to each other."
+      },
+      {
+        "question": "Can TrackSpeed replace professional timing equipment?",
+        "answer": "For training purposes, yes. TrackSpeed provides the consistency and accuracy needed to track progress, compare training sessions, and make coaching decisions. For official competition results that go on record, Fully Automatic Timing (FAT) systems with photo finish cameras remain the standard — they achieve 0.001s resolution. TrackSpeed is designed for the 99% of timing that happens in training, not the 1% that happens at meets."
+      },
+      {
+        "question": "Why does frame rate matter for timing accuracy?",
+        "answer": "Higher frame rates give more data points for trajectory regression. At 30fps, frames are 33.3ms apart; at 60fps, 16.7ms; at 120fps, 8.3ms. More frames near the crossing moment means better interpolation accuracy. However, even at 30fps, sub-frame interpolation achieves ~10ms accuracy — still far better than manual stopwatch timing (~200ms human reaction time error)."
+      },
+      {
+        "question": "How does multi-phone timing work?",
+        "answer": "Place one phone at the start line and one at the finish. The phones connect via peer-to-peer WiFi and synchronize their clocks using an NTP-style protocol (±3-5ms accuracy). Each phone independently detects when the athlete crosses its line. The finish phone subtracts the start timestamp from the finish timestamp to calculate the elapsed time, corrected for the measured clock offset."
+      },
+      {
+        "question": "What happens if my phone overheats during a session?",
+        "answer": "TrackSpeed monitors thermal state and warns you before accuracy degrades. At 120fps, sustained recording can cause thermal throttling after 20-30 minutes, leading to dropped frames. If this happens, the app suggests switching to 60fps, which uses significantly less power while maintaining ~6ms timing accuracy. For long practice sessions, 60fps is recommended from the start."
+      }
+    ]
   },
   "professionalComparison": {
     "title": "Como isso se compara",
