@@ -80,7 +80,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             {/* Sondre */}
             <div className="card-feature p-6 md:p-8">
               <Image
-                src="/testimonials/sondre-guttormsen.jpg"
+                src="/testimonials/sondre-guttormsen.webp"
                 alt="Sondre Guttormsen"
                 width={160}
                 height={160}
@@ -132,7 +132,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             {/* Andreas */}
             <div className="card-feature p-6 md:p-8">
               <Image
-                src="/testimonials/andreas-trajkovski.jpg"
+                src="/testimonials/andreas-trajkovski.webp"
                 alt="Andreas Trajkovski"
                 width={160}
                 height={160}

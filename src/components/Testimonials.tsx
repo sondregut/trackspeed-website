@@ -11,7 +11,7 @@ export default function Testimonials() {
     {
       name: t("testimonials.sondre.name"),
       role: t("testimonials.sondre.role"),
-      image: "/testimonials/sondre-guttormsen.jpg",
+      image: "/testimonials/sondre-guttormsen.webp",
       instagram: "https://instagram.com/sondre_pv",
       quote: t("testimonials.sondre.quote"),
       hasRealImage: true,
@@ -19,7 +19,7 @@ export default function Testimonials() {
     {
       name: t("testimonials.andreas.name"),
       role: t("testimonials.andreas.role"),
-      image: "/testimonials/andreas-trajkovski.jpg",
+      image: "/testimonials/andreas-trajkovski.webp",
       instagram: "https://instagram.com/andreas_trajkovski",
       quote: t("testimonials.andreas.quote"),
       hasRealImage: true,

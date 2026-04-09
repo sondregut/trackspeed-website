@@ -48,11 +48,11 @@ export default function Hero() {
               <Badge variant="outline" className="mb-8 px-3 py-1.5 text-sm gap-2 rounded-full border-[var(--border-light)] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                 <AvatarGroup>
                   <Avatar className="w-7 h-7">
-                    <AvatarImage src="/testimonials/sondre-guttormsen.jpg" alt="Sondre Guttormsen" />
+                    <AvatarImage src="/testimonials/sondre-guttormsen.webp" alt="Sondre Guttormsen" />
                     <AvatarFallback>SG</AvatarFallback>
                   </Avatar>
                   <Avatar className="w-7 h-7">
-                    <AvatarImage src="/testimonials/andreas-trajkovski.jpg" alt="Andreas Trajkovski" />
+                    <AvatarImage src="/testimonials/andreas-trajkovski.webp" alt="Andreas Trajkovski" />
                     <AvatarFallback>AT</AvatarFallback>
                   </Avatar>
                   <Avatar className="w-7 h-7">
