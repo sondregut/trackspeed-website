@@ -388,3 +388,29 @@ html {
 [dir="rtl"] .flex-row {
   flex-direction: row-reverse;
 }
+/* Scroll reveal animations (replaces framer-motion) */
+.sr-hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.sr-hidden.sr-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stagger-container.stagger-visible .stagger-item:nth-child(1)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 1); }
+.stagger-container.stagger-visible .stagger-item:nth-child(2)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 2); }
+.stagger-container.stagger-visible .stagger-item:nth-child(3)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 3); }
+.stagger-container.stagger-visible .stagger-item:nth-child(4)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 4); }
+.stagger-container.stagger-visible .stagger-item:nth-child(5)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 5); }
+.stagger-container.stagger-visible .stagger-item:nth-child(6)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 6); }
+.stagger-container.stagger-visible .stagger-item:nth-child(7)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 7); }
+.stagger-container.stagger-visible .stagger-item:nth-child(8)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 8); }
+.stagger-container.stagger-visible .stagger-item:nth-child(9)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 9); }
+.stagger-container.stagger-visible .stagger-item:nth-child(10) { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 10); }

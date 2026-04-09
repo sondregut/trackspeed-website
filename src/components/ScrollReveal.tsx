@@ -1,16 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
-
-const ease = [0.25, 0.1, 0.25, 1] as const;
+import { useRef, useEffect, ReactNode } from "react";
 
 export default function ScrollReveal({
   children,
   delay = 0,
-  duration = 0.6,
-  y = 24,
-  once = true,
   className,
 }: {
   children: ReactNode;
@@ -20,16 +14,32 @@ export default function ScrollReveal({
   once?: boolean;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("sr-visible");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-50px" }}
-      transition={{ duration, delay, ease }}
-      className={className}
+    <div
+      ref={ref}
+      className={`sr-hidden${className ? ` ${className}` : ""}`}
+      style={delay ? { transitionDelay: `${delay}s` } : undefined}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -42,19 +52,32 @@ export function StaggerContainer({
   className?: string;
   staggerDelay?: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("stagger-visible");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
-      }}
-      className={className}
+    <div
+      ref={ref}
+      className={`stagger-container${className ? ` ${className}` : ""}`}
+      style={{ "--stagger-delay": `${staggerDelay}s` } as React.CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -66,18 +89,8 @@ export function StaggerItem({
   className?: string;
 }) {
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 24 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, ease },
-        },
-      }}
-      className={className}
-    >
+    <div className={`stagger-item${className ? ` ${className}` : ""}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }

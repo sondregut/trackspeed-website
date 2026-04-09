@@ -6,27 +6,35 @@ import { useTranslations } from "next-intl";
 import { Avatar, AvatarImage, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import ScrollReveal from "@/components/ScrollReveal";
-import { useInView, useSpring, useMotionValue } from "framer-motion";
-
 function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { duration: 1200, bounce: 0 });
   const [display, setDisplay] = useState("0");
+  const triggered = useRef(false);
 
   useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, motionValue, value]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplay(Math.round(latest).toString());
-    });
-    return unsubscribe;
-  }, [springValue]);
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !triggered.current) {
+          triggered.current = true;
+          const start = Date.now();
+          const duration = 1200;
+          function tick() {
+            const progress = Math.min((Date.now() - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setDisplay(Math.round(value * eased).toString());
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value]);
 
   return (
     <span ref={ref}>

@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import posthog from "posthog-js";
 
 const CONSENT_KEY = "cookie-consent";
 
-function initPostHog() {
+async function initPostHog() {
   if (
     typeof window !== "undefined" &&
-    process.env.NEXT_PUBLIC_POSTHOG_KEY &&
-    !posthog.__loaded
+    process.env.NEXT_PUBLIC_POSTHOG_KEY
   ) {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      loaded: (ph) => {
-        ph.opt_in_capturing();
-      },
-    });
+    const posthog = (await import("posthog-js")).default;
+    if (!posthog.__loaded) {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+        loaded: (ph) => {
+          ph.opt_in_capturing();
+        },
+      });
+    }
   }
 }
 
