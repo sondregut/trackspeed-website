@@ -23,6 +23,7 @@ export default function CartDrawer() {
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-[#5C8DB8] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#4a7da8] transition-colors"
+        aria-label="Open cart"
       >
         <ShoppingCart className="w-5 h-5" />
         {totalItems > 0 && (
@@ -84,6 +85,7 @@ export default function CartDrawer() {
                           variant="outline"
                           size="icon-xs"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          aria-label="Decrease quantity"
                         >
                           <Minus className="w-3 h-3" />
                         </Button>
@@ -97,6 +99,7 @@ export default function CartDrawer() {
                           variant="outline"
                           size="icon-xs"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          aria-label="Increase quantity"
                         >
                           <Plus className="w-3 h-3" />
                         </Button>
@@ -105,6 +108,7 @@ export default function CartDrawer() {
                           size="icon-xs"
                           className="ml-auto text-red-500 hover:text-red-600 hover:bg-red-50"
                           onClick={() => removeItem(item.id)}
+                          aria-label="Remove item"
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>

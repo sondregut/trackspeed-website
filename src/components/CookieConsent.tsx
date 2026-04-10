@@ -51,6 +51,7 @@ export default function CookieConsent() {
     <div
       className="fixed bottom-0 left-0 right-0 z-50 p-4"
       style={{ background: "rgba(255, 255, 255, 0.97)", borderTop: "1px solid var(--border-light)" }}
+      aria-live="polite"
     >
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
@@ -66,14 +67,14 @@ export default function CookieConsent() {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={decline}
-            className="px-4 py-2 text-sm rounded-lg transition-opacity hover:opacity-70"
+            className="px-4 py-2 text-sm rounded-lg transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#5C8DB8]"
             style={{ color: "var(--text-muted)", border: "1px solid var(--border-light)" }}
           >
             Decline
           </button>
           <button
             onClick={accept}
-            className="px-4 py-2 text-sm rounded-lg text-white transition-opacity hover:opacity-90"
+            className="px-4 py-2 text-sm rounded-lg text-white transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#5C8DB8]"
             style={{ background: "#5C8DB8" }}
           >
             Accept

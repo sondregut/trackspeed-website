@@ -9,7 +9,7 @@ export default function StartTypes() {
   const t = useTranslations("home");
   const [selected, setSelected] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   const typeKeys = ["flying", "touch", "countdown", "voice", "frame"] as const;
   const typeImages = ["/start-flying.png", "/start-touch.png", "/start-countdown.png", "/start-voice.png", "/start-frame.png"];
@@ -85,7 +85,7 @@ export default function StartTypes() {
                       setSelected(index);
                       cardRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
                     }}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-2 h-2 rounded-full transition-[transform,background-color] duration-300 ${
                       index === selected ? "bg-foreground scale-125" : "bg-border"
                     }`}
                     aria-label={`View ${t(`startTypes.types.${key}.title`)}`}
@@ -98,11 +98,12 @@ export default function StartTypes() {
           {/* Start type cards */}
           <div className="space-y-6 pb-28">
             {typeKeys.map((key, index) => (
-              <div
+              <button
+                type="button"
                 key={index}
                 ref={(el) => { cardRefs.current[index] = el; }}
                 onClick={() => setSelected(index)}
-                className={`p-6 cursor-pointer transition-all duration-300 rounded-3xl ${
+                className={`p-6 w-full text-left transition-[transform,box-shadow,background-color,border-color] duration-300 rounded-3xl ${
                   index === selected
                     ? "bg-white border-2 border-gray-900 shadow-lg scale-[1.02]"
                     : "bg-gray-100/80 border border-transparent hover:bg-gray-100"
@@ -133,7 +134,7 @@ export default function StartTypes() {
                 <p className="text-sm font-medium text-text-secondary">
                   {t("startTypes.bestFor", { useCase: t(`startTypes.types.${key}.useCase`) })}
                 </p>
-              </div>
+              </button>
             ))}
           </div>
         </div>

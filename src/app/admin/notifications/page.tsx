@@ -146,7 +146,7 @@ export default function NotificationsPage() {
               onChange={(e) => setTitle(e.target.value)}
               required
               placeholder="Notification title"
-              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus:outline-none focus:border-[#5C8DB8]"
+              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
             />
           </div>
 
@@ -161,7 +161,7 @@ export default function NotificationsPage() {
               required
               rows={3}
               placeholder="Notification message..."
-              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus:outline-none focus:border-[#5C8DB8] resize-none"
+              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 resize-none"
             />
           </div>
 
@@ -175,7 +175,7 @@ export default function NotificationsPage() {
               onChange={(e) =>
                 setTarget(e.target.value as "all" | "user_ids" | "device_ids")
               }
-              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white focus:outline-none focus:border-[#5C8DB8]"
+              className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
             >
               <option value="all">All users</option>
               <option value="user_ids">Specific user IDs</option>
@@ -194,7 +194,7 @@ export default function NotificationsPage() {
                 value={targetIds}
                 onChange={(e) => setTargetIds(e.target.value)}
                 placeholder="id1, id2, id3..."
-                className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
               />
             </div>
           )}
@@ -210,18 +210,19 @@ export default function NotificationsPage() {
                 value={dataKey}
                 onChange={(e) => setDataKey(e.target.value)}
                 placeholder="Key"
-                className="flex-1 px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus:outline-none focus:border-[#5C8DB8]"
+                className="flex-1 px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
               />
               <input
                 type="text"
                 value={dataValue}
                 onChange={(e) => setDataValue(e.target.value)}
                 placeholder="Value"
-                className="flex-1 px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus:outline-none focus:border-[#5C8DB8]"
+                className="flex-1 px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder-[#666] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
               />
               <button
                 type="button"
                 onClick={addDataField}
+                aria-label="Add custom data field"
                 className="px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white hover:bg-[#3D3D3D] transition-colors"
               >
                 Add
@@ -238,6 +239,7 @@ export default function NotificationsPage() {
                     <button
                       type="button"
                       onClick={() => removeDataField(k)}
+                      aria-label={`Remove ${k}`}
                       className="text-[#9B9A97] hover:text-red-400 ml-1"
                     >
                       x
@@ -250,12 +252,12 @@ export default function NotificationsPage() {
 
           {/* Error/Success */}
           {error && (
-            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
+            <div aria-live="polite" className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
           {success && (
-            <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 text-sm">
+            <div aria-live="polite" className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 text-sm">
               {success}
             </div>
           )}

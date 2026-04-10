@@ -20,19 +20,19 @@ export default function CTA() {
           {/* Value props */}
           <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10 mb-10">
             <div className="flex items-center gap-2 justify-center">
-              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span className="text-sm text-text-on-dark-muted">{t("ctaSection.accuracy")}</span>
             </div>
             <div className="flex items-center gap-2 justify-center">
-              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span className="text-sm text-text-on-dark-muted">{t("ctaSection.setup")}</span>
             </div>
             <div className="flex items-center gap-2 justify-center">
-              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span className="text-sm text-text-on-dark-muted">{t("ctaSection.noHardware")}</span>

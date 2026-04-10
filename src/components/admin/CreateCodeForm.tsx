@@ -56,7 +56,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
             type="text"
             value={code}
             onChange={(e) => setCode(e.target.value.toUpperCase())}
-            className="flex-1 px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus:outline-none focus:border-[#5C8DB8] transition-colors font-mono uppercase"
+            className="flex-1 px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors font-mono uppercase"
             placeholder="e.g., SUMMER2024"
             required
           />
@@ -79,7 +79,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           id="type"
           value={type}
           onChange={(e) => setType(e.target.value as 'free' | 'trial')}
-          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus:outline-none focus:border-[#5C8DB8] transition-colors"
+          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         >
           <option value="free">Free (Full Pro access)</option>
           <option value="trial">Trial (Limited time)</option>
@@ -95,7 +95,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           id="duration"
           value={durationDays}
           onChange={(e) => setDurationDays(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus:outline-none focus:border-[#5C8DB8] transition-colors"
+          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         >
           <option value="">Forever</option>
           <option value="30">30 days (1 month)</option>
@@ -116,7 +116,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           value={maxUses}
           onChange={(e) => setMaxUses(e.target.value)}
           min="1"
-          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus:outline-none focus:border-[#5C8DB8] transition-colors"
+          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
           placeholder="Unlimited"
         />
       </div>
@@ -131,7 +131,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           type="date"
           value={expiresAt}
           onChange={(e) => setExpiresAt(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus:outline-none focus:border-[#5C8DB8] transition-colors"
+          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         />
       </div>
 
@@ -145,7 +145,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           type="text"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus:outline-none focus:border-[#5C8DB8] transition-colors"
+          className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
           placeholder="e.g., For beta testers"
         />
       </div>

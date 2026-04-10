@@ -34,9 +34,11 @@ export default async function InvitePage({ params }: Props) {
       {/* Logo */}
       <div className="mb-16">
         <div className="flex items-center gap-2">
-          <img
+          <Image
             src="/icon.png"
             alt="TrackSpeed"
+            width={40}
+            height={40}
             className="w-10 h-10 rounded-xl"
           />
           <span className="text-2xl font-semibold text-[#1D1D1F]">TrackSpeed</span>

@@ -22,12 +22,14 @@ export function CopyButton({ code }: { code: string }) {
   return (
     <button
       onClick={handleCopy}
+      aria-label="Copy referral code"
       className="flex items-center gap-2 px-6 py-3 bg-[#F5F5F7] rounded-full border border-[#E5E5E7] hover:bg-[#E5E5E7] transition-colors"
     >
       <span className="text-xl font-semibold text-[#1D1D1F] tracking-wider">
         {code}
       </span>
       <svg
+        aria-hidden="true"
         width="20"
         height="20"
         viewBox="0 0 24 24"

@@ -58,7 +58,7 @@ export default function Comparison() {
     if (value === true) {
       return (
         <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#D1FAE5]">
-          <svg className="w-4 h-4 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </span>
@@ -67,7 +67,7 @@ export default function Comparison() {
     if (value === false) {
       return (
         <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-border">
-          <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </span>

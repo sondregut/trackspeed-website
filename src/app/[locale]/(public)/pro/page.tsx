@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 function ProPageContent() {
   const searchParams = useSearchParams();
@@ -33,7 +34,7 @@ function ProPageContent() {
       <div className="text-center max-w-md">
         {!showFallback ? (
           <>
-            <div className="animate-pulse mb-6">
+            <div className="animate-pulse motion-reduce:animate-none mb-6">
               <div className="w-16 h-16 mx-auto bg-[#5C8DB8] rounded-2xl flex items-center justify-center">
                 <svg
                   className="w-10 h-10 text-white"
@@ -51,7 +52,7 @@ function ProPageContent() {
               </div>
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">
-              Opening TrackSpeed...
+              Opening TrackSpeed{"\u2026"}
             </h1>
             <p className="text-gray-400">Redirecting to your special offer</p>
           </>
@@ -78,7 +79,7 @@ function ProPageContent() {
             </div>
             <div className="flex justify-center">
               <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
-                <img
+                <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
                   width={120}
@@ -124,7 +125,7 @@ function LoadingState() {
             </svg>
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-white mb-2">Loading...</h1>
+        <h1 className="text-2xl font-bold text-white mb-2">Loading{"\u2026"}</h1>
       </div>
     </div>
   );

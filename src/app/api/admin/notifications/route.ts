@@ -1,11 +1,22 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { cookies } from "next/headers";
+
+async function verifyAdmin() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("admin_session");
+  return !!sessionCookie?.value;
+}
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // GET - Fetch notification history
 export async function GET() {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const supabase = getSupabaseAdmin();
     const { data, error } = await supabase
@@ -29,6 +40,10 @@ export async function GET() {
 
 // POST - Send a push notification via the edge function
 export async function POST(req: Request) {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const { title, body: notifBody, data, target, target_ids } = body;

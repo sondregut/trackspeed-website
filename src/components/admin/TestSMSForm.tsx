@@ -56,7 +56,7 @@ export default function TestSMSForm({ onSend }: TestSMSFormProps) {
             id="sms-template"
             value={template}
             onChange={(e) => setTemplate(e.target.value)}
-            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#5C8DB8]"
+            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
           >
             {smsCampaigns.map((campaign) => (
               <option key={campaign.id} value={campaign.templateKey}>
@@ -80,7 +80,8 @@ export default function TestSMSForm({ onSend }: TestSMSFormProps) {
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+1234567890"
             required
-            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white placeholder-[#787774] focus:outline-none focus:ring-2 focus:ring-[#5C8DB8]"
+            autoComplete="tel"
+            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
           />
           <p className="text-xs text-[#787774] mt-1">
             Include country code (e.g., +1 for US)

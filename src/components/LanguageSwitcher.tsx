@@ -18,12 +18,12 @@ export default function LanguageSwitcher() {
 
   return (
     <div className="relative inline-flex items-center">
-      <Globe className="w-4 h-4 text-muted absolute left-2 pointer-events-none" />
+      <Globe className="w-4 h-4 text-muted absolute left-2 pointer-events-none" aria-hidden="true" />
       <select
         value={locale}
         onChange={onChange}
         aria-label={t("language")}
-        className="appearance-none bg-transparent text-sm font-medium text-muted pl-7 pr-6 py-1.5 rounded-lg border border-transparent hover:border-[var(--border-light)] cursor-pointer transition-colors focus:outline-none focus:ring-1 focus:ring-[#5C8DB8]"
+        className="appearance-none bg-transparent text-sm font-medium text-muted pl-7 pr-6 py-1.5 rounded-lg border border-transparent hover:border-[var(--border-light)] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#5C8DB8]"
       >
         {locales.map((loc) => (
           <option key={loc} value={loc}>
@@ -31,7 +31,7 @@ export default function LanguageSwitcher() {
           </option>
         ))}
       </select>
-      <svg className="w-3 h-3 text-muted absolute right-1.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-3 h-3 text-muted absolute right-1.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
       </svg>
     </div>

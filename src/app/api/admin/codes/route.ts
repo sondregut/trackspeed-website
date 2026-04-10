@@ -1,7 +1,18 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { cookies } from 'next/headers'
+
+async function verifyAdmin() {
+  const cookieStore = await cookies()
+  const sessionCookie = cookieStore.get('admin_session')
+  return !!sessionCookie?.value
+}
 
 export async function GET() {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const { data, error } = await supabase
     .from('promo_codes')
     .select('*')
@@ -19,6 +30,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const body = await request.json()
     const { code, type, duration_days, max_uses, expires_at, note } = body

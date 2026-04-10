@@ -115,51 +115,58 @@ export default function InfluencerApplyPage() {
           {/* Basic Info */}
           <div className="space-y-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+              <label htmlFor="apply-name" className="block text-sm font-medium text-[#9B9A97] mb-2">
                 Full Name *
               </label>
               <input
+                id="apply-name"
                 type="text"
                 value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                 placeholder="John Smith"
                 required
+                autoComplete="name"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+              <label htmlFor="apply-email" className="block text-sm font-medium text-[#9B9A97] mb-2">
                 Email *
               </label>
               <input
+                id="apply-email"
                 type="email"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                 placeholder="you@example.com"
                 required
+                autoComplete="email"
+                spellCheck={false}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+              <label htmlFor="apply-password" className="block text-sm font-medium text-[#9B9A97] mb-2">
                 Password *
               </label>
               <input
+                id="apply-password"
                 type="password"
                 value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                 placeholder="Min 8 characters"
                 minLength={8}
                 required
+                autoComplete="new-password"
               />
             </div>
           </div>
@@ -171,58 +178,62 @@ export default function InfluencerApplyPage() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs text-[#9B9A97] mb-1">
+                <label htmlFor="apply-instagram" className="block text-xs text-[#9B9A97] mb-1">
                   Instagram
                 </label>
                 <input
+                  id="apply-instagram"
                   type="text"
                   value={formData.instagram}
                   onChange={(e) =>
                     setFormData({ ...formData, instagram: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                   placeholder="@username"
                 />
               </div>
               <div>
-                <label className="block text-xs text-[#9B9A97] mb-1">
+                <label htmlFor="apply-tiktok" className="block text-xs text-[#9B9A97] mb-1">
                   TikTok
                 </label>
                 <input
+                  id="apply-tiktok"
                   type="text"
                   value={formData.tiktok}
                   onChange={(e) =>
                     setFormData({ ...formData, tiktok: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                   placeholder="@username"
                 />
               </div>
               <div>
-                <label className="block text-xs text-[#9B9A97] mb-1">
+                <label htmlFor="apply-youtube" className="block text-xs text-[#9B9A97] mb-1">
                   YouTube
                 </label>
                 <input
+                  id="apply-youtube"
                   type="text"
                   value={formData.youtube}
                   onChange={(e) =>
                     setFormData({ ...formData, youtube: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                   placeholder="Channel URL"
                 />
               </div>
               <div>
-                <label className="block text-xs text-[#9B9A97] mb-1">
+                <label htmlFor="apply-twitter" className="block text-xs text-[#9B9A97] mb-1">
                   X (Twitter)
                 </label>
                 <input
+                  id="apply-twitter"
                   type="text"
                   value={formData.twitter}
                   onChange={(e) =>
                     setFormData({ ...formData, twitter: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                  className="w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                   placeholder="@username"
                 />
               </div>
@@ -231,15 +242,16 @@ export default function InfluencerApplyPage() {
 
           {/* Application Note */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+            <label htmlFor="apply-note" className="block text-sm font-medium text-[#9B9A97] mb-2">
               Why do you want to promote TrackSpeed?
             </label>
             <textarea
+              id="apply-note"
               value={formData.applicationNote}
               onChange={(e) =>
                 setFormData({ ...formData, applicationNote: e.target.value })
               }
-              className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8] resize-none"
+              className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 resize-none"
               rows={3}
               placeholder="Tell us about your audience and why TrackSpeed would be a good fit..."
             />

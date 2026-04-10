@@ -14,19 +14,27 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; su
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Skip animation if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !triggered.current) {
           triggered.current = true;
-          const start = Date.now();
-          const duration = 1200;
-          function tick() {
-            const progress = Math.min((Date.now() - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setDisplay(Math.round(value * eased).toString());
-            if (progress < 1) requestAnimationFrame(tick);
+          if (prefersReducedMotion) {
+            setDisplay(value.toString());
+          } else {
+            const start = Date.now();
+            const duration = 1200;
+            function tick() {
+              const progress = Math.min((Date.now() - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              setDisplay(Math.round(value * eased).toString());
+              if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
           }
-          requestAnimationFrame(tick);
           observer.disconnect();
         }
       },
@@ -99,19 +107,19 @@ export default function Hero() {
               {/* Stats */}
               <div className="flex gap-8 justify-center lg:justify-start text-center lg:text-left">
                 <div>
-                  <div className="text-2xl font-bold text-foreground">
+                  <div className="text-2xl font-bold text-foreground tabular-nums">
                     ~<AnimatedNumber value={4} suffix="ms" />
                   </div>
                   <div className="text-sm text-muted">{t("hero.stats.accuracy")}</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-foreground">
+                  <div className="text-2xl font-bold text-foreground tabular-nums">
                     &lt;<AnimatedNumber value={1} suffix=" min" />
                   </div>
                   <div className="text-sm text-muted">{t("hero.stats.setup")}</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-foreground">
+                  <div className="text-2xl font-bold text-foreground tabular-nums">
                     $<AnimatedNumber value={0} />
                   </div>
                   <div className="text-sm text-muted">{t("hero.stats.hardware")}</div>

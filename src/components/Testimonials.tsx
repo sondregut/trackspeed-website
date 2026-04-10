@@ -80,7 +80,7 @@ function TestimonialCard({
       style={{ boxShadow: "0 4px 24px rgba(0, 0, 0, 0.1)" }}
     >
       {/* Background image or placeholder */}
-      <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105">
+      <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
         {testimonial.hasRealImage ? (
           <Image
             src={testimonial.image}

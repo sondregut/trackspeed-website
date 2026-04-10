@@ -48,12 +48,13 @@ export default function ProductCard({ product }: { product: Product }) {
               className="w-20 h-20 rounded-2xl flex items-center justify-center"
               style={{ background: "rgba(92,141,184,0.15)" }}
             >
-              <Smartphone className="w-10 h-10" style={{ color: "#5C8DB8" }} />
+              <Smartphone className="w-10 h-10" style={{ color: "#5C8DB8" }} aria-hidden="true" />
             </div>
           ) : (
             <ShoppingBag
               className="w-16 h-16"
               style={{ color: "rgba(92,141,184,0.3)" }}
+              aria-hidden="true"
             />
           )}
         </div>

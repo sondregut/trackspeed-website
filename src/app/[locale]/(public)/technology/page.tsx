@@ -102,7 +102,7 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
             className="inline-flex items-center gap-2 text-sm mb-6 hover:opacity-70 transition-opacity"
             style={{ color: "var(--text-muted)" }}
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             {t('backToHome')}
@@ -262,7 +262,7 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
                 <details key={i} className="card-feature p-5 md:p-6 group">
                   <summary className="font-semibold cursor-pointer list-none flex items-center justify-between" style={{ color: "var(--text-primary)" }}>
                     {item.question}
-                    <svg className="w-5 h-5 flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: "var(--text-muted)" }}>
+                    <svg aria-hidden="true" className="w-5 h-5 flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: "var(--text-muted)" }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </summary>

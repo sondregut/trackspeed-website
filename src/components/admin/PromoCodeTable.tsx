@@ -94,7 +94,7 @@ function MaxUsesCell({
           if (e.key === "Escape") setEditing(false);
         }}
         placeholder="∞"
-        className="w-16 px-1 py-0.5 text-sm rounded bg-[#2B2E32] border border-[#5C8DB8] text-white focus:outline-none"
+        className="w-16 px-1 py-0.5 text-sm rounded bg-[#2B2E32] border border-[#5C8DB8] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
       />
     </span>
   );

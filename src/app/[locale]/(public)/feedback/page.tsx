@@ -321,7 +321,7 @@ export default function FeedbackPage() {
                   <Label htmlFor="description">Description</Label>
                   <Textarea
                     id="description"
-                    placeholder="Explain what you'd like and why it would be useful..."
+                    placeholder="Explain what you'd like and why it would be useful\u2026"
                     value={submitDescription}
                     onChange={(e) => setSubmitDescription(e.target.value)}
                     rows={4}
@@ -357,7 +357,7 @@ export default function FeedbackPage() {
                   className="w-full text-white"
                   style={{ backgroundColor: "#5C8DB8" }}
                 >
-                  {submitting ? "Submitting..." : "Submit"}
+                  {submitting ? "Submitting\u2026" : "Submit"}
                 </Button>
               </div>
             </DialogContent>
@@ -436,8 +436,9 @@ export default function FeedbackPage() {
           <div className="space-y-3">
             {posts.map((post) => (
               <div key={post.id}>
-                <div
-                  className="card-feature cursor-pointer"
+                <button
+                  type="button"
+                  className="card-feature cursor-pointer w-full text-left"
                   style={{ padding: "1.25rem 1.5rem" }}
                   onClick={() => toggleExpand(post.id)}
                 >
@@ -557,7 +558,7 @@ export default function FeedbackPage() {
                       />
                     </svg>
                   </div>
-                </div>
+                </button>
 
                 {/* Expanded comments section */}
                 {expandedPost === post.id && (
@@ -570,8 +571,9 @@ export default function FeedbackPage() {
                       <div
                         className="text-sm py-4 text-center"
                         style={{ color: "var(--text-muted)" }}
+                        aria-live="polite"
                       >
-                        Loading comments...
+                        Loading comments{"\u2026"}
                       </div>
                     ) : (comments[post.id] ?? []).length > 0 ? (
                       <div className="space-y-3 mb-4">
@@ -643,14 +645,16 @@ export default function FeedbackPage() {
                           value={commentName}
                           onChange={(e) => setCommentName(e.target.value)}
                           className="max-w-[200px] h-8 text-sm"
+                          aria-label="Your name"
                         />
                       </div>
                       <div className="flex gap-2">
                         <Input
-                          placeholder="Add a comment..."
+                          placeholder="Add a comment\u2026"
                           value={commentText}
                           onChange={(e) => setCommentText(e.target.value)}
                           className="h-8 text-sm"
+                          aria-label="Add a comment"
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && commentText.trim()) {
                               handleComment(post.id);
@@ -664,7 +668,7 @@ export default function FeedbackPage() {
                           className="text-white h-8 px-3"
                           style={{ backgroundColor: "#5C8DB8" }}
                         >
-                          {submittingComment ? "..." : "Post"}
+                          {submittingComment ? "\u2026" : "Post"}
                         </Button>
                       </div>
                     </div>

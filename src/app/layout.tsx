@@ -81,6 +81,7 @@ export const metadata: Metadata = {
   },
   other: {
     "apple-itunes-app": "app-id=6757509163",
+    "theme-color": "#FFFFFF",
   },
 };
 
@@ -90,10 +91,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body
         className={`${inter.variable} ${bricolage.variable} antialiased`}
       >
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:text-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]">Skip to main content</a>
         {children}
         <CookieConsent />
         <script

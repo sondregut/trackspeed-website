@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { cookies } from "next/headers";
+
+async function verifyAdmin() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("admin_session");
+  return !!sessionCookie?.value;
+}
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const FROM_EMAIL = process.env.FROM_EMAIL || "TrackSpeed <noreply@hello.mytrackspeed.com>";
@@ -99,6 +106,10 @@ const templates: Record<string, (d: TemplateData) => { subject: string; html: st
 };
 
 export async function POST(request: Request) {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { template, email } = await request.json();
 

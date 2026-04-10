@@ -414,3 +414,18 @@ html {
 .stagger-container.stagger-visible .stagger-item:nth-child(8)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 8); }
 .stagger-container.stagger-visible .stagger-item:nth-child(9)  { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 9); }
 .stagger-container.stagger-visible .stagger-item:nth-child(10) { opacity: 1; transform: translateY(0); transition-delay: calc(var(--stagger-delay, 0.1s) * 10); }
+
+/* Reduced motion: disable scroll-reveal and component animations */
+@media (prefers-reduced-motion: reduce) {
+  .sr-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .sr-visible {
+    transition: none !important;
+  }
+  .btn-primary,
+  .card-feature {
+    transition: none !important;
+  }
+}

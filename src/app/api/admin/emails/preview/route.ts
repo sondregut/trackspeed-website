@@ -1,4 +1,11 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+
+async function verifyAdmin() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("admin_session");
+  return !!sessionCookie?.value;
+}
 
 // Email template preview generator (mirrors the edge function templates)
 const baseStyles = `
@@ -325,6 +332,10 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 };
 
 export async function GET(request: Request) {
+  if (!(await verifyAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const template = searchParams.get("template");
 

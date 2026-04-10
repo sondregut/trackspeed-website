@@ -58,30 +58,35 @@ export default function InfluencerLoginPage() {
 
           <div className="space-y-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+              <label htmlFor="login-email" className="block text-sm font-medium text-[#9B9A97] mb-2">
                 Email
               </label>
               <input
+                id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                 placeholder="you@example.com"
                 required
+                autoComplete="email"
+                spellCheck={false}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#9B9A97] mb-2">
+              <label htmlFor="login-password" className="block text-sm font-medium text-[#9B9A97] mb-2">
                 Password
               </label>
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#5C8DB8]"
+                className="w-full px-4 py-3 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white placeholder:text-[#6B6B6B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
                 placeholder="Your password"
                 required
+                autoComplete="current-password"
               />
             </div>
           </div>

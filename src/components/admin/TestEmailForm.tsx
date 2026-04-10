@@ -56,7 +56,7 @@ export default function TestEmailForm({ onSend }: TestEmailFormProps) {
             id="template"
             value={template}
             onChange={(e) => setTemplate(e.target.value)}
-            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#5C8DB8]"
+            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
           >
             {campaigns.map((campaign) => (
               <option key={campaign.id} value={campaign.templateKey}>
@@ -80,7 +80,9 @@ export default function TestEmailForm({ onSend }: TestEmailFormProps) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="test@example.com"
             required
-            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white placeholder-[#787774] focus:outline-none focus:ring-2 focus:ring-[#5C8DB8]"
+            autoComplete="email"
+            spellCheck={false}
+            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#3D3D3D] rounded-lg text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1"
           />
         </div>
 
