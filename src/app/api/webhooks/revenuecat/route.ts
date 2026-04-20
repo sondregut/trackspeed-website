@@ -322,10 +322,15 @@ async function handleReferralReward(
       // Continue anyway - we still want to try granting the reward
     }
 
-    // Grant 1 free month to referrer via RevenueCat Promotional Entitlement
-    const revenueCatSecretKey = process.env.REVENUECAT_SECRET_KEY
+    // Grant 1 free month to referrer via RevenueCat Promotional Entitlement.
+    // Accepts either env name for historical reasons: the project was
+    // originally provisioned with REVENUECAT_API_KEY, but the intended
+    // value here is a **secret** key (publishable keys cannot grant
+    // promotional entitlements — the API returns 401).
+    const revenueCatSecretKey =
+      process.env.REVENUECAT_SECRET_KEY || process.env.REVENUECAT_API_KEY
     if (!revenueCatSecretKey) {
-      console.error('REVENUECAT_SECRET_KEY not configured - skipping promotional entitlement')
+      console.error('RevenueCat secret key not configured - skipping promotional entitlement')
       return
     }
 
