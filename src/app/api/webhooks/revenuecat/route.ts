@@ -299,6 +299,18 @@ async function handleReferralReward(
 
     const referrerDeviceId = referrerCode.device_id
 
+    // Defense-in-depth: the Swift client already blocks self-referral via
+    // ReferralService.trackReferralSignup, but a compromised client could
+    // bypass it. Never grant a reward to the subscriber themselves.
+    if (referrerDeviceId === appUserId) {
+      console.warn(`Refusing self-referral reward for ${appUserId}`)
+      await supabase
+        .from('user_referrals')
+        .update({ status: 'self_referral_blocked' })
+        .eq('id', referral.id)
+      return
+    }
+
     // Update referral status to 'subscribed'
     const { error: updateError } = await supabase
       .from('user_referrals')
@@ -317,6 +329,10 @@ async function handleReferralReward(
       return
     }
 
+    // Must match AppConfig.RevenueCat.entitlementID on iOS. Env-driven so
+    // web and mobile stay in sync without a code change.
+    const entitlementId = process.env.REVENUECAT_ENTITLEMENT_ID || 'Track Speed Pro'
+
     // Grant promotional entitlement with retry
     // https://www.revenuecat.com/docs/api-v1#tag/Entitlements/operation/grant-a-promotional-entitlement
     let response: Response | null = null
@@ -325,7 +341,7 @@ async function handleReferralReward(
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
         response = await fetch(
-          `https://api.revenuecat.com/v1/subscribers/${encodeURIComponent(referrerDeviceId)}/entitlements/Pro/promotional`,
+          `https://api.revenuecat.com/v1/subscribers/${encodeURIComponent(referrerDeviceId)}/entitlements/${encodeURIComponent(entitlementId)}/promotional`,
           {
             method: 'POST',
             headers: {
