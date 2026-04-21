@@ -1,6 +1,82 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
 
+// Map RevenueCat event types to snake_case PostHog event names.
+// Keeps the mobile-app convention (paywall_purchase_completed, etc.) for
+// client-side events and adds these server-side RC lifecycle events so the
+// full subscription timeline lives on the same person in PostHog.
+const POSTHOG_EVENT_NAMES: Partial<Record<RevenueCatEventType, string>> = {
+  INITIAL_PURCHASE: 'rc_initial_purchase',
+  RENEWAL: 'rc_renewal',
+  CANCELLATION: 'rc_cancellation',
+  UNCANCELLATION: 'rc_uncancellation',
+  EXPIRATION: 'rc_expiration',
+  BILLING_ISSUE: 'rc_billing_issue',
+  TRIAL_STARTED: 'rc_trial_started',
+  TRIAL_CONVERTED: 'rc_trial_converted',
+  TRIAL_CANCELLED: 'rc_trial_cancelled',
+  PRODUCT_CHANGE: 'rc_product_change',
+}
+
+// Server-side RevenueCat → PostHog bridge. Fires even when the user isn't in
+// the app (renewals, expirations, billing issues), so the PostHog person
+// record reflects the real subscription lifecycle.
+async function forwardToPostHog(
+  event: RevenueCatWebhookEvent['event'],
+  priceCents: number | null,
+  planType: 'monthly' | 'yearly' | null,
+) {
+  const eventName = POSTHOG_EVENT_NAMES[event.type]
+  if (!eventName) return
+
+  // Prefer the PostHog distinct id the iOS app forwarded as a subscriber
+  // attribute; fall back to app_user_id. Both are stable per user.
+  const posthogDistinctId =
+    event.subscriber_attributes?.['$posthogDistinctId']?.value ?? event.app_user_id
+
+  const host = process.env.POSTHOG_HOST ?? 'https://eu.i.posthog.com'
+  const apiKey = process.env.POSTHOG_API_KEY
+  if (!apiKey) {
+    console.warn('POSTHOG_API_KEY not set — skipping PostHog forward for', event.type)
+    return
+  }
+
+  const properties: Record<string, unknown> = {
+    product_id: event.product_id,
+    period_type: event.period_type,
+    environment: event.environment,
+    store: event.store,
+    is_trial_conversion: event.is_trial_conversion ?? false,
+    cancel_reason: event.cancel_reason ?? null,
+    plan_type: planType,
+    source: 'revenuecat_webhook',
+  }
+  if (priceCents !== null && priceCents > 0) {
+    // PostHog's revenue analytics keys off `$revenue` (in whole currency units).
+    properties.$revenue = priceCents / 100
+    properties.currency = event.currency ?? 'USD'
+  }
+
+  try {
+    const response = await fetch(`${host}/i/v0/e/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: apiKey,
+        event: eventName,
+        distinct_id: posthogDistinctId,
+        properties,
+        timestamp: new Date(event.purchased_at_ms).toISOString(),
+      }),
+    })
+    if (!response.ok) {
+      console.warn(`PostHog forward ${eventName} returned ${response.status}`)
+    }
+  } catch (err) {
+    console.warn(`PostHog forward ${eventName} failed:`, err)
+  }
+}
+
 // RevenueCat webhook event types
 // https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
 type RevenueCatEventType =
@@ -236,6 +312,11 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`Subscription updated: ${event.app_user_id} -> ${status}`)
+
+    // Forward to PostHog for revenue analytics + lifecycle funnels.
+    // Awaited so we don't drop events if the Node runtime exits after the
+    // response — the POST is fast and idempotent.
+    await forwardToPostHog(event, priceCents, planType)
 
     // Handle influencer commission for yearly conversions
     if (
