@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
+import { verifyAdminSession } from '@/lib/admin-auth'
 
 interface RevenueCatOverview {
   activeSubscribers: number
@@ -9,6 +10,10 @@ interface RevenueCatOverview {
 }
 
 export async function GET() {
+  if (!(await verifyAdminSession())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const supabase = getSupabase()
     const now = new Date()

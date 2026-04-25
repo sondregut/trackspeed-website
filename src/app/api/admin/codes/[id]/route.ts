@@ -1,18 +1,12 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { cookies } from 'next/headers'
-
-async function verifyAdmin() {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('admin_session')
-  return !!sessionCookie?.value
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -81,7 +75,7 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

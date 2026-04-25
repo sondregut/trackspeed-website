@@ -1,15 +1,9 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { cookies } from 'next/headers'
-
-async function verifyAdmin() {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('admin_session')
-  return !!sessionCookie?.value
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 export async function GET() {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -30,7 +24,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

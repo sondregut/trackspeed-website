@@ -1,5 +1,6 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {getAlternates} from '@/i18n/metadata';
+import {Link} from '@/i18n/navigation';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -87,7 +88,7 @@ export default async function DeleteAccountPage({params}: {params: Promise<{loca
             <li>Once your account is deleted, your data cannot be recovered. Deletion is permanent and irreversible.</li>
             <li>
               For questions about your data, see our{" "}
-              <a href="/privacy" className="text-[#5C8DB8] hover:underline">Privacy Policy</a>
+              <Link href="/privacy" className="text-[#5C8DB8] hover:underline">Privacy Policy</Link>
               {" "}or contact{" "}
               <a href="mailto:privacy@mytrackspeed.com" className="text-[#5C8DB8] hover:underline">privacy@mytrackspeed.com</a>
               .

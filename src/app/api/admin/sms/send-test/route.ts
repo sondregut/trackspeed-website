@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
-import { cookies } from "next/headers";
-
-async function verifyAdmin() {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("admin_session");
-  return !!sessionCookie?.value;
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
@@ -26,7 +20,7 @@ const smsTemplates: Record<string, (d: { name: string; sessionCount: number }) =
 };
 
 export async function POST(request: Request) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -1,19 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendEmail } from '@/lib/email'
-import { cookies } from 'next/headers'
-
-// Verify admin auth (check for admin_session cookie)
-async function verifyAdmin() {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('admin_session')
-  // Just check if the cookie exists - same pattern as other admin routes
-  return !!sessionCookie?.value
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 // GET /api/admin/influencers - List all influencers
 export async function GET(request: NextRequest) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -48,7 +40,7 @@ export async function GET(request: NextRequest) {
 
 // PATCH /api/admin/influencers - Update influencer status
 export async function PATCH(request: NextRequest) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

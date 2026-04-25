@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
-import { cookies } from 'next/headers'
-
-async function verifyAdmin() {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('admin_session')
-  return !!sessionCookie?.value
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 interface AnalyticsData {
   overview: {
@@ -66,7 +60,7 @@ interface AnalyticsData {
 }
 
 export async function GET() {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

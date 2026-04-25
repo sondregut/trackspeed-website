@@ -5,7 +5,7 @@ import {routing} from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const {pathname} = request.nextUrl;
 
   // Skip i18n for admin, influencer, api, and invite routes
@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
 
       const expectedToken = process.env.ADMIN_SESSION_TOKEN;
 
-      if (sessionToken !== expectedToken) {
+      if (!expectedToken || sessionToken !== expectedToken) {
         const loginUrl = new URL('/admin/login', request.url);
         return NextResponse.redirect(loginUrl);
       }

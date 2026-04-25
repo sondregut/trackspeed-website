@@ -38,21 +38,16 @@ export default function StartTypeChart({ data }: StartTypeChartProps) {
   }
 
   const total = data.reduce((sum, d) => sum + d.count, 0)
-  let currentAngle = -90 // Start from top
 
   // Calculate pie slices
   const slices = data.map((item, index) => {
     const percentage = (item.count / total) * 100
     const angle = (percentage / 100) * 360
-    const startAngle = currentAngle
-    currentAngle += angle
 
     return {
       ...item,
       percentage,
       angle,
-      startAngle,
-      endAngle: startAngle + angle,
       color: COLORS[index % COLORS.length],
     }
   })

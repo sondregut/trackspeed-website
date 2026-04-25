@@ -92,6 +92,13 @@ export default function PitchDeck() {
     return () => observer.disconnect();
   }, []);
 
+  const scrollToSlide = useCallback((index: number) => {
+    const deck = deckRef.current;
+    if (!deck) return;
+    const slide = deck.querySelector(`[data-index="${index}"]`);
+    slide?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -108,14 +115,7 @@ export default function PitchDeck() {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [activeSlide]);
-
-  const scrollToSlide = useCallback((index: number) => {
-    const deck = deckRef.current;
-    if (!deck) return;
-    const slide = deck.querySelector(`[data-index="${index}"]`);
-    slide?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [activeSlide, scrollToSlide]);
 
   return (
     <div ref={deckRef} className="pitch-deck">
@@ -1033,7 +1033,7 @@ function SlideLabel({ children, dark }: { children: React.ReactNode; dark?: bool
   return (
     <p
       className="text-sm font-semibold uppercase tracking-widest mb-4"
-      style={{ color: "#5C8DB8" }}
+      style={{ color: dark ? "#1A1A1A" : "#5C8DB8" }}
     >
       {children}
     </p>

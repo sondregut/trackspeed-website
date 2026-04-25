@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const CONSENT_KEY = "cookie-consent";
 
@@ -22,14 +23,14 @@ async function initPostHog() {
 }
 
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof window !== "undefined" && localStorage.getItem(CONSENT_KEY) === null
+  );
 
   useEffect(() => {
     const consent = localStorage.getItem(CONSENT_KEY);
     if (consent === "accepted") {
       initPostHog();
-    } else if (consent === null) {
-      setVisible(true);
     }
     // If "declined", do nothing
   }, []);
@@ -56,13 +57,13 @@ export default function CookieConsent() {
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
           We use cookies to analyze site usage and improve your experience.{" "}
-          <a
+          <Link
             href="/privacy"
             className="underline transition-opacity hover:opacity-70"
             style={{ color: "var(--text-primary)" }}
           >
             Privacy Policy
-          </a>
+          </Link>
         </p>
         <div className="flex items-center gap-3 shrink-0">
           <button

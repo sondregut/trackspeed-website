@@ -126,9 +126,9 @@ export default async function SupportPage({params}: {params: Promise<{locale: st
           <p className="text-muted">
             {t.rich('feedbackSection.description', {
               feedbackLink: (chunks) => (
-                <a href="/feedback" className="text-[#5C8DB8] hover:underline">
+                <Link href="/feedback" className="text-[#5C8DB8] hover:underline">
                   {chunks}
-                </a>
+                </Link>
               ),
               emailLink: (chunks) => (
                 <a href="mailto:feedback@mytrackspeed.com" className="text-[#5C8DB8] hover:underline">

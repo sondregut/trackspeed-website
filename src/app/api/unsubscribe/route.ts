@@ -1,21 +1,26 @@
 import { NextResponse } from "next/server";
 import { createHmac } from "crypto";
 import { getSupabase } from "@/lib/supabase";
-
-const UNSUBSCRIBE_SECRET = process.env.UNSUBSCRIBE_SECRET || "trackspeed-unsubscribe-secret-2026";
+import { requireServerEnv, timingSafeEqualString } from "@/lib/server-secrets";
 
 // Generate a token for an email address
 export function generateUnsubscribeToken(email: string): string {
-  return createHmac("sha256", UNSUBSCRIBE_SECRET)
+  return createHmac("sha256", requireServerEnv("UNSUBSCRIBE_SECRET"))
     .update(email.toLowerCase())
-    .digest("hex")
-    .slice(0, 16);
+    .digest("hex");
 }
 
 // Validate a token for an email address
 function validateToken(email: string, token: string): boolean {
+  if (!/^[a-f0-9]{16}$|^[a-f0-9]{64}$/i.test(token)) {
+    return false;
+  }
+
   const expectedToken = generateUnsubscribeToken(email);
-  return token === expectedToken;
+  return (
+    timingSafeEqualString(token, expectedToken) ||
+    (token.length === 16 && timingSafeEqualString(token, expectedToken.slice(0, 16)))
+  );
 }
 
 // Unsubscribe the user
@@ -76,7 +81,18 @@ export async function GET(request: Request) {
     });
   }
 
-  if (!validateToken(email, token)) {
+  let tokenIsValid: boolean;
+  try {
+    tokenIsValid = validateToken(email, token);
+  } catch (error) {
+    console.error("Unsubscribe secret not configured:", error);
+    return new NextResponse(
+      renderPage("Something Went Wrong", "We couldn't process your unsubscribe request. Please try again later."),
+      { status: 500, headers: { "Content-Type": "text/html" } }
+    );
+  }
+
+  if (!tokenIsValid) {
     return new NextResponse(renderPage("Invalid Link", "This unsubscribe link is invalid or has expired."), {
       status: 403,
       headers: { "Content-Type": "text/html" },

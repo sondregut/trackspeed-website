@@ -1,28 +1,30 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { requireServerEnv, timingSafeEqualString } from '@/lib/server-secrets'
 
 export async function POST(request: Request) {
   try {
     const { password } = await request.json()
-    const adminPassword = process.env.ADMIN_PASSWORD
+    let adminPassword: string
+    let sessionToken: string
 
-    if (!adminPassword) {
-      console.error('ADMIN_PASSWORD not configured')
+    try {
+      adminPassword = requireServerEnv('ADMIN_PASSWORD')
+      sessionToken = requireServerEnv('ADMIN_SESSION_TOKEN')
+    } catch (error) {
+      console.error('Admin auth env not configured:', error)
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
       )
     }
 
-    if (password !== adminPassword) {
+    if (typeof password !== 'string' || !timingSafeEqualString(password, adminPassword)) {
       return NextResponse.json(
         { error: 'Invalid password' },
         { status: 401 }
       )
     }
-
-    // Create a session token
-    const sessionToken = process.env.ADMIN_SESSION_TOKEN || generateSessionToken()
 
     // Set the session cookie
     const cookieStore = await cookies()
@@ -47,10 +49,4 @@ export async function DELETE() {
   const cookieStore = await cookies()
   cookieStore.delete('admin_session')
   return NextResponse.json({ success: true })
-}
-
-function generateSessionToken(): string {
-  const bytes = new Uint8Array(48)
-  crypto.getRandomValues(bytes)
-  return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
 }

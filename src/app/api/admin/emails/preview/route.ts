@@ -1,11 +1,5 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-
-async function verifyAdmin() {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("admin_session");
-  return !!sessionCookie?.value;
-}
+import { verifyAdminSession } from "@/lib/admin-auth";
 
 // Email template preview generator (mirrors the edge function templates)
 const baseStyles = `
@@ -332,7 +326,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 };
 
 export async function GET(request: Request) {
-  if (!(await verifyAdmin())) {
+  if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

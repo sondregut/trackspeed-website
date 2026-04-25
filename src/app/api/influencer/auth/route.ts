@@ -3,10 +3,11 @@ import { getSupabase } from '@/lib/supabase'
 import bcrypt from 'bcryptjs'
 import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
+import { requireServerEnv } from '@/lib/server-secrets'
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.INFLUENCER_JWT_SECRET || 'influencer-portal-secret-change-in-production'
-)
+function getJwtSecret(): Uint8Array {
+  return new TextEncoder().encode(requireServerEnv('INFLUENCER_JWT_SECRET'))
+}
 
 // POST /api/influencer/auth - Login
 export async function POST(request: NextRequest) {
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
       .setExpirationTime('7d')
-      .sign(JWT_SECRET)
+      .sign(getJwtSecret())
 
     // Set HTTP-only cookie
     const cookieStore = await cookies()
@@ -105,7 +106,7 @@ export async function GET() {
       return NextResponse.json({ authenticated: false }, { status: 401 })
     }
 
-    const { payload } = await jwtVerify(token, JWT_SECRET)
+    const { payload } = await jwtVerify(token, getJwtSecret())
 
     return NextResponse.json({
       authenticated: true,
@@ -130,7 +131,7 @@ export async function verifyInfluencerToken(request: NextRequest): Promise<strin
       return null
     }
 
-    const { payload } = await jwtVerify(token, JWT_SECRET)
+    const { payload } = await jwtVerify(token, getJwtSecret())
     return payload.influencerId as string
   } catch {
     return null
