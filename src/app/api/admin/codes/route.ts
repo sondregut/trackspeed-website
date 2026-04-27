@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { verifyAdminSession } from "@/lib/admin-auth";
 
+const allowedCodeTypes = new Set(['free', 'trial', 'jumpers_world'])
+
 export async function GET() {
   if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -36,6 +38,13 @@ export async function POST(request: Request) {
     if (!code || !type) {
       return NextResponse.json(
         { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    if (!allowedCodeTypes.has(type)) {
+      return NextResponse.json(
+        { error: 'Invalid code type' },
         { status: 400 }
       )
     }

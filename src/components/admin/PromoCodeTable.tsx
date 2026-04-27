@@ -19,6 +19,17 @@ function formatDuration(days: number | null): string {
   return `${days} days`;
 }
 
+function formatType(type: PromoCode["type"]): string {
+  switch (type) {
+    case "free":
+      return "Free Pro";
+    case "trial":
+      return "Trial";
+    case "jumpers_world":
+      return "Jumpers World";
+  }
+}
+
 function MaxUsesCell({
   code,
   onUpdateMaxUses,
@@ -129,7 +140,7 @@ export default function PromoCodeTable({ codes, onToggle, onDelete, onUpdateMaxU
                 </div>
               </td>
               <td className="px-4 py-4 text-sm text-[#9B9A97] capitalize">
-                {code.type}
+                {formatType(code.type)}
               </td>
               <td className="px-4 py-4 text-sm text-[#9B9A97]">
                 {formatDuration(code.duration_days)}

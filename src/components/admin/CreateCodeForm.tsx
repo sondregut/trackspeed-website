@@ -5,7 +5,7 @@ import { useState } from "react";
 interface CreateCodeFormProps {
   onSubmit: (data: {
     code: string;
-    type: 'free' | 'trial';
+    type: PromoCodeType;
     duration_days: number | null;
     max_uses: number | null;
     expires_at: string | null;
@@ -14,9 +14,11 @@ interface CreateCodeFormProps {
   loading: boolean;
 }
 
+type PromoCodeType = 'free' | 'trial' | 'jumpers_world';
+
 export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProps) {
   const [code, setCode] = useState("");
-  const [type, setType] = useState<'free' | 'trial'>('free');
+  const [type, setType] = useState<PromoCodeType>('free');
   const [durationDays, setDurationDays] = useState<string>("");
   const [maxUses, setMaxUses] = useState("");
   const [expiresAt, setExpiresAt] = useState("");
@@ -32,6 +34,15 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
       expires_at: expiresAt || null,
       note: note || null,
     });
+  }
+
+  function applyJumpersWorldPreset() {
+    setCode("JUMPERSWORLD");
+    setType("jumpers_world");
+    setDurationDays("");
+    setMaxUses("");
+    setExpiresAt("");
+    setNote("Jumpers World partner pricing: annual and monthly package variant");
   }
 
   function generateCode() {
@@ -78,12 +89,16 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
         <select
           id="type"
           value={type}
-          onChange={(e) => setType(e.target.value as 'free' | 'trial')}
+          onChange={(e) => setType(e.target.value as PromoCodeType)}
           className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         >
           <option value="free">Free (Full Pro access)</option>
           <option value="trial">Trial (Limited time)</option>
+          <option value="jumpers_world">Jumpers World (Partner pricing)</option>
         </select>
+        <p className="mt-2 text-xs text-[#787774]">
+          Jumpers World codes do not grant free Pro. They unlock the Jumpers World annual and monthly package prices in the app.
+        </p>
       </div>
 
       {/* Duration */}
@@ -149,6 +164,14 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           placeholder="e.g., For beta testers"
         />
       </div>
+
+      <button
+        type="button"
+        onClick={applyJumpersWorldPreset}
+        className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#5C8DB8]/40 text-[#68A1D6] hover:border-[#5C8DB8] hover:text-white transition-colors font-medium"
+      >
+        Use Jumpers World preset
+      </button>
 
       {/* Submit */}
       <button

@@ -12,7 +12,7 @@ export default function CreateCodePage() {
 
   async function handleSubmit(data: {
     code: string;
-    type: 'free' | 'trial';
+    type: 'free' | 'trial' | 'jumpers_world';
     duration_days: number | null;
     max_uses: number | null;
     expires_at: string | null;
