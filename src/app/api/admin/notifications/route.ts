@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { verifyAdminSession } from "@/lib/admin-auth";
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+import { requireServerEnv } from "@/lib/server-secrets";
 
 // GET - Fetch notification history
 export async function GET() {
@@ -49,14 +47,17 @@ export async function POST(req: Request) {
       );
     }
 
+    const supabaseUrl = requireServerEnv("NEXT_PUBLIC_SUPABASE_URL");
+    const supabaseServiceKey = requireServerEnv("SUPABASE_SERVICE_ROLE_KEY");
+
     // Call the Supabase edge function
     const response = await fetch(
-      `${SUPABASE_URL}/functions/v1/send-push-notification`,
+      `${supabaseUrl}/functions/v1/send-push-notification`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+          Authorization: `Bearer ${supabaseServiceKey}`,
         },
         body: JSON.stringify({ title, body: notifBody, data, target, target_ids }),
       }

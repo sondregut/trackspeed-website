@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendEmail } from '@/lib/email'
+import { enforceRateLimit } from '@/lib/rate-limit'
 import bcrypt from 'bcryptjs'
 
 // POST /api/influencer/apply - Submit influencer application
@@ -8,9 +9,18 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, email, password, socialLinks, applicationNote } = body
+    const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : null
+
+    const rateLimitResponse = await enforceRateLimit(request, {
+      scope: 'influencer-apply',
+      limit: 3,
+      windowSeconds: 60 * 60,
+      identifier: normalizedEmail,
+    })
+    if (rateLimitResponse) return rateLimitResponse
 
     // Validate required fields
-    if (!name || !email || !password) {
+    if (!name || !normalizedEmail || !password) {
       return NextResponse.json(
         { error: 'Name, email, and password are required' },
         { status: 400 }
@@ -19,12 +29,12 @@ export async function POST(request: NextRequest) {
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
     }
 
     // Validate password strength
-    if (password.length < 8) {
+    if (typeof password !== 'string' || password.length < 8) {
       return NextResponse.json(
         { error: 'Password must be at least 8 characters' },
         { status: 400 }
@@ -37,7 +47,7 @@ export async function POST(request: NextRequest) {
     const { data: existing } = await supabase
       .from('influencers')
       .select('id')
-      .eq('email', email.toLowerCase())
+      .eq('email', normalizedEmail)
       .single()
 
     if (existing) {
@@ -83,7 +93,7 @@ export async function POST(request: NextRequest) {
     const { data: influencer, error } = await supabase
       .from('influencers')
       .insert({
-        email: email.toLowerCase(),
+        email: normalizedEmail,
         name,
         password_hash: passwordHash,
         code,
@@ -99,11 +109,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to submit application' }, { status: 500 })
     }
 
-    console.log(`New influencer application: ${email} (code: ${code})`)
+    console.log(`New influencer application: ${normalizedEmail} (code: ${code})`)
 
     // Send confirmation email
     const emailResult = await sendEmail({
-      to: email.toLowerCase(),
+      to: normalizedEmail,
       template: 'influencer_application_received',
       data: { name },
       metadata: { influencer_id: influencer.id },

@@ -41,7 +41,7 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
       "@type": "Person",
       name: "Sondre Guttormsen",
       url: "https://instagram.com/sondre_pv",
-      jobTitle: "Co-Founder, TrackSpeed",
+      jobTitle: "Founder, TrackSpeed",
       description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {

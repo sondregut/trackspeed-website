@@ -25,10 +25,6 @@ export default function ActivityChart({ data, metric }: ActivityChartProps) {
   const minDate = data[0]?.date
   const maxDate = data[data.length - 1]?.date
 
-  // Calculate bar width based on data length
-  const barWidth = Math.max(100 / data.length - 1, 2)
-  const gap = Math.min(1, 10 / data.length)
-
   return (
     <div className="h-64">
       {/* Y-axis labels */}
@@ -41,7 +37,7 @@ export default function ActivityChart({ data, metric }: ActivityChartProps) {
 
         {/* Chart area */}
         <div className="flex-1 flex items-end gap-[2px] border-l border-b border-[#3D3D3D] px-1 pb-1">
-          {data.map((point, index) => {
+          {data.map((point) => {
             const height = (point[metric] / maxValue) * 100
             return (
               <div

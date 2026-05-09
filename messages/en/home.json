@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "Sprint Timing App for Phone - Free, No Hardware",
-    "description": "Turn your phone into a timing system. ~4ms accuracy, 120fps detection, multi-device sync. Free for track coaches and athletes."
+    "description": "Turn your phone into a timing system. ~4ms accuracy, multi-device sync, no hardware. Free for track coaches and athletes."
   },
   "hero": {
-    "socialProof": "Loved by olympians",
+    "socialProof": "Built by an Olympian",
     "title": "TrackSpeed",
-    "subtitle": "Sprint timing with just your phone",
-    "description": "Turn your phone into a professional timing system. No extra hardware, no calibration, instant results.",
+    "subtitle": "Automatic sprint timing from your phone",
+    "description": "Turn your phone into a timing system. ~4ms accuracy, multi-device sync, no hardware. Free for track coaches and athletes.",
     "downloadCta": "Download on the App Store",
     "downloadAndroid": "Get it on Google Play",
     "stats": {
       "accuracy": "Accuracy",
       "setup": "Setup",
       "hardware": "Hardware"
+    },
+    "secondaryCta": "See how it works",
+    "result": {
+      "ariaLabel": "Example TrackSpeed timing result",
+      "label": "Auto-timed result",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Loved by your favorite olympians",
-    "subtitle": "From high school track to the Olympic Games",
+    "title": "Built and tested by Sondre Guttormsen",
+    "subtitle": "Two-time Olympian. Sole founder and developer.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Olympic Pole Vaulter",
       "quote": "I use TrackSpeed to dial in my run-up before competitions. The accuracy is impressive and I always know exactly what speed I'm hitting at takeoff."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Macedonian Long Jump Record Holder",
-      "quote": "As a long jumper, speed is everything. I time all my sprints with TrackSpeed and love how quick and easy it is to set up. It even tracks my long jump takeoff speed!"
+    "kicker": "From the track to the code",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olympian"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Extra hardware"
+      }
     }
   },
   "howItWorks": {
@@ -41,7 +53,7 @@
       },
       "start": {
         "title": "Start your session",
-        "description": "Choose from five start methods\u2014flying start, touch release, countdown, voice commands, or start in frame."
+        "description": "Choose from five start methods—flying start, touch release, countdown, voice commands, or start in frame."
       },
       "position": {
         "title": "Position your phone",
@@ -57,9 +69,18 @@
     "title": "Professional timing, zero equipment",
     "subtitle": "Everything you need is already in your pocket",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Timing Accuracy" },
-      "sync": { "value": "2+", "label": "Device Sync" },
-      "hardware": { "value": "0", "label": "Extra Hardware" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Timing Accuracy"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Device Sync"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Extra Hardware"
+      }
     },
     "smartDetection": {
       "title": "Smart Detection",
@@ -142,7 +163,7 @@
       "portability": "Portability"
     },
     "trackspeed": {
-      "price": "Free / $8.99/mo*",
+      "price": "Free / $9.99/mo*",
       "accuracy": "~4ms",
       "chestDetection": "Yes (torso only)",
       "setupTime": "< 1 min",
@@ -151,7 +172,7 @@
     },
     "freelap": {
       "price": "$500 - $2,000+",
-      "accuracy": "\u00b120ms",
+      "accuracy": "±20ms",
       "chestDetection": "No (any body part)",
       "setupTime": "5-10 min",
       "hardware": "Sensors + chips",
@@ -159,7 +180,7 @@
     },
     "brower": {
       "price": "$1,500 - $5,000+",
-      "accuracy": "\u00b150-60ms**",
+      "accuracy": "±50-60ms**",
       "chestDetection": "No (beam break)",
       "setupTime": "10-20 min",
       "hardware": "Gates + pads",
@@ -167,7 +188,7 @@
     },
     "dashr": {
       "price": "$500 - $1,500+",
-      "accuracy": "\u00b110ms",
+      "accuracy": "±10ms",
       "chestDetection": "No (beam break)",
       "setupTime": "5-10 min",
       "hardware": "Laser gates",
@@ -175,14 +196,14 @@
     },
     "stopwatch": {
       "price": "$10 - $50",
-      "accuracy": "\u00b1200ms",
+      "accuracy": "±200ms",
       "chestDetection": "Visual guess",
       "setupTime": "Instant",
       "hardware": "None",
       "portability": "Pocket-sized"
     },
     "footnotes": {
-      "pricing": "*$8.99/mo or $49.99/yr. Prices are approximate.",
+      "pricing": "*$9.99/mo or $59.99/yr. Prices are approximate.",
       "browerStudy": "**Per <link>peer-reviewed study</link>: Brower found \"not reliable enough to monitor small changes for elite athletes\"",
       "beamNote": "Beam systems trigger on any body part (hand/leg), not chest. TrackSpeed is designed for training, not official competition."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "The science behind sub-frame precision",
     "subtitle": "How we achieve ~4ms accuracy with standard phone cameras",
-    "frameCapture": "120fps capture = 8.3ms between frames",
-    "formula": "position = velocity \u00d7 time + offset",
-    "formulaLabel": "Trajectory regression (3+ frames)",
-    "formulaResult": "Solve for crossing time with sub-frame precision",
+    "frameCapture": "Two captures bracket the gate line",
+    "formula": "Chest marker, gate line, crossing estimate",
+    "formulaLabel": "Before / after interpolation",
+    "formulaResult": "Crossing time is estimated between the two positions",
     "beyondFrameByFrame": "Beyond frame-by-frame timing",
     "learnHowItWorks": "Learn how it works",
     "motionDetection": {
@@ -202,7 +223,7 @@
     },
     "trajectoryRegression": {
       "title": "Trajectory Regression",
-      "description": "We track position across multiple frames and use linear regression to calculate the precise moment you crossed the gate line\u2014even between frames."
+      "description": "We track position across multiple frames and use linear regression to calculate the precise moment you crossed the gate line—even between frames."
     },
     "rollingShutterCorrection": {
       "title": "Rolling Shutter Correction",
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms Effective Accuracy",
-      "description": "The combination of 120fps capture, multi-frame trajectory analysis, and rolling shutter correction delivers timing precision comparable to professional systems."
+      "description": "High-speed capture, multi-frame trajectory analysis, and rolling shutter correction deliver timing precision comparable to professional systems."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Frame interval at 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Interpolation resolution" },
-      "accuracy": { "value": "~4ms", "label": "Effective timing accuracy" }
+      "frameInterval": {
+        "value": "Before / after",
+        "label": "Brackets the crossing line"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Interpolation resolution"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Effective timing accuracy"
+      }
+    },
+    "visual": {
+      "before": "Before",
+      "after": "After",
+      "estimatedCrossing": "Estimated crossing",
+      "beforeStatus": "Chest before line",
+      "afterStatus": "Chest after line"
     }
   },
   "ctaSection": {

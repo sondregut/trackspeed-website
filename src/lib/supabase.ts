@@ -45,7 +45,13 @@ export interface Influencer {
   social_links: Record<string, string>
   application_note: string | null
   stripe_account_id: string | null
+  stripe_account_model: string
   stripe_onboarding_complete: boolean
+  stripe_payouts_enabled: boolean
+  stripe_details_submitted: boolean
+  stripe_charges_enabled: boolean
+  stripe_requirements_status: string | null
+  stripe_status_checked_at: string | null
   status: 'pending' | 'approved' | 'rejected' | 'suspended'
   status_reason: string | null
   approved_at: string | null

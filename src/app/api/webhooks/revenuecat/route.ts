@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
+import { timingSafeEqualString } from '@/lib/server-secrets'
 
 // Map RevenueCat event types to snake_case PostHog event names.
 // Keeps the mobile-app convention (paywall_purchase_completed, etc.) for
@@ -18,13 +19,15 @@ const POSTHOG_EVENT_NAMES: Partial<Record<RevenueCatEventType, string>> = {
   PRODUCT_CHANGE: 'rc_product_change',
 }
 
+type SubscriptionPlanType = 'weekly' | 'monthly' | 'yearly'
+
 // Server-side RevenueCat → PostHog bridge. Fires even when the user isn't in
 // the app (renewals, expirations, billing issues), so the PostHog person
 // record reflects the real subscription lifecycle.
 async function forwardToPostHog(
   event: RevenueCatWebhookEvent['event'],
   priceCents: number | null,
-  planType: 'monthly' | 'yearly' | null,
+  planType: SubscriptionPlanType | null,
 ) {
   const eventName = POSTHOG_EVENT_NAMES[event.type]
   if (!eventName) return
@@ -121,9 +124,13 @@ interface RevenueCatWebhookEvent {
 }
 
 // Detect plan type from product_id
-// Product IDs typically contain "monthly" or "yearly"/"annual"
-function detectPlanType(productId: string): 'monthly' | 'yearly' | null {
+// Product IDs typically contain "weekly", "monthly", or "yearly"/"annual".
+// Monthly remains supported for legacy subscribers while new paywalls feature weekly.
+function detectPlanType(productId: string): SubscriptionPlanType | null {
   const lower = productId.toLowerCase()
+  if (lower.includes('weekly') || lower.includes('week')) {
+    return 'weekly'
+  }
   if (lower.includes('monthly') || lower.includes('month')) {
     return 'monthly'
   }
@@ -161,7 +168,119 @@ function getStatusFromEvent(eventType: RevenueCatEventType): string {
   }
 }
 
+type RevenueCatReservationResult = 'reserved' | 'duplicate' | 'error'
+
+function isUniqueViolation(error: { code?: string } | null): boolean {
+  return error?.code === '23505'
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
+async function reserveRevenueCatWebhookEvent(
+  supabase: ReturnType<typeof getSupabase>,
+  event: RevenueCatWebhookEvent['event']
+): Promise<RevenueCatReservationResult> {
+  const now = new Date().toISOString()
+  const { error: insertError } = await supabase
+    .from('revenuecat_webhook_events')
+    .insert({
+      event_id: event.id,
+      event_type: event.type,
+      app_user_id: event.app_user_id,
+      processing_started_at: now,
+      updated_at: now,
+    })
+
+  if (!insertError) {
+    return 'reserved'
+  }
+
+  if (!isUniqueViolation(insertError)) {
+    console.error('Failed to reserve RevenueCat event:', insertError)
+    return 'error'
+  }
+
+  const { data: existingEvent, error: existingError } = await supabase
+    .from('revenuecat_webhook_events')
+    .select('processed_at, failed_at')
+    .eq('event_id', event.id)
+    .maybeSingle()
+
+  if (existingError) {
+    console.error('Failed to inspect existing RevenueCat event:', existingError)
+    return 'error'
+  }
+
+  if (existingEvent?.failed_at && !existingEvent.processed_at) {
+    const { error: retryError } = await supabase
+      .from('revenuecat_webhook_events')
+      .update({
+        failed_at: null,
+        failure_message: null,
+        processing_started_at: now,
+        updated_at: now,
+      })
+      .eq('event_id', event.id)
+      .is('processed_at', null)
+
+    if (retryError) {
+      console.error('Failed to reserve RevenueCat retry:', retryError)
+      return 'error'
+    }
+
+    return 'reserved'
+  }
+
+  return 'duplicate'
+}
+
+async function markRevenueCatEventProcessed(
+  supabase: ReturnType<typeof getSupabase>,
+  eventId: string
+) {
+  const now = new Date().toISOString()
+  const { error } = await supabase
+    .from('revenuecat_webhook_events')
+    .update({
+      processed_at: now,
+      failed_at: null,
+      failure_message: null,
+      updated_at: now,
+    })
+    .eq('event_id', eventId)
+
+  if (error) {
+    console.error('Failed to mark RevenueCat event processed:', error)
+  }
+}
+
+async function markRevenueCatEventFailed(
+  supabase: ReturnType<typeof getSupabase>,
+  eventId: string,
+  error: unknown
+) {
+  const now = new Date().toISOString()
+  const { error: updateError } = await supabase
+    .from('revenuecat_webhook_events')
+    .update({
+      failed_at: now,
+      failure_message: errorMessage(error).slice(0, 1000),
+      updated_at: now,
+    })
+    .eq('event_id', eventId)
+    .is('processed_at', null)
+
+  if (updateError) {
+    console.error('Failed to mark RevenueCat event failed:', updateError)
+  }
+}
+
 export async function POST(request: NextRequest) {
+  let supabase: ReturnType<typeof getSupabase> | null = null
+  let reservedRevenueCatEventId: string | null = null
+
   try {
     // Verify authorization header
     const authHeader = request.headers.get('authorization')
@@ -177,7 +296,7 @@ export async function POST(request: NextRequest) {
       ? authHeader.slice(7)
       : authHeader
 
-    if (providedKey !== expectedAuthKey) {
+    if (!providedKey || !timingSafeEqualString(providedKey, expectedAuthKey)) {
       console.error('Invalid webhook authorization')
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -188,17 +307,28 @@ export async function POST(request: NextRequest) {
 
     console.log(`RevenueCat webhook: ${event.type} for user ${event.app_user_id}`)
 
+    supabase = getSupabase()
+    const reservation = await reserveRevenueCatWebhookEvent(supabase, event)
+    if (reservation === 'duplicate') {
+      console.log(`Duplicate RevenueCat webhook skipped: ${event.id}`)
+      return NextResponse.json({ success: true, duplicate: true })
+    }
+    if (reservation === 'error') {
+      return NextResponse.json({ error: 'Database error' }, { status: 500 })
+    }
+    reservedRevenueCatEventId = event.id
+
     // Handle subscriber alias - update app_user_id reference
     if (event.type === 'SUBSCRIBER_ALIAS') {
       // When aliases happen, the original_app_user_id is the one we should keep tracking
       // No subscription status change needed
       console.log(`Subscriber alias: ${event.original_app_user_id} -> ${event.app_user_id}`)
+      await markRevenueCatEventProcessed(supabase, event.id)
       return NextResponse.json({ success: true })
     }
 
     // Handle product change - might need to update product_id
     if (event.type === 'PRODUCT_CHANGE' && event.new_product_id) {
-      const supabase = getSupabase()
       await supabase
         .from('subscriptions')
         .update({
@@ -207,12 +337,12 @@ export async function POST(request: NextRequest) {
         })
         .eq('app_user_id', event.app_user_id)
 
+      await markRevenueCatEventProcessed(supabase, event.id)
       return NextResponse.json({ success: true })
     }
 
     // Handle transfer - update the app_user_id
     if (event.type === 'TRANSFER') {
-      const supabase = getSupabase()
       await supabase
         .from('subscriptions')
         .update({
@@ -221,6 +351,7 @@ export async function POST(request: NextRequest) {
         })
         .eq('app_user_id', event.original_app_user_id)
 
+      await markRevenueCatEventProcessed(supabase, event.id)
       return NextResponse.json({ success: true })
     }
 
@@ -273,8 +404,6 @@ export async function POST(request: NextRequest) {
       subscriptionData.plan_type = planType
     }
 
-    const supabase = getSupabase()
-
     // Upsert the subscription record
     const { error } = await supabase
       .from('subscriptions')
@@ -287,11 +416,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Database error' }, { status: 500 })
     }
 
+    let shouldProcessPaymentSideEffects = true
+
     // Record payment event for revenue tracking
     if (PAYMENT_EVENTS.includes(event.type) && priceCents !== null && priceCents > 0) {
       const { error: eventError } = await supabase
         .from('subscription_events')
         .insert({
+          revenuecat_event_id: event.id,
           app_user_id: event.app_user_id,
           event_type: event.type,
           product_id: event.product_id,
@@ -304,8 +436,13 @@ export async function POST(request: NextRequest) {
         })
 
       if (eventError) {
-        // Log but don't fail - subscription record is more important
-        console.error('Failed to insert subscription event:', eventError)
+        if (isUniqueViolation(eventError)) {
+          shouldProcessPaymentSideEffects = false
+          console.log(`Duplicate subscription payment event skipped: ${event.id}`)
+        } else {
+          // Log but don't fail - subscription record is more important
+          console.error('Failed to insert subscription event:', eventError)
+        }
       } else {
         console.log(`Payment event recorded: ${event.type} $${(priceCents / 100).toFixed(2)} ${event.currency}`)
       }
@@ -316,19 +453,25 @@ export async function POST(request: NextRequest) {
     // Forward to PostHog for revenue analytics + lifecycle funnels.
     // Awaited so we don't drop events if the Node runtime exits after the
     // response — the POST is fast and idempotent.
-    await forwardToPostHog(event, priceCents, planType)
+    if (shouldProcessPaymentSideEffects) {
+      await forwardToPostHog(event, priceCents, planType)
+    }
 
     // Handle influencer commission for yearly conversions
     if (
       (event.type === 'TRIAL_CONVERTED' || event.type === 'INITIAL_PURCHASE') &&
       planType === 'yearly' &&
-      priceCents
+      priceCents &&
+      shouldProcessPaymentSideEffects
     ) {
       await handleInfluencerConversion(event.app_user_id, priceCents, supabase)
     }
 
     // Handle referral reward - grant 1 free month to referrer when referred user subscribes
-    if (event.type === 'INITIAL_PURCHASE' || event.type === 'TRIAL_CONVERTED') {
+    if (
+      shouldProcessPaymentSideEffects &&
+      (event.type === 'INITIAL_PURCHASE' || event.type === 'TRIAL_CONVERTED')
+    ) {
       await handleReferralReward(event.app_user_id, supabase)
     }
 
@@ -338,8 +481,12 @@ export async function POST(request: NextRequest) {
       await handleInfluencerRefund(event.app_user_id, supabase)
     }
 
+    await markRevenueCatEventProcessed(supabase, event.id)
     return NextResponse.json({ success: true })
   } catch (error) {
+    if (supabase && reservedRevenueCatEventId) {
+      await markRevenueCatEventFailed(supabase, reservedRevenueCatEventId, error)
+    }
     console.error('Webhook processing error:', error)
     return NextResponse.json({ error: 'Processing error' }, { status: 500 })
   }
@@ -509,14 +656,9 @@ async function handleInfluencerConversion(
 
     const commissionCents = Math.round(priceCents * 0.20) // 20% commission
 
-    // Update referral as converted
-    await supabase
-      .from('influencer_referrals')
-      .update({ converted_at: new Date().toISOString() })
-      .eq('id', referral.id)
-
-    // Create commission record
-    await supabase
+    // Create one commission per referral. The database uniqueness constraint
+    // keeps RevenueCat retries from producing duplicate payout rows.
+    const { data: createdCommission, error: commissionInsertError } = await supabase
       .from('influencer_commissions')
       .insert({
         influencer_id: referral.influencer_id,
@@ -525,21 +667,60 @@ async function handleInfluencerConversion(
         commission_cents: commissionCents,
         status: 'pending',
       })
+      .select('id, status')
+      .single()
 
-    // Update influencer totals
-    await supabase.rpc('update_influencer_conversion_stats', {
-      influencer_uuid: referral.influencer_id,
-      commission_amount: commissionCents,
-    })
+    let commission = createdCommission
+    const didCreateCommission = !commissionInsertError
 
-    console.log(
-      `Influencer commission created: $${(commissionCents / 100).toFixed(2)} for influencer ${referral.influencer_id}`
-    )
+    if (commissionInsertError) {
+      if (!isUniqueViolation(commissionInsertError)) {
+        console.error('Failed to create influencer commission:', commissionInsertError)
+        return
+      }
+
+      const { data: existingCommission, error: existingCommissionError } = await supabase
+        .from('influencer_commissions')
+        .select('id, status')
+        .eq('referral_id', referral.id)
+        .single()
+
+      if (existingCommissionError || !existingCommission) {
+        console.error('Failed to load existing influencer commission:', existingCommissionError)
+        return
+      }
+
+      commission = existingCommission
+    }
+
+    // Update referral as converted after the commission row exists.
+    await supabase
+      .from('influencer_referrals')
+      .update({ converted_at: new Date().toISOString() })
+      .eq('id', referral.id)
+      .is('converted_at', null)
+
+    if (didCreateCommission) {
+      // Update influencer totals once for the newly created commission.
+      await supabase.rpc('update_influencer_conversion_stats', {
+        influencer_uuid: referral.influencer_id,
+        commission_amount: commissionCents,
+      })
+
+      console.log(
+        `Influencer commission created: $${(commissionCents / 100).toFixed(2)} for influencer ${referral.influencer_id}`
+      )
+    }
 
     // Auto-transfer via Stripe Connect if account is set up
     const influencer = referral.influencers
-    if (influencer?.stripe_account_id && influencer?.stripe_onboarding_complete) {
+    if (
+      commission?.status === 'pending' &&
+      influencer?.stripe_account_id &&
+      influencer?.stripe_onboarding_complete
+    ) {
       await transferCommission(
+        commission.id,
         referral.influencer_id,
         commissionCents,
         influencer.stripe_account_id,
@@ -597,6 +778,7 @@ async function handleInfluencerRefund(
 
 // Transfer commission to influencer via Stripe Connect
 async function transferCommission(
+  commissionId: string,
   influencerId: string,
   amountCents: number,
   stripeAccountId: string,
@@ -613,12 +795,18 @@ async function transferCommission(
     const Stripe = (await import('stripe')).default
     const stripe = new Stripe(stripeSecretKey)
 
-    const transfer = await stripe.transfers.create({
-      amount: amountCents,
-      currency: 'usd',
-      destination: stripeAccountId,
-      metadata: { influencer_id: influencerId },
-    })
+    const transfer = await stripe.transfers.create(
+      {
+        amount: amountCents,
+        currency: 'usd',
+        destination: stripeAccountId,
+        metadata: {
+          influencer_id: influencerId,
+          commission_id: commissionId,
+        },
+      },
+      { idempotencyKey: `influencer_commission_${commissionId}` }
+    )
 
     // Update commission record
     await supabase
@@ -628,7 +816,7 @@ async function transferCommission(
         stripe_transfer_id: transfer.id,
         transferred_at: new Date().toISOString(),
       })
-      .eq('influencer_id', influencerId)
+      .eq('id', commissionId)
       .eq('status', 'pending')
 
     console.log(`Transferred $${(amountCents / 100).toFixed(2)} to influencer ${influencerId}`)
@@ -638,7 +826,7 @@ async function transferCommission(
     await supabase
       .from('influencer_commissions')
       .update({ status: 'failed' })
-      .eq('influencer_id', influencerId)
+      .eq('id', commissionId)
       .eq('status', 'pending')
   }
 }

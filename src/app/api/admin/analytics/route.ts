@@ -19,7 +19,8 @@ interface AnalyticsData {
   revenue: {
     totalRevenueCents: number
     mrrCents: number
-    monthlySubscribers: number
+    weeklySubscribers: number
+    legacyMonthlySubscribers: number
     yearlySubscribers: number
     currency: string
   }
@@ -261,10 +262,12 @@ export async function GET() {
       0
     )
 
-    // Calculate MRR from active subscriptions
-    // Monthly subs contribute their full price, yearly subs contribute price/12
+    // Calculate MRR from active subscriptions.
+    // Weekly subs are normalized to a monthly equivalent, monthly is legacy,
+    // and yearly contributes price/12.
     let mrrCents = 0
-    let monthlySubscribers = 0
+    let weeklySubscribers = 0
+    let legacyMonthlySubscribers = 0
     let yearlySubscribers = 0
 
     for (const sub of activeSubscriptionsForMrrResult.data || []) {
@@ -273,10 +276,13 @@ export async function GET() {
       if (typedSub.plan_type === 'yearly') {
         mrrCents += Math.round(price / 12)
         yearlySubscribers++
+      } else if (typedSub.plan_type === 'weekly') {
+        mrrCents += Math.round((price * 52) / 12)
+        weeklySubscribers++
       } else {
-        // Default to monthly if plan_type is null or 'monthly'
+        // Legacy monthly or unknown plan type.
         mrrCents += price
-        monthlySubscribers++
+        legacyMonthlySubscribers++
       }
     }
 
@@ -340,7 +346,8 @@ export async function GET() {
       revenue: {
         totalRevenueCents,
         mrrCents,
-        monthlySubscribers,
+        weeklySubscribers,
+        legacyMonthlySubscribers,
         yearlySubscribers,
         currency: 'USD',
       },

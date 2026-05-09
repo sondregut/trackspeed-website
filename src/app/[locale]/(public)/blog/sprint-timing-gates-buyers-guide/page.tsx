@@ -47,7 +47,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "@type": "Person",
       name: "Sondre Guttormsen",
       url: "https://instagram.com/sondre_pv",
-      jobTitle: "Co-Founder, TrackSpeed",
+      jobTitle: "Founder, TrackSpeed",
       description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {

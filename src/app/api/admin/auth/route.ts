@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { requireServerEnv, timingSafeEqualString } from '@/lib/server-secrets'
+import { enforceRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
   try {
+    const rateLimitResponse = await enforceRateLimit(request, {
+      scope: 'admin-auth',
+      limit: 5,
+      windowSeconds: 15 * 60,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
     const { password } = await request.json()
     let adminPassword: string
     let sessionToken: string

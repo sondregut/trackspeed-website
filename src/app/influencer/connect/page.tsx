@@ -34,7 +34,7 @@ function StripeConnectContent() {
 
       const data = await response.json()
       setStatus(data)
-    } catch (err) {
+    } catch {
       setError("Failed to check Stripe status")
     } finally {
       setIsLoading(false)
@@ -321,7 +321,7 @@ function StripeConnectContent() {
               How much do I earn?
             </h4>
             <p className="text-sm text-[#9B9A97]">
-              You earn 20% commission (~$10) on yearly subscriptions. Monthly
+              You earn 20% commission (~$10) on yearly subscriptions. Weekly
               subscriptions don&apos;t generate commissions.
             </p>
           </div>

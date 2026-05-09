@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "Sprint-Zeitmessung fürs phone – Kostenlos, ohne Hardware",
-    "description": "Verwandle dein phone in ein Zeitmesssystem. ~4ms Genauigkeit, 120fps Erkennung, Multi-Geräte-Synchronisation. Kostenlos für Trainer und Athleten."
+    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine Hardware. Kostenlos für Coaches und Athleten."
   },
   "hero": {
-    "socialProof": "Beliebt bei Olympioniken",
+    "socialProof": "Von einem Olympioniken gebaut",
     "title": "TrackSpeed",
-    "subtitle": "Sprintzeitmessung nur mit deinem phone",
-    "description": "Verwandle dein phone in ein professionelles Zeitmesssystem. Keine zusätzliche Hardware, keine Kalibrierung, sofortige Ergebnisse.",
+    "subtitle": "Automatisches Sprint-Timing mit deinem Smartphone",
+    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine Hardware. Kostenlos für Coaches und Athleten.",
     "downloadCta": "Im App Store laden",
     "downloadAndroid": "Jetzt bei Google Play",
     "stats": {
       "accuracy": "Genauigkeit",
       "setup": "Einrichtung",
       "hardware": "Hardware"
+    },
+    "secondaryCta": "So funktioniert es",
+    "result": {
+      "ariaLabel": "Beispiel für ein TrackSpeed-Timing-Ergebnis",
+      "label": "Automatisch gemessen",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Beliebt bei deinen Lieblings-Olympioniken",
-    "subtitle": "Von der Schulleichtathletik bis zu den Olympischen Spielen",
+    "title": "Gebaut und getestet von Sondre Guttormsen",
+    "subtitle": "Zweifacher Olympionike. Alleiniger Gründer und Entwickler.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Olympischer Stabhochspringer",
       "quote": "Ich nutze TrackSpeed, um meinen Anlauf vor Wettkämpfen zu optimieren. Die Genauigkeit ist beeindruckend und ich weiß immer genau, welche Geschwindigkeit ich beim Absprung habe."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Mazedonischer Weitsprung-Rekordhalter",
-      "quote": "Als Weitspringer ist Geschwindigkeit alles. Ich messe alle meine Sprints mit TrackSpeed und finde es super, wie schnell und einfach die Einrichtung ist. Es misst sogar meine Absprunggeschwindigkeit beim Weitsprung!"
+    "kicker": "Von der Bahn in den Code",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olympiateilnehmer"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Zusätzliche Hardware"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Professionelle Zeitmessung, null Equipment",
     "subtitle": "Alles was du brauchst, hast du bereits in der Tasche",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Messgenauigkeit" },
-      "sync": { "value": "2+", "label": "Geräte-Sync" },
-      "hardware": { "value": "0", "label": "Zusätzliche Hardware" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Messgenauigkeit"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Geräte-Sync"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Zusätzliche Hardware"
+      }
     },
     "smartDetection": {
       "title": "Intelligente Erkennung",
@@ -142,7 +163,7 @@
       "portability": "Tragbarkeit"
     },
     "trackspeed": {
-      "price": "Kostenlos / $8.99/Monat*",
+      "price": "Kostenlos / $9.99/Monat*",
       "accuracy": "~4ms",
       "chestDetection": "Ja (nur Oberkörper)",
       "setupTime": "< 1 Min",
@@ -182,18 +203,18 @@
       "portability": "Hosentaschenformat"
     },
     "footnotes": {
-      "pricing": "*$8.99/Monat oder $49.99/Jahr. Preise sind ungefähre Angaben.",
-      "browerStudy": "**Laut <link>einer begutachteten Studie</link>: Brower wurde als \u201Enicht zuverlässig genug, um kleine Veränderungen bei Spitzenathleten zu messen\u201C befunden",
+      "pricing": "*$9.99/Monat oder $59.99/Jahr. Preise sind ungefähre Angaben.",
+      "browerStudy": "**Laut <link>einer begutachteten Studie</link>: Brower wurde als „nicht zuverlässig genug, um kleine Veränderungen bei Spitzenathleten zu messen“ befunden",
       "beamNote": "Lichtschranken-Systeme lösen bei jedem Körperteil (Hand/Bein) aus, nicht nur bei der Brust. TrackSpeed ist für das Training konzipiert, nicht für offizielle Wettkämpfe."
     }
   },
   "timingTechnology": {
     "title": "Die Wissenschaft hinter Sub-Frame-Präzision",
     "subtitle": "Wie wir ~4ms Genauigkeit mit Standard-phone-Kameras erreichen",
-    "frameCapture": "120fps Aufnahme = 8.3ms zwischen Frames",
-    "formula": "Position = Geschwindigkeit × Zeit + Offset",
-    "formulaLabel": "Trajektorien-Regression (3+ Frames)",
-    "formulaResult": "Berechnung des Überquerungszeitpunkts mit Sub-Frame-Präzision",
+    "frameCapture": "Zwei Aufnahmen rahmen die Gate-Linie ein",
+    "formula": "Brustmarker, Gate-Linie, geschätzte Querung",
+    "formulaLabel": "Vorher-/Nachher-Interpolation",
+    "formulaResult": "Die Querungszeit wird zwischen beiden Positionen geschätzt",
     "beyondFrameByFrame": "Über Frame-für-Frame-Messung hinaus",
     "learnHowItWorks": "Erfahre, wie es funktioniert",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms effektive Genauigkeit",
-      "description": "Die Kombination aus 120fps Aufnahme, Multi-Frame-Trajektorienanalyse und Rolling-Shutter-Korrektur liefert eine Messpräzision vergleichbar mit professionellen Systemen."
+      "description": "High-Speed-Aufnahme, Mehrbild-Trajektorienanalyse und Rolling-Shutter-Korrektur liefern eine Zeitmesspräzision, die mit professionellen Systemen vergleichbar ist."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Frame-Intervall bei 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Interpolationsauflösung" },
-      "accuracy": { "value": "~4ms", "label": "Effektive Messgenauigkeit" }
+      "frameInterval": {
+        "value": "Vorher / nachher",
+        "label": "Rahmt die Querungslinie ein"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Interpolationsauflösung"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Effektive Messgenauigkeit"
+      }
+    },
+    "visual": {
+      "before": "Vorher",
+      "after": "Nachher",
+      "estimatedCrossing": "Geschätzte Querung",
+      "beforeStatus": "Brust vor der Linie",
+      "afterStatus": "Brust nach der Linie"
     }
   },
   "ctaSection": {

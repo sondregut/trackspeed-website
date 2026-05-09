@@ -152,7 +152,7 @@ export async function POST(request: Request) {
         to: email,
         subject,
         html,
-        reply_to: "support@trackspeed.app",
+        reply_to: "support@mytrackspeed.com",
       }),
     });
 

@@ -4,10 +4,10 @@
 
 ## Key Facts
 
-- Founded by two-time Olympian Sondre Guttormsen, national record holder Andreas Trajkovski, and Olympic pole vaulter Simen Guttormsen
+- Founded and developed by two-time Olympian Sondre Guttormsen
 - Uses camera-based motion detection with sub-frame interpolation for ~4ms effective timing accuracy
 - Supports multi-device peer-to-peer sync for start/finish line timing
-- Pricing: Free tier, $8.99/month, $49.99/year, $139 lifetime
+- Pricing: Free tier, $9.99/month, $59.99/year, $139 lifetime
 - iOS only (iPhone)
 - 13 languages supported
 
@@ -32,7 +32,7 @@
 
 | System | Price | Accuracy |
 |--------|-------|----------|
-| TrackSpeed | Free - $49.99/yr | ~4ms |
+| TrackSpeed | Free - $59.99/yr | ~4ms |
 | Freelap | $500 - $2,000+ | ~2ms |
 | Brower | $1,500 - $5,000+ | ~1ms |
 | DASHR | $500 - $1,500+ | ~1ms |

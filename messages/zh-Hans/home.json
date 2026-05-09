@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "phone短跑计时应用 - 免费，无需硬件",
-    "description": "将phone变成计时系统。~4ms精度，120fps检测，多设备同步。为田径教练和运动员提供的免费应用。"
+    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。田径教练和运动员免费使用。"
   },
   "hero": {
-    "socialProof": "深受奥运选手喜爱",
+    "socialProof": "由奥运选手打造",
     "title": "TrackSpeed",
-    "subtitle": "仅用phone即可进行短跑计时",
-    "description": "将phone变成专业计时系统。无需额外硬件，无需校准，即时显示结果。",
+    "subtitle": "用手机自动短跑计时",
+    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。田径教练和运动员免费使用。",
     "downloadCta": "在App Store下载",
     "downloadAndroid": "在Google Play下载",
     "stats": {
       "accuracy": "精度",
       "setup": "设置",
       "hardware": "硬件"
+    },
+    "secondaryCta": "查看工作原理",
+    "result": {
+      "ariaLabel": "TrackSpeed 计时结果示例",
+      "label": "自动计时结果",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "深受奥运选手喜爱",
-    "subtitle": "从高中田径到奥运会",
+    "title": "由 Sondre Guttormsen 打造并测试",
+    "subtitle": "两届奥运选手。唯一创始人兼开发者。",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "奥运撑杆跳高选手",
       "quote": "我在赛前使用TrackSpeed来调整助跑。精度令人印象深刻，我总是能准确知道起跳时的速度。"
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "马其顿跳远国家记录保持者",
-      "quote": "作为跳远运动员，速度就是一切。我用TrackSpeed计时所有的短跑，喜欢它设置起来又快又简单。它甚至能追踪我的跳远起跳速度！"
+    "kicker": "从跑道到代码",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "奥运选手"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "额外硬件"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "专业计时，零设备",
     "subtitle": "您需要的一切都在口袋里",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "计时精度" },
-      "sync": { "value": "2+", "label": "设备同步" },
-      "hardware": { "value": "0", "label": "额外硬件" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "计时精度"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "设备同步"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "额外硬件"
+      }
     },
     "smartDetection": {
       "title": "智能检测",
@@ -142,7 +163,7 @@
       "portability": "便携性"
     },
     "trackspeed": {
-      "price": "免费 / $8.99/月*",
+      "price": "免费 / $9.99/月*",
       "accuracy": "~4ms",
       "chestDetection": "是（仅躯干）",
       "setupTime": "< 1分钟",
@@ -182,7 +203,7 @@
       "portability": "口袋大小"
     },
     "footnotes": {
-      "pricing": "*$8.99/月或$49.99/年。价格为近似值。",
+      "pricing": "*$9.99/月或$59.99/年。价格为近似值。",
       "browerStudy": "**根据<link>同行评审研究</link>：Brower被认为\"不够可靠，无法监测精英运动员的细微变化\"",
       "beamNote": "光束系统会被任何身体部位（手/腿）触发，而非胸部。TrackSpeed专为训练设计，不适用于正式比赛。"
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "亚帧精度背后的科学",
     "subtitle": "如何用标准phone摄像头实现~4ms精度",
-    "frameCapture": "120fps拍摄 = 帧间隔8.3ms",
-    "formula": "position = velocity × time + offset",
-    "formulaLabel": "轨迹回归（3帧以上）",
-    "formulaResult": "以亚帧精度求解通过时刻",
+    "frameCapture": "两帧夹住 gate 线",
+    "formula": "胸部标记、gate 线、估算通过点",
+    "formulaLabel": "前 / 后插值",
+    "formulaResult": "通过时间在两个位置之间估算",
     "beyondFrameByFrame": "超越逐帧计时",
     "learnHowItWorks": "了解工作原理",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms 有效精度",
-      "description": "120fps拍摄、多帧轨迹分析和卷帘快门校正的结合，提供可与专业系统媲美的计时精度。"
+      "description": "高速捕捉、多帧轨迹分析和卷帘快门校正带来接近专业系统的计时精度。"
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "120fps帧间隔" },
-      "interpolation": { "value": "~0.5ms", "label": "插值分辨率" },
-      "accuracy": { "value": "~4ms", "label": "有效计时精度" }
+      "frameInterval": {
+        "value": "前 / 后",
+        "label": "夹住通过线"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "插值分辨率"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "有效计时精度"
+      }
+    },
+    "visual": {
+      "before": "前",
+      "after": "后",
+      "estimatedCrossing": "估算通过点",
+      "beforeStatus": "胸部在线前",
+      "afterStatus": "胸部在线后"
     }
   },
   "ctaSection": {

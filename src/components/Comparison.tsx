@@ -18,7 +18,6 @@ export default function Comparison() {
   const t = useTranslations("home");
 
   const featureKeys = ["price", "accuracy", "chestDetection", "setupTime", "hardware", "splitTimes", "photoFinish", "portability"] as const;
-  const competitorKeys = ["freelap", "brower", "dashr", "stopwatch"] as const;
 
   const features = featureKeys.map((key) => {
     if (key === "splitTimes") {

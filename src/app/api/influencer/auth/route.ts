@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 import { requireServerEnv } from '@/lib/server-secrets'
+import { enforceRateLimit } from '@/lib/rate-limit'
 
 function getJwtSecret(): Uint8Array {
   return new TextEncoder().encode(requireServerEnv('INFLUENCER_JWT_SECRET'))
@@ -14,8 +15,17 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { email, password } = body
+    const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : null
 
-    if (!email || !password) {
+    const rateLimitResponse = await enforceRateLimit(request, {
+      scope: 'influencer-auth',
+      limit: 8,
+      windowSeconds: 15 * 60,
+      identifier: normalizedEmail,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
+    if (!normalizedEmail || typeof password !== 'string' || !password) {
       return NextResponse.json(
         { error: 'Email and password are required' },
         { status: 400 }
@@ -28,7 +38,7 @@ export async function POST(request: NextRequest) {
     const { data: influencer, error } = await supabase
       .from('influencers')
       .select('*')
-      .eq('email', email.toLowerCase())
+      .eq('email', normalizedEmail)
       .single()
 
     if (error || !influencer) {
@@ -122,7 +132,7 @@ export async function GET() {
 }
 
 // Helper to verify influencer token and get influencer ID
-export async function verifyInfluencerToken(request: NextRequest): Promise<string | null> {
+export async function verifyInfluencerToken(): Promise<string | null> {
   try {
     const cookieStore = await cookies()
     const token = cookieStore.get('influencer_token')?.value

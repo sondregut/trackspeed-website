@@ -26,7 +26,7 @@ function formatType(type: PromoCode["type"]): string {
     case "trial":
       return "Trial";
     case "jumpers_world":
-      return "Jumpers World";
+      return "Partner pricing";
   }
 }
 

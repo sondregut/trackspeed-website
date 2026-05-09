@@ -8,7 +8,7 @@ interface RelatedPostsProps {
   locale: string;
 }
 
-export default function RelatedPosts({ currentSlug, t, tHas, locale }: RelatedPostsProps) {
+export default function RelatedPosts({ currentSlug, t, tHas }: RelatedPostsProps) {
   const currentPost = blogPosts.find((p) => p.slug === currentSlug);
   if (!currentPost?.relatedSlugs?.length) return null;
 

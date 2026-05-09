@@ -36,13 +36,13 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
     });
   }
 
-  function applyJumpersWorldPreset() {
-    setCode("JUMPERSWORLD");
+  function applyPartnerPricingPreset() {
+    setCode("PARTNER");
     setType("jumpers_world");
     setDurationDays("");
     setMaxUses("");
     setExpiresAt("");
-    setNote("Jumpers World partner pricing: annual and monthly package variant");
+    setNote("Partner pricing: annual and weekly package variant");
   }
 
   function generateCode() {
@@ -94,10 +94,10 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
         >
           <option value="free">Free (Full Pro access)</option>
           <option value="trial">Trial (Limited time)</option>
-          <option value="jumpers_world">Jumpers World (Partner pricing)</option>
+          <option value="jumpers_world">Partner pricing</option>
         </select>
         <p className="mt-2 text-xs text-[#787774]">
-          Jumpers World codes do not grant free Pro. They unlock the Jumpers World annual and monthly package prices in the app.
+          Partner pricing codes do not grant free Pro. They unlock annual and weekly package variants in the app.
         </p>
       </div>
 
@@ -167,10 +167,10 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
 
       <button
         type="button"
-        onClick={applyJumpersWorldPreset}
+        onClick={applyPartnerPricingPreset}
         className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#5C8DB8]/40 text-[#68A1D6] hover:border-[#5C8DB8] hover:text-white transition-colors font-medium"
       >
-        Use Jumpers World preset
+        Use partner pricing preset
       </button>
 
       {/* Submit */}

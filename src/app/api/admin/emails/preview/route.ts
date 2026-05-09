@@ -198,7 +198,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
       <div class="offer-box">
         <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">LIMITED TIME OFFER</p>
         <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Your First Year</p>
-        <p style="font-size:16px;color:#525f7f;margin:0;">Get Pro for just <strong>$39.99/year</strong> <span style="text-decoration:line-through;color:#8898aa;">$49.99</span></p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Get Pro for just <strong>$47.99/year</strong> <span style="text-decoration:line-through;color:#8898aa;">$59.99</span></p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
@@ -270,7 +270,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
       <div class="offer-box">
         <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">WELCOME BACK OFFER</p>
         <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Pro</p>
-        <p style="font-size:16px;color:#525f7f;margin:0;">Get a full year for just <strong>$39.99</strong> <span style="text-decoration:line-through;color:#8898aa;">$49.99</span></p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Get a full year for just <strong>$47.99</strong> <span style="text-decoration:line-through;color:#8898aa;">$59.99</span></p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
@@ -348,7 +348,7 @@ export async function GET(request: Request) {
     featureDescription: "You can now export your sprint videos with time overlays! Share your progress with coaches and teammates.",
   };
 
-  const { subject, html } = templates[template](sampleData);
+  const { html } = templates[template](sampleData);
 
   return new NextResponse(html, {
     headers: {

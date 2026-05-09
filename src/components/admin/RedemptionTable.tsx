@@ -6,15 +6,6 @@ interface RedemptionTableProps {
   redemptions: PromoRedemption[];
 }
 
-function formatDuration(days: number | null): string {
-  if (days === null) return "Forever";
-  if (days === 30) return "1 month";
-  if (days === 90) return "3 months";
-  if (days === 180) return "6 months";
-  if (days === 365) return "1 year";
-  return `${days} days`;
-}
-
 export default function RedemptionTable({ redemptions }: RedemptionTableProps) {
   return (
     <div className="card-gunmetal rounded-xl overflow-hidden">

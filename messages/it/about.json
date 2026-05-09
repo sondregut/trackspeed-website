@@ -1,30 +1,18 @@
 {
-  "title": "Atleti che costruiscono per atleti",
-  "intro": "TrackSpeed e nato in pista. Siamo atleti agonisti attivi che si sono stancati di strumenti di cronometraggio imprecisi \u2014 cosi ne abbiamo costruito uno nostro.",
-  "story1": "Come atleti di atletica leggera che si allenano ai massimi livelli, avevamo bisogno di cronometraggio preciso per i nostri sprint e le rincorse \u2014 ma le opzioni erano costosi sistemi di gate laser con punti di attivazione incoerenti, o un allenatore con cronometro e errore del tempo di reazione umano. Nessuna delle due era sufficiente.",
-  "story2": "Ci siamo resi conto che l'phone nella tasca di tutti aveva gia l'hardware per risolvere questo problema \u2014 una fotocamera ad alta frequenza di fotogrammi, un giroscopio preciso e abbastanza potenza di elaborazione per la visione artificiale in tempo reale. Cosi abbiamo costruito TrackSpeed: un sistema di cronometraggio che usa il rilevamento del movimento fotogramma per fotogramma e l'interpolazione sub-frame per fornire risultati con precisione al millisecondo, senza attrezzatura extra.",
+  "title": "Cronometraggio sprint creato da un olimpionico",
+  "intro": "TrackSpeed è nato in pista. Sondre Guttormsen, due volte olimpionico e sviluppatore software, era stanco degli strumenti di cronometraggio imprecisi e ha creato il suo.",
+  "story1": "Come atleta di atletica che si allena al massimo livello, Sondre aveva bisogno di tempi accurati per sprint e rincorse, ma le opzioni erano sistemi laser costosi con punti di attivazione incoerenti o un allenatore con cronometro ed errore di reazione umana. Nessuna era abbastanza valida.",
+  "story2": "Ha capito che il telefono nella tasca di tutti aveva già l’hardware necessario: una fotocamera ad alto frame rate, un giroscopio preciso e potenza sufficiente per computer vision in tempo reale. Così ha creato TrackSpeed: un sistema che usa rilevamento del movimento frame-by-frame e interpolazione sub-frame per risultati al millisecondo, senza attrezzatura extra.",
   "team": {
     "sondre": {
       "name": "Sondre Guttormsen",
-      "role": "Co-fondatore e sviluppatore principale",
+      "role": "Fondatore e sviluppatore principale",
       "bio1": "Astista professionista e due volte olimpico (Tokyo 2020, Parigi 2024) in rappresentanza della Norvegia. Campione NCAA alla Princeton University, dove ha eguagliato il record storico universitario indoor a 6.00m. Detiene i record della Ivy League sia nell'asta indoor che outdoor. Medaglia d'oro ai Campionati Europei di Atletica Indoor.",
-      "bio2": "Fondatore e sviluppatore principale. Laurea a Princeton, Master in Educazione alla UT Austin."
-    },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Co-fondatore e Jumpers World",
-      "bio1": "Lunghista in rappresentanza della Macedonia del Nord e recordman nazionale (7.91m). Nominato Atleta dell'Anno della Macedonia del Nord. Ha gareggiato ai Campionati Europei di Atletica Indoor e ai Campionati Europei di Atletica a Squadre. Laureato all'Universita di Arkansas.",
-      "bio2": "Co-fondatore di TrackSpeed e fondatore di Jumpers World \u2014 una delle piu grandi piattaforme media di atletica leggera. Ampia rete nella comunita atletica con comprensione diretta di cio di cui gli atleti hanno bisogno."
-    },
-    "simen": {
-      "name": "Simen Guttormsen",
-      "role": "Ingegnere",
-      "bio1": "Astista olimpico in rappresentanza della Norvegia. Campione NCAA e recordman ACC alla Duke University, dove e stato tre volte All-American. In precedenza due volte All-American a Princeton.",
-      "bio2": "Co-sviluppatore full-stack di TrackSpeed \u2014 contribuisce a tutta la codebase, dalle decisioni architetturali e revisioni del codice allo sviluppo delle funzionalita. Laurea in Ingegneria a Princeton in Ricerca Operativa e Ingegneria Finanziaria, Master in Economia e Computazione a Duke."
+      "bio2": "Fondatore e sviluppatore principale di TrackSpeed. Princeton B.A., UT Austin M.Ed."
     }
   },
-  "teamHeading": "Il nostro team",
-  "teamNote": "Fatto da atleti, per atleti.",
+  "teamHeading": "Fondatore",
+  "teamNote": "Creato da Sondre, per gli atleti.",
   "cta": {
     "title": "Pronto a cronometrare il tuo allenamento?",
     "subtitle": "Scarica TrackSpeed e scopri la precisione al millisecondo solo con il tuo phone.",
@@ -32,7 +20,7 @@
     "learnMore": "Scopri come funziona la nostra tecnologia di cronometraggio"
   },
   "metadata": {
-    "title": "Informazioni su TrackSpeed \u2014 Atleti che costruiscono cronometraggio sprint",
-    "description": "Conosci gli atleti dietro TrackSpeed. Atleti agonisti attivi che costruiscono cronometraggio di precisione per ogni atleta."
+    "title": "Informazioni su TrackSpeed — Cronometraggio creato da un olimpionico",
+    "description": "Conosci Sondre Guttormsen, fondatore e sviluppatore principale di TrackSpeed, che crea cronometrazione sprint precisa per ogni atleta."
   }
 }

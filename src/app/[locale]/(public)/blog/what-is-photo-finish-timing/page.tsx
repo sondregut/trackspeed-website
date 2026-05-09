@@ -33,7 +33,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
       "@type": "Person",
       name: "Sondre Guttormsen",
       url: "https://instagram.com/sondre_pv",
-      jobTitle: "Co-Founder, TrackSpeed",
+      jobTitle: "Founder, TrackSpeed",
       description: "Two-time Olympian, NCAA champion pole vaulter",
     },
     publisher: {

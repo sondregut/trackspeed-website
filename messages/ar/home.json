@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "تطبيق قياس سرعة العدو لـ phone - مجاني، بدون معدات",
-    "description": "حوّل phone إلى نظام قياس زمني. دقة ~4ms، كشف بمعدل 120fps، مزامنة متعددة الأجهزة. مجاني للمدربين والرياضيين."
+    "description": "حوّل phone إلى نظام توقيت. دقة ~4ms، مزامنة متعددة الأجهزة، بدون عتاد إضافي. مجاني للمدربين والرياضيين."
   },
   "hero": {
-    "socialProof": "محبوب من الأولمبيين",
+    "socialProof": "بناه أولمبي",
     "title": "TrackSpeed",
-    "subtitle": "قياس سرعة العدو بـ phone فقط",
-    "description": "حوّل phone إلى نظام قياس زمني احترافي. بدون معدات إضافية، بدون معايرة، نتائج فورية.",
+    "subtitle": "توقيت عدو تلقائي من هاتفك",
+    "description": "حوّل phone إلى نظام توقيت. دقة ~4ms، مزامنة متعددة الأجهزة، بدون عتاد إضافي. مجاني للمدربين والرياضيين.",
     "downloadCta": "حمّل من App Store",
     "downloadAndroid": "متوفر على Google Play",
     "stats": {
       "accuracy": "الدقة",
       "setup": "الإعداد",
       "hardware": "المعدات"
+    },
+    "secondaryCta": "شاهد كيف يعمل",
+    "result": {
+      "ariaLabel": "مثال على نتيجة توقيت TrackSpeed",
+      "label": "نتيجة تلقائية",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "محبوب من أولمبييك المفضلين",
-    "subtitle": "من مضمار المدرسة الثانوية إلى الألعاب الأولمبية",
+    "title": "بناه واختبره Sondre Guttormsen",
+    "subtitle": "أولمبي مرتين. المؤسس والمطوّر الوحيد.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "قافز زانة أولمبي",
       "quote": "أستخدم TrackSpeed لضبط اقترابي قبل المنافسات. الدقة مبهرة وأعرف دائماً بالضبط ما هي سرعتي عند الارتقاء."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "صاحب الرقم القياسي المقدوني في الوثب الطويل",
-      "quote": "كقافز وثب طويل، السرعة هي كل شيء. أقيس جميع سباقاتي القصيرة بـ TrackSpeed وأحب مدى سرعة وسهولة إعداده. حتى أنه يتتبع سرعة ارتقائي في الوثب الطويل!"
+    "kicker": "من المضمار إلى الكود",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "مشارك في الأولمبياد"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "معدات إضافية"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "قياس زمني احترافي، بدون أي معدات",
     "subtitle": "كل ما تحتاجه موجود بالفعل في جيبك",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "دقة القياس" },
-      "sync": { "value": "2+", "label": "مزامنة الأجهزة" },
-      "hardware": { "value": "0", "label": "معدات إضافية" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "دقة القياس"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "مزامنة الأجهزة"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "معدات إضافية"
+      }
     },
     "smartDetection": {
       "title": "كشف ذكي",
@@ -142,7 +163,7 @@
       "portability": "سهولة الحمل"
     },
     "trackspeed": {
-      "price": "مجاني / $8.99/شهر*",
+      "price": "مجاني / $9.99/شهر*",
       "accuracy": "~4ms",
       "chestDetection": "نعم (الجذع فقط)",
       "setupTime": "< 1 دقيقة",
@@ -182,7 +203,7 @@
       "portability": "بحجم الجيب"
     },
     "footnotes": {
-      "pricing": "*$8.99/شهر أو $49.99/سنة. الأسعار تقريبية.",
+      "pricing": "*$9.99/شهر أو $59.99/سنة. الأسعار تقريبية.",
       "browerStudy": "**وفقاً لـ<link>دراسة محكّمة</link>: وُجد أن Brower \"غير موثوق بما يكفي لرصد التغييرات الصغيرة للرياضيين النخبة\"",
       "beamNote": "أنظمة الشعاع تنطلق عند أي جزء من الجسم (يد/ساق)، وليس الصدر. TrackSpeed مصمم للتدريب وليس المنافسات الرسمية."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "العلم وراء الدقة دون الإطار",
     "subtitle": "كيف نحقق دقة ~4ms بكاميرات phone القياسية",
-    "frameCapture": "التقاط 120fps = 8.3ms بين الإطارات",
-    "formula": "position = velocity × time + offset",
-    "formulaLabel": "انحدار المسار (3+ إطارات)",
-    "formulaResult": "حساب وقت العبور بدقة دون الإطار",
+    "frameCapture": "صورتان تحيطان بخط gate",
+    "formula": "علامة الصدر، خط gate، العبور المقدر",
+    "formulaLabel": "استيفاء قبل / بعد",
+    "formulaResult": "يتم تقدير وقت العبور بين الموضعين",
     "beyondFrameByFrame": "ما وراء القياس إطاراً بإطار",
     "learnHowItWorks": "تعرّف على آلية العمل",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "دقة فعلية ~4ms",
-      "description": "الجمع بين التقاط 120fps وتحليل مسار متعدد الإطارات وتصحيح الغالق المتدحرج يوفر دقة قياس زمني مماثلة للأنظمة الاحترافية."
+      "description": "يوفر الالتقاط عالي السرعة وتحليل المسار عبر عدة صور وتصحيح rolling shutter دقة توقيت قريبة من الأنظمة الاحترافية."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "الفاصل بين الإطارات عند 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "دقة الاستيفاء" },
-      "accuracy": { "value": "~4ms", "label": "الدقة الزمنية الفعلية" }
+      "frameInterval": {
+        "value": "قبل / بعد",
+        "label": "يحيط بخط العبور"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "دقة الاستيفاء"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "الدقة الزمنية الفعلية"
+      }
+    },
+    "visual": {
+      "before": "قبل",
+      "after": "بعد",
+      "estimatedCrossing": "عبور مقدر",
+      "beforeStatus": "الصدر قبل الخط",
+      "afterStatus": "الصدر بعد الخط"
     }
   },
   "ctaSection": {

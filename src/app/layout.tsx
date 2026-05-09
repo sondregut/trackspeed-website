@@ -126,7 +126,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Offer",
-                  price: "49.99",
+                  price: "59.99",
                   priceCurrency: "USD",
                   description: "TrackSpeed Pro (Annual)",
                   priceValidUntil: "2027-12-31",
@@ -134,17 +134,9 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Offer",
-                  price: "8.99",
+                  price: "4.99",
                   priceCurrency: "USD",
-                  description: "TrackSpeed Pro (Monthly)",
-                  priceValidUntil: "2027-12-31",
-                  availability: "https://schema.org/InStock",
-                },
-                {
-                  "@type": "Offer",
-                  price: "139.00",
-                  priceCurrency: "USD",
-                  description: "TrackSpeed Pro (Lifetime)",
+                  description: "TrackSpeed Pro (Weekly)",
                   priceValidUntil: "2027-12-31",
                   availability: "https://schema.org/InStock",
                 },

@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "phone için Sprint Zamanlama Uygulaması - Ücretsiz, Donanım Gerektirmez",
-    "description": "phone'unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, 120fps algılama, çoklu cihaz senkronizasyonu. Antrenörler ve sporcular için ücretsiz."
+    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, donanım yok. Antrenörler ve sporcular için ücretsiz."
   },
   "hero": {
-    "socialProof": "Olimpiyatçıların tercihi",
+    "socialProof": "Bir olimpiyatçı tarafından geliştirildi",
     "title": "TrackSpeed",
-    "subtitle": "Sadece phone'unla sprint zamanlama",
-    "description": "phone'unu profesyonel bir zamanlama sistemine dönüştür. Ekstra donanım yok, kalibrasyon yok, anında sonuç.",
+    "subtitle": "Telefonundan otomatik sprint zamanlaması",
+    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, donanım yok. Antrenörler ve sporcular için ücretsiz.",
     "downloadCta": "App Store'dan indir",
     "downloadAndroid": "Google Play'den edinin",
     "stats": {
       "accuracy": "Doğruluk",
       "setup": "Kurulum",
       "hardware": "Donanım"
+    },
+    "secondaryCta": "Nasıl çalıştığını gör",
+    "result": {
+      "ariaLabel": "TrackSpeed zamanlama sonucu örneği",
+      "label": "Otomatik ölçüm",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "En sevdiğin olimpiyatçıların tercihi",
-    "subtitle": "Lise pistinden Olimpiyat Oyunları'na",
+    "title": "Sondre Guttormsen tarafından geliştirildi ve test edildi",
+    "subtitle": "İki kez olimpiyatçı. Tek kurucu ve geliştirici.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Olimpik Sırıkla Atlamacı",
       "quote": "Yarışmalardan önce koşu mesafemi ayarlamak için TrackSpeed kullanıyorum. Doğruluğu etkileyici ve kalkışta hangi hıza ulaştığımı her zaman tam olarak biliyorum."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Makedonya Uzun Atlama Rekortmeni",
-      "quote": "Uzun atlamacı olarak hız her şeydir. Tüm sprintlerimi TrackSpeed ile zamanlıyorum ve kurulumunun ne kadar hızlı ve kolay olduğunu seviyorum. Uzun atlama kalkış hızımı bile takip ediyor!"
+    "kicker": "Pistten koda",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olimpiyatçı"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Ek donanım"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Profesyonel zamanlama, sıfır ekipman",
     "subtitle": "İhtiyacın olan her şey zaten cebinde",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Zamanlama Doğruluğu" },
-      "sync": { "value": "2+", "label": "Cihaz Senkronizasyonu" },
-      "hardware": { "value": "0", "label": "Ekstra Donanım" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Zamanlama Doğruluğu"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Cihaz Senkronizasyonu"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Ekstra Donanım"
+      }
     },
     "smartDetection": {
       "title": "Akıllı Algılama",
@@ -142,7 +163,7 @@
       "portability": "Taşınabilirlik"
     },
     "trackspeed": {
-      "price": "Ücretsiz / $8.99/ay*",
+      "price": "Ücretsiz / $9.99/ay*",
       "accuracy": "~4ms",
       "chestDetection": "Evet (sadece gövde)",
       "setupTime": "< 1 dk",
@@ -182,7 +203,7 @@
       "portability": "Cep boyutunda"
     },
     "footnotes": {
-      "pricing": "*$8.99/ay veya $49.99/yıl. Fiyatlar yaklaşıktır.",
+      "pricing": "*$9.99/ay veya $59.99/yıl. Fiyatlar yaklaşıktır.",
       "browerStudy": "**<link>Hakemli çalışmaya</link> göre: Brower \"elit sporcular için küçük değişiklikleri izlemeye yetecek kadar güvenilir bulunmadı\"",
       "beamNote": "Işın sistemleri herhangi bir vücut bölümüne (el/bacak) tetiklenir, göğse değil. TrackSpeed antrenman için tasarlanmıştır, resmi yarışmalar için değil."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "Kare altı hassasiyetin arkasındaki bilim",
     "subtitle": "Standart phone kameralarıyla ~4ms doğruluğu nasıl elde ediyoruz",
-    "frameCapture": "120fps yakalama = kareler arasında 8.3ms",
-    "formula": "position = velocity × time + offset",
-    "formulaLabel": "Yörünge regresyonu (3+ kare)",
-    "formulaResult": "Kare altı hassasiyetle geçiş zamanını hesapla",
+    "frameCapture": "İki görüntü gate çizgisini çevreler",
+    "formula": "Göğüs işareti, gate çizgisi, tahmini geçiş",
+    "formulaLabel": "Önce / sonra interpolasyonu",
+    "formulaResult": "Geçiş zamanı iki konum arasında tahmin edilir",
     "beyondFrameByFrame": "Kare kare zamanlamanın ötesinde",
     "learnHowItWorks": "Nasıl çalıştığını öğren",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms Etkin Doğruluk",
-      "description": "120fps yakalama, çok kareli yörünge analizi ve yuvarlanan panjur düzeltmesinin birleşimi, profesyonel sistemlere denk zamanlama hassasiyeti sunar."
+      "description": "Yüksek hızlı yakalama, çok kareli yörünge analizi ve rolling shutter düzeltmesi profesyonel sistemlere yakın zamanlama hassasiyeti sağlar."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "120fps'de kare aralığı" },
-      "interpolation": { "value": "~0.5ms", "label": "İnterpolasyon çözünürlüğü" },
-      "accuracy": { "value": "~4ms", "label": "Etkin zamanlama doğruluğu" }
+      "frameInterval": {
+        "value": "Önce / sonra",
+        "label": "Geçiş çizgisini çevreler"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "İnterpolasyon çözünürlüğü"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Etkin zamanlama doğruluğu"
+      }
+    },
+    "visual": {
+      "before": "Önce",
+      "after": "Sonra",
+      "estimatedCrossing": "Tahmini geçiş",
+      "beforeStatus": "Göğüs çizgiden önce",
+      "afterStatus": "Göğüs çizgiden sonra"
     }
   },
   "ctaSection": {

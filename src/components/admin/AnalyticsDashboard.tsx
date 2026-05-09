@@ -22,7 +22,8 @@ interface AnalyticsData {
   revenue: {
     totalRevenueCents: number
     mrrCents: number
-    monthlySubscribers: number
+    weeklySubscribers: number
+    legacyMonthlySubscribers: number
     yearlySubscribers: number
     currency: string
   }
@@ -166,9 +167,13 @@ export default function AnalyticsDashboard() {
           icon={<TrendIcon />}
         />
         <StatCard
-          title="Monthly Plans"
-          value={analytics.revenue.monthlySubscribers.toLocaleString()}
-          subtitle="Active monthly subs"
+          title="Weekly Plans"
+          value={analytics.revenue.weeklySubscribers.toLocaleString()}
+          subtitle={
+            analytics.revenue.legacyMonthlySubscribers > 0
+              ? `${analytics.revenue.legacyMonthlySubscribers} legacy monthly subs`
+              : "Active weekly subs"
+          }
           icon={<CalendarIcon />}
         />
         <StatCard

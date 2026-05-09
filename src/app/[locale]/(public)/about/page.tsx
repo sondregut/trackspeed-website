@@ -76,7 +76,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: "var(--text-primary)" }}>
             {t('teamHeading')}
           </h2>
-          <div className="grid sm:grid-cols-3 gap-8">
+          <div className="max-w-xl mx-auto">
             {/* Sondre */}
             <div className="card-feature p-6 md:p-8">
               <Image
@@ -129,97 +129,6 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               </div>
             </div>
 
-            {/* Andreas */}
-            <div className="card-feature p-6 md:p-8">
-              <Image
-                src="/testimonials/andreas-trajkovski.webp"
-                alt="Andreas Trajkovski"
-                width={160}
-                height={160}
-                className="w-full aspect-square rounded-xl object-cover mb-5"
-              />
-              <h3
-                className="text-lg font-bold mb-1"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {t('team.andreas.name')}
-              </h3>
-              <p className="text-sm font-medium mb-4" style={{ color: "#5C8DB8" }}>
-                {t('team.andreas.role')}
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-3"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {t('team.andreas.bio1')}
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-5"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {t('team.andreas.bio2')}
-              </p>
-              <a
-                href="https://instagram.com/jumpers.world"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-medium inline-flex items-center gap-1"
-                style={{ color: "#5C8DB8" }}
-              >
-                <IgIcon /> @jumpers.world
-              </a>
-            </div>
-
-            {/* Simen */}
-            <div className="card-feature p-6 md:p-8">
-              <div
-                className="w-full aspect-square rounded-xl flex items-center justify-center text-5xl font-bold mb-5"
-                style={{ background: "rgba(92,141,184,0.12)", color: "#5C8DB8" }}
-              >
-                SG
-              </div>
-              <h3
-                className="text-lg font-bold mb-1"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {t('team.simen.name')}
-              </h3>
-              <p className="text-sm font-medium mb-4" style={{ color: "#5C8DB8" }}>
-                {t('team.simen.role')}
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-3"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {t('team.simen.bio1')}
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-5"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {t('team.simen.bio2')}
-              </p>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <a
-                  href="https://instagram.com/simen_guttormsen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium inline-flex items-center gap-1"
-                  style={{ color: "#5C8DB8" }}
-                >
-                  <IgIcon /> @simen_g
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/simen-guttormsen/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium inline-flex items-center gap-1"
-                  style={{ color: "#5C8DB8" }}
-                >
-                  <LinkedInIcon /> LinkedIn
-                </a>
-              </div>
-            </div>
           </div>
 
           <p

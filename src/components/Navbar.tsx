@@ -34,17 +34,17 @@ export default function Navbar() {
       }`}
       style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.3)" }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/icon.png"
               alt="TrackSpeed"
-              width={28}
-              height={28}
-              sizes="28px"
-              className="rounded-lg"
+              width={26}
+              height={26}
+              sizes="26px"
+              className="rounded-md"
             />
             <span className="text-lg font-bold text-foreground">TrackSpeed</span>
           </Link>

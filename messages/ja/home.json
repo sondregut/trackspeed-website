@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "phone用スプリントタイミングアプリ - 無料、ハードウェア不要",
-    "description": "phoneをタイミングシステムに。~4msの精度、120fps検出、マルチデバイス同期。陸上コーチとアスリートのための無料アプリ。"
+    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。コーチと選手は無料です。"
   },
   "hero": {
-    "socialProof": "オリンピック選手に愛用されています",
+    "socialProof": "オリンピアンが開発",
     "title": "TrackSpeed",
-    "subtitle": "phoneだけでスプリントタイミング",
-    "description": "phoneをプロフェッショナルなタイミングシステムに。追加ハードウェア不要、キャリブレーション不要、即座に結果を表示。",
+    "subtitle": "スマホで自動スプリント計測",
+    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。コーチと選手は無料です。",
     "downloadCta": "App Storeでダウンロード",
     "downloadAndroid": "Google Playで入手",
     "stats": {
       "accuracy": "精度",
       "setup": "セットアップ",
       "hardware": "ハードウェア"
+    },
+    "secondaryCta": "仕組みを見る",
+    "result": {
+      "ariaLabel": "TrackSpeedの計測結果例",
+      "label": "自動計測結果",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "オリンピック選手に愛用されています",
-    "subtitle": "高校陸上からオリンピックまで",
+    "title": "Sondre Guttormsenが開発・テスト",
+    "subtitle": "2度のオリンピアン。唯一の創設者兼開発者。",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "オリンピック棒高跳び選手",
       "quote": "試合前の助走の調整にTrackSpeedを使っています。精度が素晴らしく、踏み切りの速度を常に正確に把握できます。"
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "マケドニア走り幅跳び記録保持者",
-      "quote": "走り幅跳びの選手にとって、スピードがすべてです。すべてのスプリントをTrackSpeedで計測しています。セットアップが素早く簡単なところが気に入っています。走り幅跳びの踏み切り速度も測定できるんです！"
+    "kicker": "トラックからコードへ",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "オリンピアン"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "追加機材"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "プロの計時、機材ゼロ",
     "subtitle": "必要なものはすべてポケットの中に",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "タイミング精度" },
-      "sync": { "value": "2+", "label": "デバイス同期" },
-      "hardware": { "value": "0", "label": "追加ハードウェア" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "タイミング精度"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "デバイス同期"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "追加ハードウェア"
+      }
     },
     "smartDetection": {
       "title": "スマート検知",
@@ -142,7 +163,7 @@
       "portability": "携帯性"
     },
     "trackspeed": {
-      "price": "無料 / $8.99/月*",
+      "price": "無料 / $9.99/月*",
       "accuracy": "~4ms",
       "chestDetection": "あり（胴体のみ）",
       "setupTime": "1分未満",
@@ -182,7 +203,7 @@
       "portability": "ポケットサイズ"
     },
     "footnotes": {
-      "pricing": "*月額$8.99または年額$49.99。価格は概算です。",
+      "pricing": "*月額$9.99または年額$59.99。価格は概算です。",
       "browerStudy": "**<link>査読済み研究</link>によると: Browerは「エリート選手の微細な変化をモニターするには信頼性が不十分」と結論。",
       "beamNote": "ビームシステムは体のどの部位（手/脚）でもトリガーされ、胸部ではありません。TrackSpeedはトレーニング向けに設計されており、公式大会用ではありません。"
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "サブフレーム精度の科学",
     "subtitle": "標準的なphoneカメラで~4msの精度を実現する方法",
-    "frameCapture": "120fpsキャプチャ = フレーム間隔8.3ms",
-    "formula": "position = velocity × time + offset",
-    "formulaLabel": "軌跡回帰（3フレーム以上）",
-    "formulaResult": "サブフレーム精度で通過時刻を算出",
+    "frameCapture": "2つの画像でゲートラインを挟みます",
+    "formula": "胸マーカー、ゲートライン、推定通過",
+    "formulaLabel": "前後の補間",
+    "formulaResult": "通過時刻は2つの位置の間で推定されます",
     "beyondFrameByFrame": "フレーム単位を超えたタイミング",
     "learnHowItWorks": "仕組みを詳しく見る",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms 実効精度",
-      "description": "120fpsキャプチャ、マルチフレーム軌跡解析、ローリングシャッター補正の組み合わせにより、プロフェッショナルシステムに匹敵するタイミング精度を実現します。"
+      "description": "高速撮影、複数フレームの軌跡解析、ローリングシャッター補正により、プロ用システムに近い計時精度を実現します。"
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "120fpsでのフレーム間隔" },
-      "interpolation": { "value": "~0.5ms", "label": "補間分解能" },
-      "accuracy": { "value": "~4ms", "label": "実効タイミング精度" }
+      "frameInterval": {
+        "value": "前 / 後",
+        "label": "通過ラインを挟む"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "補間分解能"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "実効タイミング精度"
+      }
+    },
+    "visual": {
+      "before": "前",
+      "after": "後",
+      "estimatedCrossing": "推定通過",
+      "beforeStatus": "胸がラインの前",
+      "afterStatus": "胸がラインの後"
     }
   },
   "ctaSection": {

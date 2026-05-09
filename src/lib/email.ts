@@ -135,7 +135,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
         to,
         subject,
         html,
-        reply_to: 'support@trackspeed.app',
+        reply_to: 'support@mytrackspeed.com',
       }),
     })
 

@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "App de chronométrage de sprint pour phone – Gratuit, sans matériel",
-    "description": "Transforme ton phone en système de chronométrage. ~4ms de précision, détection à 120fps, synchronisation multi-appareils. Gratuit pour les entraîneurs et athlètes."
+    "description": "Transforme ton phone en système de chronométrage. Précision ~4ms, synchronisation multi-appareils, aucun matériel. Gratuit pour les entraîneurs et athlètes."
   },
   "hero": {
-    "socialProof": "Adopté par des olympiens",
+    "socialProof": "Créé par un olympien",
     "title": "TrackSpeed",
-    "subtitle": "Chronomètre tes sprints avec ton phone",
-    "description": "Transforme ton phone en système de chronométrage professionnel. Pas de matériel supplémentaire, pas de calibration, résultats instantanés.",
+    "subtitle": "Chronométrage automatique de sprint depuis ton téléphone",
+    "description": "Transforme ton phone en système de chronométrage. Précision ~4ms, synchronisation multi-appareils, aucun matériel. Gratuit pour les entraîneurs et athlètes.",
     "downloadCta": "Télécharger sur l'App Store",
     "downloadAndroid": "Télécharger sur Google Play",
     "stats": {
       "accuracy": "Précision",
       "setup": "Installation",
       "hardware": "Matériel"
+    },
+    "secondaryCta": "Voir comment ça marche",
+    "result": {
+      "ariaLabel": "Exemple de résultat de chronométrage TrackSpeed",
+      "label": "Résultat automatique",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Adopté par tes olympiens préférés",
-    "subtitle": "Du lycée jusqu'aux Jeux Olympiques",
+    "title": "Créé et testé par Sondre Guttormsen",
+    "subtitle": "Double olympien. Fondateur et développeur unique.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Perchiste olympique",
       "quote": "J'utilise TrackSpeed pour ajuster ma course d'élan avant les compétitions. La précision est impressionnante et je sais toujours exactement à quelle vitesse j'arrive à l'impulsion."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Recordman macédonien du saut en longueur",
-      "quote": "En tant que sauteur en longueur, la vitesse est tout. Je chronomètre tous mes sprints avec TrackSpeed et j'adore la rapidité et la facilité de mise en place. L'app mesure même ma vitesse d'impulsion au saut en longueur !"
+    "kicker": "De la piste au code",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olympien"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Matériel supplémentaire"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Chronométrage pro, zéro équipement",
     "subtitle": "Tout ce dont tu as besoin est déjà dans ta poche",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Précision du chrono" },
-      "sync": { "value": "2+", "label": "Sync multi-appareils" },
-      "hardware": { "value": "0", "label": "Matériel supplémentaire" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Précision du chrono"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Sync multi-appareils"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Matériel supplémentaire"
+      }
     },
     "smartDetection": {
       "title": "Détection intelligente",
@@ -142,7 +163,7 @@
       "portability": "Portabilité"
     },
     "trackspeed": {
-      "price": "Gratuit / $8.99/mois*",
+      "price": "Gratuit / $9.99/mois*",
       "accuracy": "~4ms",
       "chestDetection": "Oui (torse uniquement)",
       "setupTime": "< 1 min",
@@ -182,7 +203,7 @@
       "portability": "Tient dans la poche"
     },
     "footnotes": {
-      "pricing": "*$8.99/mois ou $49.99/an. Prix approximatifs.",
+      "pricing": "*$9.99/mois ou $59.99/an. Prix approximatifs.",
       "browerStudy": "**Selon une <link>étude évaluée par des pairs</link> : Brower a été jugé « pas assez fiable pour suivre de petits changements chez les athlètes de haut niveau »",
       "beamNote": "Les systèmes à faisceau se déclenchent sur n'importe quelle partie du corps (main/jambe), pas sur la poitrine. TrackSpeed est conçu pour l'entraînement, pas pour les compétitions officielles."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "La science derrière la précision sub-frame",
     "subtitle": "Comment nous atteignons ~4ms de précision avec les caméras phone standard",
-    "frameCapture": "Capture à 120fps = 8.3ms entre les images",
-    "formula": "position = vitesse × temps + décalage",
-    "formulaLabel": "Régression de trajectoire (3+ images)",
-    "formulaResult": "Calcul du moment de franchissement avec précision sub-frame",
+    "frameCapture": "Deux captures encadrent la ligne du gate",
+    "formula": "Repère du torse, ligne du gate, passage estimé",
+    "formulaLabel": "Interpolation avant / après",
+    "formulaResult": "Le temps de passage est estimé entre les deux positions",
     "beyondFrameByFrame": "Au-delà du chronométrage image par image",
     "learnHowItWorks": "Découvre comment ça marche",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms de précision effective",
-      "description": "La combinaison de la capture à 120fps, de l'analyse de trajectoire multi-images et de la correction du rolling shutter offre une précision comparable aux systèmes professionnels."
+      "description": "La capture haute vitesse, l’analyse de trajectoire multi-images et la correction du rolling shutter offrent une précision comparable aux systèmes professionnels."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Intervalle entre images à 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Résolution d'interpolation" },
-      "accuracy": { "value": "~4ms", "label": "Précision effective du chrono" }
+      "frameInterval": {
+        "value": "Avant / après",
+        "label": "Encadre la ligne de passage"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Résolution d'interpolation"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Précision effective du chrono"
+      }
+    },
+    "visual": {
+      "before": "Avant",
+      "after": "Après",
+      "estimatedCrossing": "Passage estimé",
+      "beforeStatus": "Torse avant la ligne",
+      "afterStatus": "Torse après la ligne"
     }
   },
   "ctaSection": {

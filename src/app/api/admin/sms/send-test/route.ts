@@ -1,23 +1,11 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { verifyAdminSession } from "@/lib/admin-auth";
+import { renderSMSTemplate } from "@/lib/sms-templates";
 
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
-
-// SMS templates (keep in sync with supabase/functions/_shared/sms-templates.ts)
-// Templates are written conversationally to encourage replies (handled by AI via sms-webhook)
-const smsTemplates: Record<string, (d: { name: string; sessionCount: number }) => string> = {
-  welcome: () =>
-    "Hey! Thanks for trying TrackSpeed. Let me know if you need help getting started - just reply here. STOP to opt out",
-  tips_day3: () =>
-    "Quick tip - you can use 2 phones to time splits! One at start, one at finish. Have you tried it?",
-  convert_day7: () =>
-    "How's TrackSpeed working for you? If you want unlimited sessions or multi-phone timing, check out Pro: mytrackspeed.com/pro",
-  winback: () =>
-    "Hey, noticed you haven't timed in a while. Everything okay? Let me know if you hit any issues.",
-};
 
 export async function POST(request: Request) {
   if (!(await verifyAdminSession())) {
@@ -34,7 +22,13 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!smsTemplates[template]) {
+    let smsBody: string;
+    try {
+      smsBody = renderSMSTemplate(template, {
+        name: "Test User",
+        sessionCount: 5,
+      });
+    } catch {
       return NextResponse.json(
         { error: `Invalid template: ${template}` },
         { status: 400 }
@@ -51,13 +45,7 @@ export async function POST(request: Request) {
     // Normalize phone to E.164
     const normalizedPhone = phone.startsWith("+") ? phone : `+${phone}`;
 
-    // Generate SMS content with test data
-    const data = {
-      name: "Test User",
-      sessionCount: 5,
-    };
-
-    const message = "[TEST] " + smsTemplates[template](data);
+    const message = "[TEST] " + smsBody;
 
     // Send via Twilio API
     const twilioUrl = `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`;

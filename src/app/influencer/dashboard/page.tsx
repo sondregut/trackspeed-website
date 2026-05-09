@@ -193,8 +193,8 @@ export default function InfluencerDashboardPage() {
           </p>
           <p className="text-sm text-[#9B9A97]">
             If you have questions, please contact{" "}
-            <a href="mailto:support@trackspeed.app" className="text-[#5C8DB8] hover:underline">
-              support@trackspeed.app
+            <a href="mailto:support@mytrackspeed.com" className="text-[#5C8DB8] hover:underline">
+              support@mytrackspeed.com
             </a>
           </p>
         </div>

@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "App de cronometragem de sprints para phone - Gratis, sem hardware",
-    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, detecção a 120fps, sincronização multidispositivo. Gratis para treinadores e atletas."
+    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware. Grátis para treinadores e atletas."
   },
   "hero": {
-    "socialProof": "Amado por olimpicos",
+    "socialProof": "Criado por um olímpico",
     "title": "TrackSpeed",
-    "subtitle": "Cronometragem de sprints apenas com seu phone",
-    "description": "Transforme seu phone em um sistema de cronometragem profissional. Sem hardware extra, sem calibracao, resultados instantaneos.",
+    "subtitle": "Cronometragem automática de sprint pelo telefone",
+    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware. Grátis para treinadores e atletas.",
     "downloadCta": "Baixar na App Store",
     "downloadAndroid": "Disponível no Google Play",
     "stats": {
       "accuracy": "Precisão",
       "setup": "Configuração",
       "hardware": "Hardware"
+    },
+    "secondaryCta": "Veja como funciona",
+    "result": {
+      "ariaLabel": "Exemplo de resultado de cronometragem do TrackSpeed",
+      "label": "Resultado automático",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Amado pelos seus olimpicos favoritos",
-    "subtitle": "Do atletismo escolar ate os Jogos Olimpicos",
+    "title": "Criado e testado por Sondre Guttormsen",
+    "subtitle": "Duas vezes olímpico. Único fundador e desenvolvedor.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Saltador com vara olimpico",
       "quote": "Uso o TrackSpeed para ajustar minha corrida de aproximacao antes das competicoes. A precisão e impressionante e sempre sei exatamente a velocidade que estou atingindo na decolagem."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Recordista nacional de salto em distancia da Macedonia",
-      "quote": "Como saltador em distancia, velocidade e tudo. Cronometo todos os meus sprints com o TrackSpeed e adoro como e rapido e facil de configurar. Ele ate mede minha velocidade de decolagem no salto em distancia!"
+    "kicker": "Da pista ao código",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olímpico"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Equipamento extra"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Cronometragem profissional, zero equipamento",
     "subtitle": "Tudo que voce precisa ja esta no seu bolso",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Precisão de cronometragem" },
-      "sync": { "value": "2+", "label": "Sincronização de dispositivos" },
-      "hardware": { "value": "0", "label": "Hardware extra" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Precisão de cronometragem"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Sincronização de dispositivos"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Hardware extra"
+      }
     },
     "smartDetection": {
       "title": "Detecção inteligente",
@@ -142,7 +163,7 @@
       "portability": "Portabilidade"
     },
     "trackspeed": {
-      "price": "Gratis / $8.99/mes*",
+      "price": "Gratis / $9.99/mes*",
       "accuracy": "~4ms",
       "chestDetection": "Sim (apenas torso)",
       "setupTime": "< 1 min",
@@ -151,7 +172,7 @@
     },
     "freelap": {
       "price": "$500 - $2,000+",
-      "accuracy": "\u00b120ms",
+      "accuracy": "±20ms",
       "chestDetection": "Nao (qualquer parte do corpo)",
       "setupTime": "5-10 min",
       "hardware": "Sensores + chips",
@@ -159,7 +180,7 @@
     },
     "brower": {
       "price": "$1,500 - $5,000+",
-      "accuracy": "\u00b150-60ms**",
+      "accuracy": "±50-60ms**",
       "chestDetection": "Nao (corte de feixe)",
       "setupTime": "10-20 min",
       "hardware": "Portoes + bases",
@@ -167,7 +188,7 @@
     },
     "dashr": {
       "price": "$500 - $1,500+",
-      "accuracy": "\u00b110ms",
+      "accuracy": "±10ms",
       "chestDetection": "Nao (corte de feixe)",
       "setupTime": "5-10 min",
       "hardware": "Portoes laser",
@@ -175,14 +196,14 @@
     },
     "stopwatch": {
       "price": "$10 - $50",
-      "accuracy": "\u00b1200ms",
+      "accuracy": "±200ms",
       "chestDetection": "Estimativa visual",
       "setupTime": "Instantaneo",
       "hardware": "Nenhum",
       "portability": "Cabe no bolso"
     },
     "footnotes": {
-      "pricing": "*$8.99/mes ou $49.99/ano. Os precos sao aproximados.",
+      "pricing": "*$9.99/mes ou $59.99/ano. Os precos sao aproximados.",
       "browerStudy": "**Segundo um <link>estudo revisado por pares</link>: Brower mostrou-se \"nao confiavel o suficiente para monitorar pequenas mudancas em atletas de elite\"",
       "beamNote": "Sistemas de feixe sao acionados por qualquer parte do corpo (mao/perna), nao pelo peito. O TrackSpeed foi projetado para treino, nao para competicoes oficiais."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "A ciencia por tras da precisão sub-frame",
     "subtitle": "Como alcancamos precisão de ~4ms com cameras padrao de phone",
-    "frameCapture": "Captura a 120fps = 8.3ms entre quadros",
-    "formula": "posicao = velocidade \u00d7 tempo + deslocamento",
-    "formulaLabel": "Regressao de trajetoria (3+ quadros)",
-    "formulaResult": "Calcula o momento do cruzamento com precisão sub-frame",
+    "frameCapture": "Duas capturas enquadram a linha do gate",
+    "formula": "Marcador do peito, linha do gate, cruzamento estimado",
+    "formulaLabel": "Interpolação antes / depois",
+    "formulaResult": "O tempo de cruzamento é estimado entre as duas posições",
     "beyondFrameByFrame": "Alem da cronometragem quadro a quadro",
     "learnHowItWorks": "Saiba como funciona",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "Precisão efetiva de ~4ms",
-      "description": "A combinacao de captura a 120fps, analise de trajetoria multi-quadro e correcao de rolling shutter entrega precisão de cronometragem comparavel a sistemas profissionais."
+      "description": "Captura em alta velocidade, análise de trajetória em múltiplos quadros e correção de rolling shutter entregam precisão comparável a sistemas profissionais."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Intervalo entre quadros a 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Resolucao de interpolacao" },
-      "accuracy": { "value": "~4ms", "label": "Precisão efetiva de cronometragem" }
+      "frameInterval": {
+        "value": "Antes / depois",
+        "label": "Enquadra a linha de cruzamento"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Resolucao de interpolacao"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Precisão efetiva de cronometragem"
+      }
+    },
+    "visual": {
+      "before": "Antes",
+      "after": "Depois",
+      "estimatedCrossing": "Cruzamento estimado",
+      "beforeStatus": "Peito antes da linha",
+      "afterStatus": "Peito depois da linha"
     }
   },
   "ctaSection": {

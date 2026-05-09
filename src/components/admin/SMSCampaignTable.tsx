@@ -1,59 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-interface SMSCampaign {
-  id: string;
-  name: string;
-  trigger: string;
-  timing: string;
-  templateKey: string;
-  message: string;
-  charCount: number;
-}
-
-const smsCampaigns: SMSCampaign[] = [
-  {
-    id: "welcome",
-    name: "Welcome",
-    trigger: "Phone verified + SMS opt-in",
-    timing: "Immediately",
-    templateKey: "welcome",
-    message:
-      "Welcome to TrackSpeed! 🏃 Start your first timing session today. Need help? Reply HELP. Reply STOP to opt out.",
-    charCount: 116,
-  },
-  {
-    id: "tips_day3",
-    name: "Tips Day 3",
-    trigger: "After welcome",
-    timing: "3 days",
-    templateKey: "tips_day3",
-    message:
-      "TrackSpeed tip: Use 2 phones for split times! Place one at start, one at finish. 📱⏱️",
-    charCount: 91,
-  },
-  {
-    id: "convert_day7",
-    name: "Convert Day 7",
-    trigger: "After tips (free users only)",
-    timing: "7 days",
-    templateKey: "convert_day7",
-    message:
-      "Special offer: 20% off TrackSpeed Pro! Unlimited timing & multi-device mode. Tap to claim: https://mytrackspeed.com/pro",
-    charCount: 121,
-  },
-  {
-    id: "winback",
-    name: "Winback",
-    trigger: "Access expired",
-    timing: "30 days after",
-    templateKey: "winback",
-    message:
-      "We miss you at TrackSpeed! Come back & get 20% off Pro. Tap to claim: https://mytrackspeed.com/pro",
-    charCount: 100,
-  },
-];
+import { smsCampaigns, type SMSCampaign } from "@/lib/sms-templates";
 
 interface SMSCampaignTableProps {
   onSendTest: (templateKey: string) => void;

@@ -534,7 +534,7 @@ export default function PitchDeck() {
               y="15%"
               color="#5C8DB8"
               highlighted
-              price="$49.99/year"
+              price="$59.99/year"
             />
           </div>
           <p
@@ -615,13 +615,13 @@ export default function PitchDeck() {
                   className="text-3xl font-bold mb-1"
                   style={{ color: "var(--text-primary)" }}
                 >
-                  $49.99<span className="text-base font-normal">/year</span>
+                  $59.99<span className="text-base font-normal">/year</span>
                 </p>
                 <p
                   className="text-lg mb-6"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  or $8.99<span className="text-sm">/month</span>
+                  or $4.99<span className="text-sm">/week</span>
                 </p>
                 <ul
                   className="text-sm text-left space-y-2"
@@ -649,7 +649,7 @@ export default function PitchDeck() {
               <div className="space-y-4">
                 <RevenueItem
                   title="Individual subscriptions"
-                  description="Self-coached athletes and independent coaches paying monthly or yearly."
+                  description="Self-coached athletes and independent coaches paying weekly or yearly."
                 />
                 <RevenueItem
                   title="Team & school licenses"
@@ -708,9 +708,9 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Team</SlideLabel>
           <h2 className="text-section mb-10">
-            Athletes building for athletes
+            Built by an athlete for athletes
           </h2>
-          <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-10">
+          <div className="max-w-md mx-auto mb-10">
             <div className="card-feature">
               <h3
                 className="text-lg font-bold mb-1"
@@ -722,15 +722,15 @@ export default function PitchDeck() {
                 className="text-sm font-medium mb-3"
                 style={{ color: "#5C8DB8" }}
               >
-                Co-Founder &amp; Lead Developer
+                Founder &amp; Lead Developer
               </p>
               <p
                 className="text-sm leading-relaxed mb-3"
                 style={{ color: "var(--text-secondary)" }}
               >
                 Built TrackSpeed from the ground up — native iOS, computer vision
-                pipeline, multi-device sync, backend, and website. Former D1
-                athlete with deep domain knowledge.
+                pipeline, multi-device sync, backend, and website. Two-time
+                Olympian with deep domain knowledge.
               </p>
               <div className="flex items-center gap-3">
                 <a
@@ -753,83 +753,12 @@ export default function PitchDeck() {
                 </a>
               </div>
             </div>
-            <div className="card-feature">
-              <h3
-                className="text-lg font-bold mb-1"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Simen Guttormsen
-              </h3>
-              <p
-                className="text-sm font-medium mb-3"
-                style={{ color: "#5C8DB8" }}
-              >
-                Co-Founder &amp; Technical Advisor
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-3"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Technical advisor and second builder. Contributes to architecture
-                decisions, code reviews, and feature development.
-              </p>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <a
-                  href="https://instagram.com/simen_guttormsen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium inline-flex items-center gap-1"
-                  style={{ color: "#5C8DB8" }}
-                >
-                  <IgIcon /> @simen_g
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/simen-guttormsen/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium inline-flex items-center gap-1"
-                  style={{ color: "#5C8DB8" }}
-                >
-                  <LinkedInIcon /> LinkedIn
-                </a>
-              </div>
-            </div>
-            <div className="card-feature">
-              <h3
-                className="text-lg font-bold mb-1"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Andreas Trajkovski
-              </h3>
-              <p
-                className="text-sm font-medium mb-3"
-                style={{ color: "#5C8DB8" }}
-              >
-                Co-Founder &amp; Jumpers World
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-3"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Founder of Jumpers World — one of the largest track &amp; field media
-                brands. Deep network across the athletics community.
-              </p>
-              <a
-                href="https://instagram.com/jumpers.world"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-medium inline-flex items-center gap-1"
-                style={{ color: "#5C8DB8" }}
-              >
-                <IgIcon /> @jumpers.world
-              </a>
-            </div>
           </div>
           <p
             className="text-sm max-w-lg mx-auto text-center"
             style={{ color: "var(--text-muted)" }}
           >
-            Lean by design. Technical depth meets built-in distribution —
+            Lean by design. Technical depth meets athlete insight —
             every dollar goes into product and growth, not overhead.
           </p>
           <SlideNumber current={11} total={SLIDES.length} />
@@ -841,23 +770,16 @@ export default function PitchDeck() {
         <div className="max-w-4xl w-full">
           <SlideLabel>Go-to-Market</SlideLabel>
           <h2 className="text-section mb-4">
-            Built-in distribution through athletics media
+            Distribution through athlete networks
           </h2>
           <p className="text-body mb-10 max-w-3xl">
-            We don&apos;t need to buy our audience — we already have it. Jumpers World
-            and our personal networks give us direct access to the track &amp; field
-            community, and we&apos;re expanding through influencer partnerships across
-            all sports.
+            TrackSpeed can grow through founder-led content, coach outreach, event demos,
+            and influencer partnerships across track &amp; field and adjacent sports.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <GtmCard
-              title="@jumpers.world"
-              description="One of the largest T&F media brands — organic reach to coaches, athletes, and fans across social platforms."
-              link="https://instagram.com/jumpers.world"
-            />
-            <GtmCard
-              title="@sondre_pv & @simen_guttormsen"
-              description="Personal social media accounts with established audiences in the athletics and tech community."
+              title="@sondre_pv"
+              description="Founder-led content from an Olympic athlete building timing software for the track community."
               link="https://instagram.com/sondre_pv"
             />
             <GtmCard
@@ -1002,7 +924,7 @@ export default function PitchDeck() {
               Try TrackSpeed
             </a>
             <a
-              href="https://trackspeed.app"
+              href="https://mytrackspeed.com"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2"
@@ -1012,11 +934,11 @@ export default function PitchDeck() {
                 border: "1px solid var(--border-light)",
               }}
             >
-              trackspeed.app
+              mytrackspeed.com
             </a>
           </div>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            sondre@trackspeed.app
+            sondre@mytrackspeed.com
           </p>
           <SlideNumber current={14} total={SLIDES.length} />
         </div>
@@ -1518,118 +1440,5 @@ function AssumptionCard({ label, value }: { label: string; value: string }) {
         {label}
       </p>
     </div>
-  );
-}
-
-/* ========================================
-   New components — QR Code
-   ======================================== */
-
-function QrCode() {
-  // Stylized QR code placeholder pointing to App Store
-  // Using an inline SVG that represents a QR pattern
-  return (
-    <svg
-      width="120"
-      height="120"
-      viewBox="0 0 120 120"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="QR code linking to TrackSpeed on the App Store"
-    >
-      <rect width="120" height="120" rx="8" fill="white" />
-      {/* Top-left finder pattern */}
-      <rect x="8" y="8" width="28" height="28" rx="2" fill="#1A1A1A" />
-      <rect x="12" y="12" width="20" height="20" rx="1" fill="white" />
-      <rect x="16" y="16" width="12" height="12" rx="1" fill="#1A1A1A" />
-      {/* Top-right finder pattern */}
-      <rect x="84" y="8" width="28" height="28" rx="2" fill="#1A1A1A" />
-      <rect x="88" y="12" width="20" height="20" rx="1" fill="white" />
-      <rect x="92" y="16" width="12" height="12" rx="1" fill="#1A1A1A" />
-      {/* Bottom-left finder pattern */}
-      <rect x="8" y="84" width="28" height="28" rx="2" fill="#1A1A1A" />
-      <rect x="12" y="88" width="20" height="20" rx="1" fill="white" />
-      <rect x="16" y="92" width="12" height="12" rx="1" fill="#1A1A1A" />
-      {/* Data modules — decorative pattern */}
-      {/* Row 1 */}
-      <rect x="42" y="8" width="6" height="6" fill="#1A1A1A" />
-      <rect x="54" y="8" width="6" height="6" fill="#1A1A1A" />
-      <rect x="66" y="8" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 2 */}
-      <rect x="42" y="18" width="6" height="6" fill="#1A1A1A" />
-      <rect x="48" y="18" width="6" height="6" fill="#5C8DB8" />
-      <rect x="60" y="18" width="6" height="6" fill="#1A1A1A" />
-      <rect x="72" y="18" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 3 */}
-      <rect x="48" y="28" width="6" height="6" fill="#1A1A1A" />
-      <rect x="60" y="28" width="6" height="6" fill="#5C8DB8" />
-      <rect x="72" y="28" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 4 */}
-      <rect x="8" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="18" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="30" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="42" y="42" width="6" height="6" fill="#5C8DB8" />
-      <rect x="54" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="66" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="84" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="96" y="42" width="6" height="6" fill="#1A1A1A" />
-      <rect x="108" y="42" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 5 */}
-      <rect x="8" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="24" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="36" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="48" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="60" y="48" width="6" height="6" fill="#5C8DB8" />
-      <rect x="72" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="90" y="48" width="6" height="6" fill="#1A1A1A" />
-      <rect x="102" y="48" width="6" height="6" fill="#1A1A1A" />
-      {/* Center area — brand accent */}
-      <rect x="48" y="54" width="6" height="6" fill="#5C8DB8" />
-      <rect x="54" y="54" width="12" height="12" rx="2" fill="#5C8DB8" />
-      <rect x="66" y="54" width="6" height="6" fill="#5C8DB8" />
-      <rect x="42" y="60" width="6" height="6" fill="#1A1A1A" />
-      <rect x="72" y="60" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 6 */}
-      <rect x="8" y="54" width="6" height="6" fill="#1A1A1A" />
-      <rect x="18" y="54" width="6" height="6" fill="#1A1A1A" />
-      <rect x="30" y="54" width="6" height="6" fill="#1A1A1A" />
-      <rect x="84" y="54" width="6" height="6" fill="#1A1A1A" />
-      <rect x="96" y="54" width="6" height="6" fill="#1A1A1A" />
-      <rect x="108" y="54" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 7 */}
-      <rect x="14" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="24" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="36" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="48" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="60" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="72" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="90" y="66" width="6" height="6" fill="#1A1A1A" />
-      <rect x="102" y="66" width="6" height="6" fill="#1A1A1A" />
-      {/* Row 8 */}
-      <rect x="8" y="72" width="6" height="6" fill="#1A1A1A" />
-      <rect x="20" y="72" width="6" height="6" fill="#1A1A1A" />
-      <rect x="42" y="72" width="6" height="6" fill="#5C8DB8" />
-      <rect x="54" y="72" width="6" height="6" fill="#1A1A1A" />
-      <rect x="66" y="72" width="6" height="6" fill="#1A1A1A" />
-      <rect x="84" y="72" width="6" height="6" fill="#1A1A1A" />
-      <rect x="96" y="72" width="6" height="6" fill="#1A1A1A" />
-      {/* Bottom-right area */}
-      <rect x="42" y="84" width="6" height="6" fill="#1A1A1A" />
-      <rect x="54" y="84" width="6" height="6" fill="#1A1A1A" />
-      <rect x="66" y="84" width="6" height="6" fill="#5C8DB8" />
-      <rect x="84" y="84" width="6" height="6" fill="#1A1A1A" />
-      <rect x="96" y="84" width="6" height="6" fill="#1A1A1A" />
-      <rect x="42" y="96" width="6" height="6" fill="#1A1A1A" />
-      <rect x="60" y="96" width="6" height="6" fill="#1A1A1A" />
-      <rect x="72" y="96" width="6" height="6" fill="#1A1A1A" />
-      <rect x="90" y="96" width="6" height="6" fill="#1A1A1A" />
-      <rect x="108" y="96" width="6" height="6" fill="#1A1A1A" />
-      <rect x="48" y="108" width="6" height="6" fill="#1A1A1A" />
-      <rect x="60" y="108" width="6" height="6" fill="#5C8DB8" />
-      <rect x="78" y="108" width="6" height="6" fill="#1A1A1A" />
-      <rect x="96" y="108" width="6" height="6" fill="#1A1A1A" />
-      <rect x="108" y="108" width="6" height="6" fill="#1A1A1A" />
-    </svg>
   );
 }

@@ -30,8 +30,8 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
       <Hero />
       {/* Gradient transition */}
       <div className="gradient-divider" />
-      <Testimonials />
       <HowItWorks />
+      <Testimonials />
       <Features />
       <StartTypes />
 

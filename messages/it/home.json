@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "App di cronometraggio sprint per phone - Gratis, senza hardware",
-    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, rilevamento a 120fps, sincronizzazione multi-dispositivo. Gratis per allenatori e atleti."
+    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware. Gratis per allenatori e atleti."
   },
   "hero": {
-    "socialProof": "Amata dagli olimpionici",
+    "socialProof": "Creata da un olimpionico",
     "title": "TrackSpeed",
-    "subtitle": "Cronometraggio sprint solo con il tuo phone",
-    "description": "Trasforma il tuo phone in un sistema di cronometraggio professionale. Nessun hardware extra, nessuna calibrazione, risultati immediati.",
+    "subtitle": "Cronometraggio sprint automatico dal tuo telefono",
+    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware. Gratis per allenatori e atleti.",
     "downloadCta": "Scarica sull'App Store",
     "downloadAndroid": "Disponibile su Google Play",
     "stats": {
       "accuracy": "Precisione",
       "setup": "Configurazione",
       "hardware": "Hardware"
+    },
+    "secondaryCta": "Scopri come funziona",
+    "result": {
+      "ariaLabel": "Esempio di risultato di cronometraggio TrackSpeed",
+      "label": "Risultato automatico",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Amata dai tuoi olimpionici preferiti",
-    "subtitle": "Dall'atletica scolastica ai Giochi Olimpici",
+    "title": "Creata e testata da Sondre Guttormsen",
+    "subtitle": "Due volte olimpionico. Unico fondatore e sviluppatore.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Astista olimpico",
       "quote": "Uso TrackSpeed per calibrare la mia rincorsa prima delle gare. La precisione e impressionante e so sempre esattamente a che velocita sto andando allo stacco."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Recordman nazionale di salto in lungo della Macedonia",
-      "quote": "Come lunghista, la velocita e tutto. Cronometo tutti i miei sprint con TrackSpeed e adoro quanto sia veloce e facile da configurare. Misura persino la mia velocita di stacco nel salto in lungo!"
+    "kicker": "Dalla pista al codice",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olimpionico"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Attrezzatura extra"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Cronometraggio professionale, zero attrezzatura",
     "subtitle": "Tutto cio che ti serve e gia nella tua tasca",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Precisione di cronometraggio" },
-      "sync": { "value": "2+", "label": "Sincronizzazione dispositivi" },
-      "hardware": { "value": "0", "label": "Hardware extra" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Precisione di cronometraggio"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Sincronizzazione dispositivi"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Hardware extra"
+      }
     },
     "smartDetection": {
       "title": "Rilevamento intelligente",
@@ -142,7 +163,7 @@
       "portability": "Portabilita"
     },
     "trackspeed": {
-      "price": "Gratis / $8.99/mese*",
+      "price": "Gratis / $9.99/mese*",
       "accuracy": "~4ms",
       "chestDetection": "Si (solo torso)",
       "setupTime": "< 1 min",
@@ -151,7 +172,7 @@
     },
     "freelap": {
       "price": "$500 - $2,000+",
-      "accuracy": "\u00b120ms",
+      "accuracy": "±20ms",
       "chestDetection": "No (qualsiasi parte del corpo)",
       "setupTime": "5-10 min",
       "hardware": "Sensori + chip",
@@ -159,7 +180,7 @@
     },
     "brower": {
       "price": "$1,500 - $5,000+",
-      "accuracy": "\u00b150-60ms**",
+      "accuracy": "±50-60ms**",
       "chestDetection": "No (interruzione fascio)",
       "setupTime": "10-20 min",
       "hardware": "Gate + basi",
@@ -167,7 +188,7 @@
     },
     "dashr": {
       "price": "$500 - $1,500+",
-      "accuracy": "\u00b110ms",
+      "accuracy": "±10ms",
       "chestDetection": "No (interruzione fascio)",
       "setupTime": "5-10 min",
       "hardware": "Gate laser",
@@ -175,14 +196,14 @@
     },
     "stopwatch": {
       "price": "$10 - $50",
-      "accuracy": "\u00b1200ms",
+      "accuracy": "±200ms",
       "chestDetection": "Stima visiva",
       "setupTime": "Istantaneo",
       "hardware": "Nessuno",
       "portability": "Tascabile"
     },
     "footnotes": {
-      "pricing": "*$8.99/mese o $49.99/anno. I prezzi sono approssimativi.",
+      "pricing": "*$9.99/mese o $59.99/anno. I prezzi sono approssimativi.",
       "browerStudy": "**Secondo uno <link>studio peer-reviewed</link>: Brower si e rivelato \"non sufficientemente affidabile per monitorare piccoli cambiamenti in atleti di elite\"",
       "beamNote": "I sistemi a fascio si attivano con qualsiasi parte del corpo (mano/gamba), non con il petto. TrackSpeed e progettato per l'allenamento, non per competizioni ufficiali."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "La scienza dietro la precisione sub-frame",
     "subtitle": "Come raggiungiamo una precisione di ~4ms con le fotocamere standard dell'phone",
-    "frameCapture": "Cattura a 120fps = 8.3ms tra i fotogrammi",
-    "formula": "posizione = velocita \u00d7 tempo + offset",
-    "formulaLabel": "Regressione della traiettoria (3+ fotogrammi)",
-    "formulaResult": "Calcola il momento dell'attraversamento con precisione sub-frame",
+    "frameCapture": "Due acquisizioni racchiudono la linea del gate",
+    "formula": "Marker del petto, linea del gate, attraversamento stimato",
+    "formulaLabel": "Interpolazione prima / dopo",
+    "formulaResult": "Il tempo di attraversamento viene stimato tra le due posizioni",
     "beyondFrameByFrame": "Oltre il cronometraggio fotogramma per fotogramma",
     "learnHowItWorks": "Scopri come funziona",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "Precisione effettiva di ~4ms",
-      "description": "La combinazione di cattura a 120fps, analisi della traiettoria multi-fotogramma e correzione del rolling shutter offre una precisione di cronometraggio paragonabile ai sistemi professionali."
+      "description": "Cattura ad alta velocità, analisi della traiettoria multi-frame e correzione del rolling shutter offrono una precisione paragonabile ai sistemi professionali."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Intervallo tra fotogrammi a 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Risoluzione di interpolazione" },
-      "accuracy": { "value": "~4ms", "label": "Precisione effettiva di cronometraggio" }
+      "frameInterval": {
+        "value": "Prima / dopo",
+        "label": "Racchiude la linea di attraversamento"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Risoluzione di interpolazione"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Precisione effettiva di cronometraggio"
+      }
+    },
+    "visual": {
+      "before": "Prima",
+      "after": "Dopo",
+      "estimatedCrossing": "Attraversamento stimato",
+      "beforeStatus": "Petto prima della linea",
+      "afterStatus": "Petto dopo la linea"
     }
   },
   "ctaSection": {

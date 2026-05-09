@@ -1,33 +1,45 @@
 {
   "metadata": {
     "title": "Sprinttidtaking-app for phone – Gratis, uten maskinvare",
-    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, 120fps deteksjon, synkronisering av flere enheter. Gratis for trenere og utøvere."
+    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen maskinvare. Gratis for trenere og utøvere."
   },
   "hero": {
-    "socialProof": "Elsket av olympiere",
+    "socialProof": "Bygget av en olympier",
     "title": "TrackSpeed",
-    "subtitle": "Sprinttidtaking med bare din phone",
-    "description": "Gjør phonen din om til et profesjonelt tidtakingssystem. Ingen ekstra maskinvare, ingen kalibrering, umiddelbare resultater.",
+    "subtitle": "Automatisk sprinttiming fra telefonen",
+    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen maskinvare. Gratis for trenere og utøvere.",
     "downloadCta": "Last ned fra App Store",
     "downloadAndroid": "Hent den på Google Play",
     "stats": {
       "accuracy": "Nøyaktighet",
       "setup": "Oppsett",
       "hardware": "Maskinvare"
+    },
+    "secondaryCta": "Se hvordan det fungerer",
+    "result": {
+      "ariaLabel": "Eksempel på TrackSpeed-timingresultat",
+      "label": "Automatisk tid",
+      "test": "Flying 10m"
     }
   },
   "testimonials": {
-    "title": "Elsket av dine favoritt-olympiere",
-    "subtitle": "Fra videregående friidrett til de olympiske leker",
+    "title": "Bygget og testet av Sondre Guttormsen",
+    "subtitle": "To ganger olympier. Eneste grunnlegger og utvikler.",
     "sondre": {
       "name": "Sondre Guttormsen",
       "role": "Olympisk stavhopper",
       "quote": "Jeg bruker TrackSpeed for å finjustere tilløpet mitt før konkurranser. Nøyaktigheten er imponerende, og jeg vet alltid nøyaktig hvilken fart jeg treffer ved satsen."
     },
-    "andreas": {
-      "name": "Andreas Trajkovski",
-      "role": "Makedonsk lengdehopp-rekordholder",
-      "quote": "Som lengdehopper er fart alt. Jeg tar tiden på alle sprintene mine med TrackSpeed og elsker hvor raskt og enkelt det er å sette opp. Den måler til og med satsfarten min i lengdehopp!"
+    "kicker": "Fra banen til koden",
+    "proof": {
+      "olympian": {
+        "value": "2x",
+        "label": "Olympier"
+      },
+      "hardware": {
+        "value": "$0",
+        "label": "Ekstra utstyr"
+      }
     }
   },
   "howItWorks": {
@@ -57,9 +69,18 @@
     "title": "Profesjonell tidtaking, null utstyr",
     "subtitle": "Alt du trenger ligger allerede i lommen din",
     "stats": {
-      "accuracy": { "value": "~4ms", "label": "Tidtakingsnøyaktighet" },
-      "sync": { "value": "2+", "label": "Enhetssynkronisering" },
-      "hardware": { "value": "0", "label": "Ekstra maskinvare" }
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Tidtakingsnøyaktighet"
+      },
+      "sync": {
+        "value": "2+",
+        "label": "Enhetssynkronisering"
+      },
+      "hardware": {
+        "value": "0",
+        "label": "Ekstra maskinvare"
+      }
     },
     "smartDetection": {
       "title": "Smart deteksjon",
@@ -142,7 +163,7 @@
       "portability": "Portabilitet"
     },
     "trackspeed": {
-      "price": "Gratis / $8.99/mnd*",
+      "price": "Gratis / $9.99/mnd*",
       "accuracy": "~4ms",
       "chestDetection": "Ja (kun overkropp)",
       "setupTime": "< 1 min",
@@ -182,7 +203,7 @@
       "portability": "Lommeformat"
     },
     "footnotes": {
-      "pricing": "*$8.99/mnd eller $49.99/år. Prisene er omtrentlige.",
+      "pricing": "*$9.99/mnd eller $59.99/år. Prisene er omtrentlige.",
       "browerStudy": "**Ifølge en <link>fagfellevurdert studie</link>: Brower ble funnet «ikke pålitelig nok til å overvåke små endringer hos eliteutøvere»",
       "beamNote": "Strålesystemer utløses av hvilken som helst kroppsdel (hånd/ben), ikke brystet. TrackSpeed er laget for trening, ikke offisielle konkurranser."
     }
@@ -190,10 +211,10 @@
   "timingTechnology": {
     "title": "Vitenskapen bak sub-frame-presisjon",
     "subtitle": "Slik oppnår vi ~4ms nøyaktighet med vanlige phone-kameraer",
-    "frameCapture": "120fps opptak = 8.3ms mellom bilder",
-    "formula": "posisjon = hastighet × tid + forskyvning",
-    "formulaLabel": "Baneregresjon (3+ bilder)",
-    "formulaResult": "Beregn kryssningstidspunktet med sub-frame-presisjon",
+    "frameCapture": "To bilder rammer inn portlinjen",
+    "formula": "Brystmarkør, portlinje, estimert kryssing",
+    "formulaLabel": "Interpolering før / etter",
+    "formulaResult": "Kryssingstiden estimeres mellom de to posisjonene",
     "beyondFrameByFrame": "Utover bilde-for-bilde-tidtaking",
     "learnHowItWorks": "Lær hvordan det fungerer",
     "motionDetection": {
@@ -210,12 +231,28 @@
     },
     "effectiveAccuracy": {
       "title": "~4ms effektiv nøyaktighet",
-      "description": "Kombinasjonen av 120fps opptak, flerbilders baneanalyse og rolling shutter-korreksjon gir tidtakingspresisjon sammenlignbar med profesjonelle systemer."
+      "description": "Høyhastighetsopptak, flerbilders baneanalyse og rolling shutter-korreksjon gir tidtakingspresisjon sammenlignbar med profesjonelle systemer."
     },
     "stats": {
-      "frameInterval": { "value": "8.3ms", "label": "Bildeintervall ved 120fps" },
-      "interpolation": { "value": "~0.5ms", "label": "Interpolasjonsoppløsning" },
-      "accuracy": { "value": "~4ms", "label": "Effektiv tidtakingsnøyaktighet" }
+      "frameInterval": {
+        "value": "Før / etter",
+        "label": "Rammer inn kryssingslinjen"
+      },
+      "interpolation": {
+        "value": "~0.5ms",
+        "label": "Interpolasjonsoppløsning"
+      },
+      "accuracy": {
+        "value": "~4ms",
+        "label": "Effektiv tidtakingsnøyaktighet"
+      }
+    },
+    "visual": {
+      "before": "Før",
+      "after": "Etter",
+      "estimatedCrossing": "Estimert kryssing",
+      "beforeStatus": "Bryst før linjen",
+      "afterStatus": "Bryst etter linjen"
     }
   },
   "ctaSection": {
