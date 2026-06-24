@@ -14,7 +14,10 @@ export default function StartTypes() {
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <ScrollReveal>
           <div className="relative mx-auto max-w-[520px] lg:mx-0">
-            <div className="absolute inset-x-[-24%] bottom-[-12%] h-[48%] rotate-[-7deg] rounded-[48px] bg-[#20282E]" />
+            <div
+              className="absolute inset-x-[-24%] bottom-[-12%] h-[48%] rotate-[-7deg] rounded-[48px] bg-[#20282E] bg-cover bg-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+              style={{ backgroundImage: "linear-gradient(rgba(16,24,28,0.32), rgba(16,24,28,0.5)), url('/track-surface-bg.svg')" }}
+            />
             <PhoneMockup
               src="/app-screens/start-types.webp"
               alt="TrackSpeed start type setup screen"
