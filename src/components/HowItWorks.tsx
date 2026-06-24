@@ -102,7 +102,7 @@ function ConnectionStepVisual({
           src={joinSrc}
           alt={`${title} join phone`}
           sizes="220px"
-          className="absolute left-1/2 top-[-330px] w-[74%] -translate-x-1/2 rotate-180 opacity-90 shadow-[0_20px_50px_-34px_rgba(15,23,42,0.45)] sm:top-[-390px] md:top-[-315px]"
+          className="absolute left-1/2 top-[-292px] w-[74%] -translate-x-1/2 rotate-180 opacity-90 shadow-[0_20px_50px_-34px_rgba(15,23,42,0.45)] sm:top-[-350px] md:top-[-282px]"
           imageClassName="opacity-95"
         />
       </div>
