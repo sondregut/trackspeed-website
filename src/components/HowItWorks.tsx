@@ -9,7 +9,7 @@ const stepKeys = ["connect", "start", "position", "time"] as const;
 const stepVisuals = [
   { type: "screen", src: "/app-screens/connect-host.webp" },
   { type: "screen", src: "/app-screens/start-types.webp" },
-  { type: "screen", src: "/app-screens/custom-session.webp" },
+  { type: "framed", src: "/setup.webp" },
   { type: "photo", src: "/photofinish_edit.webp" },
 ] as const;
 
