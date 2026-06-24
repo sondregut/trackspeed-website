@@ -1,142 +1,69 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
-import ScrollReveal from "@/components/ScrollReveal";
+import PhoneMockup from "@/components/PhoneMockup";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+
+const typeKeys = ["touch", "voice", "countdown", "flying", "frame"] as const;
 
 export default function StartTypes() {
   const t = useTranslations("home");
-  const [selected, setSelected] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
-
-  const typeKeys = ["flying", "touch", "countdown", "voice", "frame"] as const;
-  const typeImages = ["/start-flying.png", "/start-touch.png", "/start-countdown.png", "/start-voice.png", "/start-frame.png"];
-
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-40% 0px -40% 0px",
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = cardRefs.current.findIndex((ref) => ref === entry.target);
-          if (index !== -1) {
-            setSelected(index);
-          }
-        }
-      });
-    }, observerOptions);
-
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <section id="start-types" ref={sectionRef} className="px-6 bg-mint-wash">
-      <div className="max-w-6xl mx-auto">
+    <section id="start-types" className="section-padding overflow-hidden px-6 bg-[#FFF8EC]">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <ScrollReveal>
-          <div className="text-center pt-28 pb-16">
-            <h2 className="text-section mb-4">
-              {t("startTypes.title")}
-            </h2>
-            <p className="text-body max-w-2xl mx-auto">
-              {t("startTypes.subtitle")}
-            </p>
+          <div className="relative mx-auto max-w-[520px] lg:mx-0">
+            <div className="absolute inset-x-[-24%] bottom-[-12%] h-[48%] rotate-[-7deg] rounded-[48px] bg-[#20282E]" />
+            <PhoneMockup
+              src="/app-screens/start-types.webp"
+              alt="TrackSpeed start type setup screen"
+              sizes="(max-width: 1024px) 76vw, 420px"
+              className="relative mx-auto w-[78%]"
+            />
           </div>
         </ScrollReveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Sticky phone mockup */}
-          <div className="hidden lg:block">
-            <div className="sticky top-32">
-              <div className="iphone-mockup w-[280px] mx-auto">
-                <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
-                  <div className="relative w-full h-full">
-                    {typeKeys.map((key, index) => (
-                      <Image
-                        key={index}
-                        src={typeImages[index]}
-                        alt={t(`startTypes.types.${key}.title`)}
-                        width={280}
-                        height={606}
-                        sizes="280px"
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                          index === selected ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {/* Dots indicator */}
-              <div className="flex justify-center gap-2 mt-6">
-                {typeKeys.map((key, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setSelected(index);
-                      cardRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }}
-                    className={`w-2 h-2 rounded-full transition-[transform,background-color] duration-300 ${
-                      index === selected ? "bg-foreground scale-125" : "bg-border"
-                    }`}
-                    aria-label={`View ${t(`startTypes.types.${key}.title`)}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+        <div>
+          <ScrollReveal>
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#8B6B34]">
+              Start modes
+            </p>
+            <h2 className="text-section max-w-2xl">{t("startTypes.title")}</h2>
+            <p className="text-body mt-5 max-w-2xl">{t("startTypes.subtitle")}</p>
+          </ScrollReveal>
 
-          {/* Start type cards */}
-          <div className="space-y-6 pb-28">
+          <StaggerContainer className="mt-9 grid gap-3 sm:grid-cols-2">
             {typeKeys.map((key, index) => (
-              <button
-                type="button"
-                key={index}
-                ref={(el) => { cardRefs.current[index] = el; }}
-                onClick={() => setSelected(index)}
-                className={`p-6 w-full text-left transition-[transform,box-shadow,background-color,border-color] duration-300 rounded-3xl ${
-                  index === selected
-                    ? "bg-white border-2 border-gray-900 shadow-lg scale-[1.02]"
-                    : "bg-gray-100/80 border border-transparent hover:bg-gray-100"
-                }`}
-              >
-                {/* Mobile: show image inline */}
-                <div className="lg:hidden mb-4">
-                  <div className="iphone-mockup w-[200px] mx-auto">
-                    <div className="iphone-screen aspect-[9/19.5] overflow-hidden">
-                      <Image
-                        src={typeImages[index]}
-                        alt={t(`startTypes.types.${key}.title`)}
-                        width={200}
-                        height={433}
-                        sizes="200px"
-                        className="w-full h-full object-cover"
-                      />
+              <StaggerItem key={key} className={index === 0 ? "sm:col-span-2" : ""}>
+                <article
+                  className={[
+                    "w-full rounded-[26px] border p-5 text-left",
+                    index === 0
+                      ? "border-[#141820] bg-white shadow-[0_22px_70px_-54px_rgba(15,23,42,0.75)]"
+                      : "border-[#E8DCC6] bg-white/72",
+                  ].join(" ")}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-xl font-black tracking-[-0.02em] text-[#111827]">
+                        {t(`startTypes.types.${key}.title`)}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-muted">
+                        {t(`startTypes.types.${key}.description`)}
+                      </p>
                     </div>
+                    <span className="rounded-full bg-[#F2E7D2] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#735C35]">
+                      {index + 1}
+                    </span>
                   </div>
-                </div>
-
-                <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  {t(`startTypes.types.${key}.title`)}
-                </h3>
-                <p className="mb-3 text-muted">
-                  {t(`startTypes.types.${key}.description`)}
-                </p>
-                <p className="text-sm font-medium text-text-secondary">
-                  {t("startTypes.bestFor", { useCase: t(`startTypes.types.${key}.useCase`) })}
-                </p>
-              </button>
+                  <p className="mt-4 text-sm font-bold text-[#6B7280]">
+                    {t("startTypes.bestFor", { useCase: t(`startTypes.types.${key}.useCase`) })}
+                  </p>
+                </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>

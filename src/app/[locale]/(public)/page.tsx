@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import TimingTechnology from "@/components/TimingTechnology";
 import StartTypes from "@/components/StartTypes";
-
 import MultiDevice from "@/components/MultiDevice";
 import HowItWorks from "@/components/HowItWorks";
 import Comparison from "@/components/Comparison";
@@ -28,16 +27,13 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
   return (
     <>
       <Hero />
-      {/* Gradient transition */}
-      <div className="gradient-divider" />
       <HowItWorks />
-      <Testimonials />
-      <Features />
       <StartTypes />
-
       <MultiDevice />
+      <Features />
       <Comparison />
       <TimingTechnology />
+      <Testimonials />
       <CTA />
     </>
   );
