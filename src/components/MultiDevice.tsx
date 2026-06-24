@@ -50,25 +50,24 @@ export default function MultiDevice() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.15}>
-          <div className="relative mx-auto min-h-[620px] w-full max-w-[650px]">
-            <div className="absolute -left-6 top-12 hidden rounded-3xl border border-white/10 bg-white/[0.08] px-5 py-4 text-sm font-bold text-white/72 shadow-[0_24px_70px_-48px_rgba(0,0,0,0.85)] backdrop-blur md:block">
-              Start and finish phones stay in sync
+          <div className="relative mx-auto h-[400px] w-full max-w-[430px] sm:h-[500px] sm:max-w-[560px] lg:h-[560px] lg:max-w-[620px]">
+            <div className="absolute left-[2%] top-10 h-[76%] w-[47%] rotate-[-6deg] rounded-[42px] bg-[#163234]/70 blur-2xl" />
+            <div className="absolute right-[2%] top-10 h-[76%] w-[47%] rotate-[6deg] rounded-[42px] bg-[#2A4D5B]/70 blur-2xl" />
+            <div className="relative z-10 grid h-full grid-cols-2 items-start gap-1 pt-8 sm:gap-3 sm:pt-9 lg:pt-10">
+              <PhoneMockup
+                src="/app-screens/connect-host.webp"
+                alt="Host phone waiting for TrackSpeed connection"
+                sizes="(max-width: 640px) 168px, (max-width: 1024px) 220px, 250px"
+                className="w-full max-w-[168px] justify-self-end rotate-[-6deg] sm:max-w-[220px] lg:max-w-[250px]"
+              />
+              <PhoneMockup
+                src="/app-screens/join-searching.webp"
+                alt="Join phone connecting to TrackSpeed session"
+                sizes="(max-width: 640px) 168px, (max-width: 1024px) 220px, 250px"
+                className="w-full max-w-[168px] justify-self-start rotate-[6deg] sm:max-w-[220px] lg:max-w-[250px]"
+              />
             </div>
-            <div className="absolute left-[2%] top-4 h-[560px] w-[47%] rotate-[-7deg] rounded-[42px] bg-[#163234]/70 blur-2xl" />
-            <div className="absolute right-[2%] top-20 h-[540px] w-[47%] rotate-[6deg] rounded-[42px] bg-[#2A4D5B]/70 blur-2xl" />
-            <PhoneMockup
-              src="/app-screens/connect-host.webp"
-              alt="Host phone waiting for TrackSpeed connection"
-              sizes="(max-width: 1024px) 45vw, 300px"
-              className="absolute left-[1%] top-4 w-[49%] rotate-[-7deg]"
-            />
-            <PhoneMockup
-              src="/app-screens/join-searching.webp"
-              alt="Join phone connecting to TrackSpeed session"
-              sizes="(max-width: 1024px) 48vw, 320px"
-              className="absolute right-[1%] top-24 w-[53%] rotate-[6deg]"
-            />
-            <div className="absolute left-1/2 top-[44%] z-10 h-16 w-16 -translate-x-1/2 rounded-full border border-white/16 bg-white/12 p-3 shadow-[0_24px_70px_-42px_rgba(0,0,0,0.9)] backdrop-blur">
+            <div className="absolute left-1/2 top-[48%] z-10 h-14 w-14 -translate-x-1/2 rounded-full border border-white/16 bg-white/12 p-3 shadow-[0_24px_70px_-42px_rgba(0,0,0,0.9)] backdrop-blur sm:h-16 sm:w-16">
               <div className="h-full w-full rounded-full bg-[#8FD9B0] shadow-[0_0_42px_rgba(143,217,176,0.55)]" />
             </div>
           </div>
