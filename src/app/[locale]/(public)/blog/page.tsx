@@ -109,7 +109,7 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
             <p className="text-body mb-6">
               {t('cta.description')}
             </p>
-            <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+            <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
               <Image
                 src="/app-store-badge.svg"
                 alt="Download on the App Store"

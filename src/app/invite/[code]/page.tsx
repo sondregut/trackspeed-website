@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { CopyButton } from './CopyButton'
 
 // App Store URL for TrackSpeed
-const APP_STORE_URL = 'https://apps.apple.com/app/trackspeed/id6757509163'
+const APP_STORE_URL = 'https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163'
 
 type Props = {
   params: Promise<{ code: string }>

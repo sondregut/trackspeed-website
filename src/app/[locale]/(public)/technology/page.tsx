@@ -281,7 +281,7 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
             </h2>
             <p className="text-body mb-8">{t('cta.subtitle')}</p>
             <div className="flex flex-col items-center gap-4">
-              <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"

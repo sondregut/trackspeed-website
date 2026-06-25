@@ -200,7 +200,7 @@ export default function Comparison() {
         </div>
 
         <div className="text-center mt-10 flex justify-center">
-          <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+          <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
             <Image
               src="/app-store-badge.svg"
               alt="Download on the App Store"

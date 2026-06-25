@@ -33,7 +33,7 @@ export default function Footer() {
             {/* App Store download */}
             <div className="mt-4">
               <a
-                href="https://apps.apple.com/app/trackspeed"
+                href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
                 className="inline-block hover:opacity-80 transition-opacity"
               >
                 <Image
@@ -113,7 +113,7 @@ export default function Footer() {
               </li> */}
               <li>
                 <a
-                  href="https://apps.apple.com/app/trackspeed"
+                  href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
                   className="text-muted transition-colors hover:opacity-70"
                 >
                   {t("footer.downloadIos")}

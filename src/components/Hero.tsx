@@ -49,7 +49,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <a href="https://apps.apple.com/app/trackspeed" className="inline-flex w-fit transition-opacity hover:opacity-80">
+              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-flex w-fit transition-opacity hover:opacity-80">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"

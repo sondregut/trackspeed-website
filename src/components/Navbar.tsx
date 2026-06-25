@@ -9,10 +9,13 @@ import {
   SheetContent,
   SheetClose,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+
+const APP_STORE_URL = "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,7 +37,7 @@ export default function Navbar() {
       }`}
       style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.3)" }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-3">
+      <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
@@ -46,7 +49,7 @@ export default function Navbar() {
               sizes="26px"
               className="rounded-md"
             />
-            <span className="text-lg font-bold text-foreground">TrackSpeed</span>
+            <span className="text-lg font-bold text-foreground max-[360px]:hidden">TrackSpeed</span>
           </Link>
 
           {/* Desktop nav - centered links */}
@@ -81,7 +84,7 @@ export default function Navbar() {
           {/* Language switcher + App Store badge */}
           <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
-            <a href="https://apps.apple.com/app/trackspeed" className="inline-block hover:opacity-80 transition-opacity">
+            <a href={APP_STORE_URL} className="inline-block hover:opacity-80 transition-opacity">
               <Image
                 src="/app-store-badge.svg"
                 alt="Download on the App Store"
@@ -94,78 +97,98 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu - Sheet */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <button
-                className="md:hidden p-2 text-foreground"
-                aria-label={t("openMenu")}
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
-              <nav className="flex flex-col gap-4 mt-8">
-                <SheetClose asChild>
-                  <Link href="/#features" className="text-sm font-bold text-muted">
-                    {t("features")}
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/#how-it-works" className="text-sm font-bold text-muted">
-                    {t("howItWorks")}
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/technology" className="text-sm font-bold text-muted">
-                    {t("technology")}
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/pro" className="text-sm font-bold text-muted">
-                    Pro
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/support" className="text-sm font-bold text-muted">
-                    {t("support")}
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/blog" className="text-sm font-bold text-muted">
-                    {t("blog")}
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/about" className="text-sm font-bold text-muted">
-                    {t("about")}
-                  </Link>
-                </SheetClose>
-                {/* TODO: Unhide when shop is ready */}
-                {/* <SheetClose asChild>
-                  <Link href="/shop" className="text-sm font-bold text-muted">
-                    {t("shop")}
-                  </Link>
-                </SheetClose> */}
-                <div className="mt-2">
-                  <LanguageSwitcher />
-                </div>
-                <a
-                  href="https://apps.apple.com/app/trackspeed"
-                  className="inline-block mt-2 hover:opacity-80 transition-opacity"
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href={APP_STORE_URL}
+              className="inline-flex h-9 items-center rounded-lg transition-opacity hover:opacity-80 active:scale-[0.99]"
+              aria-label="Download TrackSpeed on the App Store"
+            >
+              <Image
+                src="/app-store-badge.svg"
+                alt="Download on the App Store"
+                width={108}
+                height={36}
+                sizes="108px"
+                className="h-[32px] w-auto"
+              />
+            </a>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <button
+                  className="p-2 text-foreground"
+                  aria-label={t("openMenu")}
                 >
-                  <Image
-                    src="/app-store-badge.svg"
-                    alt="Download on the App Store"
-                    width={120}
-                    height={40}
-                    sizes="120px"
-                    className="h-[40px] w-auto"
-                  />
-                </a>
-              </nav>
-            </SheetContent>
-          </Sheet>
+                  <Menu className="w-6 h-6" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px]">
+                <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Site navigation and App Store download link.
+                </SheetDescription>
+                <nav className="flex flex-col gap-4 mt-8">
+                  <SheetClose asChild>
+                    <Link href="/#features" className="text-sm font-bold text-muted">
+                      {t("features")}
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/#how-it-works" className="text-sm font-bold text-muted">
+                      {t("howItWorks")}
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/technology" className="text-sm font-bold text-muted">
+                      {t("technology")}
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/pro" className="text-sm font-bold text-muted">
+                      Pro
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/support" className="text-sm font-bold text-muted">
+                      {t("support")}
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/blog" className="text-sm font-bold text-muted">
+                      {t("blog")}
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link href="/about" className="text-sm font-bold text-muted">
+                      {t("about")}
+                    </Link>
+                  </SheetClose>
+                  {/* TODO: Unhide when shop is ready */}
+                  {/* <SheetClose asChild>
+                    <Link href="/shop" className="text-sm font-bold text-muted">
+                      {t("shop")}
+                    </Link>
+                  </SheetClose> */}
+                  <div className="mt-2">
+                    <LanguageSwitcher />
+                  </div>
+                  <a
+                    href={APP_STORE_URL}
+                    className="inline-block mt-2 hover:opacity-80 transition-opacity"
+                  >
+                    <Image
+                      src="/app-store-badge.svg"
+                      alt="Download on the App Store"
+                      width={120}
+                      height={40}
+                      sizes="120px"
+                      className="h-[40px] w-auto"
+                    />
+                  </a>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </nav>

@@ -44,7 +44,7 @@ export const emailTemplates = {
         <p style="font-size:14px;margin:0;"><strong>3.</strong> If you are already signed in, open Settings in the app and refresh your Pro access.</p>
       </div>
       <p style="text-align:center;margin:32px 0;">
-        <a href="https://apps.apple.com/app/trackspeed/id6757509163" class="btn">Download TrackSpeed</a>
+        <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" class="btn">Download TrackSpeed</a>
       </p>
       <p>Already installed? Open TrackSpeed from your phone and sign in with the account you created during checkout.</p>
       <p class="muted">We never send passwords by email. If you forget your password, use the app sign-in recovery flow or contact support.</p>

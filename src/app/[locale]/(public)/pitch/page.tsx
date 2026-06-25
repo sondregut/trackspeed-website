@@ -165,7 +165,7 @@ export default function PitchDeck() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-2">
             <a
-              href="https://apps.apple.com/app/trackspeed"
+              href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2 text-lg"
@@ -900,7 +900,7 @@ export default function PitchDeck() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <a
-              href="https://apps.apple.com/app/trackspeed"
+              href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2"

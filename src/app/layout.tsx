@@ -107,7 +107,7 @@ export default function RootLayout({
               "@type": "SoftwareApplication",
               name: "TrackSpeed",
               url: "https://mytrackspeed.com",
-              downloadUrl: "https://apps.apple.com/app/trackspeed/id6757509163",
+              downloadUrl: "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
               operatingSystem: "iOS",
               applicationCategory: "SportsApplication",
               description:
@@ -157,7 +157,7 @@ export default function RootLayout({
               description: "Professional sprint timing using your phone. No extra hardware needed. Founded by Olympic athletes.",
               foundingDate: "2025",
               sameAs: [
-                "https://apps.apple.com/app/trackspeed/id6757509163",
+                "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
                 "https://x.com/trackspeedapp",
                 "https://instagram.com/mytrackspeed",
                 "https://tiktok.com/@trackspeedapp",

@@ -95,7 +95,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="px-5 pb-5">
         {product.isDigital ? (
           <a
-            href="https://apps.apple.com/app/trackspeed/id6757509163"
+            href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
             target="_blank"
             rel="noopener noreferrer"
           >

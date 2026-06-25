@@ -60,7 +60,7 @@ export default async function ProPage({
 
             <div className="mt-6">
               <a
-                href="https://apps.apple.com/app/trackspeed/id6757509163"
+                href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
                 className="inline-block transition-opacity hover:opacity-80"
               >
                 <Image

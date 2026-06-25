@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 type Plan = "annual" | "weekly"
 type Mode = "sign-up" | "sign-in"
 
-const APP_STORE_URL = "https://apps.apple.com/app/trackspeed/id6757509163"
+const APP_STORE_URL = "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
 
 const PLANS: Record<
   Plan,
