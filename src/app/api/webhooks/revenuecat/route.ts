@@ -143,7 +143,14 @@ interface RevenueCatWebhookEvent {
     purchased_at_ms: number
     expiration_at_ms: number | null
     environment: 'SANDBOX' | 'PRODUCTION'
-    store: 'APP_STORE' | 'PLAY_STORE' | 'STRIPE' | 'PROMOTIONAL'
+    store:
+      | 'AMAZON'
+      | 'APP_STORE'
+      | 'MAC_APP_STORE'
+      | 'PLAY_STORE'
+      | 'RC_BILLING'
+      | 'STRIPE'
+      | 'PROMOTIONAL'
     is_trial_conversion?: boolean
     cancel_reason?: string
     new_product_id?: string
@@ -285,13 +292,13 @@ async function sendWebProPurchaseReadyEmail(
   event: RevenueCatWebhookEvent['event'],
   planType: SubscriptionPlanType | null,
 ) {
-  if (event.store !== 'STRIPE') return
+  if (event.store !== 'STRIPE' && event.store !== 'RC_BILLING') return
   if (event.type !== 'INITIAL_PURCHASE' && event.type !== 'TRIAL_CONVERTED') return
   if (await hasSentWebProPurchaseReadyEmail(event.id)) return
 
   const email = getCheckoutEmailFromEvent(event) ?? await getAuthEmail(event.app_user_id)
   if (!email) {
-    throw new Error(`No email found for Stripe checkout event ${event.id}`)
+    throw new Error(`No email found for web checkout event ${event.id}`)
   }
 
   const result = await sendEmail({
