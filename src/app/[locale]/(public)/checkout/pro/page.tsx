@@ -28,6 +28,7 @@ export default async function CheckoutProPage({
     annual: getRevenueCatWebCheckoutConfigIssues("annual").length === 0,
     weekly: getRevenueCatWebCheckoutConfigIssues("weekly").length === 0,
   }
+  const hasAnyAvailablePlan = availablePlans.annual || availablePlans.weekly
   setRequestLocale(locale)
 
   return (
@@ -39,12 +40,14 @@ export default async function CheckoutProPage({
               TrackSpeed Pro
             </p>
             <h1 className="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-[#0E0E0C] sm:text-4xl md:text-6xl">
-              Pay on the web. Time sprints in the app.
+              {hasAnyAvailablePlan
+                ? "Pay on the web. Time sprints in the app."
+                : "Start Pro in the app."}
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#5B6470] sm:text-lg sm:leading-8">
-              Create or sign into a TrackSpeed account, complete payment through
-              RevenueCat and Stripe, then download the app and use the same credentials
-              to unlock Pro.
+              {hasAnyAvailablePlan
+                ? "Create or sign into a TrackSpeed account, complete payment through RevenueCat and Stripe, then download the app and use the same credentials to unlock Pro."
+                : "Open TrackSpeed on your iPhone and upgrade through the app paywall. Online checkout will appear here once web billing is ready."}
             </p>
 
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
@@ -75,9 +78,9 @@ export default async function CheckoutProPage({
             </div>
 
             <p className="mt-8 text-sm text-[#697483]">
-              Prefer the App Store flow?{" "}
+              {hasAnyAvailablePlan ? "Prefer the App Store flow?" : "Already have TrackSpeed installed?"}{" "}
               <Link href="/pro" className="font-semibold text-[#5C8DB8] hover:underline">
-                Open the app paywall instead.
+                Open the app paywall.
               </Link>
             </p>
           </div>

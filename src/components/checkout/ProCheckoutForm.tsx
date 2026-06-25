@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label"
 type Plan = "annual" | "weekly"
 type Mode = "sign-up" | "sign-in"
 
+const APP_STORE_URL = "https://apps.apple.com/app/trackspeed/id6757509163"
+
 const PLANS: Record<
   Plan,
   { name: string; price: string; cadence: string; note: string }
@@ -31,6 +33,20 @@ function normalizePlan(plan: string | undefined): Plan {
   return plan === "weekly" ? "weekly" : "annual"
 }
 
+function getInitialPlan({
+  initialPlan,
+  availablePlans,
+}: {
+  initialPlan: string | undefined
+  availablePlans: Record<Plan, boolean>
+}): Plan {
+  const normalized = normalizePlan(initialPlan)
+
+  if (availablePlans[normalized]) return normalized
+  if (availablePlans.annual) return "annual"
+  return "weekly"
+}
+
 export default function ProCheckoutForm({
   initialPlan,
   availablePlans = { annual: true, weekly: true },
@@ -38,7 +54,9 @@ export default function ProCheckoutForm({
   initialPlan?: string
   availablePlans?: Record<Plan, boolean>
 }) {
-  const [plan, setPlan] = useState<Plan>(() => normalizePlan(initialPlan))
+  const [plan, setPlan] = useState<Plan>(() =>
+    getInitialPlan({ initialPlan, availablePlans })
+  )
   const [mode, setMode] = useState<Mode>("sign-up")
   const [email, setEmail] = useState("")
   const [confirmEmail, setConfirmEmail] = useState("")
@@ -47,15 +65,18 @@ export default function ProCheckoutForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const selectedPlan = useMemo(() => PLANS[plan], [plan])
-  const isSelectedPlanAvailable = availablePlans[plan]
-  const hasAnyAvailablePlan = availablePlans.annual || availablePlans.weekly
+  const visiblePlans = useMemo(
+    () => (Object.keys(PLANS) as Plan[]).filter((planId) => availablePlans[planId]),
+    [availablePlans]
+  )
+  const hasAnyAvailablePlan = visiblePlans.length > 0
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
 
-    if (!isSelectedPlanAvailable) {
-      setError("Web checkout is not connected for this plan yet.")
+    if (!hasAnyAvailablePlan) {
+      setError("Open TrackSpeed and upgrade through the app paywall for now.")
       return
     }
 
@@ -101,10 +122,10 @@ export default function ProCheckoutForm({
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5C8DB8]">
-            Web checkout
+            {hasAnyAvailablePlan ? "Web checkout" : "App checkout"}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#0E0E0C]">
-            Start TrackSpeed Pro
+            {hasAnyAvailablePlan ? "Start TrackSpeed Pro" : "Start Pro in TrackSpeed"}
           </h2>
         </div>
         <div className="rounded-full border border-[#DCE5EE] bg-[#F7FAFC] p-2 text-[#5C8DB8]">
@@ -112,11 +133,44 @@ export default function ProCheckoutForm({
         </div>
       </div>
 
+      {!hasAnyAvailablePlan ? (
+        <div className="space-y-5">
+          <div className="rounded-2xl bg-[#F7FAFC] px-4 py-4">
+            <p className="text-sm leading-6 text-[#5B6470]">
+              Online checkout is being prepared. For now, open TrackSpeed and
+              upgrade through the app paywall so Pro unlocks immediately on your
+              iPhone.
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <a
+              href="trackspeed://subscribe"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0E0E0C] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#26303E] active:scale-[0.99]"
+            >
+              Open app paywall
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href={APP_STORE_URL}
+              className="inline-flex h-12 items-center justify-center rounded-full border border-[#DCE5EE] bg-white px-5 text-sm font-semibold text-[#26303E] transition-colors hover:border-[#BFD2E2] active:scale-[0.99]"
+            >
+              Download TrackSpeed
+            </a>
+          </div>
+
+          <p className="text-center text-xs leading-5 text-[#697483]">
+            After upgrading in the app, Pro stays tied to the TrackSpeed account
+            you use there.
+          </p>
+        </div>
+      ) : (
+        <>
+
       <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {(Object.keys(PLANS) as Plan[]).map((planId) => {
+        {visiblePlans.map((planId) => {
           const option = PLANS[planId]
           const active = plan === planId
-          const available = availablePlans[planId]
 
           return (
             <button
@@ -125,9 +179,7 @@ export default function ProCheckoutForm({
               onClick={() => setPlan(planId)}
               className={`min-w-0 rounded-2xl border p-4 text-left transition-[border-color,background-color,transform] active:scale-[0.99] ${
                 active
-                  ? available
-                    ? "border-[#5C8DB8] bg-[#F4FAFD]"
-                    : "border-[#E5B8B8] bg-[#FFF7F7]"
+                  ? "border-[#5C8DB8] bg-[#F4FAFD]"
                   : "border-[#E6EAF0] bg-white hover:border-[#BFD2E2]"
               }`}
               aria-pressed={active}
@@ -142,22 +194,13 @@ export default function ProCheckoutForm({
                 {option.price}
               </span>
               <span className="text-xs text-[#5B6470]">{option.cadence}</span>
-              {!available && (
-                <span className="mt-2 block text-xs font-semibold text-[#B33A3A]">
-                  Not connected
-                </span>
-              )}
             </button>
           )
         })}
       </div>
 
       <p className="mb-5 rounded-2xl bg-[#F7FAFC] px-4 py-3 text-sm leading-6 text-[#5B6470]">
-        {isSelectedPlanAvailable
-          ? selectedPlan.note
-          : hasAnyAvailablePlan
-            ? "This plan is not connected yet. Choose an available plan or use the app paywall."
-            : "Web checkout is not connected yet. Use the app paywall while payment setup is finished."}
+        {selectedPlan.note}
       </p>
 
       <div className="mb-5 grid grid-cols-2 rounded-full bg-[#F1F5F8] p-1">
@@ -247,7 +290,7 @@ export default function ProCheckoutForm({
 
         <Button
           type="submit"
-          disabled={isSubmitting || !isSelectedPlanAvailable}
+          disabled={isSubmitting}
           className="h-12 w-full rounded-full bg-[#0E0E0C] text-white hover:bg-[#26303E] active:scale-[0.99]"
         >
           {isSubmitting ? "Opening checkout" : "Continue to secure payment"}
@@ -259,6 +302,8 @@ export default function ProCheckoutForm({
         Payment is handled by RevenueCat and Stripe. Pro unlocks in the app after you
         sign in with this account.
       </p>
+        </>
+      )}
     </div>
   )
 }

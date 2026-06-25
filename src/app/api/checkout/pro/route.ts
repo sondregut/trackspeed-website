@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
   if (configIssues.length > 0) {
     console.error("RevenueCat web checkout config missing:", configIssues)
     return NextResponse.json(
-      { error: "Web checkout is not connected yet. Use the app paywall for now." },
+      { error: "Online checkout is unavailable right now. Use the app paywall for now." },
       { status: 503 }
     )
   }
@@ -170,7 +170,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Failed to build RevenueCat checkout URL:", error)
     return NextResponse.json(
-      { error: "Web checkout is not configured yet." },
+      { error: "Online checkout is unavailable right now." },
       { status: 503 }
     )
   }
