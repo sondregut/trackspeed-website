@@ -46,7 +46,7 @@ export default async function CheckoutProPage({
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#5B6470] sm:text-lg sm:leading-8">
               {hasAnyAvailablePlan
-                ? "Create or sign into a TrackSpeed account, complete payment through RevenueCat and Stripe, then download the app and use the same credentials to unlock Pro."
+                ? "Create or sign into a TrackSpeed account, complete secure web checkout, then download the app and use the same credentials to unlock Pro."
                 : "Open TrackSpeed on your iPhone and upgrade through the app paywall. Online checkout will appear here once web billing is ready."}
             </p>
 

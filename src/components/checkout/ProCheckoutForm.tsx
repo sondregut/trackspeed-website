@@ -299,8 +299,8 @@ export default function ProCheckoutForm({
       </form>
 
       <p className="mt-4 text-center text-xs leading-5 text-[#697483]">
-        Payment is handled by RevenueCat and Stripe. Pro unlocks in the app after you
-        sign in with this account.
+        Payment is handled through secure web checkout. Pro unlocks in the app
+        after you sign in with this account.
       </p>
         </>
       )}

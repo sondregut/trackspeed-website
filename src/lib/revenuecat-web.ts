@@ -81,6 +81,7 @@ export function buildRevenueCatWebPurchaseUrl({
 
   url.searchParams.set("email", email)
   url.searchParams.set("skip_purchase_success", "true")
+  url.searchParams.set("hide_back_button", "true")
 
   if (packageId) {
     url.searchParams.set("package_id", packageId)
