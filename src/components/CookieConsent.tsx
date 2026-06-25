@@ -1,9 +1,43 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const CONSENT_KEY = "cookie-consent";
+const CONSENT_CHANGE_EVENT = "cookie-consent-change";
+type ConsentStatus = "accepted" | "declined" | null;
+
+function getConsentSnapshot(): ConsentStatus {
+  try {
+    const value = localStorage.getItem(CONSENT_KEY);
+    return value === "accepted" || value === "declined" ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function getServerConsentSnapshot(): ConsentStatus {
+  return null;
+}
+
+function subscribeToConsentChanges(callback: () => void) {
+  function handleStorage(event: StorageEvent) {
+    if (event.key === CONSENT_KEY) callback();
+  }
+
+  window.addEventListener("storage", handleStorage);
+  window.addEventListener(CONSENT_CHANGE_EVENT, callback);
+
+  return () => {
+    window.removeEventListener("storage", handleStorage);
+    window.removeEventListener(CONSENT_CHANGE_EVENT, callback);
+  };
+}
+
+function notifyConsentChanged() {
+  window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
+}
 
 async function initPostHog() {
   if (
@@ -14,6 +48,7 @@ async function initPostHog() {
     if (!posthog.__loaded) {
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+        capture_pageview: false,
         loaded: (ph) => {
           ph.opt_in_capturing();
         },
@@ -22,28 +57,51 @@ async function initPostHog() {
   }
 }
 
+async function capturePageview() {
+  if (typeof window === "undefined" || localStorage.getItem(CONSENT_KEY) !== "accepted") {
+    return;
+  }
+
+  const posthog = (await import("posthog-js")).default;
+  if (!posthog.__loaded) {
+    await initPostHog();
+  }
+  posthog.capture("$pageview", {
+    $current_url: window.location.href,
+    path: window.location.pathname,
+  });
+}
+
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem(CONSENT_KEY) === null
+  const pathname = usePathname();
+  const consentStatus = useSyncExternalStore(
+    subscribeToConsentChanges,
+    getConsentSnapshot,
+    getServerConsentSnapshot
   );
+  const visible = consentStatus === null;
 
   useEffect(() => {
-    const consent = localStorage.getItem(CONSENT_KEY);
-    if (consent === "accepted") {
+    if (consentStatus === "accepted") {
       initPostHog();
     }
-    // If "declined", do nothing
-  }, []);
+  }, [consentStatus]);
+
+  useEffect(() => {
+    if (consentStatus === "accepted") {
+      capturePageview();
+    }
+  }, [consentStatus, pathname]);
 
   function accept() {
     localStorage.setItem(CONSENT_KEY, "accepted");
-    setVisible(false);
+    notifyConsentChanged();
     initPostHog();
   }
 
   function decline() {
     localStorage.setItem(CONSENT_KEY, "declined");
-    setVisible(false);
+    notifyConsentChanged();
   }
 
   if (!visible) return null;
@@ -54,8 +112,8 @@ export default function CookieConsent() {
       style={{ background: "rgba(255, 255, 255, 0.97)", borderTop: "1px solid var(--border-light)" }}
       aria-live="polite"
     >
-      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+      <div className="mx-auto flex w-full max-w-4xl min-w-0 flex-col items-stretch justify-between gap-4 sm:flex-row sm:items-center">
+        <p className="min-w-0 text-center text-sm leading-5 sm:text-left" style={{ color: "var(--text-secondary)" }}>
           We use cookies to analyze site usage and improve your experience.{" "}
           <Link
             href="/privacy"
@@ -65,7 +123,7 @@ export default function CookieConsent() {
             Privacy Policy
           </Link>
         </p>
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex shrink-0 items-center justify-center gap-3">
           <button
             onClick={decline}
             className="px-4 py-2 text-sm rounded-lg transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#5C8DB8]"

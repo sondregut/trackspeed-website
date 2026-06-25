@@ -6,15 +6,6 @@ import CartDrawer from "./CartDrawer";
 
 const PRODUCTS = [
   {
-    id: "lifetime",
-    nameKey: "products.lifetime.name",
-    descriptionKey: "products.lifetime.description",
-    priceKey: "products.lifetime.price",
-    priceLabelKey: "products.lifetime.priceLabel",
-    image: "/photofinish_edit.webp",
-    isDigital: true,
-  },
-  {
     id: "tripod",
     nameKey: "products.tripod.name",
     descriptionKey: "products.tripod.description",

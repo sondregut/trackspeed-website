@@ -73,6 +73,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       alternates: localeAlternates("/blog"),
     },
+    {
+      url: `${baseUrl}/pro`,
+      lastModified: today,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: localeAlternates("/pro"),
+    },
+    {
+      url: `${baseUrl}/checkout/pro`,
+      lastModified: today,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: localeAlternates("/checkout/pro"),
+    },
   ];
 
   const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({

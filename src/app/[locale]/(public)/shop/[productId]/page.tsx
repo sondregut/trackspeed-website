@@ -1,12 +1,11 @@
 import Image from "next/image";
-import { ArrowLeft, ShoppingBag, Smartphone, Check } from "lucide-react";
+import { ArrowLeft, ShoppingBag, Check } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAlternates } from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
 import ProductDetailClient from "@/components/shop/ProductDetailClient";
 
-const PRODUCTS: Record<string, { nameKey: string; descriptionKey: string; longDescriptionKey: string; featuresKey: string; priceKey: string; image?: string; isDigital?: boolean; containImage?: boolean }> = {
+const PRODUCTS: Record<string, { nameKey: string; descriptionKey: string; longDescriptionKey: string; featuresKey: string; priceKey: string; image?: string; containImage?: boolean }> = {
   tripod: {
     nameKey: "products.tripod.name",
     descriptionKey: "products.tripod.description",
@@ -30,15 +29,6 @@ const PRODUCTS: Record<string, { nameKey: string; descriptionKey: string; longDe
     longDescriptionKey: "products.bundle.longDescription",
     featuresKey: "products.bundle.features",
     priceKey: "products.bundle.price",
-  },
-  lifetime: {
-    nameKey: "products.lifetime.name",
-    descriptionKey: "products.lifetime.description",
-    longDescriptionKey: "products.lifetime.longDescription",
-    featuresKey: "products.lifetime.features",
-    priceKey: "products.lifetime.price",
-    image: "/photofinish_edit.webp",
-    isDigital: true,
   },
 };
 
@@ -107,15 +97,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   src={product.image}
                   alt={name}
                   fill
-                  className={(product.isDigital || product.containImage) ? "object-contain p-8" : "object-cover"}
+                  className={product.containImage ? "object-contain p-8" : "object-cover"}
                 />
-              ) : product.isDigital ? (
-                <div
-                  className="w-28 h-28 rounded-3xl flex items-center justify-center"
-                  style={{ background: "rgba(92,141,184,0.15)" }}
-                >
-                  <Smartphone className="w-14 h-14" style={{ color: "#5C8DB8" }} />
-                </div>
               ) : (
                 <ShoppingBag className="w-24 h-24" style={{ color: "rgba(92,141,184,0.3)" }} />
               )}
@@ -139,34 +122,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 >
                   {t("currency")}{price.toFixed(2)}
                 </span>
-                {product.isDigital && (
-                  <span
-                    className="text-sm ml-2"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    {t("products.lifetime.priceLabel")}
-                  </span>
-                )}
               </div>
 
               {/* CTA */}
-              {product.isDigital ? (
-                <a
-                  href="https://apps.apple.com/app/trackspeed/id6757509163"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button className="bg-[#5C8DB8] hover:bg-[#4a7da8] text-white rounded-full px-8 py-3 h-auto text-base w-full sm:w-auto">
-                    {t("cart.getInApp")}
-                  </Button>
-                </a>
-              ) : (
-                <ProductDetailClient
-                  productId={productId}
-                  productName={name}
-                  productPrice={price}
-                />
-              )}
+              <ProductDetailClient
+                productId={productId}
+                productName={name}
+                productPrice={price}
+              />
 
               {/* Long description */}
               <p
@@ -191,14 +154,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       className="flex items-center gap-2 text-sm"
                       style={{ color: "var(--text-secondary)" }}
                     >
-                      {product.isDigital ? (
-                        <Check className="w-4 h-4 shrink-0" style={{ color: "#5C8DB8" }} />
-                      ) : (
-                        <span
-                          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                          style={{ background: "#5C8DB8" }}
-                        />
-                      )}
+                      <Check className="w-4 h-4 shrink-0" style={{ color: "#5C8DB8" }} />
                       {feature.trim()}
                     </li>
                   ))}

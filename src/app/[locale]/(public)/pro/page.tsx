@@ -1,140 +1,116 @@
-"use client";
+import Image from "next/image"
+import { ArrowRight, Check, ExternalLink, Smartphone, Timer } from "lucide-react"
+import { setRequestLocale } from "next-intl/server"
+import { Link } from "@/i18n/navigation"
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import Image from "next/image";
-
-function ProPageContent() {
-  const searchParams = useSearchParams();
-  const [showFallback, setShowFallback] = useState(false);
-
-  useEffect(() => {
-    // Get offer from URL params (e.g., /pro?offer=yearly_20_off)
-    const offer = searchParams.get("offer") || "yearly_20_off";
-    const deepLink = `trackspeed://promo?offer=${offer}`;
-
-    // Try to open the app
-    window.location.href = deepLink;
-
-    // Show fallback after a short delay if app didn't open
-    const timer = setTimeout(() => {
-      setShowFallback(true);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, [searchParams]);
-
-  const handleOpenApp = () => {
-    const offer = searchParams.get("offer") || "yearly_20_off";
-    window.location.href = `trackspeed://promo?offer=${offer}`;
-  };
+export default async function ProPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
-      <div className="text-center max-w-md">
-        {!showFallback ? (
-          <>
-            <div className="animate-pulse motion-reduce:animate-none mb-6">
-              <div className="w-16 h-16 mx-auto bg-[#5C8DB8] rounded-2xl flex items-center justify-center">
-                <svg
-                  className="w-10 h-10 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h1 className="text-2xl font-bold text-white mb-2">
-              Opening TrackSpeed{"\u2026"}
-            </h1>
-            <p className="text-gray-400">Redirecting to your special offer</p>
-          </>
-        ) : (
-          <>
-            <div className="mb-6">
-              <div className="w-20 h-20 mx-auto bg-[#5C8DB8] rounded-2xl flex items-center justify-center shadow-lg shadow-[#5C8DB8]/30">
-                <span className="text-4xl">🏃</span>
-              </div>
-            </div>
-            <h1 className="text-3xl font-bold text-white mb-4">
-              Get TrackSpeed
-            </h1>
-            <p className="text-gray-300 mb-2">
-              Professional sprint timing on your phone
+    <div className="bg-hero pt-28">
+      <section className="px-6 pb-20">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#5C8DB8]">
+              TrackSpeed Pro
             </p>
-            <div className="bg-[#5C8DB8]/20 border border-[#5C8DB8]/50 rounded-lg p-4 mb-6">
-              <p className="text-[#8BB8E0] font-semibold">
-                Special Offer: 20% Off Pro
-              </p>
-              <p className="text-[#8BB8E0]/80 text-sm">
-                Download the app to claim your discount
-              </p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-[#0E0E0C] md:text-6xl">
+              Professional sprint timing on your phone.
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5B6470]">
+              Unlock multi-phone timing, unlimited history, athlete profiles,
+              video export, and the complete Pro training workflow. Buy in the
+              app or pay on the web and sign in with the same account.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/checkout/pro?plan=annual"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0E0E0C] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#26303E] active:scale-[0.99]"
+              >
+                Buy Pro on the web
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <a
+                href="trackspeed://subscribe"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#DCE5EE] bg-white px-6 text-sm font-semibold text-[#26303E] transition-colors hover:border-[#BFD2E2] active:scale-[0.99]"
+              >
+                Open app paywall
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              </a>
             </div>
-            <div className="flex justify-center">
-              <a href="https://apps.apple.com/app/trackspeed/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+
+            <div className="mt-6">
+              <a
+                href="https://apps.apple.com/app/trackspeed/id6757509163"
+                className="inline-block transition-opacity hover:opacity-80"
+              >
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
-                  width={120}
-                  height={40}
-                  className="h-[40px] w-auto"
+                  width={132}
+                  height={44}
+                  className="h-[44px] w-auto"
                 />
               </a>
             </div>
-            <p className="text-gray-500 text-sm mt-4">
-              Already have the app?{" "}
-              <button
-                onClick={handleOpenApp}
-                className="text-[#5C8DB8] hover:underline"
-              >
-                Open TrackSpeed
-              </button>
-            </p>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
+          </div>
 
-function LoadingState() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
-      <div className="text-center max-w-md">
-        <div className="animate-pulse mb-6">
-          <div className="w-16 h-16 mx-auto bg-[#5C8DB8] rounded-2xl flex items-center justify-center">
-            <svg
-              className="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="rounded-[32px] border border-[#DCE5EE] bg-white p-6 shadow-[0_18px_60px_-34px_rgba(14,24,35,0.5)]">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-[#5C8DB8]">
+                  Annual Pro
+                </p>
+                <p className="mt-1 text-4xl font-bold tracking-tight text-[#0E0E0C]">
+                  $59.99
+                </p>
+                <p className="text-sm text-[#5B6470]">per year</p>
+              </div>
+              <div className="rounded-2xl bg-[#F4FAFD] p-4 text-[#5C8DB8]">
+                <Timer className="h-7 w-7" aria-hidden="true" />
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {[
+                "Two-phone start and finish timing",
+                "Unlimited sessions and saved history",
+                "Athlete profiles and progress tracking",
+                "Video export for review and sharing",
+              ].map((feature) => (
+                <div key={feature} className="flex gap-3">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5C8DB8]" aria-hidden="true" />
+                  <p className="text-sm leading-6 text-[#26303E]">{feature}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 rounded-2xl bg-[#F7FAFC] p-4">
+              <div className="flex gap-3">
+                <Smartphone className="mt-0.5 h-5 w-5 shrink-0 text-[#5C8DB8]" aria-hidden="true" />
+                <p className="text-sm leading-6 text-[#5B6470]">
+                  Web checkout creates a TrackSpeed account first. After payment,
+                  download the app and sign in with the same email and password.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              href="/checkout/pro?plan=annual"
+              className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#5C8DB8] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#4a7da8] active:scale-[0.99]"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
+              Continue to web checkout
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-white mb-2">Loading{"\u2026"}</h1>
-      </div>
+      </section>
     </div>
-  );
-}
-
-export default function ProPage() {
-  return (
-    <Suspense fallback={<LoadingState />}>
-      <ProPageContent />
-    </Suspense>
-  );
+  )
 }

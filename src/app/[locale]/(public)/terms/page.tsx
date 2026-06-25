@@ -18,7 +18,7 @@ export default async function TermsPage({params}: {params: Promise<{locale: stri
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms & Conditions</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: February 14, 2026</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: June 25, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Agreement to Terms</h2>
@@ -54,11 +54,12 @@ export default async function TermsPage({params}: {params: Promise<{locale: stri
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">5. Subscriptions and Payments</h2>
-          <p className="text-[#9B9A97] mb-3">TrackSpeed offers subscription-based premium features. By subscribing, you agree to:</p>
+          <p className="text-[#9B9A97] mb-3">TrackSpeed offers subscription-based premium features through in-app purchase and web checkout. By subscribing, you agree to:</p>
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-2">
-            <li>Subscriptions are billed through your app store account. Payment will be charged upon confirmation of purchase.</li>
-            <li>Subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
-            <li>You may manage and cancel subscriptions through your app store account settings. Cancellation takes effect at the end of the current billing period.</li>
+            <li>In-app subscriptions are billed through your app store account. Web subscriptions are processed by Stripe and managed through RevenueCat.</li>
+            <li>Payment will be charged upon confirmation of purchase, and subscriptions automatically renew unless cancelled before the end of the current period.</li>
+            <li>You may manage and cancel in-app subscriptions through your app store account settings. For web subscriptions, use the web billing flow or contact support.</li>
+            <li>Cancellation takes effect at the end of the current billing period unless otherwise stated by the billing provider.</li>
             <li>We reserve the right to change subscription prices. You will be notified of any price changes in advance.</li>
           </ul>
         </section>

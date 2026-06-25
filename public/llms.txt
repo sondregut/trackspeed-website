@@ -7,7 +7,7 @@
 - Founded and developed by two-time Olympian Sondre Guttormsen
 - Uses camera-based motion detection with sub-frame interpolation for ~4ms effective timing accuracy
 - Supports multi-device peer-to-peer sync for start/finish line timing
-- Pricing: Free tier, $9.99/month, $59.99/year, $139 lifetime
+- Pricing: Free tier, $7.99/week, $59.99/year
 - iOS only (iPhone)
 - 13 languages supported
 

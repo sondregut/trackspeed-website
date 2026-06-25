@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { sendEmail } from '@/lib/email'
+import { getSupabase, getSupabaseAdmin } from '@/lib/supabase'
 import { timingSafeEqualString } from '@/lib/server-secrets'
 
-// Map RevenueCat event types to snake_case PostHog event names.
-// Keeps the mobile-app convention (paywall_purchase_completed, etc.) for
-// client-side events and adds these server-side RC lifecycle events so the
-// full subscription timeline lives on the same person in PostHog.
-const POSTHOG_EVENT_NAMES: Partial<Record<RevenueCatEventType, string>> = {
-  INITIAL_PURCHASE: 'rc_initial_purchase',
-  RENEWAL: 'rc_renewal',
-  CANCELLATION: 'rc_cancellation',
-  UNCANCELLATION: 'rc_uncancellation',
-  EXPIRATION: 'rc_expiration',
-  BILLING_ISSUE: 'rc_billing_issue',
-  TRIAL_STARTED: 'rc_trial_started',
-  TRIAL_CONVERTED: 'rc_trial_converted',
-  TRIAL_CANCELLED: 'rc_trial_cancelled',
-  PRODUCT_CHANGE: 'rc_product_change',
+// Map RevenueCat event types to PostHog event names. The rc_* names preserve
+// the existing webhook taxonomy; the second names match the product metrics doc.
+const POSTHOG_EVENT_NAMES: Partial<Record<RevenueCatEventType, string[]>> = {
+  INITIAL_PURCHASE: ['rc_initial_purchase', 'subscription_started'],
+  RENEWAL: ['rc_renewal', 'subscription_renewed'],
+  CANCELLATION: ['rc_cancellation', 'subscription_canceled'],
+  UNCANCELLATION: ['rc_uncancellation', 'subscription_uncanceled'],
+  EXPIRATION: ['rc_expiration', 'subscription_expired'],
+  BILLING_ISSUE: ['rc_billing_issue', 'subscription_billing_issue'],
+  TRIAL_STARTED: ['rc_trial_started', 'trial_started'],
+  TRIAL_CONVERTED: ['rc_trial_converted', 'trial_converted', 'subscription_started'],
+  TRIAL_CANCELLED: ['rc_trial_cancelled', 'trial_cancelled'],
+  PRODUCT_CHANGE: ['rc_product_change', 'subscription_product_changed'],
 }
 
 type SubscriptionPlanType = 'weekly' | 'monthly' | 'yearly'
@@ -29,20 +28,36 @@ async function forwardToPostHog(
   priceCents: number | null,
   planType: SubscriptionPlanType | null,
 ) {
-  const eventName = POSTHOG_EVENT_NAMES[event.type]
-  if (!eventName) return
+  const eventNames = POSTHOG_EVENT_NAMES[event.type]
+  if (!eventNames?.length) return
 
-  // Prefer the PostHog distinct id the iOS app forwarded as a subscriber
-  // attribute; fall back to app_user_id. Both are stable per user.
+  // Prefer the PostHog distinct id the iOS app forwarded as RevenueCat's
+  // reserved subscriber attribute; fall back through legacy app attributes and
+  // then app_user_id.
   const posthogDistinctId =
-    event.subscriber_attributes?.['$posthogDistinctId']?.value ?? event.app_user_id
+    event.subscriber_attributes?.['$posthogUserId']?.value ??
+    event.subscriber_attributes?.posthog_distinct_id?.value ??
+    event.subscriber_attributes?.['$posthogDistinctId']?.value ??
+    event.app_user_id
 
-  const host = process.env.POSTHOG_HOST ?? 'https://eu.i.posthog.com'
-  const apiKey = process.env.POSTHOG_API_KEY
+  const host =
+    process.env.POSTHOG_HOST ??
+    process.env.NEXT_PUBLIC_POSTHOG_HOST ??
+    'https://eu.i.posthog.com'
+  const apiKey = process.env.POSTHOG_API_KEY ?? process.env.NEXT_PUBLIC_POSTHOG_KEY
   if (!apiKey) {
-    console.warn('POSTHOG_API_KEY not set — skipping PostHog forward for', event.type)
+    console.warn('PostHog key not set — skipping PostHog forward for', event.type)
     return
   }
+
+  const subscriptionStatus = getStatusFromEvent(event.type)
+  const rcSubscriptionStatus = getRevenueCatPostHogStatus(event)
+  const effectiveExpirationMs = event.grace_period_expiration_at_ms ?? event.expiration_at_ms
+  const entitlementCurrentlyActive =
+    subscriptionStatus !== 'expired' &&
+    (effectiveExpirationMs == null || effectiveExpirationMs > Date.now())
+  const eventTimestampMs = event.event_timestamp_ms ?? event.purchased_at_ms
+  const eventTimestamp = new Date(eventTimestampMs).toISOString()
 
   const properties: Record<string, unknown> = {
     product_id: event.product_id,
@@ -52,7 +67,23 @@ async function forwardToPostHog(
     is_trial_conversion: event.is_trial_conversion ?? false,
     cancel_reason: event.cancel_reason ?? null,
     plan_type: planType,
+    revenuecat_event_type: event.type,
+    revenuecat_event_id: event.id,
+    rc_subscription_status: rcSubscriptionStatus,
     source: 'revenuecat_webhook',
+    $set: {
+      has_rc_subscription: entitlementCurrentlyActive,
+      is_pro: entitlementCurrentlyActive,
+      is_billing_grace_period: event.type === 'BILLING_ISSUE',
+      rc_subscription_status: rcSubscriptionStatus,
+      subscription_status: subscriptionStatus,
+      subscription_plan_type: planType,
+      subscription_product_id: event.product_id,
+      subscription_period_type: event.period_type,
+      revenuecat_environment: event.environment,
+      last_revenuecat_event: event.type,
+      last_revenuecat_event_at: eventTimestamp,
+    },
   }
   if (priceCents !== null && priceCents > 0) {
     // PostHog's revenue analytics keys off `$revenue` (in whole currency units).
@@ -60,23 +91,25 @@ async function forwardToPostHog(
     properties.currency = event.currency ?? 'USD'
   }
 
-  try {
-    const response = await fetch(`${host}/i/v0/e/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        api_key: apiKey,
-        event: eventName,
-        distinct_id: posthogDistinctId,
-        properties,
-        timestamp: new Date(event.purchased_at_ms).toISOString(),
-      }),
-    })
-    if (!response.ok) {
-      console.warn(`PostHog forward ${eventName} returned ${response.status}`)
+  for (const eventName of eventNames) {
+    try {
+      const response = await fetch(`${host}/i/v0/e/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: apiKey,
+          event: eventName,
+          distinct_id: posthogDistinctId,
+          properties,
+          timestamp: eventTimestamp,
+        }),
+      })
+      if (!response.ok) {
+        console.warn(`PostHog forward ${eventName} returned ${response.status}`)
+      }
+    } catch (err) {
+      console.warn(`PostHog forward ${eventName} failed:`, err)
     }
-  } catch (err) {
-    console.warn(`PostHog forward ${eventName} failed:`, err)
   }
 }
 
@@ -104,6 +137,7 @@ interface RevenueCatWebhookEvent {
     app_id: string
     app_user_id: string
     original_app_user_id: string
+    event_timestamp_ms?: number
     product_id: string
     period_type: 'TRIAL' | 'INTRO' | 'NORMAL'
     purchased_at_ms: number
@@ -114,6 +148,10 @@ interface RevenueCatWebhookEvent {
     cancel_reason?: string
     new_product_id?: string
     presented_offering_id?: string
+    entitlement_id?: string
+    entitlement_ids?: string[]
+    transaction_id?: string
+    original_transaction_id?: string
     price?: number
     currency?: string
     price_in_purchased_currency?: number
@@ -165,6 +203,113 @@ function getStatusFromEvent(eventType: RevenueCatEventType): string {
       return 'billing_issue'
     default:
       return 'active'
+  }
+}
+
+function getRevenueCatPostHogStatus(event: RevenueCatWebhookEvent['event']): string {
+  switch (event.type) {
+    case 'TRIAL_STARTED':
+      return 'trial'
+    case 'TRIAL_CANCELLED':
+      return 'cancelled_trial'
+    case 'BILLING_ISSUE':
+      return event.period_type === 'TRIAL' ? 'grace_period_trial' : 'grace_period'
+    case 'EXPIRATION':
+      return 'expired'
+    case 'CANCELLATION':
+      return event.period_type === 'TRIAL' ? 'cancelled_trial' : 'cancelled'
+    case 'INITIAL_PURCHASE':
+    case 'RENEWAL':
+    case 'UNCANCELLATION':
+    case 'TRIAL_CONVERTED':
+    case 'PRODUCT_CHANGE':
+      return event.period_type === 'INTRO' ? 'intro' : 'active'
+    default:
+      return 'active'
+  }
+}
+
+function getEntitlementId(event: RevenueCatWebhookEvent['event']): string | null {
+  return (
+    event.entitlement_id ??
+    event.entitlement_ids?.[0] ??
+    process.env.REVENUECAT_ENTITLEMENT_ID ??
+    null
+  )
+}
+
+function getCheckoutEmailFromEvent(event: RevenueCatWebhookEvent['event']): string | null {
+  const email =
+    event.subscriber_attributes?.email?.value ??
+    event.subscriber_attributes?.Email?.value ??
+    event.subscriber_attributes?.['$email']?.value ??
+    null
+
+  const normalized = email?.trim()
+  return normalized && normalized.includes('@') ? normalized : null
+}
+
+async function getAuthEmail(appUserId: string): Promise<string | null> {
+  try {
+    const { data, error } = await getSupabaseAdmin().auth.admin.getUserById(appUserId)
+
+    if (error) {
+      console.warn(`Could not look up checkout user email for ${appUserId}:`, error.message)
+      return null
+    }
+
+    return data.user?.email ?? null
+  } catch (error) {
+    console.warn(`Checkout email lookup failed for ${appUserId}:`, error)
+    return null
+  }
+}
+
+async function hasSentWebProPurchaseReadyEmail(eventId: string): Promise<boolean> {
+  const { data, error } = await getSupabaseAdmin()
+    .from('email_send_log')
+    .select('id')
+    .eq('template', 'web_pro_purchase_ready')
+    .eq('status', 'sent')
+    .eq('metadata->>revenuecat_event_id', eventId)
+    .maybeSingle()
+
+  if (error) {
+    throw new Error(`Could not check web Pro purchase email status: ${error.message}`)
+  }
+
+  return Boolean(data)
+}
+
+async function sendWebProPurchaseReadyEmail(
+  event: RevenueCatWebhookEvent['event'],
+  planType: SubscriptionPlanType | null,
+) {
+  if (event.store !== 'STRIPE') return
+  if (event.type !== 'INITIAL_PURCHASE' && event.type !== 'TRIAL_CONVERTED') return
+  if (await hasSentWebProPurchaseReadyEmail(event.id)) return
+
+  const email = getCheckoutEmailFromEvent(event) ?? await getAuthEmail(event.app_user_id)
+  if (!email) {
+    throw new Error(`No email found for Stripe checkout event ${event.id}`)
+  }
+
+  const result = await sendEmail({
+    to: email,
+    template: 'web_pro_purchase_ready',
+    data: { email },
+    metadata: {
+      app_user_id: event.app_user_id,
+      revenuecat_event_id: event.id,
+      product_id: event.product_id,
+      plan_type: planType,
+      store: event.store,
+      source: 'revenuecat_web_checkout',
+    },
+  })
+
+  if (!result.success) {
+    throw new Error(`Failed to send web Pro purchase email for ${event.id}: ${result.error}`)
   }
 }
 
@@ -359,6 +504,7 @@ export async function POST(request: NextRequest) {
     const status = getStatusFromEvent(event.type)
     const isTrial = event.period_type === 'TRIAL' || event.type === 'TRIAL_STARTED'
     const isTrialConverted = event.type === 'TRIAL_CONVERTED'
+    const entitlementId = getEntitlementId(event)
 
     // Detect plan type and price
     const planType = detectPlanType(event.product_id)
@@ -381,6 +527,9 @@ export async function POST(request: NextRequest) {
       original_purchase_at: new Date(event.purchased_at_ms).toISOString(),
       store: event.store,
       environment: event.environment,
+      entitlement_id: entitlementId,
+      original_transaction_id: event.original_transaction_id ?? null,
+      latest_transaction_id: event.transaction_id ?? null,
       updated_at: new Date().toISOString(),
     }
 
@@ -432,6 +581,9 @@ export async function POST(request: NextRequest) {
           plan_type: planType,
           environment: event.environment,
           store: event.store,
+          entitlement_id: entitlementId,
+          original_transaction_id: event.original_transaction_id ?? null,
+          transaction_id: event.transaction_id ?? null,
           purchased_at: new Date(event.purchased_at_ms).toISOString(),
         })
 
@@ -475,10 +627,13 @@ export async function POST(request: NextRequest) {
       await handleReferralReward(event.app_user_id, supabase)
     }
 
+    await sendWebProPurchaseReadyEmail(event, planType)
+
     // Handle refund - clawback commission if within 60 days
     if (event.type === 'EXPIRATION' && event.cancel_reason === 'CUSTOMER_SUPPORT') {
       // This is likely a refund
       await handleInfluencerRefund(event.app_user_id, supabase)
+      await handleCreatorRewardRefund(event, supabase)
     }
 
     await markRevenueCatEventProcessed(supabase, event.id)
@@ -773,6 +928,69 @@ async function handleInfluencerRefund(
   } catch (error) {
     console.error('Failed to handle influencer refund:', error)
     // Don't throw - subscription processing should continue
+  }
+}
+
+async function handleCreatorRewardRefund(
+  event: RevenueCatWebhookEvent['event'],
+  supabase: ReturnType<typeof getSupabase>
+) {
+  try {
+    const now = new Date().toISOString()
+    const refundNote = `RevenueCat refund signal received at ${now} for ${event.type}/${event.cancel_reason}. Apple refund handling is separate from Creator Reward payouts.`
+
+    const matchQuery = (statuses: string[]) => {
+      return supabase
+        .from('creator_reward_submissions')
+        .select('id, status, admin_notes')
+        .eq('revenuecat_app_user_id', event.app_user_id)
+        .in('status', statuses)
+    }
+
+    const { data: pendingClaims, error: pendingError } = await matchQuery([
+      'pending',
+      'needs_more_info',
+    ])
+
+    if (pendingError) {
+      console.error('Failed to load pending creator reward claims for refund handling:', pendingError)
+    } else if (pendingClaims?.length) {
+      await supabase
+        .from('creator_reward_submissions')
+        .update({
+          status: 'rejected',
+          rejection_reason: 'Apple refund detected for the underlying purchase.',
+          admin_notes: refundNote,
+        })
+        .in('id', pendingClaims.map((claim) => claim.id))
+    }
+
+    const { data: approvedClaims, error: approvedError } = await matchQuery([
+      'approved_50',
+      'approved_100',
+      'paid',
+    ])
+
+    if (approvedError) {
+      console.error('Failed to load approved creator reward claims for refund handling:', approvedError)
+      return
+    }
+
+    for (const claim of approvedClaims ?? []) {
+      const nextNotes = claim.admin_notes
+        ? `${claim.admin_notes}\n${refundNote}`
+        : refundNote
+
+      await supabase
+        .from('creator_reward_submissions')
+        .update({
+          status: claim.status === 'paid' ? 'paid' : 'needs_more_info',
+          admin_notes: nextNotes,
+        })
+        .eq('id', claim.id)
+    }
+  } catch (error) {
+    console.error('Failed to handle creator reward refund signal:', error)
   }
 }
 

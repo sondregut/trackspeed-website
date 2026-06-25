@@ -1,7 +1,7 @@
 import { getSupabaseAdmin } from '@/lib/supabase'
+import { FROM_EMAIL } from '@/lib/email-config'
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
-const FROM_EMAIL = process.env.FROM_EMAIL || 'TrackSpeed <noreply@hello.mytrackspeed.com>'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://mytrackspeed.com'
 const INFLUENCER_FREE_CODE = process.env.NEXT_PUBLIC_INFLUENCER_FREE_CODE ?? 'TRACKSPEED0106'
 
@@ -32,6 +32,28 @@ function wrapTemplate(content: string): string {
 
 // Email templates
 export const emailTemplates = {
+  web_pro_purchase_ready: (data: { email: string }) => ({
+    subject: 'Your TrackSpeed Pro access is ready',
+    html: wrapTemplate(`
+      <h1>Your Pro Access Is Ready</h1>
+      <p>Thanks for starting TrackSpeed Pro. Your subscription is tied to your TrackSpeed account, so you can unlock Pro in the app with the same login you used on the web.</p>
+      <div class="feature-box">
+        <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Next steps:</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>1.</strong> Download TrackSpeed on your iPhone.</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>2.</strong> Sign in with <strong>${data.email}</strong>.</p>
+        <p style="font-size:14px;margin:0;"><strong>3.</strong> If you are already signed in, open Settings in the app and refresh your Pro access.</p>
+      </div>
+      <p style="text-align:center;margin:32px 0;">
+        <a href="https://apps.apple.com/app/trackspeed/id6757509163" class="btn">Download TrackSpeed</a>
+      </p>
+      <p>Already installed? Open TrackSpeed from your phone and sign in with the account you created during checkout.</p>
+      <p class="muted">We never send passwords by email. If you forget your password, use the app sign-in recovery flow or contact support.</p>
+      <hr>
+      <p>Thanks for using TrackSpeed.</p>
+      <p style="margin:0;">The TrackSpeed Team</p>
+    `),
+  }),
+
   influencer_application_received: (data: { name: string }) => ({
     subject: "We've received your TrackSpeed affiliate application!",
     html: wrapTemplate(`

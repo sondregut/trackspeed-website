@@ -621,7 +621,7 @@ export default function PitchDeck() {
                   className="text-lg mb-6"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  or $4.99<span className="text-sm">/week</span>
+                  or $7.99<span className="text-sm">/week</span>
                 </p>
                 <ul
                   className="text-sm text-left space-y-2"

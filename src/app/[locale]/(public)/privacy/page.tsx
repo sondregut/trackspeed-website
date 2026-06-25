@@ -18,7 +18,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: February 12, 2026</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: June 25, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
@@ -32,8 +32,9 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
 
           <h3 className="text-lg font-semibold mb-2 mt-4">2.1 Information You Provide</h3>
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
-            <li>When you create an account, we collect your name and email address (via Apple Sign In)</li>
+            <li>When you create an account, we collect your name and email address through app sign-in or web checkout</li>
             <li>Optional profile details you choose to provide, such as display name</li>
+            <li>Information needed to process web checkout, including your email address and subscription status</li>
             <li>Information you provide when contacting us for support</li>
           </ul>
 
@@ -62,7 +63,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
             <li>Sync your timing data across devices (if you enable this feature)</li>
             <li>Respond to your support requests and inquiries</li>
             <li>Improve the App through anonymized analytics</li>
-            <li>Send important updates about the App or your account</li>
+            <li>Send important transactional updates about the App, your account, or your purchase</li>
           </ul>
         </section>
 
@@ -81,6 +82,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>Apple Sign In for authentication, subject to Apple&apos;s Privacy Policy</li>
             <li>RevenueCat for subscription management, subject to RevenueCat&apos;s Privacy Policy</li>
+            <li>Stripe for web payment processing, subject to Stripe&apos;s Privacy Policy</li>
             <li>Supabase for data storage and authentication, subject to Supabase&apos;s Privacy Policy</li>
           </ul>
         </section>

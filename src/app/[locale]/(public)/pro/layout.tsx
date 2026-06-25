@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "TrackSpeed Pro - Upgrade Your Sprint Timing",
   description:
-    "Upgrade to TrackSpeed Pro: 120fps capture, multi-device sync, frame scrubber, unlimited history. $59.99/year or $4.99/week.",
+    "Upgrade to TrackSpeed Pro: 120fps capture, multi-device sync, frame scrubber, unlimited history. $59.99/year or $7.99/week.",
   robots: { index: false, follow: false },
   alternates: {
     canonical: "https://mytrackspeed.com/pro",

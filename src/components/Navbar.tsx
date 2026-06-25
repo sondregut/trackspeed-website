@@ -60,6 +60,9 @@ export default function Navbar() {
             <Link href="/technology" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               {t("technology")}
             </Link>
+            <Link href="/pro" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
+              Pro
+            </Link>
             <Link href="/support" className="text-sm font-bold text-muted transition-colors hover:text-gray-900">
               {t("support")}
             </Link>
@@ -116,6 +119,11 @@ export default function Navbar() {
                 <SheetClose asChild>
                   <Link href="/technology" className="text-sm font-bold text-muted">
                     {t("technology")}
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/pro" className="text-sm font-bold text-muted">
+                    Pro
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>

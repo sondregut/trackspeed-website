@@ -134,7 +134,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Offer",
-                  price: "4.99",
+                  price: "7.99",
                   priceCurrency: "USD",
                   description: "TrackSpeed Pro (Weekly)",
                   priceValidUntil: "2027-12-31",
