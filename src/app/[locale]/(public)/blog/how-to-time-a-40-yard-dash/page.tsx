@@ -346,7 +346,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                   <strong style={{ color: "var(--text-primary)" }}>
                     No calibration needed.
                   </strong>{" "}
-                  TrackSpeed uses Photo Finish detection mode by default, which
+                  TrackSpeed uses camera detection by default, which
                   works out of the box with no setup or calibration step. Just
                   point the camera at the finish line and go.
                 </p>

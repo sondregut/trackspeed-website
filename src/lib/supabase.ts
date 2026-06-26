@@ -4,7 +4,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 export interface PromoCode {
   id: string
   code: string
-  type: 'free' | 'trial' | 'jumpers_world'
+  type: 'free' | 'trial' | string
   duration_days: number | null  // NULL = forever
   max_uses: number | null       // NULL = unlimited
   current_uses: number
@@ -83,6 +83,45 @@ export interface InfluencerCommission {
   stripe_transfer_id: string | null
   created_at: string
   transferred_at: string | null
+}
+
+export interface CreatorRewardSubmission {
+  id: string
+  user_id: string | null
+  email: string
+  username: string | null
+  phone_number: string | null
+  revenuecat_app_user_id: string
+  revenuecat_product_id: string
+  revenuecat_original_transaction_id: string | null
+  purchase_price: number
+  purchase_currency: string
+  entitlement_id: string
+  social_platform: 'tiktok' | 'instagram'
+  post_url: string
+  submitted_view_count: number | null
+  verified_view_count: number | null
+  screenshot_url: string | null
+  country: string
+  payout_method: 'paypal' | 'venmo' | 'cashapp'
+  payout_handle_or_email: string
+  payout_handle_hash: string
+  claim_id: string
+  status:
+    | 'pending'
+    | 'needs_more_info'
+    | 'approved_50'
+    | 'approved_100'
+    | 'rejected'
+    | 'paid'
+  reward_percentage: number | null
+  reward_amount: number | null
+  reward_currency: string | null
+  admin_notes: string | null
+  rejection_reason: string | null
+  paid_at: string | null
+  created_at: string
+  updated_at: string
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL

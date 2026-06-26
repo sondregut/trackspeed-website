@@ -25,8 +25,8 @@ function formatType(type: PromoCode["type"]): string {
       return "Free Pro";
     case "trial":
       return "Trial";
-    case "jumpers_world":
-      return "Partner pricing";
+    default:
+      return "Unsupported";
   }
 }
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyAdminSession } from "@/lib/admin-auth";
 
 export async function GET() {
@@ -7,6 +7,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const supabase = getSupabaseAdmin()
   const { data, error } = await supabase
     .from('promo_redemptions')
     .select(`
@@ -52,6 +53,7 @@ export async function PATCH(request: Request) {
       )
     }
 
+    const supabase = getSupabaseAdmin()
     const { data, error } = await supabase
       .from('promo_redemptions')
       .update({ pro_expires_at: new Date().toISOString() })

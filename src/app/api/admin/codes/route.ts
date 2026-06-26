@@ -1,14 +1,46 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyAdminSession } from "@/lib/admin-auth";
 
-const allowedCodeTypes = new Set(['free', 'trial', 'jumpers_world'])
+const allowedCodeTypes = new Set(['free', 'trial'])
+
+function positiveIntegerOrNull(value: unknown, fieldName: string): number | null | NextResponse {
+  if (value === null || value === undefined || value === '') return null
+  if (typeof value !== 'number' || !Number.isInteger(value) || value <= 0) {
+    return NextResponse.json(
+      { error: `${fieldName} must be a positive integer or null` },
+      { status: 400 }
+    )
+  }
+  return value
+}
+
+function isoDateOrNull(value: unknown): string | null | NextResponse {
+  if (value === null || value === undefined || value === '') return null
+  if (typeof value !== 'string') {
+    return NextResponse.json(
+      { error: 'expires_at must be an ISO date string or null' },
+      { status: 400 }
+    )
+  }
+
+  const timestamp = Date.parse(value)
+  if (Number.isNaN(timestamp)) {
+    return NextResponse.json(
+      { error: 'expires_at must be a valid date' },
+      { status: 400 }
+    )
+  }
+
+  return value
+}
 
 export async function GET() {
   if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const supabase = getSupabaseAdmin()
   const { data, error } = await supabase
     .from('promo_codes')
     .select('*')
@@ -58,7 +90,17 @@ export async function POST(request: Request) {
       )
     }
 
+    const parsedDurationDays = positiveIntegerOrNull(duration_days, 'duration_days')
+    if (parsedDurationDays instanceof NextResponse) return parsedDurationDays
+
+    const parsedMaxUses = positiveIntegerOrNull(max_uses, 'max_uses')
+    if (parsedMaxUses instanceof NextResponse) return parsedMaxUses
+
+    const parsedExpiresAt = isoDateOrNull(expires_at)
+    if (parsedExpiresAt instanceof NextResponse) return parsedExpiresAt
+
     // Check if code already exists
+    const supabase = getSupabaseAdmin()
     const { data: existing } = await supabase
       .from('promo_codes')
       .select('id')
@@ -78,10 +120,10 @@ export async function POST(request: Request) {
       .insert({
         code: normalizedCode,
         type,
-        duration_days: duration_days || null,
-        max_uses: max_uses || null,
-        expires_at: expires_at || null,
-        note: note || null,
+        duration_days: parsedDurationDays,
+        max_uses: parsedMaxUses,
+        expires_at: parsedExpiresAt,
+        note: typeof note === 'string' && note.trim() ? note.trim() : null,
         is_active: true,
         current_uses: 0,
       })

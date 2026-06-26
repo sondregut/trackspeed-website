@@ -106,7 +106,7 @@
     "cost": "Kosten",
     "fat": {
       "name": "FAT (Offiziell)",
-      "resolution": "0,001s",
+      "resolution": "0.001s",
       "detection": "Fotofinish-Kamera",
       "cost": "$10.000+"
     },

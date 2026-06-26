@@ -14,7 +14,7 @@ interface CreateCodeFormProps {
   loading: boolean;
 }
 
-type PromoCodeType = 'free' | 'trial' | 'jumpers_world';
+type PromoCodeType = 'free' | 'trial';
 
 export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProps) {
   const [code, setCode] = useState("");
@@ -34,15 +34,6 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
       expires_at: expiresAt || null,
       note: note || null,
     });
-  }
-
-  function applyPartnerPricingPreset() {
-    setCode("PARTNER");
-    setType("jumpers_world");
-    setDurationDays("");
-    setMaxUses("");
-    setExpiresAt("");
-    setNote("Partner pricing: annual and weekly package variant");
   }
 
   function generateCode() {
@@ -94,11 +85,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
         >
           <option value="free">Free (Full Pro access)</option>
           <option value="trial">Trial (Limited time)</option>
-          <option value="jumpers_world">Partner pricing</option>
         </select>
-        <p className="mt-2 text-xs text-[#787774]">
-          Partner pricing codes do not grant free Pro. They unlock annual and weekly package variants in the app.
-        </p>
       </div>
 
       {/* Duration */}
@@ -164,14 +151,6 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           placeholder="e.g., For beta testers"
         />
       </div>
-
-      <button
-        type="button"
-        onClick={applyPartnerPricingPreset}
-        className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#5C8DB8]/40 text-[#68A1D6] hover:border-[#5C8DB8] hover:text-white transition-colors font-medium"
-      >
-        Use partner pricing preset
-      </button>
 
       {/* Submit */}
       <button

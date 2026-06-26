@@ -106,7 +106,7 @@
     "cost": "Kostnad",
     "fat": {
       "name": "FAT (Offisiell)",
-      "resolution": "0,001s",
+      "resolution": "0.001s",
       "detection": "Målfotokamera",
       "cost": "$10 000+"
     },

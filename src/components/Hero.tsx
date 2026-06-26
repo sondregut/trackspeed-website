@@ -20,14 +20,14 @@ export default function Hero() {
     <section className="relative isolate overflow-hidden bg-[#0E171D] px-5 pt-20 text-white sm:px-6 lg:pt-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_28%,rgba(72,126,113,0.42),transparent_34%),linear-gradient(180deg,#0E171D_0%,#101C21_94%,#F7FAFC_94%,#F7FAFC_100%)]" />
       <div
-        className="absolute inset-x-[-10%] top-[5%] h-[92%] bg-cover bg-center opacity-50"
-        style={{ backgroundImage: "url('/track-surface-bg.svg')" }}
+        className="absolute inset-x-[-10%] top-[5%] h-[92%] bg-cover bg-center opacity-70"
+        style={{ backgroundImage: "url('/track-lanes-ai-background.webp')" }}
       />
       <div className="absolute left-0 top-0 h-full w-[45%] bg-[linear-gradient(90deg,rgba(14,23,29,0.88),rgba(14,23,29,0))]" />
 
       <div className="relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl items-center gap-8 py-10 lg:grid-cols-[0.84fr_1.16fr] lg:py-12">
-        <ScrollReveal>
-          <div className="max-w-2xl">
+        <ScrollReveal className="min-w-0">
+          <div className="w-full max-w-[20.5rem] sm:max-w-2xl">
             <Badge variant="outline" className="mb-6 gap-2 rounded-full border-white/12 bg-white/10 px-3 py-1.5 text-sm text-white shadow-[0_20px_50px_-34px_rgba(0,0,0,0.6)] backdrop-blur">
               <AvatarGroup>
                 <Avatar className="h-7 w-7">
@@ -41,14 +41,14 @@ export default function Hero() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#8DDCB4]">
               TrackSpeed
             </p>
-            <h1 className="max-w-[12ch] text-[clamp(3.15rem,7.4vw,5.4rem)] font-black leading-[0.9] tracking-[-0.035em] text-white">
+            <h1 className="max-w-[10.6ch] text-[2.85rem] font-black leading-[0.9] tracking-[-0.035em] text-white sm:max-w-[12ch] sm:text-[clamp(3.15rem,7.4vw,5.4rem)]">
               Turn your phone into a sprint timer.
             </h1>
-            <p className="mt-5 max-w-[34rem] text-xl leading-8 text-white/68 md:text-[1.35rem] md:leading-8">
+            <p className="mt-5 max-w-full text-xl leading-8 text-white/68 sm:max-w-[34rem] md:text-[1.35rem] md:leading-8">
               Set gates, pick a start mode, run the rep, and review photo-finish proof from the phone already in your pocket.
             </p>
 
-            <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="mt-7 flex w-full max-w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
               <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-flex w-fit transition-opacity hover:opacity-80">
                 <Image
                   src="/app-store-badge.svg"

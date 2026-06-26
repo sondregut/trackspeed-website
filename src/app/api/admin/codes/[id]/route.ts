@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyAdminSession } from "@/lib/admin-auth";
 
 export async function PATCH(
@@ -40,6 +40,7 @@ export async function PATCH(
       )
     }
 
+    const supabase = getSupabaseAdmin()
     const { data, error } = await supabase
       .from('promo_codes')
       .update(updates)
@@ -82,6 +83,7 @@ export async function DELETE(
   try {
     const { id } = await params
 
+    const supabase = getSupabaseAdmin()
     const { error } = await supabase
       .from('promo_codes')
       .delete()

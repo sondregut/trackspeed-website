@@ -49,30 +49,35 @@ const baseStyles = `
     border: 2px solid #5C8DB8;
   }
   .feature-box {
-    background-color: #f9fafb;
-    border-radius: 8px;
-    padding: 20px 24px;
+    background-color: #ffffff;
+    border: 1px solid #e6ebf1;
+    border-left: 3px solid #5C8DB8;
+    border-radius: 6px;
+    padding: 18px 20px;
     margin: 24px 0;
   }
   .pro-tip {
-    background-color: #fff7ed;
-    border-radius: 8px;
-    padding: 20px 24px;
-    border-left: 4px solid #5C8DB8;
+    background-color: #ffffff;
+    border: 1px solid #e6ebf1;
+    border-left: 3px solid #5C8DB8;
+    border-radius: 6px;
+    padding: 18px 20px;
     margin: 24px 0;
   }
   .warning-box {
-    background-color: #fef3cd;
-    border-radius: 8px;
-    padding: 20px 24px;
-    border-left: 4px solid #ffc107;
+    background-color: #ffffff;
+    border: 1px solid #e6ebf1;
+    border-left: 3px solid #d99a00;
+    border-radius: 6px;
+    padding: 18px 20px;
     margin: 24px 0;
   }
   .offer-box {
-    background-color: #fff7ed;
-    border: 2px dashed #5C8DB8;
-    border-radius: 8px;
-    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e6ebf1;
+    border-left: 3px solid #5C8DB8;
+    border-radius: 6px;
+    padding: 18px 20px;
     margin: 24px 0;
     text-align: center;
   }
@@ -120,6 +125,11 @@ interface TemplateData {
   daysLeft?: number;
   featureTitle?: string;
   featureDescription?: string;
+  sprintTime?: string;
+  bestTime?: string;
+  averageTime?: string;
+  runCount?: number;
+  distance?: string;
 }
 
 const templates: Record<string, (data: TemplateData) => { subject: string; html: string }> = {
@@ -134,13 +144,13 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
         <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Here's what you can do:</p>
         <p style="margin:0 0 8px;font-size:14px;"><strong>Multiple Start Types</strong> - Flying, countdown, voice command, touch release & more</p>
         <p style="margin:0 0 8px;font-size:14px;"><strong>Multi-Device</strong> - Connect two or more phones for start/finish timing</p>
-        <p style="margin:0 0 8px;font-size:14px;"><strong>Photo Finish</strong> - Sub-frame accuracy with high-speed capture</p>
+        <p style="margin:0 0 8px;font-size:14px;"><strong>Photo Finish</strong> - Precise line-crossing detection</p>
         <p style="margin:0;font-size:14px;"><strong>Track History</strong> - Monitor your progress over time</p>
       </div>
 
       <hr>
 
-      <p>Get started by opening the app and running your first timed sprint. No calibration needed - just point and run!</p>
+      <p>Get started by opening the app before your next sprint session and choosing the setup that fits the day.</p>
 
       <p style="text-align:center;margin:32px 0;">
         <a href="#" class="btn">Open TrackSpeed</a>
@@ -149,6 +159,39 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
       <p>Questions? Just reply to this email - we read every message.</p>
       <p>Happy sprinting!<br>The TrackSpeed Team</p>
     `, "Welcome to TrackSpeed - Let's get you timing!"),
+  }),
+
+  nudge_day1: (data) => ({
+    subject: "Set up TrackSpeed for your next sprint session",
+    html: wrapTemplate(`
+      <h1>Set Up Your Next Sprint Session</h1>
+      <p>Hi ${data.name || "Athlete"},</p>
+      <p>When your next sprint session comes up, TrackSpeed can time the run with phones placed at the key points on the track.</p>
+      <p>For the cleanest setup, use two phones: one at the start and one at the finish. Add more phones if you want split points.</p>
+
+      <div class="feature-box">
+        <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Next session setup:</p>
+        <p style="font-size:14px;margin:0 0 8px;">1. Place one phone at the start line</p>
+        <p style="font-size:14px;margin:0 0 8px;">2. Place another phone at the finish line</p>
+        <p style="font-size:14px;margin:0;">3. Join both phones to the same TrackSpeed session</p>
+      </div>
+
+      <p>When you run, TrackSpeed pairs the start and finish events and saves the result to your session history.</p>
+
+      <p style="text-align:center;margin:32px 0;">
+        <a href="#" class="btn">Set Up My Next Session</a>
+      </p>
+
+      <hr>
+
+      <div class="pro-tip">
+        <p style="font-weight:600;color:#1a1a1a;margin:0 0 8px;">Did you know?</p>
+        <p style="font-size:14px;margin:0;">TrackSpeed uses Photo Finish technology to detect when you cross the line - the same approach used in professional athletics. Your phone camera helps capture precise line-crossing moments.</p>
+      </div>
+
+      <p>Questions? Just reply to this email.</p>
+      <p>See you at the track!<br>The TrackSpeed Team</p>
+    `, "How to set up TrackSpeed for your next sprint session"),
   }),
 
   tips_day3: (data) => ({
@@ -188,21 +231,93 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
     `, "3 tips to get accurate sprint times with TrackSpeed"),
   }),
 
-  convert_day7: (data) => ({
-    subject: "Special offer: 20% off TrackSpeed Pro",
+  checkin_day14: (data) => ({
+    subject: "Two weeks in - here's how to level up your training",
     html: wrapTemplate(`
-      <h1>Your Exclusive Offer Inside</h1>
-      <p>Hi ${data.name || "there"},</p>
-      <p>As a TrackSpeed user, we're giving you early access to a special discount.</p>
+      <h1>Two Weeks In - How's It Going?</h1>
+      <p>Hi ${data.name || "Athlete"},</p>
+      ${data.sessionCount && data.sessionCount > 0
+        ? `<p>You've logged <strong>${data.sessionCount} session${data.sessionCount > 1 ? 's' : ''}</strong> so far. That's real commitment!</p>
+           <p>Want to take your training to the next level? Here's what Pro unlocks:</p>`
+        : `<p>It's been two weeks since you joined TrackSpeed. We'd love to help you get started with sprint timing.</p>
+           <p>If you haven't had a chance to try it yet, here's what you can do with Pro:</p>`
+      }
+
+      <div style="margin:0 0 24px;">
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Multi-device timing</strong> - One phone at start, one at finish for professional accuracy</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Unlimited sessions</strong> - Train as much as you want, no limits</p>
+        <p style="margin:0 0 12px;font-size:15px;">✓ <strong>Full history & analytics</strong> - See your progress over weeks and months</p>
+        <p style="margin:0;font-size:15px;">✓ <strong>Video export</strong> - Share your runs with time overlay</p>
+      </div>
 
       <div class="offer-box">
-        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">LIMITED TIME OFFER</p>
-        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Your First Year</p>
-        <p style="font-size:16px;color:#525f7f;margin:0;">Get Pro for just <strong>$47.99/year</strong> <span style="text-decoration:line-through;color:#8898aa;">$59.99</span></p>
+        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">PRO PLANS</p>
+        <p style="font-size:20px;font-weight:700;color:#1a1a1a;margin:0 0 4px;">$9.99/month or $59.99/year</p>
+        <p style="font-size:14px;color:#8898aa;margin:0;">Save 50% with annual</p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
-        <a href="trackspeed://promo?offer=yearly_20_off" class="btn">Claim 20% Off</a>
+        <a href="#" class="btn">Upgrade to Pro</a>
+      </p>
+
+      <hr>
+
+      <p>Not ready yet? No worries - you can keep using TrackSpeed for free. We're here whenever you're ready to level up.</p>
+      <p>Keep pushing!<br>The TrackSpeed Team</p>
+    `, "Two weeks in - here's how to level up your training"),
+  }),
+
+  first_session: (data) => ({
+    subject: "Your first TrackSpeed session summary is ready",
+    html: wrapTemplate(`
+      <h1>Your First Session Summary</h1>
+      <p>Hi ${data.name || "Athlete"},</p>
+      <p>Nice work finishing a TrackSpeed session. Here's the full summary from that run day.</p>
+
+      <div class="feature-box">
+        <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">Session summary</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>Distance</strong> - ${data.distance || "100m"}</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>Best time</strong> - ${data.bestTime || data.sprintTime || "12.34s"}</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>Latest run</strong> - ${data.sprintTime || "12.34s"}</p>
+        <p style="font-size:14px;margin:0 0 8px;"><strong>Average time</strong> - ${data.averageTime || data.sprintTime || "12.34s"}</p>
+        <p style="font-size:14px;margin:0;"><strong>Runs recorded</strong> - ${data.runCount || 1}</p>
+      </div>
+
+      <p>Use this as your baseline. After your next sprint session, compare the summary to see how your times are moving.</p>
+
+      <div class="pro-tip">
+        <p style="font-weight:600;color:#1a1a1a;margin:0 0 8px;">What's next?</p>
+        <p style="font-size:14px;margin:0 0 8px;">• Repeat the same distance when you want a clean comparison</p>
+        <p style="font-size:14px;margin:0 0 8px;">• Add start and finish phones for a full session setup</p>
+        <p style="font-size:14px;margin:0;">• Review the saved session history after training</p>
+      </div>
+
+      <p style="text-align:center;margin:32px 0;">
+        <a href="#" class="btn">Run Another Sprint</a>
+      </p>
+
+      <hr>
+
+      <p>Keep it up - consistency is what separates good sprinters from great ones.</p>
+      <p>Run fast!<br>The TrackSpeed Team</p>
+    `, "Your first TrackSpeed session summary is ready"),
+  }),
+
+  convert_day7: (data) => ({
+    subject: "Unlock TrackSpeed Pro",
+    html: wrapTemplate(`
+      <h1>Train with the Full Setup</h1>
+      <p>Hi ${data.name || "there"},</p>
+      <p>TrackSpeed Pro unlocks the full timing setup for serious sprint training.</p>
+
+      <div class="offer-box">
+        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">TRACKSPEED PRO</p>
+        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">Multi-Device Sprint Timing</p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Use TrackSpeed as a complete timing system for starts, finishes, history, and review.</p>
+      </div>
+
+      <p style="text-align:center;margin:32px 0;">
+        <a href="trackspeed://subscribe" class="btn">Open TrackSpeed Pro</a>
       </p>
 
       <p style="font-weight:600;color:#1a1a1a;margin:24px 0 16px;">What you get with Pro:</p>
@@ -215,16 +330,9 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
         <p style="margin:0;font-size:15px;">✓ <strong>Priority support</strong> - Get help when you need it</p>
       </div>
 
-      <hr>
-
-      <div class="feature-box" style="text-align:center;">
-        <p style="font-style:italic;margin:0 0 12px;">"Professional timing gates cost $3,000+. TrackSpeed gives me the same accuracy for the price of coffee."</p>
-        <p class="muted" style="margin:0;">— Marcus T., College Sprinter</p>
-      </div>
-
-      <p>Not ready yet? No problem - you can keep using the free version.</p>
+      <p>Not ready yet? No problem - your sessions stay in TrackSpeed when you're ready to train with the full setup.</p>
       <p>Run fast,<br>The TrackSpeed Team</p>
-    `, "Special offer: 20% off TrackSpeed Pro for one year"),
+    `, "Unlock TrackSpeed Pro for full sprint timing"),
   }),
 
   trial_cancelled: (data) => ({
@@ -242,7 +350,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
         <p style="font-weight:600;color:#856404;margin:0 0 12px;">What happens when your access ends?</p>
         <p style="font-size:14px;color:#856404;margin:0;">
           • You'll lose access to multi-device mode<br>
-          • Sessions will be limited to 5/month<br>
+          • Pro-only features pause until you resubscribe<br>
           • Your history stays safe - just resubscribe to access it
         </p>
       </div>
@@ -261,20 +369,20 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
   }),
 
   winback: (data) => ({
-    subject: "We miss you - here's 20% off to come back",
+    subject: "We miss you at the track",
     html: wrapTemplate(`
       <h1>We Miss You at the Track</h1>
       <p>Hi ${data.name || "there"},</p>
       <p>It's been a while since you used TrackSpeed. We'd love to have you back.</p>
 
       <div class="offer-box">
-        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">WELCOME BACK OFFER</p>
-        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">20% Off Pro</p>
-        <p style="font-size:16px;color:#525f7f;margin:0;">Get a full year for just <strong>$47.99</strong> <span style="text-decoration:line-through;color:#8898aa;">$59.99</span></p>
+        <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">TRACKSPEED PRO</p>
+        <p style="font-size:28px;font-weight:700;color:#1a1a1a;margin:0 0 8px;">Pick Up Where You Left Off</p>
+        <p style="font-size:16px;color:#525f7f;margin:0;">Open the app to keep training with accurate timing, session history, and video review.</p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
-        <a href="trackspeed://promo?offer=yearly_20_off" class="btn">Claim 20% Off</a>
+        <a href="trackspeed://subscribe" class="btn">Open TrackSpeed Pro</a>
       </p>
 
       <p style="font-weight:600;color:#1a1a1a;margin:24px 0 16px;">What you'll get with Pro:</p>
@@ -288,29 +396,29 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 
       <hr>
 
-      <p>Not ready yet? You can still use the free version - your previous data is still there.</p>
+      <p>Not ready yet? Your previous data is still there whenever you come back.</p>
 
       <p style="text-align:center;margin:32px 0;">
         <a href="trackspeed://open" class="btn btn-secondary">Open TrackSpeed</a>
       </p>
 
       <p>See you at the track,<br>The TrackSpeed Team</p>
-    `, "We miss you - here's 20% off to come back"),
+    `, "We miss you at the track"),
   }),
 
   feature_update: (data) => ({
-    subject: `New in TrackSpeed: ${data.featureTitle || 'New Feature'}`,
+    subject: `TrackSpeed feature spotlight: ${data.featureTitle || 'Featured tool'}`,
     html: wrapTemplate(`
-      <p style="display:inline-block;background:#5C8DB8;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;margin:0 0 16px;letter-spacing:0.5px;">NEW FEATURE</p>
-      <h1>${data.featureTitle || 'New Feature'}</h1>
+      <p style="display:inline-block;background:#5C8DB8;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;margin:0 0 16px;letter-spacing:0.5px;">FEATURE SPOTLIGHT</p>
+      <h1>${data.featureTitle || 'Featured tool'}</h1>
       <p>Hi ${data.name || "Athlete"},</p>
-      <p>${data.featureDescription || "We've added something new to help you train better."}</p>
+      <p>${data.featureDescription || "Here's a TrackSpeed feature that can help you train better."}</p>
 
       <div class="feature-box">
         <p style="font-weight:600;color:#1a1a1a;margin:0 0 12px;">How to use it:</p>
-        <p style="font-size:14px;margin:0 0 4px;">1. Update to the latest version</p>
-        <p style="font-size:14px;margin:0 0 4px;">2. Open TrackSpeed</p>
-        <p style="font-size:14px;margin:0;">3. Find the new feature in Settings</p>
+        <p style="font-size:14px;margin:0 0 4px;">1. Open TrackSpeed</p>
+        <p style="font-size:14px;margin:0 0 4px;">2. Look for ${data.featureTitle || 'the featured tool'} in the app</p>
+        <p style="font-size:14px;margin:0;">3. Try it during your next session</p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">
@@ -321,7 +429,7 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 
       <p>Have feedback on this feature? Reply to this email - we'd love to hear what you think.</p>
       <p>Keep improving,<br>The TrackSpeed Team</p>
-    `, `New in TrackSpeed: ${data.featureTitle || 'New Feature'}`),
+    `, `TrackSpeed feature spotlight: ${data.featureTitle || 'Featured tool'}`),
   }),
 };
 
@@ -346,6 +454,11 @@ export async function GET(request: Request) {
     daysLeft: 7,
     featureTitle: "Video Export",
     featureDescription: "You can now export your sprint videos with time overlays! Share your progress with coaches and teammates.",
+    sprintTime: "12.62s",
+    bestTime: "12.34s",
+    averageTime: "12.58s",
+    runCount: 4,
+    distance: "100m",
   };
 
   const { html } = templates[template](sampleData);
