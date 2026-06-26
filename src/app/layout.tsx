@@ -75,12 +75,14 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
+  itunes: {
+    appId: "6757509163",
+  },
   manifest: "/manifest.json",
   verification: {
     google: "88hRhOzH0AXwFdBwhN2dIcldF3TyVXEo4y26qt46YI8",
   },
   other: {
-    "apple-itunes-app": "app-id=6757509163",
     "theme-color": "#FFFFFF",
   },
 };

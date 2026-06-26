@@ -9,7 +9,7 @@ export default function PublicLayout({
   return (
     <>
       <Navbar />
-      <main id="main">{children}</main>
+      <main id="main" className="pt-14 md:pt-0">{children}</main>
       <Footer />
     </>
   );

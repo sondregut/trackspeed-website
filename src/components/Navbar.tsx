@@ -46,6 +46,33 @@ export default function Navbar() {
       }`}
       style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.3)" }}
     >
+      <div className="border-b border-[#E2EAF2] bg-white/95 px-4 py-2 shadow-[0_8px_24px_-22px_rgba(14,24,35,0.7)] md:hidden">
+        <a
+          href={APP_STORE_URL}
+          className="mx-auto flex h-10 max-w-7xl items-center gap-3"
+          aria-label="Get TrackSpeed from the App Store"
+        >
+          <Image
+            src="/icon.png"
+            alt=""
+            width={36}
+            height={36}
+            sizes="36px"
+            className="h-9 w-9 rounded-lg"
+          />
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-sm font-bold leading-4 text-[#0E0E0C]">
+              TrackSpeed
+            </span>
+            <span className="block truncate text-xs font-medium leading-4 text-[#5B6470]">
+              Sprint timing for iPhone
+            </span>
+          </span>
+          <span className="inline-flex h-8 shrink-0 items-center justify-center rounded-full bg-[#EEF5FA] px-4 text-sm font-black text-[#1263C7] transition-colors active:scale-[0.98]">
+            Get
+          </span>
+        </a>
+      </div>
       <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -107,21 +134,6 @@ export default function Navbar() {
 
           {/* Mobile menu - Sheet */}
           <div className="flex items-center gap-2 md:hidden">
-            <a
-              href={APP_STORE_URL}
-              className="inline-flex h-9 items-center rounded-lg transition-opacity hover:opacity-80 active:scale-[0.99]"
-              aria-label="Download TrackSpeed on the App Store"
-            >
-              <Image
-                src="/app-store-badge.svg"
-                alt="Download on the App Store"
-                width={108}
-                height={36}
-                sizes="108px"
-                className="h-[32px] w-auto"
-              />
-            </a>
-
             <Sheet>
               <SheetTrigger asChild>
                 <button
