@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyAdminSession } from '@/lib/admin-auth'
 
 interface RevenueCatOverview {
@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   try {
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
     const now = new Date()
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString()
 

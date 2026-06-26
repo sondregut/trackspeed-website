@@ -33,6 +33,10 @@ function encryptionKey(): Buffer | null {
   return createHash('sha256').update(trimmed).digest()
 }
 
+export function isCreatorRewardEncryptionConfigured(): boolean {
+  return encryptionKey() !== null
+}
+
 export function hashPayoutHandle(payoutMethod: string, payoutHandleOrEmail: string): string {
   return createHash('sha256')
     .update(`${payoutMethod.trim().toLowerCase()}:${normalizedPayoutValue(payoutHandleOrEmail)}`)
@@ -41,7 +45,9 @@ export function hashPayoutHandle(payoutMethod: string, payoutHandleOrEmail: stri
 
 export function encryptPayoutHandle(value: string): string {
   const key = encryptionKey()
-  if (!key) return value
+  if (!key) {
+    throw new Error('CREATOR_REWARD_ENCRYPTION_KEY must be set before storing payout handles')
+  }
 
   const iv = randomBytes(12)
   const cipher = createCipheriv('aes-256-gcm', key, iv)

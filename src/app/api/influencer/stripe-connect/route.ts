@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyInfluencerToken } from '../auth/route'
 
 const STRIPE_ACCOUNT_MODEL_V2 = 'v2_core'
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     // Get influencer data
     const { data: influencer, error: influencerError } = await supabase
@@ -139,7 +139,7 @@ export async function GET() {
       return NextResponse.json({ connected: false, error: 'Stripe not configured' })
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     // Get influencer data
     const { data: influencer } = await supabase

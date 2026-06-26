@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyInfluencerToken } from '../auth/route'
 
 // GET /api/influencer/stats - Get influencer dashboard stats
@@ -11,7 +11,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
 
     // Get influencer data
     const { data: influencer, error: influencerError } = await supabase

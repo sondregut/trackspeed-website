@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createHmac } from "crypto";
-import { getSupabase } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 import { requireServerEnv, timingSafeEqualString } from "@/lib/server-secrets";
 
 // Generate a token for an email address
@@ -25,7 +25,7 @@ function validateToken(email: string, token: string): boolean {
 
 // Unsubscribe the user
 async function unsubscribeUser(email: string): Promise<boolean> {
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdmin();
 
   const { error } = await supabase
     .from("user_email_state")

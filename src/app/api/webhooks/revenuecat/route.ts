@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
-import { getSupabase, getSupabaseAdmin } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { timingSafeEqualString } from '@/lib/server-secrets'
 
 // Map RevenueCat event types to PostHog event names. The rc_* names preserve
@@ -331,7 +331,7 @@ function errorMessage(error: unknown): string {
 }
 
 async function reserveRevenueCatWebhookEvent(
-  supabase: ReturnType<typeof getSupabase>,
+  supabase: ReturnType<typeof getSupabaseAdmin>,
   event: RevenueCatWebhookEvent['event']
 ): Promise<RevenueCatReservationResult> {
   const now = new Date().toISOString()
@@ -389,7 +389,7 @@ async function reserveRevenueCatWebhookEvent(
 }
 
 async function markRevenueCatEventProcessed(
-  supabase: ReturnType<typeof getSupabase>,
+  supabase: ReturnType<typeof getSupabaseAdmin>,
   eventId: string
 ) {
   const now = new Date().toISOString()
@@ -409,7 +409,7 @@ async function markRevenueCatEventProcessed(
 }
 
 async function markRevenueCatEventFailed(
-  supabase: ReturnType<typeof getSupabase>,
+  supabase: ReturnType<typeof getSupabaseAdmin>,
   eventId: string,
   error: unknown
 ) {
@@ -430,7 +430,7 @@ async function markRevenueCatEventFailed(
 }
 
 export async function POST(request: NextRequest) {
-  let supabase: ReturnType<typeof getSupabase> | null = null
+  let supabase: ReturnType<typeof getSupabaseAdmin> | null = null
   let reservedRevenueCatEventId: string | null = null
 
   try {
@@ -459,7 +459,7 @@ export async function POST(request: NextRequest) {
 
     console.log(`RevenueCat webhook: ${event.type} for user ${event.app_user_id}`)
 
-    supabase = getSupabase()
+    supabase = getSupabaseAdmin()
     const reservation = await reserveRevenueCatWebhookEvent(supabase, event)
     if (reservation === 'duplicate') {
       console.log(`Duplicate RevenueCat webhook skipped: ${event.id}`)
@@ -657,7 +657,7 @@ export async function POST(request: NextRequest) {
 // Handle referral reward - grant 1 free month to referrer when referred user subscribes
 async function handleReferralReward(
   appUserId: string,
-  supabase: ReturnType<typeof getSupabase>
+  supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
   try {
     // Find the referral record for this user (by device_id which is the app_user_id)
@@ -800,7 +800,7 @@ async function handleReferralReward(
 async function handleInfluencerConversion(
   appUserId: string,
   priceCents: number,
-  supabase: ReturnType<typeof getSupabase>
+  supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
   try {
     // Find unconverted referral for this user
@@ -898,7 +898,7 @@ async function handleInfluencerConversion(
 // Handle refund - clawback commission if within 60 days
 async function handleInfluencerRefund(
   appUserId: string,
-  supabase: ReturnType<typeof getSupabase>
+  supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
   try {
     const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
@@ -940,7 +940,7 @@ async function handleInfluencerRefund(
 
 async function handleCreatorRewardRefund(
   event: RevenueCatWebhookEvent['event'],
-  supabase: ReturnType<typeof getSupabase>
+  supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
   try {
     const now = new Date().toISOString()
@@ -1007,7 +1007,7 @@ async function transferCommission(
   influencerId: string,
   amountCents: number,
   stripeAccountId: string,
-  supabase: ReturnType<typeof getSupabase>
+  supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
   try {
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY

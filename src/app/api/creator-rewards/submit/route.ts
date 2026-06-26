@@ -5,6 +5,7 @@ import { getSupabaseAdmin } from '@/lib/supabase'
 import {
   encryptPayoutHandle,
   hashPayoutHandle,
+  isCreatorRewardEncryptionConfigured,
 } from '@/lib/creator-reward-crypto'
 import {
   activeClaimStatuses,
@@ -370,6 +371,11 @@ export async function POST(request: NextRequest) {
 
   if (!payoutHandle || payoutHandle.length > 320) {
     return NextResponse.json({ error: 'Enter your payout handle or email.' }, { status: 400 })
+  }
+
+  if (!isCreatorRewardEncryptionConfigured()) {
+    console.error('CREATOR_REWARD_ENCRYPTION_KEY is not configured; refusing to store plaintext payout handle')
+    return NextResponse.json({ error: 'Creator rewards are temporarily unavailable.' }, { status: 503 })
   }
 
   let submittedViewCount: number | null
