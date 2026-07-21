@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.sprint-timing-gates-buyers-guide.title'),
     description: "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your phone delivers the same training accuracy as $2,500 laser gates.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/sprint-timing-gates-buyers-guide',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function SprintTimingGatesBuyersGuidePage({params}: {params: Promise<{locale: string}>}) {
@@ -29,7 +28,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
     description:
       "Complete buyer's guide comparing sprint timing gates, camera-based apps, and stopwatches. Learn why your phone delivers the same training accuracy as $2,500 laser gates.",
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     keywords: [
       "sprint timing gates",
       "timing gates for track",
@@ -54,7 +53,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-17",
     dateModified: "2026-02-17",
@@ -132,6 +131,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
             Sprint Timing Systems Buyer&apos;s Guide: Gates, Apps, and
             Stopwatches Compared
           </h1>
+          <ArticleByline slug="sprint-timing-gates-buyers-guide" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

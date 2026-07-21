@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "phone용 단거리 타이밍 앱 - 무료, 추가 하드웨어 불필요",
-    "description": "phone을 타이밍 시스템으로 바꾸세요. ~4ms 정확도, 다중 기기 동기화, 추가 하드웨어 없음. 코치와 선수에게 무료입니다."
+    "title": "phone용 단거리 타이밍 앱 - 추가 하드웨어 불필요",
+    "description": "phone을 타이밍 시스템으로 바꾸세요. ~4ms 정확도, 다중 기기 동기화, 추가 하드웨어 없음."
   },
   "hero": {
     "socialProof": "올림피언이 만든 앱",
     "title": "TrackSpeed",
     "subtitle": "휴대폰으로 자동 스프린트 타이밍",
-    "description": "phone을 타이밍 시스템으로 바꾸세요. ~4ms 정확도, 다중 기기 동기화, 추가 하드웨어 없음. 코치와 선수에게 무료입니다.",
+    "description": "phone을 타이밍 시스템으로 바꾸세요. ~4ms 정확도, 다중 기기 동기화, 추가 하드웨어 없음.",
     "downloadCta": "App Store에서 다운로드",
     "downloadAndroid": "Google Play에서 다운로드",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "휴대성"
     },
     "trackspeed": {
-      "price": "무료 / $9.99/mo*",
+      "price": "$7.99/week*",
       "accuracy": "~4ms",
       "chestDetection": "예 (상체만)",
       "setupTime": "1분 미만",
@@ -203,7 +203,7 @@
       "portability": "주머니 크기"
     },
     "footnotes": {
-      "pricing": "*월 $9.99 또는 연 $59.99. 가격은 대략적입니다.",
+      "pricing": "*주 $7.99 또는 연 $59.99. 가격은 대략적입니다.",
       "browerStudy": "**<link>동료 심사 연구</link>에 따르면: Brower는 \"엘리트 선수의 소폭 변화를 모니터링하기에 충분히 신뢰할 수 없음\"으로 나타났습니다",
       "beamNote": "빔 시스템은 가슴이 아닌 신체 어느 부위(손/발)든 감지합니다. TrackSpeed는 공식 대회가 아닌 훈련을 위해 설계되었습니다."
     }
@@ -263,6 +263,6 @@
     "noHardware": "추가 하드웨어 불필요",
     "downloadIos": "iOS용 다운로드",
     "downloadAndroid": "Android용 다운로드",
-    "freeNote": "무료 다운로드. 프리미엄 기능 이용 가능."
+    "freeNote": "구독이 필요합니다. 가격은 지역에 따라 다를 수 있습니다."
   }
 }

@@ -3,11 +3,15 @@ import Image from "next/image"
 import { ArrowRight, CheckCircle2, Download, LogIn } from "lucide-react"
 import { setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
+import { getPageMetadata } from "@/i18n/metadata"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = getPageMetadata({
   title: "TrackSpeed Pro Ready",
   description: "Download TrackSpeed and sign in with the same account to unlock Pro.",
-}
+  path: "/checkout/success",
+  localized: false,
+  robots: { index: false, follow: false, nocache: true },
+})
 
 export default async function CheckoutSuccessPage({
   params,

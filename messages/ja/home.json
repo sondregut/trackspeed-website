@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "phone用スプリントタイミングアプリ - 無料、ハードウェア不要",
-    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。コーチと選手は無料です。"
+    "title": "phone用スプリントタイミングアプリ - 追加ハードウェア不要",
+    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。"
   },
   "hero": {
     "socialProof": "オリンピアンが開発",
     "title": "TrackSpeed",
     "subtitle": "スマホで自動スプリント計測",
-    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。コーチと選手は無料です。",
+    "description": "phoneをタイミングシステムに変えます。~4ms精度、複数デバイス同期、追加ハードウェア不要。",
     "downloadCta": "App Storeでダウンロード",
     "downloadAndroid": "Google Playで入手",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "携帯性"
     },
     "trackspeed": {
-      "price": "無料 / $9.99/月*",
+      "price": "$7.99/週*",
       "accuracy": "~4ms",
       "chestDetection": "あり（胴体のみ）",
       "setupTime": "1分未満",
@@ -203,7 +203,7 @@
       "portability": "ポケットサイズ"
     },
     "footnotes": {
-      "pricing": "*月額$9.99または年額$59.99。価格は概算です。",
+      "pricing": "*週額$7.99または年額$59.99。価格は概算です。",
       "browerStudy": "**<link>査読済み研究</link>によると: Browerは「エリート選手の微細な変化をモニターするには信頼性が不十分」と結論。",
       "beamNote": "ビームシステムは体のどの部位（手/脚）でもトリガーされ、胸部ではありません。TrackSpeedはトレーニング向けに設計されており、公式大会用ではありません。"
     }
@@ -263,6 +263,6 @@
     "noHardware": "追加ハードウェア不要",
     "downloadIos": "iOSでダウンロード",
     "downloadAndroid": "Androidでダウンロード",
-    "freeNote": "無料でダウンロード。プレミアム機能もご利用いただけます。"
+    "freeNote": "サブスクリプションが必要です。価格は地域によって異なります。"
   }
 }

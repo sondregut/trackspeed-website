@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "phone için Sprint Zamanlama Uygulaması - Ücretsiz, Donanım Gerektirmez",
-    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, donanım yok. Antrenörler ve sporcular için ücretsiz."
+    "title": "phone için Sprint Zamanlama Uygulaması - Ek Donanım Gerektirmez",
+    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, ek donanım yok."
   },
   "hero": {
     "socialProof": "Bir olimpiyatçı tarafından geliştirildi",
     "title": "TrackSpeed",
     "subtitle": "Telefonundan otomatik sprint zamanlaması",
-    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, donanım yok. Antrenörler ve sporcular için ücretsiz.",
+    "description": "phone’unu bir zamanlama sistemine dönüştür. ~4ms doğruluk, çoklu cihaz senkronizasyonu, ek donanım yok.",
     "downloadCta": "App Store'dan indir",
     "downloadAndroid": "Google Play'den edinin",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Taşınabilirlik"
     },
     "trackspeed": {
-      "price": "Ücretsiz / $9.99/ay*",
+      "price": "$7.99/hafta*",
       "accuracy": "~4ms",
       "chestDetection": "Evet (sadece gövde)",
       "setupTime": "< 1 dk",
@@ -203,7 +203,7 @@
       "portability": "Cep boyutunda"
     },
     "footnotes": {
-      "pricing": "*$9.99/ay veya $59.99/yıl. Fiyatlar yaklaşıktır.",
+      "pricing": "*$7.99/hafta veya $59.99/yıl. Fiyatlar yaklaşıktır.",
       "browerStudy": "**<link>Hakemli çalışmaya</link> göre: Brower \"elit sporcular için küçük değişiklikleri izlemeye yetecek kadar güvenilir bulunmadı\"",
       "beamNote": "Işın sistemleri herhangi bir vücut bölümüne (el/bacak) tetiklenir, göğse değil. TrackSpeed antrenman için tasarlanmıştır, resmi yarışmalar için değil."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Ekstra donanım yok",
     "downloadIos": "iOS için indir",
     "downloadAndroid": "Android için indir",
-    "freeNote": "İndirmesi ücretsiz. Premium özellikler mevcut."
+    "freeNote": "Abonelik gereklidir. Fiyatlar bölgeye göre değişebilir."
   }
 }

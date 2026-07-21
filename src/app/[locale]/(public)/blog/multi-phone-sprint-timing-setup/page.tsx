@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.multi-phone-sprint-timing-setup.title'),
     description: "Step-by-step guide to setting up two or more phones for accurate split timing at start and finish lines during track practice. No internet required.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/multi-phone-sprint-timing-setup',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function MultiPhoneSprintTimingSetupPage({params}: {params: Promise<{locale: string}>}) {
@@ -30,7 +29,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
     description:
       "Step-by-step guide to setting up two or more phones for accurate split timing at start and finish lines during track practice. No internet required.",
     keywords: "multi phone timing, split timing setup",
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -42,10 +41,10 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-05",
-    dateModified: "2026-02-17",
+    dateModified: "2026-02-05",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup",
   };
@@ -121,6 +120,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
           >
             How to Set Up Multi-Phone Sprint Timing for Track Practice
           </h1>
+          <ArticleByline slug="multi-phone-sprint-timing-setup" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

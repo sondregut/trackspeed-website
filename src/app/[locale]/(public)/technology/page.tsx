@@ -1,25 +1,27 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 import {Link} from "@/i18n/navigation";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'technology'});
-  return {
+  return getPageMetadata({
     title: t('metadata.title'),
     description: t('metadata.description'),
-    alternates: getAlternates('/technology', locale),
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/technology',
+    locale,
+    type: 'article',
+  });
 }
 
 export default async function TechnologyPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'technology'});
+  const pageUrl = locale === 'en'
+    ? 'https://mytrackspeed.com/technology'
+    : `https://mytrackspeed.com/${locale}/technology`;
 
   const faqItems = [
     { question: t('faq.items.0.question'), answer: t('faq.items.0.answer') },
@@ -33,10 +35,9 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
   const techArticleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: "How Phone Sprint Timing Achieves ~4ms Accuracy",
-    description:
-      "How TrackSpeed achieves ~4ms sprint timing accuracy: sub-frame interpolation, rolling shutter correction, and ±3-5ms multi-device clock sync — explained.",
-    image: "https://mytrackspeed.com/icon.png",
+    headline: t('metadata.title'),
+    description: t('metadata.description'),
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -48,16 +49,18 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-01",
     dateModified: "2026-04-08",
-    mainEntityOfPage: "https://mytrackspeed.com/technology",
+    mainEntityOfPage: pageUrl,
+    inLanguage: locale,
   };
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: locale,
     mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -72,8 +75,8 @@ export default async function TechnologyPage({params}: {params: Promise<{locale:
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
-      { "@type": "ListItem", position: 2, name: "Technology" },
+      { "@type": "ListItem", position: 1, name: "Home", item: locale === 'en' ? "https://mytrackspeed.com" : `https://mytrackspeed.com/${locale}` },
+      { "@type": "ListItem", position: 2, name: t('metadata.title'), item: pageUrl },
     ],
   };
 

@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "App di cronometraggio sprint per phone - Gratis, senza hardware",
-    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware. Gratis per allenatori e atleti."
+    "title": "App di cronometraggio sprint per phone - Senza hardware aggiuntivo",
+    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware aggiuntivo."
   },
   "hero": {
     "socialProof": "Creata da un olimpionico",
     "title": "TrackSpeed",
     "subtitle": "Cronometraggio sprint automatico dal tuo telefono",
-    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware. Gratis per allenatori e atleti.",
+    "description": "Trasforma il tuo phone in un sistema di cronometraggio. Precisione di ~4ms, sincronizzazione multi-dispositivo, nessun hardware aggiuntivo.",
     "downloadCta": "Scarica sull'App Store",
     "downloadAndroid": "Disponibile su Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Portabilita"
     },
     "trackspeed": {
-      "price": "Gratis / $9.99/mese*",
+      "price": "$7.99/settimana*",
       "accuracy": "~4ms",
       "chestDetection": "Si (solo torso)",
       "setupTime": "< 1 min",
@@ -203,7 +203,7 @@
       "portability": "Tascabile"
     },
     "footnotes": {
-      "pricing": "*$9.99/mese o $59.99/anno. I prezzi sono approssimativi.",
+      "pricing": "*$7.99/settimana o $59.99/anno. I prezzi sono approssimativi.",
       "browerStudy": "**Secondo uno <link>studio peer-reviewed</link>: Brower si e rivelato \"non sufficientemente affidabile per monitorare piccoli cambiamenti in atleti di elite\"",
       "beamNote": "I sistemi a fascio si attivano con qualsiasi parte del corpo (mano/gamba), non con il petto. TrackSpeed e progettato per l'allenamento, non per competizioni ufficiali."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Nessun hardware extra",
     "downloadIos": "Scarica per iOS",
     "downloadAndroid": "Scarica per Android",
-    "freeNote": "Download gratuito. Funzionalita premium disponibili."
+    "freeNote": "Abbonamento richiesto. I prezzi variano in base alla regione."
   }
 }

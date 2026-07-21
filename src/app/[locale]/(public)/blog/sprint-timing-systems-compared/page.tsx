@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.sprint-timing-systems-compared.title'),
     description: "An objective comparison of handheld stopwatches, laser gate systems, camera-based timing, and FAT systems. Find the best sprint timer for your training needs.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/sprint-timing-systems-compared',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/sprint-timing-systems-compared',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function SprintTimingSystemsComparedPage({params}: {params: Promise<{locale: string}>}) {
@@ -37,7 +36,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
       "stopwatch accuracy",
       "FAT timing system",
     ],
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -49,10 +48,10 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-08",
-    dateModified: "2026-02-17",
+    dateModified: "2026-02-08",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/sprint-timing-systems-compared",
   };
@@ -126,6 +125,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
           >
             Sprint Timing Systems Compared: Laser Gates vs Camera vs Stopwatch
           </h1>
+          <ArticleByline slug="sprint-timing-systems-compared" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

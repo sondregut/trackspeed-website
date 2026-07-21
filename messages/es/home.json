@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "App de cronometraje de sprints para phone - Gratis, sin hardware",
-    "description": "Convierte tu phone en un sistema de cronometraje. Precisión de ~4ms, sincronización multidispositivo, sin hardware. Gratis para entrenadores y atletas."
+    "title": "App de cronometraje de sprints para phone - Sin hardware adicional",
+    "description": "Convierte tu phone en un sistema de cronometraje. Precisión de ~4ms, sincronización multidispositivo, sin hardware adicional."
   },
   "hero": {
     "socialProof": "Creada por un olímpico",
     "title": "TrackSpeed",
     "subtitle": "Cronometraje automático de sprint desde tu teléfono",
-    "description": "Convierte tu phone en un sistema de cronometraje. Precisión de ~4ms, sincronización multidispositivo, sin hardware. Gratis para entrenadores y atletas.",
+    "description": "Convierte tu phone en un sistema de cronometraje. Precisión de ~4ms, sincronización multidispositivo, sin hardware adicional.",
     "downloadCta": "Descargar en el App Store",
     "downloadAndroid": "Disponible en Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Portabilidad"
     },
     "trackspeed": {
-      "price": "Gratis / $9.99/mes*",
+      "price": "$7.99/semana*",
       "accuracy": "~4ms",
       "chestDetection": "Si (solo torso)",
       "setupTime": "< 1 min",
@@ -203,7 +203,7 @@
       "portability": "Cabe en el bolsillo"
     },
     "footnotes": {
-      "pricing": "*$9.99/mes o $59.99/ano. Los precios son aproximados.",
+      "pricing": "*$7.99/semana o $59.99/ano. Los precios son aproximados.",
       "browerStudy": "**Segun un <link>estudio revisado por pares</link>: Brower resulto \"no lo suficientemente confiable para monitorear cambios pequenos en atletas de elite\"",
       "beamNote": "Los sistemas de haz se activan con cualquier parte del cuerpo (mano/pierna), no con el pecho. TrackSpeed esta disenado para entrenamiento, no para competencias oficiales."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Sin hardware extra",
     "downloadIos": "Descargar para iOS",
     "downloadAndroid": "Descargar para Android",
-    "freeNote": "Descarga gratis. Funciones premium disponibles."
+    "freeNote": "Se requiere una suscripción. Los precios varían según la región."
   }
 }

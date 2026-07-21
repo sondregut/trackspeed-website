@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.improve-sprint-speed-training.title'),
     description: "Specific sprint training drills where precise, consistent timing data helps you track progress, break plateaus, and train smarter. Flying 30s, block starts, in-and-out 60s, and more.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/improve-sprint-speed-training',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/improve-sprint-speed-training',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function ImproveSprintSpeedTrainingPage({params}: {params: Promise<{locale: string}>}) {
@@ -28,7 +27,7 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
     headline: "4 Sprint Training Drills That Benefit from Accurate Timing",
     description:
       "Specific sprint training drills where precise, consistent timing data helps you track progress, break plateaus, and train smarter.",
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -40,10 +39,10 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-03",
-    dateModified: "2026-02-17",
+    dateModified: "2026-02-03",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/improve-sprint-speed-training",
     keywords: [
@@ -126,6 +125,7 @@ export default async function ImproveSprintSpeedTrainingPage({params}: {params: 
           >
             4 Sprint Training Drills That Benefit from Accurate Timing
           </h1>
+          <ArticleByline slug="improve-sprint-speed-training" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

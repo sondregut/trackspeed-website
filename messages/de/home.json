@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Sprint-Zeitmessung fürs phone – Kostenlos, ohne Hardware",
-    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine Hardware. Kostenlos für Coaches und Athleten."
+    "title": "Sprint-Zeitmessung fürs phone – Ohne zusätzliche Hardware",
+    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine zusätzliche Hardware."
   },
   "hero": {
     "socialProof": "Von einem Olympioniken gebaut",
     "title": "TrackSpeed",
     "subtitle": "Automatisches Sprint-Timing mit deinem Smartphone",
-    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine Hardware. Kostenlos für Coaches und Athleten.",
+    "description": "Verwandle dein Phone in ein Zeitmesssystem. ~4ms Genauigkeit, Multi-Device-Sync, keine zusätzliche Hardware.",
     "downloadCta": "Im App Store laden",
     "downloadAndroid": "Jetzt bei Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Tragbarkeit"
     },
     "trackspeed": {
-      "price": "Kostenlos / $9.99/Monat*",
+      "price": "$7.99/Woche*",
       "accuracy": "~4ms",
       "chestDetection": "Ja (nur Oberkörper)",
       "setupTime": "< 1 Min",
@@ -203,7 +203,7 @@
       "portability": "Hosentaschenformat"
     },
     "footnotes": {
-      "pricing": "*$9.99/Monat oder $59.99/Jahr. Preise sind ungefähre Angaben.",
+      "pricing": "*$7.99/Woche oder $59.99/Jahr. Preise sind ungefähre Angaben.",
       "browerStudy": "**Laut <link>einer begutachteten Studie</link>: Brower wurde als „nicht zuverlässig genug, um kleine Veränderungen bei Spitzenathleten zu messen“ befunden",
       "beamNote": "Lichtschranken-Systeme lösen bei jedem Körperteil (Hand/Bein) aus, nicht nur bei der Brust. TrackSpeed ist für das Training konzipiert, nicht für offizielle Wettkämpfe."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Keine zusätzliche Hardware",
     "downloadIos": "Für iOS herunterladen",
     "downloadAndroid": "Für Android herunterladen",
-    "freeNote": "Kostenlos herunterladen. Premium-Funktionen verfügbar."
+    "freeNote": "Abonnement erforderlich. Preise variieren je nach Region."
   }
 }

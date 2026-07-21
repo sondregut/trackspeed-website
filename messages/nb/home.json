@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Sprinttidtaking-app for phone – Gratis, uten maskinvare",
-    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen maskinvare. Gratis for trenere og utøvere."
+    "title": "Sprinttidtaking-app for phone – Uten ekstra maskinvare",
+    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen ekstra maskinvare."
   },
   "hero": {
     "socialProof": "Bygget av en olympier",
     "title": "TrackSpeed",
     "subtitle": "Automatisk sprinttiming fra telefonen",
-    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen maskinvare. Gratis for trenere og utøvere.",
+    "description": "Gjør phonen din om til et tidtakingssystem. ~4ms nøyaktighet, synkronisering av flere enheter, ingen ekstra maskinvare.",
     "downloadCta": "Last ned fra App Store",
     "downloadAndroid": "Hent den på Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Portabilitet"
     },
     "trackspeed": {
-      "price": "Gratis / $9.99/mnd*",
+      "price": "$7.99/uke*",
       "accuracy": "~4ms",
       "chestDetection": "Ja (kun overkropp)",
       "setupTime": "< 1 min",
@@ -203,7 +203,7 @@
       "portability": "Lommeformat"
     },
     "footnotes": {
-      "pricing": "*$9.99/mnd eller $59.99/år. Prisene er omtrentlige.",
+      "pricing": "*$7.99/uke eller $59.99/år. Prisene er omtrentlige.",
       "browerStudy": "**Ifølge en <link>fagfellevurdert studie</link>: Brower ble funnet «ikke pålitelig nok til å overvåke små endringer hos eliteutøvere»",
       "beamNote": "Strålesystemer utløses av hvilken som helst kroppsdel (hånd/ben), ikke brystet. TrackSpeed er laget for trening, ikke offisielle konkurranser."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Ingen ekstra maskinvare",
     "downloadIos": "Last ned for iOS",
     "downloadAndroid": "Last ned for Android",
-    "freeNote": "Gratis å laste ned. Premium-funksjoner tilgjengelig."
+    "freeNote": "Abonnement kreves. Prisene varierer etter region."
   }
 }

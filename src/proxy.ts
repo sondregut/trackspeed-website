@@ -33,11 +33,19 @@ export function proxy(request: NextRequest) {
       }
     }
 
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set('Content-Language', 'en');
+    return response;
   }
 
   // Apply i18n middleware for all other routes
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  const localeSegment = pathname.split('/')[1];
+  const locale = routing.locales.includes(localeSegment as typeof routing.locales[number])
+    ? localeSegment
+    : routing.defaultLocale;
+  response.headers.set('Content-Language', locale);
+  return response;
 }
 
 export const config = {

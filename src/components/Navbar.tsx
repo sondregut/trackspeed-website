@@ -51,7 +51,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/icon.png"
+              src="/trackspeed-icon-1d43ec40.png"
               alt="TrackSpeed"
               width={26}
               height={26}
@@ -131,7 +131,7 @@ export default function Navbar() {
                       <SheetClose asChild>
                         <Link href="/" className="flex min-w-0 items-center gap-2">
                           <Image
-                            src="/icon.png"
+                            src="/trackspeed-icon-1d43ec40.png"
                             alt="TrackSpeed"
                             width={28}
                             height={28}

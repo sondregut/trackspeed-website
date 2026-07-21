@@ -2,8 +2,9 @@ import type { Metadata } from "next"
 import InfluencerNav from "@/components/influencer/InfluencerNav"
 
 export const metadata: Metadata = {
-  title: "Influencer Portal | TrackSpeed",
+  title: { absolute: "Influencer Portal | TrackSpeed" },
   description: "TrackSpeed influencer affiliate program portal",
+  robots: { index: false, follow: false, nocache: true },
 }
 
 export default function InfluencerLayout({

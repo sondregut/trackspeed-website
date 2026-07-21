@@ -17,7 +17,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
               <Image
-                src="/icon.png"
+                src="/trackspeed-icon-1d43ec40.png"
                 alt="TrackSpeed"
                 width={32}
                 height={32}

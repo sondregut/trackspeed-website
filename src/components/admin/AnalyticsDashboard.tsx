@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import StatCard from "./StatCard"
 import ActivityChart from "./ActivityChart"
 import StartTypeChart from "./StartTypeChart"
@@ -63,8 +64,35 @@ interface AnalyticsData {
   }>
 }
 
+interface PendingInfluencerApplication {
+  id: string
+  name: string
+  email: string
+  social_links: Record<string, string>
+  application_note: string | null
+  created_at: string
+}
+
+function getApplicationField(note: string | null, label: string): string | null {
+  if (!note) return null
+  const line = note
+    .split("\n")
+    .find((item) => item.toLowerCase().startsWith(`${label.toLowerCase()}:`))
+
+  return line ? line.slice(line.indexOf(":") + 1).trim() : null
+}
+
+function formatApplicationDate(value: string): string {
+  return new Date(value).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+}
+
 export default function AnalyticsDashboard() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
+  const [pendingInfluencers, setPendingInfluencers] = useState<PendingInfluencerApplication[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [chartMetric, setChartMetric] = useState<"sessions" | "users">("sessions")
@@ -72,12 +100,20 @@ export default function AnalyticsDashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const analyticsRes = await fetch("/api/admin/analytics")
+        const [analyticsRes, influencersRes] = await Promise.all([
+          fetch("/api/admin/analytics"),
+          fetch("/api/admin/influencers?status=pending"),
+        ])
 
         if (!analyticsRes.ok) throw new Error("Failed to fetch analytics")
 
         const analyticsData = await analyticsRes.json()
         setAnalytics(analyticsData)
+
+        if (influencersRes.ok) {
+          const influencersData = await influencersRes.json()
+          setPendingInfluencers(influencersData.influencers ?? [])
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load analytics")
       } finally {
@@ -122,6 +158,68 @@ export default function AnalyticsDashboard() {
       <div>
         <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
         <p className="text-[#9B9A97] mt-1">TrackSpeed usage metrics and insights</p>
+      </div>
+
+      <div className="rounded-xl border border-[#3D3D3D] bg-[#2B2E32]">
+        <div className="flex flex-col gap-3 border-b border-[#3D3D3D] p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-white">Pending Influencer Applications</h2>
+            <p className="text-sm text-[#9B9A97]">
+              New ambassador applications with sport, goal, and social context.
+            </p>
+          </div>
+          <Link
+            href="/admin/influencers"
+            className="inline-flex items-center justify-center rounded-lg bg-[#5C8DB8] px-4 py-2 text-sm font-semibold text-white hover:bg-[#4A7A9E]"
+          >
+            Review applications
+          </Link>
+        </div>
+
+        {pendingInfluencers.length === 0 ? (
+          <div className="p-4 text-sm text-[#9B9A97]">No pending influencer applications.</div>
+        ) : (
+          <div className="divide-y divide-[#3D3D3D]">
+            {pendingInfluencers.slice(0, 4).map((application) => {
+              const sport = getApplicationField(application.application_note, "Primary sport/event")
+              const goal = getApplicationField(application.application_note, "Athletic goal")
+              const socials = Object.entries(application.social_links ?? {})
+
+              return (
+                <div
+                  key={application.id}
+                  className="grid gap-3 p-4 sm:grid-cols-[1fr_1.2fr_auto] sm:items-center"
+                >
+                  <div>
+                    <p className="font-medium text-white">{application.name}</p>
+                    <p className="text-sm text-[#9B9A97]">{application.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-[#C9D4DE]">
+                      {sport || "Sport not provided"}
+                      {goal ? ` · Goal: ${goal}` : ""}
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {socials.length > 0 ? (
+                        socials.map(([platform, handle]) => (
+                          <span
+                            key={`${application.id}-${platform}`}
+                            className="rounded bg-[#1A1A1A] px-2 py-1 text-xs text-[#C9D4DE]"
+                          >
+                            {platform}: {handle}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs text-[#787774]">No social profiles</span>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-sm text-[#9B9A97]">{formatApplicationDate(application.created_at)}</p>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* Overview Cards */}

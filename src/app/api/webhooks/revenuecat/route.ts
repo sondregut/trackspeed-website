@@ -20,6 +20,15 @@ const POSTHOG_EVENT_NAMES: Partial<Record<RevenueCatEventType, string[]>> = {
 
 type SubscriptionPlanType = 'weekly' | 'monthly' | 'yearly'
 
+function getPostHogHost() {
+  const host =
+    process.env.POSTHOG_HOST ??
+    process.env.NEXT_PUBLIC_POSTHOG_HOST ??
+    'https://eu.i.posthog.com'
+
+  return host.replace(/\/+$/, '')
+}
+
 // Server-side RevenueCat → PostHog bridge. Fires even when the user isn't in
 // the app (renewals, expirations, billing issues), so the PostHog person
 // record reflects the real subscription lifecycle.
@@ -40,10 +49,7 @@ async function forwardToPostHog(
     event.subscriber_attributes?.['$posthogDistinctId']?.value ??
     event.app_user_id
 
-  const host =
-    process.env.POSTHOG_HOST ??
-    process.env.NEXT_PUBLIC_POSTHOG_HOST ??
-    'https://eu.i.posthog.com'
+  const host = getPostHogHost()
   const apiKey = process.env.POSTHOG_API_KEY ?? process.env.NEXT_PUBLIC_POSTHOG_KEY
   if (!apiKey) {
     console.warn('PostHog key not set — skipping PostHog forward for', event.type)

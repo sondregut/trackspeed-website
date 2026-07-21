@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const CONSENT_KEY = "cookie-consent";
 const CONSENT_CHANGE_EVENT = "cookie-consent-change";
+const DISTINCT_ID_KEY = "trackspeed-posthog-distinct-id";
 type ConsentStatus = "accepted" | "declined" | null;
 
 function getConsentSnapshot(): ConsentStatus {
@@ -15,10 +16,6 @@ function getConsentSnapshot(): ConsentStatus {
   } catch {
     return null;
   }
-}
-
-function getServerConsentSnapshot(): ConsentStatus {
-  return null;
 }
 
 function subscribeToConsentChanges(callback: () => void) {
@@ -35,25 +32,40 @@ function subscribeToConsentChanges(callback: () => void) {
   };
 }
 
+function getDistinctId() {
+  const existing = localStorage.getItem(DISTINCT_ID_KEY);
+  if (existing) return existing;
+
+  const nextId =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `web_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  localStorage.setItem(DISTINCT_ID_KEY, nextId);
+  return nextId;
+}
+
 function notifyConsentChanged() {
   window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
 }
 
-async function initPostHog() {
-  if (
-    typeof window !== "undefined" &&
-    process.env.NEXT_PUBLIC_POSTHOG_KEY
-  ) {
-    const posthog = (await import("posthog-js")).default;
-    if (!posthog.__loaded) {
-      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-        capture_pageview: false,
-        loaded: (ph) => {
-          ph.opt_in_capturing();
-        },
-      });
-    }
+async function trackPostHog(event: "$pageview" | "cookie_consent_accepted", properties: Record<string, unknown>) {
+  if (typeof window === "undefined" || localStorage.getItem(CONSENT_KEY) !== "accepted") {
+    return;
+  }
+
+  try {
+    await fetch("/api/analytics/posthog", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body: JSON.stringify({
+        event,
+        distinctId: getDistinctId(),
+        properties,
+      }),
+    });
+  } catch {
+    // Analytics must never block page interaction.
   }
 }
 
@@ -62,11 +74,7 @@ async function capturePageview() {
     return;
   }
 
-  const posthog = (await import("posthog-js")).default;
-  if (!posthog.__loaded) {
-    await initPostHog();
-  }
-  posthog.capture("$pageview", {
+  await trackPostHog("$pageview", {
     $current_url: window.location.href,
     path: window.location.pathname,
   });
@@ -74,18 +82,17 @@ async function capturePageview() {
 
 export default function CookieConsent() {
   const pathname = usePathname();
-  const consentStatus = useSyncExternalStore(
-    subscribeToConsentChanges,
-    getConsentSnapshot,
-    getServerConsentSnapshot
-  );
+  const [consentStatus, setConsentStatus] = useState<ConsentStatus>(null);
   const visible = consentStatus === null;
 
   useEffect(() => {
-    if (consentStatus === "accepted") {
-      initPostHog();
-    }
-  }, [consentStatus]);
+    const syncConsent = () => {
+      setConsentStatus(getConsentSnapshot());
+    };
+
+    syncConsent();
+    return subscribeToConsentChanges(syncConsent);
+  }, []);
 
   useEffect(() => {
     if (consentStatus === "accepted") {
@@ -95,12 +102,14 @@ export default function CookieConsent() {
 
   function accept() {
     localStorage.setItem(CONSENT_KEY, "accepted");
+    setConsentStatus("accepted");
     notifyConsentChanged();
-    initPostHog();
+    trackPostHog("cookie_consent_accepted", { source: "cookie_banner" });
   }
 
   function decline() {
     localStorage.setItem(CONSENT_KEY, "declined");
+    setConsentStatus("declined");
     notifyConsentChanged();
   }
 

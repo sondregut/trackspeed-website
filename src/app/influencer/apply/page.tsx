@@ -213,7 +213,7 @@ export default function InfluencerApplyPage() {
       <header className="sticky top-0 z-40 border-b border-[#DCE5EE]/80 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/icon.png" alt="TrackSpeed" width={28} height={28} sizes="28px" className="rounded-md" />
+            <Image src="/trackspeed-icon-1d43ec40.png" alt="TrackSpeed" width={28} height={28} sizes="28px" className="rounded-md" />
             <span className="text-lg font-bold">TrackSpeed</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex">
@@ -275,14 +275,10 @@ export default function InfluencerApplyPage() {
                     </div>
                     <Trophy className="h-9 w-9 text-[#9ED7A8]" />
                   </div>
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="mt-5">
                     <div className="rounded-lg bg-white/8 p-4">
                       <p className="text-sm text-white/60">Referral commission</p>
                       <p className="mt-1 text-3xl font-bold">20%</p>
-                    </div>
-                    <div className="rounded-lg bg-white/8 p-4">
-                      <p className="text-sm text-white/60">Minimum activity</p>
-                      <p className="mt-1 text-3xl font-bold">4/mo</p>
                     </div>
                   </div>
                   <div className="mt-5 space-y-3">

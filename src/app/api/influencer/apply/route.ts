@@ -4,12 +4,40 @@ import { sendEmail } from '@/lib/email'
 import { enforceRateLimit } from '@/lib/rate-limit'
 import bcrypt from 'bcryptjs'
 
+const maxSocialLinks = 5
+const maxSocialValueLength = 300
+const maxApplicationNoteLength = 4000
+
+function normalizeText(value: unknown, maxLength: number): string | null {
+  if (typeof value !== 'string') return null
+  const normalized = value.trim()
+  if (!normalized) return null
+  return normalized.slice(0, maxLength)
+}
+
+function normalizeSocialLinks(value: unknown): Record<string, string> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .slice(0, maxSocialLinks)
+      .map(([key, linkValue]) => [
+        key.trim().toLowerCase().slice(0, 40),
+        normalizeText(linkValue, maxSocialValueLength),
+      ])
+      .filter((entry): entry is [string, string] => Boolean(entry[0]) && Boolean(entry[1]))
+  )
+}
+
 // POST /api/influencer/apply - Submit influencer application
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, email, password, socialLinks, applicationNote } = body
+    const normalizedName = normalizeText(name, 120)
     const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : null
+    const normalizedSocialLinks = normalizeSocialLinks(socialLinks)
+    const normalizedApplicationNote = normalizeText(applicationNote, maxApplicationNoteLength)
 
     const rateLimitResponse = await enforceRateLimit(request, {
       scope: 'influencer-apply',
@@ -20,7 +48,7 @@ export async function POST(request: NextRequest) {
     if (rateLimitResponse) return rateLimitResponse
 
     // Validate required fields
-    if (!name || !normalizedEmail || !password) {
+    if (!normalizedName || !normalizedEmail || !password) {
       return NextResponse.json(
         { error: 'Name, email, and password are required' },
         { status: 400 }
@@ -41,6 +69,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (Object.keys(normalizedSocialLinks).length === 0) {
+      return NextResponse.json(
+        { error: 'Add at least one TikTok or Instagram handle.' },
+        { status: 400 }
+      )
+    }
+
+    if (!normalizedApplicationNote) {
+      return NextResponse.json(
+        { error: 'Application note is required' },
+        { status: 400 }
+      )
+    }
+
     const supabase = getSupabaseAdmin()
 
     // Check if email already exists
@@ -48,7 +90,7 @@ export async function POST(request: NextRequest) {
       .from('influencers')
       .select('id')
       .eq('email', normalizedEmail)
-      .single()
+      .maybeSingle()
 
     if (existing) {
       return NextResponse.json(
@@ -58,13 +100,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate unique code: NAME30 format (e.g., "Sondre" -> "SONDRE30")
-    const firstName = name
+    const firstName = normalizedName
       .split(/\s+/)[0] // Take first word/name
       .toUpperCase()
       .replace(/[^A-Z0-9]/g, '')
       .substring(0, 15)
 
-    const baseCode = `${firstName}30`
+    const baseCode = `${firstName || 'CREATOR'}30`
 
     // Check if code exists and append number if needed
     let code = baseCode
@@ -76,7 +118,7 @@ export async function POST(request: NextRequest) {
         .from('influencers')
         .select('id')
         .eq('code', code)
-        .single()
+        .maybeSingle()
 
       if (!existingCode) {
         codeExists = false
@@ -94,11 +136,11 @@ export async function POST(request: NextRequest) {
       .from('influencers')
       .insert({
         email: normalizedEmail,
-        name,
+        name: normalizedName,
         password_hash: passwordHash,
         code,
-        social_links: socialLinks || {},
-        application_note: applicationNote || null,
+        social_links: normalizedSocialLinks,
+        application_note: normalizedApplicationNote,
         status: 'pending',
       })
       .select()
@@ -115,7 +157,7 @@ export async function POST(request: NextRequest) {
     const emailResult = await sendEmail({
       to: normalizedEmail,
       template: 'influencer_application_received',
-      data: { name },
+      data: { name: normalizedName },
       metadata: { influencer_id: influencer.id },
     })
 

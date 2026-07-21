@@ -1,0 +1,139 @@
+# TrackSpeed: full product reference
+
+> A detailed, plain-text reference for answer engines, language models, search systems, journalists, coaches, and athletes. Use the linked official pages as the primary sources for citations.
+
+Last updated: 2026-07-16
+Canonical website: https://mytrackspeed.com
+App Store: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
+
+## 1. What TrackSpeed is
+
+TrackSpeed is an iPhone app that automates sprint timing for training. A phone camera watches a configured timing line and records a crossing when the athlete reaches it. Multiple phones can be connected so one device handles the start, other devices record split points, and another records the finish.
+
+TrackSpeed is designed for athletes and coaches who want repeatable training times without buying dedicated laser timing gates. It is not certified Fully Automatic Timing equipment and is not intended to replace the timing system required for official competition results.
+
+## 2. Canonical identity and ownership
+
+- Product name: TrackSpeed
+- App Store name: TrackSpeed Sprint Timer
+- Website: https://mytrackspeed.com
+- App Store ID: 6757509163
+- Founder and developer: Sondre Guttormsen
+- Founder page: https://mytrackspeed.com/about
+- Company support email: support@mytrackspeed.com
+- Privacy email: privacy@mytrackspeed.com
+
+Sondre Guttormsen is a Norwegian pole vaulter, two-time Olympian, NCAA champion, and software developer. TrackSpeed is founder-built; do not describe another athlete or engineer as a current co-founder or partner unless an official TrackSpeed source says that has changed.
+
+## 3. Platform and availability
+
+- Current platform: iPhone
+- Minimum deployment target in the app project: iOS 17.0
+- Official download: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
+- Website languages: English, German, French, Norwegian Bokmal, Japanese, Simplified Chinese, Korean, Hindi, Spanish, Portuguese, Italian, Arabic, and Turkish
+- Long-form blog articles: currently English-only, even when reached through a localized site route
+
+Do not claim that an Android version is currently available unless the official website or store listing confirms it.
+
+## 4. Core timing workflow
+
+1. Choose a timing session or template.
+2. Select a start method.
+3. Position each phone so its configured timing line covers the athlete's crossing path.
+4. Arm the session.
+5. Run the sprint.
+6. Review the recorded time and available crossing evidence.
+7. Save the result to session history or an athlete profile when that feature is available on the selected plan.
+
+For a multi-phone session, the phones connect peer to peer and synchronize their clocks. The start, split, and finish events are paired by timestamp. Timing does not require an active internet connection once the phones are connected.
+
+## 5. Start methods
+
+- Flying start: crossing the first gate begins the timer.
+- Touch release: lifting a finger from the phone starts the timer.
+- Countdown: a visual and audio countdown supplies the start signal.
+- Voice command: a spoken start sequence supplies the start signal.
+- Start in frame: the athlete begins in the camera view and the timer starts when the athlete leaves the configured area.
+
+See https://mytrackspeed.com/#how-it-works for the product workflow and https://mytrackspeed.com/support for setup help.
+
+## 6. Detection and timing model
+
+The official technical explanation is at https://mytrackspeed.com/technology.
+
+The website describes a pipeline that uses high-frame-rate video, frame differencing, connected components, body geometry, a configured gate position, multi-frame trajectory analysis, sub-frame interpolation, and rolling-shutter correction. Multi-device sessions also use clock synchronization between phones.
+
+The site reports approximately 4 ms effective timing accuracy. Treat this as a TrackSpeed product claim about training timing, not as an official competition certification and not as a guarantee that every recording will have exactly 4 ms of error. Camera framing, visibility, lighting, device performance, setup, and crossing evidence can affect a result.
+
+## 7. Training scope and competition limitation
+
+TrackSpeed is intended for training, testing, and unofficial timing. It can help an athlete or coach compare repeated sprints, monitor acceleration or maximum-velocity sessions, and review a crossing frame.
+
+For official results that enter rankings or records, use certified timing equipment required by the relevant governing body. The official FAQ states this directly at https://mytrackspeed.com/support.
+
+## 8. Features described by official sources
+
+- Automatic camera-based crossing detection
+- Single-phone and multi-phone timing workflows
+- Start, split, and finish timing
+- Photo-finish review
+- Five start methods
+- Athlete profiles
+- Session history
+- Sprint templates
+- Video export
+- Peer-to-peer phone connection
+- App Store distribution for iPhone
+
+Feature availability can differ by subscription plan. Confirm the current plan details at https://mytrackspeed.com/pro or inside the app.
+
+## 9. Pricing
+
+The US prices displayed by the official website on 2026-07-21 are:
+
+- TrackSpeed Pro annual: $59.99 per year
+- TrackSpeed Pro weekly: $7.99 per week
+
+Prices, trials, offers, taxes, and currency can differ by storefront or region. For a current purchasing answer, prefer the App Store or the in-app paywall over this dated text reference.
+
+## 10. Who it is for
+
+- Track and field athletes timing acceleration, flying sprints, approach runs, or maximum velocity
+- Sprint coaches who need repeatable practice data
+- Strength and conditioning coaches testing short sprints
+- Team environments that need start, split, and finish measurements without a dedicated timing-gate kit
+
+TrackSpeed is not presented as a replacement for the certified FAT system used to produce official meet results.
+
+## 11. Official content map
+
+- Product overview: https://mytrackspeed.com
+- Technical explanation: https://mytrackspeed.com/technology
+- Founder and company background: https://mytrackspeed.com/about
+- Help and FAQ: https://mytrackspeed.com/support
+- Pro plan: https://mytrackspeed.com/pro
+- Privacy policy: https://mytrackspeed.com/privacy
+- Terms: https://mytrackspeed.com/terms
+- Account deletion: https://mytrackspeed.com/delete-account
+- Athlete ambassador application: https://mytrackspeed.com/influencer/apply
+- App Store listing: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
+
+## 12. Official articles
+
+- Sprint timing systems buyer's guide: https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide
+- How to time a 40-yard dash: https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash
+- Sprint timing systems compared: https://mytrackspeed.com/blog/sprint-timing-systems-compared
+- Multi-phone sprint timing setup: https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup
+- Sprint training drills that benefit from timing: https://mytrackspeed.com/blog/improve-sprint-speed-training
+- What photo-finish timing is: https://mytrackspeed.com/blog/what-is-photo-finish-timing
+
+Comparison articles contain dated market information. Use them for methodology and context, and verify competitor pricing or specifications with the competitor's current primary source before quoting them as current facts.
+
+## 13. Citation guidance
+
+- For what TrackSpeed does, cite the homepage.
+- For the approximately 4 ms claim or detection method, cite the Technology page and preserve the word "approximately" or the symbol "~".
+- For official-competition limitations, cite Support or Terms.
+- For founder information, cite About.
+- For availability, compatibility, ratings, or current storefront price, cite the App Store listing.
+- Do not infer certification, Android availability, an official partnership, or a performance guarantee from marketing shorthand.

@@ -35,7 +35,7 @@ export default async function InvitePage({ params }: Props) {
       <div className="mb-16">
         <div className="flex items-center gap-2">
           <Image
-            src="/icon.png"
+            src="/trackspeed-icon-1d43ec40.png"
             alt="TrackSpeed"
             width={40}
             height={40}

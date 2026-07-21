@@ -1,19 +1,15 @@
 import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
-import { getAlternates } from "@/i18n/metadata"
+import { getPageMetadata } from "@/i18n/metadata"
 import CreatorRewardClaimForm from "@/components/CreatorRewardClaimForm"
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-  return {
+export function generateMetadata(): Metadata {
+  return getPageMetadata({
     title: "Creator Reward Program",
     description: "Post about Track Speed, submit your TikTok or Instagram Reel, and get rewarded after manual approval.",
-    alternates: getAlternates("/creator-reward", locale),
-  }
+    path: "/creator-reward",
+    localized: false,
+  })
 }
 
 export default async function CreatorRewardPage({

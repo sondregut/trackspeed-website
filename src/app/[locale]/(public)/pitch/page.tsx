@@ -136,7 +136,7 @@ export default function PitchDeck() {
         <div className="max-w-3xl text-center">
           <div className="mb-8 flex justify-center">
             <Image
-              src="/icon.png"
+              src="/trackspeed-icon-1d43ec40.png"
               alt="TrackSpeed"
               width={80}
               height={80}
@@ -628,7 +628,7 @@ export default function PitchDeck() {
                   style={{ color: "var(--text-secondary)" }}
                 >
                   <li>Multi-device sync (start + finish)</li>
-                  <li>120fps capture</li>
+                  <li>Photo-finish review</li>
                   <li>Frame-by-frame scrubber</li>
                   <li>Unlimited history &amp; exports</li>
                   <li>Team management features</li>
@@ -883,7 +883,7 @@ export default function PitchDeck() {
         <div className="max-w-3xl text-center">
           <div className="mb-8 flex justify-center">
             <Image
-              src="/icon.png"
+              src="/trackspeed-icon-1d43ec40.png"
               alt="TrackSpeed"
               width={64}
               height={64}

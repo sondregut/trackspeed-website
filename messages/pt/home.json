@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "App de cronometragem de sprints para phone - Gratis, sem hardware",
-    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware. Grátis para treinadores e atletas."
+    "title": "App de cronometragem de sprints para phone - Sem hardware adicional",
+    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware adicional."
   },
   "hero": {
     "socialProof": "Criado por um olímpico",
     "title": "TrackSpeed",
     "subtitle": "Cronometragem automática de sprint pelo telefone",
-    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware. Grátis para treinadores e atletas.",
+    "description": "Transforme seu phone em um sistema de cronometragem. Precisão de ~4ms, sincronização multidispositivo, sem hardware adicional.",
     "downloadCta": "Baixar na App Store",
     "downloadAndroid": "Disponível no Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Portabilidade"
     },
     "trackspeed": {
-      "price": "Gratis / $9.99/mes*",
+      "price": "$7.99/semana*",
       "accuracy": "~4ms",
       "chestDetection": "Sim (apenas torso)",
       "setupTime": "< 1 min",
@@ -203,7 +203,7 @@
       "portability": "Cabe no bolso"
     },
     "footnotes": {
-      "pricing": "*$9.99/mes ou $59.99/ano. Os precos sao aproximados.",
+      "pricing": "*$7.99/semana ou $59.99/ano. Os precos sao aproximados.",
       "browerStudy": "**Segundo um <link>estudo revisado por pares</link>: Brower mostrou-se \"nao confiavel o suficiente para monitorar pequenas mudancas em atletas de elite\"",
       "beamNote": "Sistemas de feixe sao acionados por qualquer parte do corpo (mao/perna), nao pelo peito. O TrackSpeed foi projetado para treino, nao para competicoes oficiais."
     }
@@ -263,6 +263,6 @@
     "noHardware": "Sem hardware extra",
     "downloadIos": "Baixar para iOS",
     "downloadAndroid": "Baixar para Android",
-    "freeNote": "Download gratis. Recursos premium disponiveis."
+    "freeNote": "É necessária uma assinatura. Os preços variam conforme a região."
   }
 }

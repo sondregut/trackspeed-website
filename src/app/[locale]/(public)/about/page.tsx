@@ -1,19 +1,17 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 import {Link} from "@/i18n/navigation";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'about'});
-  return {
+  return getPageMetadata({
     title: t('metadata.title'),
     description: t('metadata.description'),
-    alternates: getAlternates('/about', locale),
-    openGraph: {
-      type: "website",
-    },
-  };
+    path: '/about',
+    locale,
+  });
 }
 
 function IgIcon() {

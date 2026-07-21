@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.how-to-time-a-40-yard-dash.title'),
     description: "Learn how to get reliable, repeatable 40-yard dash times using just your phone. Eliminate stopwatch error with phone-based computer vision timing.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/how-to-time-a-40-yard-dash',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function HowToTime40YardDashPage({params}: {params: Promise<{locale: string}>}) {
@@ -28,7 +27,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
     headline: "How to Time a 40-Yard Dash Accurately with Your Phone",
     description:
       "Learn how to get reliable, repeatable 40-yard dash times using just your phone. Eliminate stopwatch error with phone-based computer vision timing.",
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -40,10 +39,10 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-10",
-    dateModified: "2026-02-17",
+    dateModified: "2026-02-10",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash",
     keywords: [
@@ -121,6 +120,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
           >
             How to Time a 40-Yard Dash Accurately with Your Phone
           </h1>
+          <ArticleByline slug="how-to-time-a-40-yard-dash" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Bricolage_Grotesque } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
@@ -16,12 +17,13 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mytrackspeed.com"),
+  applicationName: "TrackSpeed",
   title: {
     default: "TrackSpeed - Sprint Timing App for Phone",
     template: "%s | TrackSpeed",
   },
   description:
-    "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes. Download free on iOS.",
+    "Turn your phone into a sprint timing system. ~4ms accuracy, no extra hardware needed. Used by track coaches and athletes. Available on iOS.",
   keywords: [
     "sprint timing",
     "track and field",
@@ -36,15 +38,11 @@ export const metadata: Metadata = {
     "athletics app",
     "100m timing app",
     "how to time sprints with phone",
-    "free sprint timer",
     "track and field timing system",
     "training timer for sprints",
     "multi-device timing system",
     "millisecond timer app",
   ],
-  alternates: {
-    canonical: "https://mytrackspeed.com",
-  },
   openGraph: {
     siteName: "TrackSpeed",
     title: "TrackSpeed - Sprint Timing App for Phone",
@@ -65,15 +63,16 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TrackSpeed - Sprint Timing App for Phone",
     description:
-      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Download free on iOS.",
+      "Turn your phone into a sprint timing system. ~4ms accuracy, no extra hardware needed. Available on iOS.",
     images: ["/og-image-2026-06.png"],
   },
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/trackspeed-favicon-16-1d43ec40.png", sizes: "16x16", type: "image/png" },
+      { url: "/trackspeed-favicon-32-1d43ec40.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: "/apple-touch-icon.png",
+    shortcut: "/trackspeed-favicon-32-1d43ec40.png",
+    apple: "/trackspeed-apple-touch-icon-1d43ec40.png",
   },
   itunes: {
     appId: "6757509163",
@@ -87,13 +86,86 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://mytrackspeed.com/#founder",
+      name: "Sondre Guttormsen",
+      url: "https://mytrackspeed.com/about",
+      jobTitle: "Founder and developer of TrackSpeed",
+      sameAs: [
+        "https://www.linkedin.com/in/sondre-guttormsen-803b8619b",
+        "https://instagram.com/sondre_pv",
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://mytrackspeed.com/#organization",
+      name: "TrackSpeed",
+      url: "https://mytrackspeed.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
+        width: 1024,
+        height: 1024,
+      },
+      description:
+        "Automatic sprint timing for training using iPhone cameras and multi-device synchronization.",
+      foundingDate: "2025",
+      founder: { "@id": "https://mytrackspeed.com/#founder" },
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "support@mytrackspeed.com",
+        contactType: "customer support",
+      },
+      sameAs: [
+        "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
+        "https://x.com/trackspeedapp",
+        "https://instagram.com/mytrackspeed",
+        "https://tiktok.com/@trackspeedapp",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mytrackspeed.com/#website",
+      name: "TrackSpeed",
+      alternateName: "TrackSpeed Sprint Timer",
+      url: "https://mytrackspeed.com",
+      publisher: { "@id": "https://mytrackspeed.com/#organization" },
+      inLanguage: [
+        "en",
+        "de",
+        "fr",
+        "nb",
+        "ja",
+        "zh-Hans",
+        "ko",
+        "hi",
+        "es",
+        "pt",
+        "it",
+        "ar",
+        "tr",
+      ],
+    },
+  ],
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      suppressHydrationWarning
+    >
       <body
         className={`${inter.variable} ${bricolage.variable} antialiased`}
       >
@@ -102,89 +174,8 @@ export default function RootLayout({
         <CookieConsent />
         <script
           type="application/ld+json"
-          // JSON.stringify on static objects is safe — no user input
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "TrackSpeed",
-              url: "https://mytrackspeed.com",
-              downloadUrl: "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
-              operatingSystem: "iOS",
-              applicationCategory: "SportsApplication",
-              description:
-                "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
-              screenshot: [
-                "https://mytrackspeed.com/photofinish_edit.png",
-              ],
-              featureList: "Multi-device timing, 120fps camera detection, Sub-4ms accuracy, Photo finish review, Five start methods, Frame scrubber",
-              offers: [
-                {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                  description: "Free",
-                  availability: "https://schema.org/InStock",
-                },
-                {
-                  "@type": "Offer",
-                  price: "59.99",
-                  priceCurrency: "USD",
-                  description: "TrackSpeed Pro (Annual)",
-                  priceValidUntil: "2027-12-31",
-                  availability: "https://schema.org/InStock",
-                },
-                {
-                  "@type": "Offer",
-                  price: "7.99",
-                  priceCurrency: "USD",
-                  description: "TrackSpeed Pro (Weekly)",
-                  priceValidUntil: "2027-12-31",
-                  availability: "https://schema.org/InStock",
-                },
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          // Static JSON-LD — no user input
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "TrackSpeed",
-              url: "https://mytrackspeed.com",
-              logo: "https://mytrackspeed.com/icon.png",
-              description: "Professional sprint timing using your phone. No extra hardware needed. Founded by Olympic athletes.",
-              foundingDate: "2025",
-              sameAs: [
-                "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
-                "https://x.com/trackspeedapp",
-                "https://instagram.com/mytrackspeed",
-                "https://tiktok.com/@trackspeedapp",
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          // Static JSON-LD — no user input
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "TrackSpeed",
-              url: "https://mytrackspeed.com",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: "https://mytrackspeed.com/blog?q={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
+            __html: JSON.stringify(siteJsonLd),
           }}
         />
       </body>

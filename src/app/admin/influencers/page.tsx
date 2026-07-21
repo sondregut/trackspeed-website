@@ -21,12 +21,73 @@ interface Influencer {
   created_at: string
 }
 
+type ApplicationDetails = {
+  location?: string
+  phone?: string
+  sport?: string
+  goal?: string
+  training?: string
+  audience?: string
+  contentSample?: string
+  consent?: string
+  pitch?: string
+}
+
+function parseApplicationDetails(note: string | null): ApplicationDetails {
+  if (!note) return {}
+
+  const detailMap: Record<string, keyof ApplicationDetails> = {
+    Location: "location",
+    Phone: "phone",
+    "Primary sport/event": "sport",
+    "Athletic goal": "goal",
+    "Training frequency": "training",
+    "Audience size": "audience",
+    "Content sample": "contentSample",
+    "Ad usage consent": "consent",
+  }
+
+  const details: ApplicationDetails = {}
+  const lines = note.split("\n")
+  const pitchIndex = lines.findIndex((line) =>
+    line.toLowerCase().includes("strong ambassador")
+  )
+
+  for (const line of lines) {
+    const separatorIndex = line.indexOf(":")
+    if (separatorIndex === -1) continue
+
+    const label = line.slice(0, separatorIndex).trim()
+    const value = line.slice(separatorIndex + 1).trim()
+    const key = detailMap[label]
+    if (key && value) {
+      details[key] = value
+    }
+  }
+
+  if (pitchIndex >= 0) {
+    const pitch = lines
+      .slice(pitchIndex + 1)
+      .join("\n")
+      .trim()
+    if (pitch) details.pitch = pitch
+  } else {
+    details.pitch = note.trim()
+  }
+
+  return details
+}
+
+function socialEntries(influencer: Influencer) {
+  return Object.entries(influencer.social_links ?? {}).filter(([, value]) => Boolean(value))
+}
+
 export default function AdminInfluencersPage() {
   const router = useRouter()
   const [influencers, setInfluencers] = useState<Influencer[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
-  const [statusFilter, setStatusFilter] = useState<string>("all")
+  const [statusFilter, setStatusFilter] = useState<string>("pending")
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(
     null
   )
@@ -133,7 +194,7 @@ export default function AdminInfluencersPage() {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-white">Influencer Management</h1>
           <p className="text-[#9B9A97] text-sm sm:text-base">
-            Review applications and manage affiliate accounts
+            Review pending applications with training, content, and social context
           </p>
         </div>
 
@@ -192,14 +253,17 @@ export default function AdminInfluencersPage() {
             No influencers found
           </div>
         ) : (
-          <table className="w-full min-w-[800px]">
+          <table className="w-full min-w-[1050px]">
             <thead>
               <tr className="border-b border-[#3D3D3D]">
                 <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">
-                  Influencer
+                  Applicant
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">
-                  Code
+                  Training
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">
+                  Social
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-medium text-[#9B9A97]">
                   Status
@@ -222,54 +286,86 @@ export default function AdminInfluencersPage() {
               </tr>
             </thead>
             <tbody>
-              {influencers.map((influencer) => (
-                <tr
-                  key={influencer.id}
-                  className="border-b border-[#2B2E32] hover:bg-[#2B2E32]/50"
-                >
-                  <td className="px-4 py-3">
-                    <div>
-                      <p className="text-white font-medium">{influencer.name}</p>
-                      <p className="text-sm text-[#9B9A97]">{influencer.email}</p>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="font-mono text-[#5C8DB8]">
-                      {influencer.code}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`px-2 py-1 rounded text-xs font-medium ${getStatusBadge(
-                        influencer.status
-                      )}`}
-                    >
-                      {influencer.status.charAt(0).toUpperCase() +
-                        influencer.status.slice(1)}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-white">
-                    {influencer.total_signups}
-                  </td>
-                  <td className="px-4 py-3 text-white">
-                    {influencer.total_conversions}
-                  </td>
-                  <td className="px-4 py-3 text-green-400">
-                    {formatCurrency(influencer.total_earnings_cents)}
-                  </td>
-                  <td className="px-4 py-3 text-[#9B9A97] text-sm">
-                    {formatDate(influencer.created_at)}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <button
-                      onClick={() => setSelectedInfluencer(influencer)}
-                      className="text-[#5C8DB8] hover:underline text-sm"
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {influencers.map((influencer) => {
+                const details = parseApplicationDetails(influencer.application_note)
+                const socials = socialEntries(influencer)
+
+                return (
+                  <tr
+                    key={influencer.id}
+                    className="border-b border-[#2B2E32] hover:bg-[#2B2E32]/50"
+                  >
+                      <td className="px-4 py-3 align-top">
+                        <div>
+                          <p className="text-white font-medium">{influencer.name}</p>
+                          <p className="text-sm text-[#9B9A97]">{influencer.email}</p>
+                          {details.location && (
+                            <p className="text-xs text-[#787774]">{details.location}</p>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <p className="max-w-[220px] truncate text-sm text-white">
+                          {details.sport || "No sport provided"}
+                        </p>
+                        {details.goal && (
+                          <p className="max-w-[220px] truncate text-xs text-[#9B9A97]">
+                            Goal: {details.goal}
+                          </p>
+                        )}
+                        {details.training && (
+                          <p className="text-xs text-[#787774]">{details.training}</p>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <div className="flex max-w-[220px] flex-wrap gap-2">
+                          {socials.length > 0 ? (
+                            socials.map(([platform, handle]) => (
+                              <span
+                                key={`${influencer.id}-${platform}`}
+                                className="rounded bg-[#2B2E32] px-2 py-1 text-xs text-[#C9D4DE]"
+                              >
+                                {platform}: {handle}
+                              </span>
+                            ))
+                          ) : (
+                            <span className="text-sm text-[#787774]">No social links</span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <span
+                          className={`px-2 py-1 rounded text-xs font-medium ${getStatusBadge(
+                            influencer.status
+                          )}`}
+                        >
+                          {influencer.status.charAt(0).toUpperCase() +
+                            influencer.status.slice(1)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 align-top text-white">
+                        {influencer.total_signups}
+                      </td>
+                      <td className="px-4 py-3 align-top text-white">
+                        {influencer.total_conversions}
+                      </td>
+                      <td className="px-4 py-3 align-top text-green-400">
+                        {formatCurrency(influencer.total_earnings_cents)}
+                      </td>
+                      <td className="px-4 py-3 align-top text-[#9B9A97] text-sm">
+                        {formatDate(influencer.created_at)}
+                      </td>
+                      <td className="px-4 py-3 align-top text-right">
+                        <button
+                          onClick={() => setSelectedInfluencer(influencer)}
+                          className="rounded-lg bg-[#2B2E32] px-3 py-2 text-sm font-medium text-[#8EC5F3] hover:bg-[#343941]"
+                        >
+                          Review
+                        </button>
+                      </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         )}
@@ -278,7 +374,7 @@ export default function AdminInfluencersPage() {
       {/* Influencer Detail Modal */}
       {selectedInfluencer && (
         <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center sm:p-6 z-50">
-          <div className="bg-[#1A1A1A] rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 max-w-lg w-full max-h-[85vh] sm:max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#1A1A1A] rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 max-w-3xl w-full max-h-[85vh] sm:max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">
                 {selectedInfluencer.name}
@@ -307,6 +403,95 @@ export default function AdminInfluencersPage() {
             </div>
 
             <div className="space-y-4">
+              {(() => {
+                const details = parseApplicationDetails(selectedInfluencer.application_note)
+                const socials = socialEntries(selectedInfluencer)
+
+                return (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-lg border border-[#3D3D3D] bg-[#202327] p-4">
+                      <p className="text-sm font-semibold text-white">Application Summary</p>
+                      <div className="mt-3 space-y-2 text-sm">
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Location:</span>{" "}
+                          {details.location || "Not provided"}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Sport/event:</span>{" "}
+                          {details.sport || "Not provided"}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Training:</span>{" "}
+                          {details.training || "Not provided"}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Audience:</span>{" "}
+                          {details.audience || "Not provided"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg border border-[#3D3D3D] bg-[#202327] p-4">
+                      <p className="text-sm font-semibold text-white">Review Signals</p>
+                      <div className="mt-3 space-y-2 text-sm">
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Goal:</span>{" "}
+                          {details.goal || "Not provided"}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Content sample:</span>{" "}
+                          {details.contentSample ? (
+                            <a
+                              href={details.contentSample}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="break-all text-[#8EC5F3] hover:underline"
+                            >
+                              Open sample
+                            </a>
+                          ) : (
+                            "Not provided"
+                          )}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Ad consent:</span>{" "}
+                          {details.consent ? "Yes" : "Not recorded"}
+                        </p>
+                        <p className="text-[#C9D4DE]">
+                          <span className="text-[#9B9A97]">Phone:</span>{" "}
+                          {details.phone || "Not provided"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {details.pitch && (
+                      <div className="rounded-lg border border-[#3D3D3D] bg-[#202327] p-4 sm:col-span-2">
+                        <p className="text-sm font-semibold text-white">Ambassador Pitch</p>
+                        <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-[#C9D4DE]">
+                          {details.pitch}
+                        </p>
+                      </div>
+                    )}
+
+                    {socials.length > 0 && (
+                      <div className="rounded-lg border border-[#3D3D3D] bg-[#202327] p-4 sm:col-span-2">
+                        <p className="text-sm font-semibold text-white">Social Profiles</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {socials.map(([platform, handle]) => (
+                            <span
+                              key={`${selectedInfluencer.id}-${platform}`}
+                              className="rounded bg-[#2B2E32] px-3 py-1.5 text-sm text-[#C9D4DE]"
+                            >
+                              <span className="text-[#9B9A97]">{platform}:</span> {handle}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
+
               <div>
                 <p className="text-sm text-[#9B9A97]">Email</p>
                 <p className="text-white">{selectedInfluencer.email}</p>
@@ -356,8 +541,8 @@ export default function AdminInfluencersPage() {
 
               {selectedInfluencer.application_note && (
                 <div>
-                  <p className="text-sm text-[#9B9A97] mb-1">Application Note</p>
-                  <p className="text-white text-sm bg-[#2B2E32] rounded p-3">
+                  <p className="text-sm text-[#9B9A97] mb-1">Raw Application Note</p>
+                  <p className="text-white text-sm bg-[#2B2E32] rounded p-3 whitespace-pre-wrap">
                     {selectedInfluencer.application_note}
                   </p>
                 </div>

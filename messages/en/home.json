@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Sprint Timing App for Phone - Free, No Hardware",
-    "description": "Turn your phone into a timing system. ~4ms accuracy, multi-device sync, no hardware. Free for track coaches and athletes."
+    "title": "Sprint Timing App for Phone – No Extra Hardware",
+    "description": "Turn your phone into an automatic sprint timer with ~4 ms accuracy, multi-device sync, and photo-finish review—no extra hardware required."
   },
   "hero": {
     "socialProof": "Built by an Olympian",
     "title": "TrackSpeed",
     "subtitle": "Automatic sprint timing from your phone",
-    "description": "Turn your phone into a timing system. ~4ms accuracy, multi-device sync, no hardware. Free for track coaches and athletes.",
+    "description": "Turn your phone into an automatic sprint timer with ~4 ms accuracy, multi-device sync, and photo-finish review—no extra hardware required.",
     "downloadCta": "Download on the App Store",
     "downloadAndroid": "Get it on Google Play",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "Portability"
     },
     "trackspeed": {
-      "price": "Free / $9.99/mo*",
+      "price": "$7.99/week*",
       "accuracy": "~4ms",
       "chestDetection": "Yes (torso only)",
       "setupTime": "< 1 min",
@@ -203,7 +203,7 @@
       "portability": "Pocket-sized"
     },
     "footnotes": {
-      "pricing": "*$9.99/mo or $59.99/yr. Prices are approximate.",
+      "pricing": "*$7.99/week or $59.99/yr. Prices are approximate.",
       "browerStudy": "**Per <link>peer-reviewed study</link>: Brower found \"not reliable enough to monitor small changes for elite athletes\"",
       "beamNote": "Beam systems trigger on any body part (hand/leg), not chest. TrackSpeed is designed for training, not official competition."
     }
@@ -263,6 +263,6 @@
     "noHardware": "No extra hardware",
     "downloadIos": "Download for iOS",
     "downloadAndroid": "Get it on Android",
-    "freeNote": "Free to download. Premium features available."
+    "freeNote": "Subscription required. Pricing varies by region."
   }
 }

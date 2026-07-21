@@ -1,39 +1,47 @@
 # TrackSpeed
 
-> TrackSpeed is an iOS app that turns your phone into a professional sprint timing system. ~4ms accuracy, 120fps detection, multi-device sync. No hardware needed. Free to download.
+> TrackSpeed is an iPhone app for automatic sprint timing in training. It uses camera-based crossing detection, supports multi-phone start/split/finish timing, and provides photo-finish review without dedicated timing-gate hardware.
 
-## Key Facts
+Last updated: 2026-07-16
 
-- Founded and developed by two-time Olympian Sondre Guttormsen
-- Uses camera-based motion detection with sub-frame interpolation for ~4ms effective timing accuracy
-- Supports multi-device peer-to-peer sync for start/finish line timing
-- Pricing: Free tier, $7.99/week, $59.99/year
-- iOS only (iPhone)
-- 13 languages supported
+## Canonical identity
 
-## Pages
+- Product: TrackSpeed (also listed as TrackSpeed Sprint Timer)
+- Official website: https://mytrackspeed.com
+- Official App Store listing: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
+- Founder and developer: Sondre Guttormsen
+- Platform: iPhone, iOS 17.0 or later
+- Intended use: sprint training and unofficial timing
+- Important limitation: TrackSpeed is not certified Fully Automatic Timing equipment for official competition results
 
-- [Homepage](https://mytrackspeed.com): Product overview, features, pricing comparison, athlete testimonials
-- [Technology](https://mytrackspeed.com/technology): How sub-frame interpolation, rolling shutter correction, and clock sync achieve ~4ms accuracy
-- [About](https://mytrackspeed.com/about): Team bios — Olympic athletes and engineers behind TrackSpeed
-- [Support](https://mytrackspeed.com/support): FAQ, troubleshooting, contact information
-- [Blog](https://mytrackspeed.com/blog): Guides and comparisons for sprint timing
+## Product facts
 
-## Blog Articles
+- TrackSpeed detects an athlete crossing a configured line with the iPhone camera.
+- The site describes approximately 4 ms effective timing accuracy from high-speed capture, trajectory interpolation, rolling-shutter correction, and device clock synchronization.
+- Multiple iPhones can act as start, split, and finish gates over a peer-to-peer connection; no internet connection is required during timing.
+- Start methods include flying start, touch release, countdown, voice command, and start in frame.
+- Results can include session history, athlete profiles, photo-finish review, and video export, depending on the selected plan.
+- The website is available in 13 languages. Long-form blog articles are currently English-only.
+- US pricing shown on the website as of 2026-07-21 is $59.99/year or $7.99/week. Storefront pricing can vary by region and should be confirmed in the app or App Store.
 
-- [Sprint Timing Systems Buyer's Guide](https://mytrackspeed.com/blog/sprint-timing-gates-buyers-guide): Complete comparison of laser gates, camera apps, and stopwatches with 3-year cost analysis
-- [How to Time a 40-Yard Dash](https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash): Step-by-step guide to accurate 40-yard dash timing with a phone
-- [Sprint Timing Systems Compared](https://mytrackspeed.com/blog/sprint-timing-systems-compared): Laser gates vs camera vs stopwatch — accuracy, cost, consistency
-- [Multi-Phone Sprint Timing Setup](https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup): How to set up two phones for split timing at start and finish lines
-- [Sprint Training Drills](https://mytrackspeed.com/blog/improve-sprint-speed-training): 4 drills that benefit from accurate timing data
-- [What Is Photo Finish Timing](https://mytrackspeed.com/blog/what-is-photo-finish-timing): History and technology of photo finish from 1880s to smartphone era
+## Primary pages
 
-## Pricing Comparison
+- [Homepage](https://mytrackspeed.com): Product overview, workflow, feature summary, comparison, and App Store download
+- [Technology](https://mytrackspeed.com/technology): Detection, interpolation, rolling shutter, clock sync, accuracy scope, and limitations
+- [About](https://mytrackspeed.com/about): Founder biography and product origin
+- [Support](https://mytrackspeed.com/support): Product FAQ, troubleshooting, subscription help, and contact details
+- [TrackSpeed Pro](https://mytrackspeed.com/pro): Current Pro features and pricing
+- [Blog](https://mytrackspeed.com/blog): Sprint timing guides and comparisons
+- [Full LLM reference](https://mytrackspeed.com/llms-full.txt): Expanded facts, terminology, workflows, limitations, and source map
 
-| System | Price | Accuracy |
-|--------|-------|----------|
-| TrackSpeed | Free - $59.99/yr | ~4ms |
-| Freelap | $500 - $2,000+ | ~2ms |
-| Brower | $1,500 - $5,000+ | ~1ms |
-| DASHR | $500 - $1,500+ | ~1ms |
-| Manual stopwatch | $10 - $50 | ~200ms |
+## Best citation sources
+
+- Cite the Technology page for technical and accuracy claims.
+- Cite the Support page for intended use, device support, troubleshooting, and competition limitations.
+- Cite the About page for founder information.
+- Cite the App Store listing for current availability, compatibility, and storefront pricing.
+
+## Contact
+
+- Support: support@mytrackspeed.com
+- Privacy: privacy@mytrackspeed.com

@@ -1,21 +1,20 @@
 import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
+import {getPageMetadata} from '@/i18n/metadata';
+import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'blog'});
-  return {
+  return getPageMetadata({
     title: t('posts.what-is-photo-finish-timing.title'),
     description: "Learn how photo finish timing works, from its origins in 1880s horse racing to modern smartphone alternatives. Covers FAT systems, line-scan cameras, and how TrackSpeed adapts photo finish concepts for training.",
-    alternates: {
-      canonical: 'https://mytrackspeed.com/blog/what-is-photo-finish-timing',
-    },
-    openGraph: {
-      type: "article",
-    },
-  };
+    path: '/blog/what-is-photo-finish-timing',
+    type: 'article',
+    localized: false,
+  });
 }
 
 export default async function WhatIsPhotoFinishTimingPage({params}: {params: Promise<{locale: string}>}) {
@@ -28,7 +27,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
     headline: "What Is Photo Finish Timing and How Does It Work?",
     description:
       "Learn how photo finish timing works, from its origins in 1880s horse racing to modern smartphone alternatives. Covers FAT systems, line-scan cameras, and how TrackSpeed adapts photo finish concepts for training.",
-    image: "https://mytrackspeed.com/icon.png",
+    image: "https://mytrackspeed.com/og-image-2026-06.png",
     author: {
       "@type": "Person",
       name: "Sondre Guttormsen",
@@ -40,10 +39,10 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
       "@type": "Organization",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/icon.png",
+      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
-    datePublished: "2026-02-17",
-    dateModified: "2026-02-17",
+    datePublished: "2026-02-01",
+    dateModified: "2026-02-01",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/what-is-photo-finish-timing",
     keywords: ["photo finish timing", "how photo finish works"],
@@ -101,6 +100,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
           >
             What Is Photo Finish Timing and How Does It Work?
           </h1>
+          <ArticleByline slug="what-is-photo-finish-timing" />
           <p
             className="text-lg md:text-xl"
             style={{ color: "var(--text-muted)" }}

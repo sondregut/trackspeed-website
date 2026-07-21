@@ -1,15 +1,16 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 import {Link} from "@/i18n/navigation";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'support'});
-  return {
+  return getPageMetadata({
     title: t('metadata.title'),
     description: t('metadata.description'),
-    alternates: getAlternates('/support', locale),
-  };
+    path: '/support',
+    locale,
+  });
 }
 
 const faqKeys = [

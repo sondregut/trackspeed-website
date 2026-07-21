@@ -7,13 +7,17 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
   const {locale} = await params;
   setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'blog'});
+  const pageUrl = locale === 'en'
+    ? 'https://mytrackspeed.com/blog'
+    : `https://mytrackspeed.com/${locale}/blog`;
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Sprint Timing Tips & Guides",
     description: "Guides, comparisons, and training tips for sprint timing.",
-    url: "https://mytrackspeed.com/blog",
+    url: pageUrl,
+    inLanguage: locale,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: blogPosts.map((post, index) => ({

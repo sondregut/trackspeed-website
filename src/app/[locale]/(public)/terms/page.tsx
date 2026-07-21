@@ -1,14 +1,15 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'legal'});
-  return {
+  return getPageMetadata({
     title: t('terms.title'),
     description: t('terms.description'),
-    alternates: getAlternates('/terms', locale),
-  };
+    path: '/terms',
+    localized: false,
+  });
 }
 
 export default async function TermsPage({params}: {params: Promise<{locale: string}>}) {

@@ -1,5 +1,5 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import TimingTechnology from "@/components/TimingTechnology";
@@ -13,12 +13,63 @@ import CTA from "@/components/CTA";
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'home'});
-  return {
-    title: t('metadata.title'),
+  return getPageMetadata({
+    title: `TrackSpeed: ${t('metadata.title')}`,
     description: t('metadata.description'),
-    alternates: getAlternates('', locale),
-  };
+    path: '',
+    locale,
+    absoluteTitle: true,
+  });
 }
+
+const softwareApplicationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://mytrackspeed.com/#app",
+  name: "TrackSpeed",
+  alternateName: "TrackSpeed Sprint Timer",
+  url: "https://mytrackspeed.com",
+  downloadUrl:
+    "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
+  installUrl:
+    "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
+  operatingSystem: "iOS 17.0 or later",
+  applicationCategory: "SportsApplication",
+  applicationSubCategory: "Sprint timing and athletic training",
+  description:
+    "TrackSpeed turns an iPhone into an automatic sprint timing system for training, with camera-based crossing detection, multi-phone timing, split times, and photo-finish review.",
+  image: "https://mytrackspeed.com/og-image-2026-06.png",
+  screenshot: [
+    "https://mytrackspeed.com/app-store-screenshots/01-trackspeed-app-store.webp",
+    "https://mytrackspeed.com/photofinish_edit.webp",
+  ],
+  author: { "@id": "https://mytrackspeed.com/#founder" },
+  provider: { "@id": "https://mytrackspeed.com/#organization" },
+  featureList: [
+    "Automatic camera-based sprint timing",
+    "Multi-phone start, split, and finish timing",
+    "Photo-finish review",
+    "Flying, touch-release, countdown, voice, and in-frame starts",
+    "Athlete profiles and session history",
+    "Video export",
+  ],
+  offers: [
+    {
+      "@type": "Offer",
+      price: "59.99",
+      priceCurrency: "USD",
+      name: "TrackSpeed Pro Annual",
+      availability: "https://schema.org/InStock",
+    },
+    {
+      "@type": "Offer",
+      price: "7.99",
+      priceCurrency: "USD",
+      name: "TrackSpeed Pro Weekly",
+      availability: "https://schema.org/InStock",
+    },
+  ],
+};
 
 export default async function Home({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -26,6 +77,12 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApplicationJsonLd),
+        }}
+      />
       <Hero />
       <HowItWorks />
       <StartTypes />

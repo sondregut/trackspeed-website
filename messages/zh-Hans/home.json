@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "phone短跑计时应用 - 免费，无需硬件",
-    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。田径教练和运动员免费使用。"
+    "title": "phone短跑计时应用 - 无需额外硬件",
+    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。"
   },
   "hero": {
     "socialProof": "由奥运选手打造",
     "title": "TrackSpeed",
     "subtitle": "用手机自动短跑计时",
-    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。田径教练和运动员免费使用。",
+    "description": "将phone变成计时系统。~4ms精度，多设备同步，无需额外硬件。",
     "downloadCta": "在App Store下载",
     "downloadAndroid": "在Google Play下载",
     "stats": {
@@ -163,7 +163,7 @@
       "portability": "便携性"
     },
     "trackspeed": {
-      "price": "免费 / $9.99/月*",
+      "price": "$7.99/周*",
       "accuracy": "~4ms",
       "chestDetection": "是（仅躯干）",
       "setupTime": "< 1分钟",
@@ -203,7 +203,7 @@
       "portability": "口袋大小"
     },
     "footnotes": {
-      "pricing": "*$9.99/月或$59.99/年。价格为近似值。",
+      "pricing": "*$7.99/周或$59.99/年。价格为近似值。",
       "browerStudy": "**根据<link>同行评审研究</link>：Brower被认为\"不够可靠，无法监测精英运动员的细微变化\"",
       "beamNote": "光束系统会被任何身体部位（手/腿）触发，而非胸部。TrackSpeed专为训练设计，不适用于正式比赛。"
     }
@@ -263,6 +263,6 @@
     "noHardware": "无需额外硬件",
     "downloadIos": "下载iOS版",
     "downloadAndroid": "下载Android版",
-    "freeNote": "免费下载。提供高级功能。"
+    "freeNote": "需要订阅。价格可能因地区而异。"
   }
 }

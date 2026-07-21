@@ -1,16 +1,16 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getAlternates } from "@/i18n/metadata";
+import { getPageMetadata } from "@/i18n/metadata";
 import ProductGrid from "@/components/shop/ProductGrid";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "shop" });
-  return {
+  return getPageMetadata({
     title: t("metadata.title"),
     description: t("metadata.description"),
-    alternates: getAlternates("/shop", locale),
-    openGraph: { type: "website" },
-  };
+    path: "/shop",
+    locale,
+  });
 }
 
 export default async function ShopPage({ params }: { params: Promise<{ locale: string }> }) {

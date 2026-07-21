@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Clock3, Smartphone, Timer } from "lucide-react"
 import { setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
+import { getPageMetadata } from "@/i18n/metadata"
 import ProCheckoutForm from "@/components/checkout/ProCheckoutForm"
 import {
   getRevenueCatWebCheckoutConfigIssues,
@@ -9,10 +10,13 @@ import {
   type ProCheckoutPlan,
 } from "@/lib/revenuecat-web"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = getPageMetadata({
   title: "TrackSpeed Pro Web Checkout",
   description: "Create a TrackSpeed account, pay for Pro on the web, then unlock Pro in the mobile app.",
-}
+  path: "/checkout/pro",
+  localized: false,
+  robots: { index: false, follow: false, nocache: true },
+})
 
 export default async function CheckoutProPage({
   params,

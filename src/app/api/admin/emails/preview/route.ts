@@ -252,8 +252,8 @@ const templates: Record<string, (data: TemplateData) => { subject: string; html:
 
       <div class="offer-box">
         <p style="font-size:12px;font-weight:700;color:#5C8DB8;margin:0 0 8px;letter-spacing:1px;">PRO PLANS</p>
-        <p style="font-size:20px;font-weight:700;color:#1a1a1a;margin:0 0 4px;">$9.99/month or $59.99/year</p>
-        <p style="font-size:14px;color:#8898aa;margin:0;">Save 50% with annual</p>
+        <p style="font-size:20px;font-weight:700;color:#1a1a1a;margin:0 0 4px;">$7.99/week or $59.99/year</p>
+        <p style="font-size:14px;color:#8898aa;margin:0;">Best value with annual</p>
       </div>
 
       <p style="text-align:center;margin:32px 0;">

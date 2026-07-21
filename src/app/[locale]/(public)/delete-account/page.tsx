@@ -1,15 +1,16 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {getAlternates} from '@/i18n/metadata';
+import {getPageMetadata} from '@/i18n/metadata';
 import {Link} from '@/i18n/navigation';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'legal'});
-  return {
+  return getPageMetadata({
     title: t('deleteAccount.title'),
     description: t('deleteAccount.description'),
-    alternates: getAlternates('/delete-account', locale),
-  };
+    path: '/delete-account',
+    localized: false,
+  });
 }
 
 export default async function DeleteAccountPage({params}: {params: Promise<{locale: string}>}) {
