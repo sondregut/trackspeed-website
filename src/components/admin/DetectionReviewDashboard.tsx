@@ -54,6 +54,8 @@ interface DetectionCapture {
   blobWidthFraction: number | null
   fps: number | null
   imageUrl: string
+  temporalFrameUrls: string[]
+  temporalGeometryFrameCount: number
   review: ReviewMark | null
 }
 
@@ -1333,6 +1335,34 @@ export default function DetectionReviewDashboard() {
                   )}
                 </div>
               </div>
+
+              {selected.temporalFrameUrls.length > 0 && (
+                <div className="border-t border-[#34373B] bg-[#111315] px-4 py-3">
+                  <div className="mb-2 flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8B8F94]">
+                      Causal evidence: before · trigger · after
+                    </span>
+                    <span className="font-mono text-[10px] text-[#6FB58A]">
+                      {selected.temporalGeometryFrameCount} geometry frames
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {selected.temporalFrameUrls.map((url, index) => (
+                      <div key={url} className="overflow-hidden rounded-lg border border-[#34373B] bg-[#0C0D0E]">
+                        <img
+                          src={url}
+                          alt={`Temporal evidence frame ${index + 1}`}
+                          loading="lazy"
+                          className="aspect-[3/4] w-full object-cover"
+                        />
+                        <div className="px-2 py-1 text-center font-mono text-[9px] uppercase text-[#8B8F94]">
+                          {index === 0 ? "before" : index === selected.temporalFrameUrls.length - 1 ? "after" : "trigger"}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-px border-t border-[#34373B] bg-[#34373B] sm:grid-cols-4">
                 <div className="bg-[#111315] px-4 py-3">

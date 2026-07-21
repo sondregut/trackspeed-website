@@ -43,6 +43,9 @@ interface CaptureRow {
   algo_work_width: number | null
   algo_s0: number | null
   algo_s1: number | null
+  frames_metadata: Array<Record<string, unknown>> | null
+  x_anchor_comparison: Record<string, unknown> | null
+  temporal_evidence: { frames?: unknown[] } | null
   thumbnail_storage_path: string | null
   created_at: string
   updated_at: string
@@ -118,6 +121,9 @@ const captureSelect = [
   "algo_work_width",
   "algo_s0",
   "algo_s1",
+  "frames_metadata",
+  "x_anchor_comparison",
+  "temporal_evidence",
   "thumbnail_storage_path",
   "created_at",
   "updated_at",
@@ -394,6 +400,21 @@ export async function GET(request: Request) {
         adminMarksByKey.get(adminReviewKey(capture.id)) ||
         (identity ? latestAppMarksByIdentity.get(identity) : null) ||
         null
+      const temporalFrameUrls = (capture.frames_metadata || [])
+        .map((frame, index) => ({ frame, index }))
+        .filter(({ frame }) => {
+          const anchorMode = frame.anchorMode ?? frame.anchor_mode ?? ""
+          const timingModel = frame.timingModel ?? frame.timing_model ?? ""
+          return String(anchorMode).startsWith("temporal_")
+            || timingModel === "replica_temporal_evidence_v1"
+        })
+        .map(({ frame, index }) => {
+          const storagePath = frame.storagePath ?? frame.storage_path
+          return typeof storagePath === "string" && storagePath.length > 0
+            ? `/api/admin/detection-review/image?id=${encodeURIComponent(capture.id)}&frame=${index}`
+            : null
+        })
+        .filter((value): value is string => Boolean(value))
       return {
         id: capture.id,
         source: "debug_capture" as const,
@@ -415,6 +436,10 @@ export async function GET(request: Request) {
         blobWidthFraction: capture.algo_blob_width_fraction,
         fps: capture.algo_fps,
         imageUrl: `/api/admin/detection-review/image?id=${encodeURIComponent(capture.id)}`,
+        temporalFrameUrls,
+        temporalGeometryFrameCount: Array.isArray(capture.temporal_evidence?.frames)
+          ? capture.temporal_evidence.frames.length
+          : 0,
         review: publicReview(review),
       }
     })
@@ -446,6 +471,8 @@ export async function GET(request: Request) {
               blobWidthFraction: null,
               fps: null,
               imageUrl: `/api/admin/detection-review/image?markId=${encodeURIComponent(mark.id)}`,
+              temporalFrameUrls: [],
+              temporalGeometryFrameCount: 0,
               review: publicReview(mark),
             }
           })
