@@ -836,6 +836,7 @@ export default function DetectionReviewDashboard() {
         const actualX = item.point?.x ?? null
         const actualY = item.point?.y ?? null
         const reviewImageDataUrl = await renderReviewImageFromElement(capture, item.point, item.image)
+        const selectedTemporalFrame = item.selectedFrame
         const optimisticReview: ReviewMark = {
           id: `queued:${capture.id}`,
           createdAt: queuedAt,
@@ -846,8 +847,8 @@ export default function DetectionReviewDashboard() {
           detectorY: null,
           deltaX: actualX === null ? null : actualX - capture.detectorX,
           deltaY: null,
-          selectedFrameRelation: "r0",
-          selectedFramePtsNanos: null,
+          selectedFrameRelation: selectedTemporalFrame?.relation ?? "r0",
+          selectedFramePtsNanos: selectedTemporalFrame?.ptsNanos ?? null,
           note: item.note,
           hasReviewImage: false,
           source: "admin",
@@ -861,6 +862,11 @@ export default function DetectionReviewDashboard() {
             issue: item.issue,
             note: item.note,
             reviewImageDataUrl,
+            ...(selectedTemporalFrame ? {
+              selectedFrameIndex: selectedTemporalFrame.index,
+              selectedFrameRelation: selectedTemporalFrame.relation,
+              selectedFramePtsNanos: selectedTemporalFrame.ptsNanos,
+            } : {}),
           },
           status: "queued",
           attempts: 0,

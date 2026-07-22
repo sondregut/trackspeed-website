@@ -14,6 +14,8 @@ interface GridReview {
   issue: GridReviewIssue
   note: string
   source: "app" | "admin"
+  selectedFrameRelation: string | null
+  selectedFramePtsNanos: string | null
 }
 
 type GridReviewIssue =
@@ -41,7 +43,16 @@ export interface DetectionGridCapture {
   direction: string | null
   detectorX: number
   imageUrl: string
+  temporalFrames: GridTemporalFrame[]
   review: GridReview | null
+}
+
+export interface GridTemporalFrame {
+  index: number
+  url: string
+  relation: string
+  relativeFrame: number
+  ptsNanos: string | null
 }
 
 export interface GridReviewItem {
@@ -50,12 +61,14 @@ export interface GridReviewItem {
   issue: GridReviewIssue
   note: string
   image: HTMLImageElement
+  selectedFrame: GridTemporalFrame | null
 }
 
 interface GridDraft {
   point: Point | null
   issue: GridReviewIssue
   note: string
+  selectedFrameIndex: number | null
 }
 
 interface GridUploadState {
@@ -84,6 +97,33 @@ function qualityBand(deltaX: number | null) {
   if (absolute < 0.06) return { label: "Watch", tone: "text-[#D6B36A]" }
   if (absolute < 0.1) return { label: "Fail", tone: "text-[#DC8B72]" }
   return { label: "Severe", tone: "text-[#F06C68]" }
+}
+
+function initialFrame(capture: DetectionGridCapture): GridTemporalFrame | null {
+  if (!capture.temporalFrames.length) return null
+  const review = capture.review
+  return capture.temporalFrames.find((frame) =>
+    Boolean(
+      (review?.selectedFramePtsNanos && frame.ptsNanos === review.selectedFramePtsNanos)
+      || (review?.selectedFrameRelation && frame.relation === review.selectedFrameRelation),
+    ),
+  ) || capture.temporalFrames.find((frame) => frame.relativeFrame === 0) || capture.temporalFrames[0]
+}
+
+function selectedFrame(capture: DetectionGridCapture, draft?: GridDraft): GridTemporalFrame | null {
+  return capture.temporalFrames.find((frame) => frame.index === draft?.selectedFrameIndex)
+    || initialFrame(capture)
+}
+
+function frameLabel(frame: GridTemporalFrame) {
+  if (frame.relativeFrame === 0) return "Detected"
+  return frame.relativeFrame > 0 ? `+${frame.relativeFrame}` : String(frame.relativeFrame).replace("-", "−")
+}
+
+function framePositionLabel(frame: GridTemporalFrame) {
+  if (frame.relativeFrame === 0) return "Detected frame"
+  const distance = Math.abs(frame.relativeFrame)
+  return `${distance} ${frame.relativeFrame < 0 ? "before" : "after"}`
 }
 
 export function DetectionReviewGrid({
@@ -128,6 +168,7 @@ export function DetectionReviewGrid({
     }
     setDrafts((current) => {
       const existing = current[capture.id]
+      const frame = selectedFrame(capture, existing)
       const savedIssue = capture.review?.issue === "false_positive"
         ? "unlabeled"
         : capture.review?.issue || "unlabeled"
@@ -137,8 +178,62 @@ export function DetectionReviewGrid({
           point,
           issue: existing?.issue === "false_positive" ? "unlabeled" : existing?.issue || savedIssue,
           note: existing?.note ?? capture.review?.note ?? "",
+          selectedFrameIndex: frame?.index ?? null,
         },
       }
+    })
+    setBatchError("")
+  }
+
+  function chooseGridFrame(capture: DetectionGridCapture, frame: GridTemporalFrame) {
+    if (!capture.editable) return
+    const upload = uploadsByCapture.get(capture.id)
+    if (upload && upload.status !== "failed") return
+    setDrafts((current) => {
+      const existing = current[capture.id]
+      const previousFrame = selectedFrame(capture, existing)
+      const review = capture.review
+      const savedOnFrame = Boolean(
+        review && (
+          (review.selectedFramePtsNanos && review.selectedFramePtsNanos === frame.ptsNanos)
+          || (review.selectedFrameRelation && review.selectedFrameRelation === frame.relation)
+          || (!review.selectedFrameRelation && frame.relativeFrame === 0)
+        ),
+      )
+      const savedPoint = savedOnFrame && review?.actualX != null && review.actualY != null
+        ? { x: review.actualX, y: review.actualY }
+        : null
+      let nextIssue = existing?.issue === "false_positive"
+        ? "unlabeled" as GridReviewIssue
+        : existing?.issue ?? review?.issue ?? "unlabeled"
+      if (frame.relativeFrame !== 0 && nextIssue === "unlabeled") nextIssue = "wrongFrame"
+      if (frame.relativeFrame === 0 && nextIssue === "wrongFrame") nextIssue = "unlabeled"
+      const nextDraft: GridDraft = {
+        point: previousFrame?.index === frame.index ? existing?.point ?? savedPoint : savedPoint,
+        issue: nextIssue,
+        note: existing?.note ?? review?.note ?? "",
+        selectedFrameIndex: frame.index,
+      }
+      const matchesSavedReview = Boolean(
+        review &&
+        savedOnFrame &&
+        nextDraft.issue === review.issue &&
+        nextDraft.note === review.note &&
+        (nextDraft.point?.x ?? null) === review.actualX &&
+        (nextDraft.point?.y ?? null) === review.actualY,
+      )
+      const defaultFrame = initialFrame(capture)
+      const isEmptyNewReview = Boolean(
+        !review &&
+        frame.index === defaultFrame?.index &&
+        !nextDraft.point &&
+        nextDraft.issue === "unlabeled" &&
+        !nextDraft.note,
+      )
+      const next = { ...current }
+      if (matchesSavedReview || isEmptyNewReview) delete next[capture.id]
+      else next[capture.id] = nextDraft
+      return next
     })
     setBatchError("")
   }
@@ -164,6 +259,7 @@ export function DetectionReviewGrid({
           point: null,
           issue: "false_positive",
           note: existing?.note ?? capture.review?.note ?? "",
+          selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
         },
       }
     })
@@ -183,9 +279,13 @@ export function DetectionReviewGrid({
         point: existing?.point ?? savedPoint,
         issue: existing?.issue ?? capture.review?.issue ?? "unlabeled",
         note,
+        selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
       }
       const matchesSavedReview = Boolean(
         capture.review &&
+        selectedFrame(capture, nextDraft)?.relation === (
+          capture.review.selectedFrameRelation || initialFrame(capture)?.relation
+        ) &&
         nextDraft.issue === capture.review.issue &&
         nextDraft.note === capture.review.note &&
         (nextDraft.point?.x ?? null) === capture.review.actualX &&
@@ -217,8 +317,12 @@ export function DetectionReviewGrid({
     const items = filteredCaptures.flatMap((capture) => {
       const draft = drafts[capture.id]
       const image = imageRefs.current.get(capture.id)
-      return draft && image?.dataset.captureId === capture.id
-        ? [{ captureId: capture.id, point: draft.point, issue: draft.issue, note: draft.note.trim(), image }]
+      const frame = selectedFrame(capture, draft)
+      const expectedFrameIndex = frame?.index ?? "thumbnail"
+      return draft
+        && image?.dataset.captureId === capture.id
+        && image.dataset.frameIndex === String(expectedFrameIndex)
+        ? [{ captureId: capture.id, point: draft.point, issue: draft.issue, note: draft.note.trim(), image, selectedFrame: frame }]
         : []
     })
     if (!items.length) return
@@ -299,8 +403,16 @@ export function DetectionReviewGrid({
         {filteredCaptures.map((capture, index) => {
           const draft = drafts[capture.id]
           const upload = uploadsByCapture.get(capture.id)
+          const frame = selectedFrame(capture, draft)
+          const reviewPointBelongsToFrame = Boolean(
+            capture.review && (
+              (capture.review.selectedFramePtsNanos && capture.review.selectedFramePtsNanos === frame?.ptsNanos)
+              || (capture.review.selectedFrameRelation && capture.review.selectedFrameRelation === frame?.relation)
+              || (!capture.review.selectedFrameRelation && frame?.relativeFrame === 0)
+            ),
+          )
           const displayPoint = draft?.point || (
-            capture.review?.actualX != null && capture.review?.actualY != null
+            reviewPointBelongsToFrame && capture.review?.actualX != null && capture.review?.actualY != null
               ? { x: capture.review.actualX, y: capture.review.actualY }
               : null
           )
@@ -371,8 +483,10 @@ export function DetectionReviewGrid({
                     if (image) imageRefs.current.set(capture.id, image)
                     else imageRefs.current.delete(capture.id)
                   }}
-                  src={capture.imageUrl}
+                  key={`${capture.id}:${frame?.index ?? "thumbnail"}`}
+                  src={frame?.url || capture.imageUrl}
                   data-capture-id={capture.id}
+                  data-frame-index={frame?.index ?? "thumbnail"}
                   alt={`Detection thumbnail for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
                   loading={index < 4 ? "eager" : "lazy"}
                   decoding="async"
@@ -399,6 +513,48 @@ export function DetectionReviewGrid({
                   </span>
                 )}
               </button>
+
+              {capture.temporalFrames.length > 0 && (
+                <div className="border-b border-[#34373B] bg-[#17191B] px-3.5 py-3">
+                  <div className="mb-2 flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">
+                      Frame scrubber
+                    </span>
+                    <span className="font-mono text-[10px] font-semibold text-[#8FC8A3]">
+                      {frame ? framePositionLabel(frame) : "Detected frame"}
+                    </span>
+                  </div>
+                  <div
+                    role="group"
+                    aria-label={`Frame scrubber for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
+                    className="grid grid-cols-5 overflow-hidden rounded-lg border border-[#3D4145] bg-[#111315]"
+                  >
+                    {capture.temporalFrames.map((temporalFrame) => {
+                      const isSelected = temporalFrame.index === frame?.index
+                      return (
+                        <button
+                          key={`${capture.id}:${temporalFrame.index}`}
+                          type="button"
+                          aria-label={`Select ${framePositionLabel(temporalFrame)}`}
+                          aria-pressed={isSelected}
+                          onClick={() => chooseGridFrame(capture, temporalFrame)}
+                          disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                          className={`min-h-11 border-r border-[#3D4145] px-1 text-[10px] font-semibold transition last:border-r-0 active:translate-y-px disabled:cursor-default ${
+                            isSelected
+                              ? "bg-[#274132] text-[#A4D7B5] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                              : "text-[#8B8F94] hover:bg-[#23272A] hover:text-white"
+                          }`}
+                        >
+                          {frameLabel(temporalFrame)}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <p className="mt-2 text-[10px] leading-4 text-[#777B80]">
+                    Choose a frame, then tap the true torso edge in the image.
+                  </p>
+                </div>
+              )}
 
               <div className="border-b border-[#34373B] px-3.5 py-3">
                 <div className="mb-2 flex items-center justify-between gap-3">
@@ -465,7 +621,7 @@ export function DetectionReviewGrid({
                     title={draftCount > 0 ? "Queue or clear the grid marks before opening detail view" : undefined}
                     className="rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    Frame &amp; point
+                    Open large
                   </button>
                 </div>
               </div>
