@@ -232,10 +232,10 @@ export default function DetectionReviewDashboard() {
   const [sessionContexts, setSessionContexts] = useState<SessionContext[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("all")
+  const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("pending")
   const [days, setDays] = useState(7)
   const [search, setSearch] = useState("")
-  const [viewMode, setViewMode] = useState<"grid" | "focus">("grid")
+  const [viewMode, setViewMode] = useState<"grid" | "focus">("focus")
   const [gridDraftCount, setGridDraftCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [imageLoading, setImageLoading] = useState(true)
@@ -918,13 +918,6 @@ export default function DetectionReviewDashboard() {
       const nextPending =
         pendingAfterCurrent.find((item) => item.sessionId === capture.sessionId) ||
         pendingAfterCurrent[0]
-      const finishedSession = Boolean(
-        !capture.review &&
-        capture.sessionId &&
-        !captures.some(
-          (item) => item.id !== capture.id && item.sessionId === capture.sessionId && !item.review,
-        ),
-      )
       const actualX = reviewPoint?.x ?? null
       const actualY = reviewPoint?.y ?? null
       const optimisticReview: ReviewMark = {
@@ -970,9 +963,8 @@ export default function DetectionReviewDashboard() {
           item.id === capture.id ? { ...item, review: optimisticReview } : item,
         ),
       )
-      setSuccess("Review queued. You can keep marking while it uploads in the background.")
-      if (statusFilter === "pending" && nextPending) setSelectedId(nextPending.id)
-      if (finishedSession && capture.sessionId) openSessionContext(capture.sessionId)
+      setSuccess(nextPending ? "Saved. The next pending review is ready." : "Saved. This review is uploading in the background.")
+      if (nextPending) setSelectedId(nextPending.id)
     } catch (prepareError) {
       setError(prepareError instanceof Error ? prepareError.message : "Could not prepare review")
     } finally {
@@ -983,6 +975,7 @@ export default function DetectionReviewDashboard() {
 
   const deltaX = point && selected ? point.x - selected.detectorX : null
   const band = errorBand(deltaX)
+  const selectedIssueOption = issueOptions.find((option) => option.value === issue)
   const selectedUpload = selected ? uploadsByCapture.get(selected.id) || null : null
   const selectedIndex = selected
     ? filteredCaptures.findIndex((capture) => capture.id === selected.id)
@@ -1049,7 +1042,7 @@ export default function DetectionReviewDashboard() {
             <p className="mt-2 max-w-[68ch] text-sm leading-6 text-[#9B9A97]">
               {viewMode === "grid"
                 ? "Review every filtered thumbnail in one continuous grid. The red line is Replica’s detector position; click each true torso edge, then queue your marks for background upload."
-                : "The red line is Replica’s saved detector position. Click the athlete’s true torso timing edge, classify the result, and save it as ground truth for the daily analysis."}
+                : "Pick the correct frame, click the athlete’s true torso timing edge, then save. Issue labels and notes are optional."}
             </p>
           </div>
 
@@ -1090,7 +1083,7 @@ export default function DetectionReviewDashboard() {
             >
               <option value="pending">Pending</option>
               <option value="reviewed">Reviewed</option>
-              <option value="all">All thumbnails</option>
+              <option value="all">All captures</option>
             </select>
           </label>
           <label className="grid gap-2">
@@ -1108,24 +1101,14 @@ export default function DetectionReviewDashboard() {
             </select>
           </label>
           <div className="grid gap-2 md:hidden">
-            <span className="text-xs font-medium text-[#9B9A97]">Review mode</span>
+            <span className="text-xs font-medium text-[#9B9A97]">Review view</span>
             <div className="grid h-11 place-items-center rounded-xl border border-[#3D3D3D] bg-[#232528] px-4 text-xs font-semibold text-white">
               One at a time
             </div>
           </div>
           <div className="hidden gap-2 md:grid">
-            <span className="text-xs font-medium text-[#9B9A97]">Layout</span>
+            <span className="text-xs font-medium text-[#9B9A97]">Review view</span>
             <div className="grid h-11 grid-cols-2 rounded-xl border border-[#3D3D3D] bg-[#232528] p-1">
-              <button
-                type="button"
-                aria-pressed={viewMode === "grid"}
-                onClick={() => chooseViewMode("grid")}
-                className={`rounded-lg px-3 text-xs font-semibold transition active:translate-y-px ${
-                  viewMode === "grid" ? "bg-[#5C8DB8] text-white" : "text-[#9B9A97] hover:text-white"
-                }`}
-              >
-                Grid
-              </button>
               <button
                 type="button"
                 aria-pressed={viewMode === "focus"}
@@ -1134,7 +1117,17 @@ export default function DetectionReviewDashboard() {
                   viewMode === "focus" ? "bg-[#5C8DB8] text-white" : "text-[#9B9A97] hover:text-white"
                 }`}
               >
-                Focus
+                One at a time
+              </button>
+              <button
+                type="button"
+                aria-pressed={viewMode === "grid"}
+                onClick={() => chooseViewMode("grid")}
+                className={`rounded-lg px-3 text-xs font-semibold transition active:translate-y-px ${
+                  viewMode === "grid" ? "bg-[#5C8DB8] text-white" : "text-[#9B9A97] hover:text-white"
+                }`}
+              >
+                Batch grid
               </button>
             </div>
           </div>
@@ -1262,7 +1255,7 @@ export default function DetectionReviewDashboard() {
             onQueue={queueGridReviews}
           />
         ) : selected ? (
-          <div className="grid items-start gap-4 xl:grid-cols-[250px_minmax(0,1fr)_340px]">
+          <div className="grid items-start gap-4 xl:grid-cols-[220px_minmax(0,1fr)_320px]">
             <aside className="order-2 hidden overflow-hidden rounded-2xl border border-[#34373B] bg-[#1E2022] xl:order-1 xl:sticky xl:top-20 xl:block">
               <div className="flex items-center justify-between border-b border-[#34373B] px-4 py-3">
                 <span className="text-xs font-semibold uppercase tracking-[0.13em] text-[#9B9A97]">Queue</span>
@@ -1367,6 +1360,72 @@ export default function DetectionReviewDashboard() {
                 </button>
               </nav>
 
+              {selected.temporalFrames.length > 0 && (
+                <div className="border-b border-[#34373B] bg-[#17191B] px-4 py-4 sm:px-5">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#5C8DB8] text-xs font-bold text-white">1</span>
+                      <div>
+                        <div className="text-sm font-semibold text-white">Pick the correct frame</div>
+                        <div className="mt-0.5 text-[11px] text-[#8B8F94]">Choose the moment the torso reaches the timing line.</div>
+                      </div>
+                    </div>
+                    <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-mono text-[10px] font-semibold text-[#8FC8A3]">
+                      {selectedFrame?.relation || "r0"} selected
+                    </span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {selected.temporalFrames.map((frame) => (
+                      <button
+                        key={`${frame.index}:${frame.ptsNanos}`}
+                        type="button"
+                        aria-pressed={frame.index === selectedFrame?.index}
+                        onClick={() => chooseTemporalFrame(frame)}
+                        disabled={!selected.editable}
+                        className={`min-w-[88px] flex-1 overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default ${
+                          frame.index === selectedFrame?.index
+                            ? "border-[#6FB58A] bg-[#18241D] shadow-[0_0_0_1px_rgba(111,181,138,0.4)]"
+                            : "border-[#34373B] hover:border-[#5C8DB8]"
+                        }`}
+                      >
+                        <img
+                          src={frame.url}
+                          alt={`Temporal evidence ${frame.relation}`}
+                          loading="lazy"
+                          className="aspect-[3/4] w-full object-cover"
+                        />
+                        <div className={`px-2 py-2 text-center text-[11px] font-semibold ${
+                          frame.index === selectedFrame?.index ? "text-[#8FC8A3]" : "text-[#8B8F94]"
+                        }`}>
+                          {frame.relativeFrame === 0 ? "Detected frame" : frame.relation}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#34373B] bg-[#111315] px-4 py-3 sm:px-5">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#5C8DB8] text-xs font-bold text-white">
+                    {selected.temporalFrames.length > 0 ? "2" : "1"}
+                  </span>
+                  <div>
+                    <div className="text-sm font-semibold text-white">Click the true torso crossing point</div>
+                    <div className="mt-0.5 text-[11px] text-[#8B8F94]">Use the chest or torso edge, never a hand, arm, or leg.</div>
+                  </div>
+                </div>
+                <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
+                  point
+                    ? "border-[#527E62] bg-[#213027] text-[#8FC8A3]"
+                    : issue === "false_positive"
+                      ? "border-[#8B7444] bg-[#302B20] text-[#E3C881]"
+                      : "border-[#555A60] bg-[#25272A] text-[#9B9A97]"
+                }`}>
+                  {point ? "Point ready" : issue === "false_positive" ? "No person" : "Waiting for click"}
+                </span>
+              </div>
+
               <div className="flex min-h-[360px] items-center justify-center overflow-auto p-2 sm:min-h-[480px] sm:p-5 xl:min-h-[560px]">
                 <div className="relative inline-block max-w-full overflow-hidden rounded-xl bg-[#0C0D0E] shadow-[0_24px_70px_-32px_rgba(0,0,0,0.9)]">
                   <img
@@ -1391,7 +1450,7 @@ export default function DetectionReviewDashboard() {
                   {point && (
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white bg-[#35B96F] shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
+                      className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#35B96F] shadow-[0_2px_8px_rgba(0,0,0,0.65)]"
                       style={{ left: `${point.x * 100}%`, top: `${point.y * 100}%` }}
                     />
                   )}
@@ -1401,75 +1460,39 @@ export default function DetectionReviewDashboard() {
                 </div>
               </div>
 
-              {selected.temporalFrames.length > 0 && (
-                <div className="border-t border-[#34373B] bg-[#111315] px-4 py-3">
-                  <div className="mb-2 flex items-center justify-between gap-3">
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8B8F94]">
-                      Choose the correct frame, then place the green mark
-                    </span>
-                    <span className="font-mono text-[10px] text-[#6FB58A]">
-                      {selectedFrame?.relation || "r0"} selected · {selected.temporalGeometryFrameCount} geometry frames
-                    </span>
+              <details className="border-t border-[#34373B] bg-[#111315]">
+                <summary className="cursor-pointer px-4 py-3 text-xs font-semibold text-[#9B9A97] hover:text-white sm:px-5">
+                  Detector comparison (optional)
+                </summary>
+                <div className="grid grid-cols-2 gap-px border-t border-[#34373B] bg-[#34373B] sm:grid-cols-4">
+                  <div className="bg-[#111315] px-4 py-3">
+                    <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Detector X</div>
+                    <div className="mt-1 font-mono text-sm text-white">{percent(selected.detectorX)}</div>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-                    {selected.temporalFrames.map((frame) => (
-                      <button
-                        key={`${frame.index}:${frame.ptsNanos}`}
-                        type="button"
-                        aria-pressed={frame.index === selectedFrame?.index}
-                        onClick={() => chooseTemporalFrame(frame)}
-                        disabled={!selected.editable}
-                        className={`overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default ${
-                          frame.index === selectedFrame?.index
-                            ? "border-[#6FB58A] shadow-[0_0_0_1px_rgba(111,181,138,0.4)]"
-                            : "border-[#34373B] hover:border-[#5C8DB8]"
-                        }`}
-                      >
-                        <img
-                          src={frame.url}
-                          alt={`Temporal evidence ${frame.relation}`}
-                          loading="lazy"
-                          className="aspect-[3/4] w-full object-cover"
-                        />
-                        <div className={`px-2 py-1.5 text-center font-mono text-[10px] font-semibold ${
-                          frame.index === selectedFrame?.index ? "text-[#8FC8A3]" : "text-[#8B8F94]"
-                        }`}>
-                          {frame.relation}{frame.relativeFrame === 0 ? " · detected" : ""}
-                        </div>
-                      </button>
-                    ))}
+                  <div className="bg-[#111315] px-4 py-3">
+                    <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Your X</div>
+                    <div className="mt-1 font-mono text-sm text-white">{percent(point?.x ?? null)}</div>
+                  </div>
+                  <div className="bg-[#111315] px-4 py-3">
+                    <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Horizontal error</div>
+                    <div className="mt-1 font-mono text-sm text-white">{percent(deltaX)}</div>
+                  </div>
+                  <div className="bg-[#111315] px-4 py-3">
+                    <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Quality band</div>
+                    <div className={`mt-1 font-mono text-sm font-semibold ${band.tone}`}>{band.label}</div>
                   </div>
                 </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-px border-t border-[#34373B] bg-[#34373B] sm:grid-cols-4">
-                <div className="bg-[#111315] px-4 py-3">
-                  <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Detector X</div>
-                  <div className="mt-1 font-mono text-sm text-white">{percent(selected.detectorX)}</div>
-                </div>
-                <div className="bg-[#111315] px-4 py-3">
-                  <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Your X</div>
-                  <div className="mt-1 font-mono text-sm text-white">{percent(point?.x ?? null)}</div>
-                </div>
-                <div className="bg-[#111315] px-4 py-3">
-                  <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Horizontal error</div>
-                  <div className="mt-1 font-mono text-sm text-white">{percent(deltaX)}</div>
-                </div>
-                <div className="bg-[#111315] px-4 py-3">
-                  <div className="text-[10px] uppercase tracking-[0.13em] text-[#777B80]">Quality band</div>
-                  <div className={`mt-1 font-mono text-sm font-semibold ${band.tone}`}>{band.label}</div>
-                </div>
-              </div>
+              </details>
             </section>
 
             <aside className="order-2 rounded-2xl border border-[#34373B] bg-[#1E2022] p-4 sm:p-5 xl:order-3 xl:sticky xl:top-20">
               <div className="flex items-start justify-between gap-4 border-b border-[#34373B] pb-4">
                 <div>
-                  <h2 className="font-[var(--font-bricolage)] text-xl font-semibold text-white">Your review</h2>
+                  <h2 className="font-[var(--font-bricolage)] text-xl font-semibold text-white">Save correction</h2>
                   <p className="mt-1 text-xs leading-5 text-[#8B8F94]">
                     {selected.editable
-                      ? "Click the image first, then classify what happened."
-                      : "This saved in-app mark is shown as read-only evidence."}
+                      ? "Check the frame and green point, then save."
+                      : "This saved in-app mark is read-only evidence."}
                   </p>
                 </div>
                 {selected.review && (
@@ -1495,73 +1518,47 @@ export default function DetectionReviewDashboard() {
                 )}
               </div>
 
-              <div className="mt-5 space-y-5">
-                <div className="grid gap-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">Ground-truth mark</span>
+              <div className="mt-4 space-y-4">
+                <div className={`rounded-xl border px-3 py-3 ${
+                  point
+                    ? "border-[#527E62] bg-[#213027]"
+                    : issue === "false_positive"
+                      ? "border-[#8B7444] bg-[#302B20]"
+                      : "border-[#3D4145] bg-[#25272A]"
+                }`}>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : issue === "false_positive" ? "text-[#E3C881]" : "text-white"}`}>
+                      {point ? "Crossing point ready" : issue === "false_positive" ? "Marked as no person" : "Click the image to place the point"}
+                    </span>
                     {point && selected.editable && (
                       <button
                         type="button"
                         onClick={() => setPoint(null)}
                         className="text-xs font-medium text-[#B7BAC0] underline decoration-[#555A60] underline-offset-4 hover:text-white"
                       >
-                        Clear mark
+                        Clear
                       </button>
                     )}
                   </div>
-                  <div className="rounded-xl border border-[#34373B] bg-[#25272A] px-3 py-3 font-mono text-xs text-[#B7BAC0]">
-                    {point ? `x ${point.x.toFixed(4)} · y ${point.y.toFixed(4)}` : "No mark placed"}
+                  <div className="mt-1 font-mono text-[10px] text-[#8B8F94]">
+                    Frame {selectedFrame?.relation || "r0"}{point ? ` · x ${point.x.toFixed(4)} · y ${point.y.toFixed(4)}` : ""}
                   </div>
-                  <p className="text-[11px] leading-4 text-[#777B80]">Mark the torso/chest timing edge, not an arm or leg.</p>
                 </div>
 
-                <fieldset className="grid gap-2">
-                  <legend className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">Classification</legend>
-                  <div className="grid grid-cols-2 gap-2">
-                    {issueOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        type="button"
-                        aria-pressed={issue === option.value}
-                        title={option.helper}
-                        onClick={() => chooseIssue(option.value)}
-                        disabled={!selected.editable}
-                        className={`min-h-10 rounded-lg border px-2.5 py-2 text-left text-xs font-semibold transition duration-200 active:translate-y-px ${
-                          issue === option.value
-                            ? "border-[#5C8DB8] bg-[#294157] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                            : "border-[#3B3E42] bg-[#25272A] text-[#B7BAC0] hover:border-[#555A60] hover:text-white"
-                        } disabled:cursor-default disabled:opacity-70`}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                  {issue !== "unlabeled" && selected.editable && (
-                    <button
-                      type="button"
-                      onClick={() => setIssue("unlabeled")}
-                      className="justify-self-start text-xs text-[#8B8F94] underline decoration-[#555A60] underline-offset-4 hover:text-white"
-                    >
-                      Clear classification
-                    </button>
-                  )}
-                </fieldset>
-
-                <label className="grid gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">Review note</span>
-                  <textarea
-                    value={note}
-                    onChange={(event) => {
-                      setNote(event.target.value.slice(0, 500))
-                      setError("")
-                    }}
-                    disabled={!selected.editable}
-                    rows={4}
-                    placeholder="What makes this crossing good, early, late, or unusable?"
-                    className="resize-none rounded-xl border border-[#3D3D3D] bg-[#25272A] px-3 py-2.5 text-sm leading-5 text-white outline-none transition placeholder:text-[#63676C] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25"
-                  />
-                  <span className="justify-self-end font-mono text-[10px] text-[#63676C]">{note.length}/500</span>
-                </label>
+                {selected.editable && (
+                  <button
+                    type="button"
+                    aria-pressed={issue === "false_positive"}
+                    onClick={() => chooseIssue("false_positive")}
+                    className={`w-full rounded-xl border px-4 py-2.5 text-sm font-semibold transition active:translate-y-px ${
+                      issue === "false_positive"
+                        ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                        : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                    }`}
+                  >
+                    {issue === "false_positive" ? "No person selected" : "No person / false detection"}
+                  </button>
+                )}
 
                 <button
                   type="button"
@@ -1577,7 +1574,7 @@ export default function DetectionReviewDashboard() {
                       ? retryUploads(selected.id)
                       : void submitReview()
                   }
-                  className="w-full rounded-xl bg-[#5C8DB8] px-4 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-[#6C9AC2] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#3A4650] disabled:text-[#7C858D]"
+                  className="w-full rounded-xl bg-[#5C8DB8] px-4 py-3.5 text-sm font-semibold text-white transition duration-200 hover:bg-[#6C9AC2] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#3A4650] disabled:text-[#7C858D]"
                 >
                   {!selected.editable
                     ? "Marked in app"
@@ -1587,61 +1584,100 @@ export default function DetectionReviewDashboard() {
                         ? "Retry upload"
                         : selectedUpload
                           ? "Uploading in background…"
-                          : selected.review
-                            ? "Update review"
-                            : "Save and continue"}
+                          : "Save & next"}
                 </button>
 
-                {selected.sessionId && (
-                  <div className="border-t border-[#34373B] pt-5">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">
-                          Session notes
-                        </div>
-                        <p className="mt-1 text-[11px] leading-5 text-[#777B80]">
-                          Applies to every crossing in session {shortId(selected.sessionId)}.
-                        </p>
+                <details className="rounded-xl border border-[#34373B] bg-[#202225]">
+                  <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-3 text-xs font-semibold text-[#B7BAC0] hover:text-white">
+                    <span>Issue or note (optional)</span>
+                    {issue !== "unlabeled" && (
+                      <span className="rounded-full bg-[#294157] px-2 py-1 text-[9px] uppercase tracking-[0.08em] text-[#B7D0E5]">
+                        {selectedIssueOption?.label || issue}
+                      </span>
+                    )}
+                  </summary>
+                  <div className="space-y-4 border-t border-[#34373B] p-3">
+                    <fieldset className="grid gap-2">
+                      <legend className="mb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8B8F94]">Issue</legend>
+                      <div className="grid grid-cols-2 gap-2">
+                        {issueOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            aria-pressed={issue === option.value}
+                            title={option.helper}
+                            onClick={() => chooseIssue(option.value)}
+                            disabled={!selected.editable}
+                            className={`min-h-10 rounded-lg border px-2.5 py-2 text-left text-xs font-semibold transition duration-200 active:translate-y-px ${
+                              issue === option.value
+                                ? "border-[#5C8DB8] bg-[#294157] text-white"
+                                : "border-[#3B3E42] bg-[#25272A] text-[#B7BAC0] hover:border-[#555A60] hover:text-white"
+                            } disabled:cursor-default disabled:opacity-70`}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
                       </div>
-                      <span
-                        className={`rounded-full border px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.1em] ${
-                          selectedContext
-                            ? "border-[#527E62] bg-[#213027] text-[#8FC8A3]"
-                            : "border-[#555A60] bg-[#25272A] text-[#9B9A97]"
-                        }`}
-                      >
+                      {issue !== "unlabeled" && selected.editable && (
+                        <button
+                          type="button"
+                          onClick={() => setIssue("unlabeled")}
+                          className="justify-self-start text-xs text-[#8B8F94] underline decoration-[#555A60] underline-offset-4 hover:text-white"
+                        >
+                          Clear issue
+                        </button>
+                      )}
+                    </fieldset>
+
+                    <label className="grid gap-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8B8F94]">Note</span>
+                      <textarea
+                        value={note}
+                        onChange={(event) => {
+                          setNote(event.target.value.slice(0, 500))
+                          setError("")
+                        }}
+                        disabled={!selected.editable}
+                        rows={3}
+                        placeholder="Add context only when it helps."
+                        className="resize-none rounded-xl border border-[#3D3D3D] bg-[#25272A] px-3 py-2.5 text-sm leading-5 text-white outline-none transition placeholder:text-[#63676C] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25"
+                      />
+                      <span className="justify-self-end font-mono text-[10px] text-[#63676C]">{note.length}/500</span>
+                    </label>
+                  </div>
+                </details>
+
+                {selected.sessionId && (
+                  <details className="rounded-xl border border-[#34373B] bg-[#202225]">
+                    <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-3 text-xs font-semibold text-[#B7BAC0] hover:text-white">
+                      <span>Session notes (optional)</span>
+                      <span className={`text-[9px] uppercase tracking-[0.08em] ${selectedContext ? "text-[#8FC8A3]" : "text-[#777B80]"}`}>
                         {selectedContext ? "Added" : "Missing"}
                       </span>
+                    </summary>
+                    <div className="border-t border-[#34373B] p-3">
+                      <p className="text-[11px] leading-5 text-[#777B80]">
+                        Shirt color and notes apply to every crossing in session {shortId(selected.sessionId)}.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => openSessionContext(selected.sessionId as string)}
+                        className="mt-3 w-full rounded-xl border border-[#3D3D3D] bg-[#25272A] px-4 py-2.5 text-xs font-semibold text-[#D6D8DA] transition duration-200 hover:border-[#5C8DB8] hover:text-white active:translate-y-px"
+                      >
+                        {selectedContext ? "Edit session notes" : "Add session notes"}
+                      </button>
                     </div>
-                    {selectedContext && (
-                      <div className="mt-3 space-y-1 text-xs leading-5 text-[#B7BAC0]">
-                        <p>
-                          {selectedContext.shirtColor || "Shirt color not set"}
-                          {selectedContext.shirtContrast
-                            ? ` · ${selectedContext.shirtContrast} contrast`
-                            : ""}
-                        </p>
-                        {selectedContext.notes && (
-                          <p className="line-clamp-2 text-[#8B8F94]">{selectedContext.notes}</p>
-                        )}
-                      </div>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => openSessionContext(selected.sessionId as string)}
-                      className="mt-3 w-full rounded-xl border border-[#3D3D3D] bg-[#25272A] px-4 py-2.5 text-xs font-semibold text-[#D6D8DA] transition duration-200 hover:border-[#5C8DB8] hover:text-white active:translate-y-px"
-                    >
-                      {selectedContext ? "Edit shirt color and notes" : "Add shirt color and notes"}
-                    </button>
-                  </div>
+                  </details>
                 )}
 
-                <div className="border-t border-[#34373B] pt-4 text-[11px] leading-5 text-[#777B80]">
-                  <div className="flex justify-between gap-3"><span>Direction</span><span className="font-mono text-[#B7BAC0]">{selected.direction || "n/a"}</span></div>
-                  <div className="flex justify-between gap-3"><span>Blob height</span><span className="font-mono text-[#B7BAC0]">{percent(selected.blobHeightFraction)}</span></div>
-                  <div className="flex justify-between gap-3"><span>FPS</span><span className="font-mono text-[#B7BAC0]">{selected.fps === null ? "n/a" : selected.fps.toFixed(1)}</span></div>
-                  <div className="mt-2 text-[#63676C]">Use Previous and Next on mobile, or the left and right arrow keys on desktop.</div>
-                </div>
+                <details className="rounded-xl border border-[#34373B] bg-[#202225]">
+                  <summary className="cursor-pointer px-3 py-3 text-xs font-semibold text-[#8B8F94] hover:text-white">Capture details</summary>
+                  <div className="space-y-1 border-t border-[#34373B] p-3 text-[11px] leading-5 text-[#777B80]">
+                    <div className="flex justify-between gap-3"><span>Direction</span><span className="font-mono text-[#B7BAC0]">{selected.direction || "n/a"}</span></div>
+                    <div className="flex justify-between gap-3"><span>Blob height</span><span className="font-mono text-[#B7BAC0]">{percent(selected.blobHeightFraction)}</span></div>
+                    <div className="flex justify-between gap-3"><span>FPS</span><span className="font-mono text-[#B7BAC0]">{selected.fps === null ? "n/a" : selected.fps.toFixed(1)}</span></div>
+                  </div>
+                </details>
               </div>
             </aside>
           </div>
