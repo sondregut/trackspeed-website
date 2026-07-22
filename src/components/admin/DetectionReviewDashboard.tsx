@@ -28,9 +28,19 @@ interface ReviewMark {
   detectorY: number | null
   deltaX: number | null
   deltaY: number | null
+  selectedFrameRelation: string | null
+  selectedFramePtsNanos: string | null
   note: string
   hasReviewImage: boolean
   source: "app" | "admin"
+}
+
+interface TemporalFrame {
+  index: number
+  url: string
+  relation: string
+  relativeFrame: number
+  ptsNanos: string | null
 }
 
 interface DetectionCapture {
@@ -54,7 +64,7 @@ interface DetectionCapture {
   blobWidthFraction: number | null
   fps: number | null
   imageUrl: string
-  temporalFrameUrls: string[]
+  temporalFrames: TemporalFrame[]
   temporalGeometryFrameCount: number
   review: ReviewMark | null
 }
@@ -119,6 +129,9 @@ interface ReviewUploadPayload {
   issue: ReviewIssue
   note: string
   reviewImageDataUrl: string
+  selectedFrameIndex?: number
+  selectedFrameRelation?: string
+  selectedFramePtsNanos?: string | null
 }
 
 interface ReviewUpload {
@@ -190,6 +203,7 @@ function reviewStateChanged(
   point: Point | null,
   issue: ReviewIssue,
   note: string,
+  selectedFrame: TemporalFrame | null,
 ) {
   if (!capture || !capture.editable) return false
   const review = capture.review
@@ -197,8 +211,20 @@ function reviewStateChanged(
     (point?.x ?? null) !== (review?.actualX ?? null) ||
     (point?.y ?? null) !== (review?.actualY ?? null) ||
     issue !== (review?.issue ?? "unlabeled") ||
-    note !== (review?.note ?? "")
+    note !== (review?.note ?? "") ||
+    (selectedFrame?.relation ?? "r0") !== (review?.selectedFrameRelation ?? "r0")
   )
+}
+
+function initialSelectedFrame(capture: DetectionCapture | null): TemporalFrame | null {
+  if (!capture?.temporalFrames.length) return null
+  const reviewed = capture.review
+  return capture.temporalFrames.find((frame) =>
+    Boolean(
+      (reviewed?.selectedFramePtsNanos && frame.ptsNanos === reviewed.selectedFramePtsNanos)
+      || (reviewed?.selectedFrameRelation && frame.relation === reviewed.selectedFrameRelation),
+    ),
+  ) || capture.temporalFrames.find((frame) => frame.relativeFrame === 0) || capture.temporalFrames[0]
 }
 
 export default function DetectionReviewDashboard() {
@@ -219,6 +245,7 @@ export default function DetectionReviewDashboard() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [point, setPoint] = useState<Point | null>(null)
+  const [selectedFrameIndex, setSelectedFrameIndex] = useState<number | null>(null)
   const [issue, setIssue] = useState<ReviewIssue>("unlabeled")
   const [note, setNote] = useState("")
   const [contextSessionId, setContextSessionId] = useState<string | null>(null)
@@ -333,6 +360,8 @@ export default function DetectionReviewDashboard() {
                 ? null
                 : upload.payload.actualX - (capturesById.get(upload.captureId)?.detectorX ?? 0.5),
             deltaY: null,
+            selectedFrameRelation: upload.payload.selectedFrameRelation ?? "r0",
+            selectedFramePtsNanos: upload.payload.selectedFramePtsNanos ?? null,
             note: upload.payload.note,
             hasReviewImage: false,
             source: "admin" as const,
@@ -385,6 +414,11 @@ export default function DetectionReviewDashboard() {
   const selected = useMemo(
     () => captures.find((capture) => capture.id === selectedId) || null,
     [captures, selectedId],
+  )
+  const selectedFrame = useMemo(
+    () => selected?.temporalFrames.find((frame) => frame.index === selectedFrameIndex)
+      || initialSelectedFrame(selected),
+    [selected, selectedFrameIndex],
   )
 
   const sessionContextsById = useMemo(
@@ -473,6 +507,7 @@ export default function DetectionReviewDashboard() {
 
   useEffect(() => {
     const review = selected?.review
+    setSelectedFrameIndex(initialSelectedFrame(selected)?.index ?? null)
     setPoint(
       review?.actualX !== null && review?.actualX !== undefined && review.actualY !== null
         ? { x: review.actualX, y: review.actualY }
@@ -494,7 +529,7 @@ export default function DetectionReviewDashboard() {
       }
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
       if (!selectedId) return
-      if (reviewStateChanged(selected, point, issue, note)) {
+      if (reviewStateChanged(selected, point, issue, note, selectedFrame)) {
         setError("Save and continue before leaving this thumbnail, or clear your changes first.")
         return
       }
@@ -510,7 +545,7 @@ export default function DetectionReviewDashboard() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [filteredCaptures, issue, note, point, selected, selectedId, viewMode])
+  }, [filteredCaptures, issue, note, point, selected, selectedFrame, selectedId, viewMode])
 
   useEffect(() => {
     if (viewMode !== "focus") return
@@ -718,6 +753,27 @@ export default function DetectionReviewDashboard() {
     setSuccess("")
   }
 
+  function chooseTemporalFrame(frame: TemporalFrame) {
+    if (!selected?.editable || frame.index === selectedFrame?.index) return
+    setSelectedFrameIndex(frame.index)
+    const savedReview = selected.review
+    const savedOnThisFrame = savedReview?.selectedFrameRelation === frame.relation
+      || (savedReview?.selectedFramePtsNanos && savedReview.selectedFramePtsNanos === frame.ptsNanos)
+    const savedPoint = savedReview && savedOnThisFrame
+      && savedReview.actualX !== null && savedReview.actualY !== null
+      ? { x: savedReview.actualX, y: savedReview.actualY }
+      : null
+    setPoint(savedPoint)
+    setIssue((current) => {
+      if (frame.relativeFrame !== 0 && current === "unlabeled") return "wrongFrame"
+      if (frame.relativeFrame === 0 && current === "wrongFrame") return "unlabeled"
+      return current
+    })
+    setImageLoading(true)
+    setError("")
+    setSuccess("")
+  }
+
   function chooseIssue(value: ReviewIssue) {
     if (!selected?.editable) return
     setIssue((current) => (current === value ? "unlabeled" : value))
@@ -796,6 +852,8 @@ export default function DetectionReviewDashboard() {
           detectorY: null,
           deltaX: actualX === null ? null : actualX - capture.detectorX,
           deltaY: null,
+          selectedFrameRelation: "r0",
+          selectedFramePtsNanos: null,
           note: item.note,
           hasReviewImage: false,
           source: "admin",
@@ -879,6 +937,8 @@ export default function DetectionReviewDashboard() {
         detectorY: null,
         deltaX: actualX === null ? null : actualX - capture.detectorX,
         deltaY: null,
+        selectedFrameRelation: selectedFrame?.relation ?? "r0",
+        selectedFramePtsNanos: selectedFrame?.ptsNanos ?? null,
         note,
         hasReviewImage: false,
         source: "admin",
@@ -892,6 +952,11 @@ export default function DetectionReviewDashboard() {
           issue,
           note,
           reviewImageDataUrl,
+          ...(selectedFrame ? {
+            selectedFrameIndex: selectedFrame.index,
+            selectedFrameRelation: selectedFrame.relation,
+            selectedFramePtsNanos: selectedFrame.ptsNanos,
+          } : {}),
         },
         status: "queued",
         attempts: 0,
@@ -922,7 +987,7 @@ export default function DetectionReviewDashboard() {
   const selectedIndex = selected
     ? filteredCaptures.findIndex((capture) => capture.id === selected.id)
     : -1
-  const hasUnsavedReviewChanges = reviewStateChanged(selected, point, issue, note)
+  const hasUnsavedReviewChanges = reviewStateChanged(selected, point, issue, note, selectedFrame)
   const gridFilterKey = `${days}:${statusFilter}:${search.trim().toLowerCase()}`
 
   function navigateFocus(offset: -1 | 1) {
@@ -1306,8 +1371,8 @@ export default function DetectionReviewDashboard() {
                 <div className="relative inline-block max-w-full overflow-hidden rounded-xl bg-[#0C0D0E] shadow-[0_24px_70px_-32px_rgba(0,0,0,0.9)]">
                   <img
                     ref={imageRef}
-                    key={selected.id}
-                    src={selected.imageUrl}
+                    key={`${selected.id}:${selectedFrame?.index ?? "original"}`}
+                    src={selectedFrame?.url || selected.imageUrl}
                     alt={`Detection capture for session ${shortId(selected.sessionId)}, run ${selected.runNumber}`}
                     onLoad={() => setImageLoading(false)}
                     onError={() => {
@@ -1336,29 +1401,42 @@ export default function DetectionReviewDashboard() {
                 </div>
               </div>
 
-              {selected.temporalFrameUrls.length > 0 && (
+              {selected.temporalFrames.length > 0 && (
                 <div className="border-t border-[#34373B] bg-[#111315] px-4 py-3">
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8B8F94]">
-                      Causal evidence: before · trigger · after
+                      Choose the correct frame, then place the green mark
                     </span>
                     <span className="font-mono text-[10px] text-[#6FB58A]">
-                      {selected.temporalGeometryFrameCount} geometry frames
+                      {selectedFrame?.relation || "r0"} selected · {selected.temporalGeometryFrameCount} geometry frames
                     </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {selected.temporalFrameUrls.map((url, index) => (
-                      <div key={url} className="overflow-hidden rounded-lg border border-[#34373B] bg-[#0C0D0E]">
+                  <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                    {selected.temporalFrames.map((frame) => (
+                      <button
+                        key={`${frame.index}:${frame.ptsNanos}`}
+                        type="button"
+                        aria-pressed={frame.index === selectedFrame?.index}
+                        onClick={() => chooseTemporalFrame(frame)}
+                        disabled={!selected.editable}
+                        className={`overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default ${
+                          frame.index === selectedFrame?.index
+                            ? "border-[#6FB58A] shadow-[0_0_0_1px_rgba(111,181,138,0.4)]"
+                            : "border-[#34373B] hover:border-[#5C8DB8]"
+                        }`}
+                      >
                         <img
-                          src={url}
-                          alt={`Temporal evidence frame ${index + 1}`}
+                          src={frame.url}
+                          alt={`Temporal evidence ${frame.relation}`}
                           loading="lazy"
                           className="aspect-[3/4] w-full object-cover"
                         />
-                        <div className="px-2 py-1 text-center font-mono text-[9px] uppercase text-[#8B8F94]">
-                          {index === 0 ? "before" : index === selected.temporalFrameUrls.length - 1 ? "after" : "trigger"}
+                        <div className={`px-2 py-1.5 text-center font-mono text-[10px] font-semibold ${
+                          frame.index === selectedFrame?.index ? "text-[#8FC8A3]" : "text-[#8B8F94]"
+                        }`}>
+                          {frame.relation}{frame.relativeFrame === 0 ? " · detected" : ""}
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>

@@ -71,6 +71,9 @@ interface ReviewMarkRow {
   detector_y: number | null
   delta_x: number | null
   delta_y: number | null
+  frame_pick: string | null
+  chosen_thumbnail_frame_pts: number | string | null
+  saved_thumbnail_frame_pts: number | string | null
   note: string | null
   thumbnail_storage_path: string | null
 }
@@ -149,6 +152,9 @@ const markSelect = [
   "detector_y",
   "delta_x",
   "delta_y",
+  "frame_pick",
+  "chosen_thumbnail_frame_pts",
+  "saved_thumbnail_frame_pts",
   "note",
   "thumbnail_storage_path",
 ].join(",")
@@ -202,10 +208,61 @@ function publicReview(mark: ReviewMarkRow | null) {
     detectorY: mark.detector_y,
     deltaX: mark.delta_x,
     deltaY: mark.delta_y,
+    selectedFrameRelation: mark.frame_pick?.startsWith("admin_dashboard:")
+      ? mark.frame_pick.slice("admin_dashboard:".length)
+      : null,
+    selectedFramePtsNanos: mark.chosen_thumbnail_frame_pts === null
+      ? null
+      : String(mark.chosen_thumbnail_frame_pts),
     note: mark.note || "",
     hasReviewImage: Boolean(mark.thumbnail_storage_path),
     source: mark.device_id === ADMIN_REVIEW_DEVICE_ID ? "admin" : "app",
   }
+}
+
+function metadataValue(frame: Record<string, unknown>, camel: string, snake: string) {
+  return frame[camel] ?? frame[snake]
+}
+
+function framePts(frame: Record<string, unknown>): string | null {
+  const value = metadataValue(frame, "ptsNanos", "pts_nanos")
+  return typeof value === "number" || typeof value === "string" ? String(value) : null
+}
+
+function temporalRelation(
+  frame: Record<string, unknown>,
+  ptsNanos: string | null,
+  chosenPtsNanos: number | string | null,
+): { relation: string; relativeFrame: number } | null {
+  const anchorMode = String(metadataValue(frame, "anchorMode", "anchor_mode") ?? "")
+  const timingModel = String(metadataValue(frame, "timingModel", "timing_model") ?? "")
+  const storedRelative = Number(metadataValue(frame, "relativeFrame", "relative_frame"))
+  if (Number.isInteger(storedRelative) && storedRelative >= -2 && storedRelative <= 2) {
+    return {
+      relation: storedRelative === 0 ? "r0" : `r${storedRelative > 0 ? "+" : ""}${storedRelative}`,
+      relativeFrame: storedRelative,
+    }
+  }
+
+  const relation = anchorMode.replace(/^temporal_/, "")
+  const relationMatch = relation.match(/^r([+-]?\d+)$/)
+  if (relationMatch) {
+    const relativeFrame = Number(relationMatch[1])
+    if (Number.isInteger(relativeFrame) && relativeFrame >= -2 && relativeFrame <= 2) {
+      return { relation: relativeFrame === 0 ? "r0" : `r${relativeFrame > 0 ? "+" : ""}${relativeFrame}`, relativeFrame }
+    }
+  }
+
+  if (!anchorMode.startsWith("temporal_") && timingModel !== "replica_temporal_evidence_v1") {
+    return null
+  }
+  if (ptsNanos && chosenPtsNanos !== null && ptsNanos === String(chosenPtsNanos)) {
+    return { relation: "r0", relativeFrame: 0 }
+  }
+  if (relation === "pre_trigger") return { relation: "r-1", relativeFrame: -1 }
+  if (relation === "trigger") return { relation: "r0", relativeFrame: 0 }
+  if (relation === "post_trigger") return { relation: "r+1", relativeFrame: 1 }
+  return null
 }
 
 function publicSessionContext(context: SessionContextRow) {
@@ -400,21 +457,22 @@ export async function GET(request: Request) {
         adminMarksByKey.get(adminReviewKey(capture.id)) ||
         (identity ? latestAppMarksByIdentity.get(identity) : null) ||
         null
-      const temporalFrameUrls = (capture.frames_metadata || [])
-        .map((frame, index) => ({ frame, index }))
-        .filter(({ frame }) => {
-          const anchorMode = frame.anchorMode ?? frame.anchor_mode ?? ""
-          const timingModel = frame.timingModel ?? frame.timing_model ?? ""
-          return String(anchorMode).startsWith("temporal_")
-            || timingModel === "replica_temporal_evidence_v1"
+      const temporalFrames = (capture.frames_metadata || [])
+        .map((frame, index) => {
+          const ptsNanos = framePts(frame)
+          const temporal = temporalRelation(frame, ptsNanos, capture.detector_chosen_frame_pts_nanos)
+          const storagePath = metadataValue(frame, "storagePath", "storage_path")
+          if (!temporal || typeof storagePath !== "string" || !storagePath) return null
+          return {
+            index,
+            url: `/api/admin/detection-review/image?id=${encodeURIComponent(capture.id)}&frame=${index}`,
+            relation: temporal.relation,
+            relativeFrame: temporal.relativeFrame,
+            ptsNanos,
+          }
         })
-        .map(({ frame, index }) => {
-          const storagePath = frame.storagePath ?? frame.storage_path
-          return typeof storagePath === "string" && storagePath.length > 0
-            ? `/api/admin/detection-review/image?id=${encodeURIComponent(capture.id)}&frame=${index}`
-            : null
-        })
-        .filter((value): value is string => Boolean(value))
+        .filter((value): value is NonNullable<typeof value> => Boolean(value))
+        .sort((left, right) => left.relativeFrame - right.relativeFrame)
       return {
         id: capture.id,
         source: "debug_capture" as const,
@@ -436,7 +494,7 @@ export async function GET(request: Request) {
         blobWidthFraction: capture.algo_blob_width_fraction,
         fps: capture.algo_fps,
         imageUrl: `/api/admin/detection-review/image?id=${encodeURIComponent(capture.id)}`,
-        temporalFrameUrls,
+        temporalFrames,
         temporalGeometryFrameCount: Array.isArray(capture.temporal_evidence?.frames)
           ? capture.temporal_evidence.frames.length
           : 0,
@@ -471,7 +529,7 @@ export async function GET(request: Request) {
               blobWidthFraction: null,
               fps: null,
               imageUrl: `/api/admin/detection-review/image?markId=${encodeURIComponent(mark.id)}`,
-              temporalFrameUrls: [],
+              temporalFrames: [],
               temporalGeometryFrameCount: 0,
               review: publicReview(mark),
             }
@@ -665,6 +723,48 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Detection capture has no thumbnail" }, { status: 409 })
     }
 
+    const requestedFrameIndex = body.selectedFrameIndex
+    let selectedFrameRelation = "r0"
+    let selectedFramePtsNanos = capture.detector_chosen_frame_pts_nanos
+      ?? capture.saved_thumbnail_frame_pts_nanos
+    if (requestedFrameIndex !== undefined && requestedFrameIndex !== null) {
+      if (
+        typeof requestedFrameIndex !== "number"
+        || !Number.isInteger(requestedFrameIndex)
+        || requestedFrameIndex < 0
+      ) {
+        return NextResponse.json({ error: "Selected frame index is invalid" }, { status: 400 })
+      }
+      const selectedMetadata = (capture.frames_metadata || [])[requestedFrameIndex]
+      if (!selectedMetadata) {
+        return NextResponse.json({ error: "Selected frame is not part of this capture" }, { status: 400 })
+      }
+      const selectedStoragePath = metadataValue(selectedMetadata, "storagePath", "storage_path")
+      const selectedPts = framePts(selectedMetadata)
+      const selectedTemporal = temporalRelation(
+        selectedMetadata,
+        selectedPts,
+        capture.detector_chosen_frame_pts_nanos,
+      )
+      if (!selectedTemporal || typeof selectedStoragePath !== "string" || !selectedStoragePath || !selectedPts) {
+        return NextResponse.json({ error: "Selected evidence frame is unavailable" }, { status: 400 })
+      }
+      if (
+        body.selectedFrameRelation !== undefined
+        && body.selectedFrameRelation !== selectedTemporal.relation
+      ) {
+        return NextResponse.json({ error: "Selected frame relation does not match the capture" }, { status: 400 })
+      }
+      if (
+        body.selectedFramePtsNanos !== undefined
+        && String(body.selectedFramePtsNanos) !== selectedPts
+      ) {
+        return NextResponse.json({ error: "Selected frame timestamp does not match the capture" }, { status: 400 })
+      }
+      selectedFrameRelation = selectedTemporal.relation
+      selectedFramePtsNanos = selectedPts
+    }
+
     const detectorX = detectorDisplayPosition(capture)
     const target = normalizeReviewTarget(capture.gate_label)
     const reviewKey = adminReviewKey(capture.id)
@@ -694,6 +794,8 @@ export async function POST(request: Request) {
       `actualY=${actualY === null ? "nil" : actualY.toFixed(4)}`,
       `detectorX=${detectorX.toFixed(4)}`,
       `deltaX=${deltaX === null ? "nil" : deltaX.toFixed(4)}`,
+      `selectedFrame=${selectedFrameRelation}`,
+      `selectedFramePts=${selectedFramePtsNanos ?? "nil"}`,
       `issue=${body.issue}`,
       `reviewSchema=${ADMIN_REVIEW_SCHEMA}`,
     ].join(" ")
@@ -720,13 +822,13 @@ export async function POST(request: Request) {
       delta_x: deltaX,
       delta_y: null,
       interpolation_alpha: capture.algo_interpolation_alpha,
-      frame_pick: "admin_dashboard",
+      frame_pick: `admin_dashboard:${selectedFrameRelation}`,
       s0: capture.algo_s0,
       s1: capture.algo_s1,
       work_width: capture.algo_work_width,
       detector_trigger_frame_pts: capture.detector_trigger_frame_pts_nanos,
-      chosen_thumbnail_frame_pts: capture.detector_chosen_frame_pts_nanos,
-      saved_thumbnail_frame_pts: capture.saved_thumbnail_frame_pts_nanos,
+      chosen_thumbnail_frame_pts: selectedFramePtsNanos,
+      saved_thumbnail_frame_pts: selectedFramePtsNanos,
       thumbnail_storage_path: reviewStoragePath,
       note: note || null,
       raw_message: rawMessage,

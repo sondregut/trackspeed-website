@@ -1,5 +1,5 @@
 export const ADMIN_REVIEW_DEVICE_ID = "admin-dashboard"
-export const ADMIN_REVIEW_SCHEMA = 4
+export const ADMIN_REVIEW_SCHEMA = 5
 
 export const SESSION_SHIRT_CONTRASTS = ["good", "ok", "poor"] as const
 
