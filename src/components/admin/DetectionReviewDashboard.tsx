@@ -174,7 +174,7 @@ const issueOptions: Array<{ value: ReviewIssue; label: string; helper: string }>
   { value: "blur", label: "Blur", helper: "Motion blur prevents a confident mark" },
   { value: "thumbnail", label: "Thumbnail", helper: "Image mapping or crop is wrong" },
   { value: "false_positive", label: "False positive", helper: "No real crossing occurred" },
-  { value: "real_crossing", label: "Real crossing", helper: "Crossing exists but is unmeasured" },
+  { value: "real_crossing", label: "None of the frames", helper: "A real crossing occurred, but none of the saved frames contains it" },
   { value: "other", label: "Other", helper: "Describe the problem in a note" },
 ]
 
@@ -203,6 +203,7 @@ function errorBand(deltaX: number | null) {
 }
 
 function outsideFrameLabel(issue: ReviewIssue) {
+  if (issue === "real_crossing") return "None of the saved frames contains the crossing"
   if (issue === "outsideFrameBefore") return "Crossing was before saved frames"
   if (issue === "outsideFrameAfter") return "Crossing was after saved frames"
   return null
@@ -797,6 +798,9 @@ export default function DetectionReviewDashboard() {
       : null
     setPoint(savedPoint)
     setIssue((current) => {
+      if (["false_positive", "real_crossing", "outsideFrameBefore", "outsideFrameAfter"].includes(current)) {
+        return frame.relativeFrame === 0 ? "unlabeled" : "wrongFrame"
+      }
       if (frame.relativeFrame !== 0 && current === "unlabeled") return "wrongFrame"
       if (frame.relativeFrame === 0 && current === "wrongFrame") return "unlabeled"
       return current
@@ -810,13 +814,20 @@ export default function DetectionReviewDashboard() {
     if (!selected?.editable) return
     const isClearing = issue === value
     setIssue(isClearing ? "unlabeled" : value)
-    if (isClearing && (value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+    if (isClearing && (value === "real_crossing" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
       const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
       setSelectedFrameIndex(detectedFrame?.index ?? initialSelectedFrame(selected)?.index ?? null)
       setImageLoading(true)
     }
-    if (!isClearing && (value === "false_positive" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+    if (!isClearing && (value === "false_positive" || value === "real_crossing" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
       setPoint(null)
+    }
+    if (!isClearing && value === "real_crossing") {
+      const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
+      if (detectedFrame) {
+        setSelectedFrameIndex(detectedFrame.index)
+        setImageLoading(true)
+      }
     }
     if (!isClearing && (value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
       const boundaryFrame = value === "outsideFrameBefore"
@@ -1085,9 +1096,9 @@ export default function DetectionReviewDashboard() {
   }
 
   return (
-    <main className="min-h-[100dvh] bg-[#191919] px-4 py-6 text-[#E8E8E6] sm:px-6 lg:px-8">
+    <main className="min-h-[100dvh] bg-[#141A1F] px-4 py-6 text-[#E8EDF0] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[1600px] space-y-6">
-        <header className="grid gap-5 border-b border-[#34373B] pb-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <header className="grid gap-5 rounded-2xl border border-[#314452] bg-[#1A232A] p-5 shadow-[0_24px_70px_-52px_rgba(3,14,22,0.95),inset_0_1px_0_rgba(255,255,255,0.06)] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end sm:p-6">
           <div>
             <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5C8DB8]">
               Replica evidence review
@@ -1102,18 +1113,18 @@ export default function DetectionReviewDashboard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 divide-x divide-[#34373B] border-y border-[#34373B] py-3 font-mono lg:min-w-[360px]">
+          <div className="grid grid-cols-3 overflow-hidden rounded-xl border border-[#38505F] bg-[#131B21] font-mono lg:min-w-[360px]">
             <div className="px-4">
-              <div className="text-xl font-semibold text-white">{counts.pending}</div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-[#777B80]">Pending</div>
+              <div className="pt-3 text-xl font-semibold text-[#E4C985]">{counts.pending}</div>
+              <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#8F8772]">Pending</div>
+            </div>
+            <div className="border-x border-[#38505F] bg-[#17231D] px-4">
+              <div className="pt-3 text-xl font-semibold text-[#A8D8B9]">{counts.reviewed}</div>
+              <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#718D7A]">Reviewed</div>
             </div>
             <div className="px-4">
-              <div className="text-xl font-semibold text-white">{counts.reviewed}</div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-[#777B80]">Reviewed</div>
-            </div>
-            <div className="px-4">
-              <div className="text-xl font-semibold text-white">{counts.total}</div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-[#777B80]">Loaded</div>
+              <div className="pt-3 text-xl font-semibold text-[#B7D0E5]">{counts.total}</div>
+              <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#758A9C]">Loaded</div>
             </div>
           </div>
         </header>
@@ -1126,7 +1137,7 @@ export default function DetectionReviewDashboard() {
               onChange={(event) => setSearch(event.target.value)}
               disabled={gridDraftCount > 0}
               placeholder="Search the review queue"
-              className="h-11 rounded-xl border border-[#3D3D3D] bg-[#232528] px-4 text-sm text-white outline-none transition focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25 disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-11 rounded-xl border border-[#3B4D59] bg-[#1C252C] px-4 text-sm text-white outline-none transition focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </label>
           <label className="grid gap-2">
@@ -1135,7 +1146,7 @@ export default function DetectionReviewDashboard() {
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}
               disabled={gridDraftCount > 0}
-              className="h-11 min-w-36 rounded-xl border border-[#3D3D3D] bg-[#232528] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-11 min-w-36 rounded-xl border border-[#3B4D59] bg-[#1C252C] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="pending">Pending</option>
               <option value="reviewed">Reviewed</option>
@@ -1148,7 +1159,7 @@ export default function DetectionReviewDashboard() {
               value={days}
               onChange={(event) => setDays(Number(event.target.value))}
               disabled={gridDraftCount > 0}
-              className="h-11 min-w-32 rounded-xl border border-[#3D3D3D] bg-[#232528] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-11 min-w-32 rounded-xl border border-[#3B4D59] bg-[#1C252C] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value={7}>7 days</option>
               <option value={30}>30 days</option>
@@ -1338,7 +1349,7 @@ export default function DetectionReviewDashboard() {
               </div>
             </aside>
 
-            <section className="order-1 min-w-0 overflow-hidden rounded-2xl border border-[#34373B] bg-[#111315] xl:order-2">
+            <section className="order-1 min-w-0 overflow-hidden rounded-2xl border border-[#314452] bg-[#11181D] shadow-[0_24px_70px_-48px_rgba(2,10,16,0.95),inset_0_1px_0_rgba(255,255,255,0.04)] xl:order-2">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#34373B] px-4 py-3 sm:px-5">
                 <div>
                   <div className="font-[var(--font-bricolage)] text-lg font-semibold text-white">
@@ -1393,7 +1404,7 @@ export default function DetectionReviewDashboard() {
               </nav>
 
               {selected.temporalFrames.length > 0 && (
-                <div className="border-b border-[#34373B] bg-[#17191B] px-4 py-4 sm:px-5">
+                <div className="border-b border-[#314452] bg-[#151E24] px-4 py-4 sm:px-5">
                   <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#5C8DB8] text-xs font-bold text-white">1</span>
@@ -1406,19 +1417,19 @@ export default function DetectionReviewDashboard() {
                   <div
                     role="group"
                     aria-label="Frame navigation"
-                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-xl border border-[#3D4145] bg-[#111315]"
+                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-xl border border-[#3B5362] bg-[#11181D] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
                   >
                     <button
                       type="button"
                       aria-label="Show previous frame"
                       onClick={() => previousTemporalFrame && chooseTemporalFrame(previousTemporalFrame)}
                       disabled={!previousTemporalFrame || !selected.editable}
-                      className="min-h-12 border-r border-[#3D4145] px-4 text-sm font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                      className="min-h-12 border-r border-[#3B5362] px-4 text-sm font-semibold text-[#D6E2E9] transition hover:bg-[#22303A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#55636D] disabled:hover:bg-transparent"
                     >
                       Back
                     </button>
-                    <div aria-live="polite" className="grid min-w-[112px] place-content-center px-4 text-center">
-                      <span className="text-xs font-semibold text-[#A4D7B5]">{temporalFrameLabel(selectedFrame)}</span>
+                    <div aria-live="polite" className="grid min-w-[120px] place-content-center bg-[#203229] px-4 text-center shadow-[inset_0_0_0_1px_rgba(111,181,138,0.12)]">
+                      <span className="text-xs font-semibold text-[#B9E2C8]">{temporalFrameLabel(selectedFrame)}</span>
                       <span className="mt-0.5 font-mono text-[10px] text-[#686D72]">
                         {selectedFramePosition >= 0 ? selectedFramePosition + 1 : 1} of {selected.temporalFrames.length}
                       </span>
@@ -1428,7 +1439,7 @@ export default function DetectionReviewDashboard() {
                       aria-label="Show next frame"
                       onClick={() => nextTemporalFrame && chooseTemporalFrame(nextTemporalFrame)}
                       disabled={!nextTemporalFrame || !selected.editable}
-                      className="min-h-12 border-l border-[#3D4145] px-4 text-sm font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                      className="min-h-12 border-l border-[#3B5362] px-4 text-sm font-semibold text-[#D6E2E9] transition hover:bg-[#22303A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#55636D] disabled:hover:bg-transparent"
                     >
                       Forward
                     </button>
@@ -1516,7 +1527,7 @@ export default function DetectionReviewDashboard() {
               </details>
             </section>
 
-            <aside className="order-2 rounded-2xl border border-[#34373B] bg-[#1E2022] p-4 sm:p-5 xl:order-3 xl:sticky xl:top-20">
+            <aside className="order-2 rounded-2xl border border-[#314452] bg-[#1B242B] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-5 xl:order-3 xl:sticky xl:top-20">
               <div className="flex items-start justify-between gap-4 border-b border-[#34373B] pb-4">
                 <div>
                   <h2 className="font-[var(--font-bricolage)] text-xl font-semibold text-white">Save correction</h2>
@@ -1580,12 +1591,24 @@ export default function DetectionReviewDashboard() {
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
+                      aria-pressed={issue === "real_crossing"}
+                      onClick={() => chooseIssue("real_crossing")}
+                      className={`col-span-2 min-h-14 rounded-xl border px-4 py-3 text-sm font-semibold transition active:-translate-y-px ${
+                        issue === "real_crossing"
+                          ? "border-[#D6B36A] bg-[#6C592F] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                          : "border-[#8B7444] bg-[#352F20] text-[#F0D89B] hover:border-[#D6B36A] hover:bg-[#403722] hover:text-white"
+                      }`}
+                    >
+                      {issue === "real_crossing" ? "None of these frames selected" : "None of these frames"}
+                    </button>
+                    <button
+                      type="button"
                       aria-pressed={issue === "outsideFrameBefore"}
                       onClick={() => chooseIssue("outsideFrameBefore")}
                       className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
                         issue === "outsideFrameBefore"
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
-                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                          : "border-[#5E5134] bg-[#28251D] text-[#CBB985] hover:border-[#D6B36A] hover:text-white"
                       }`}
                     >
                       Crossing earlier
@@ -1597,7 +1620,7 @@ export default function DetectionReviewDashboard() {
                       className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
                         issue === "outsideFrameAfter"
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
-                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                          : "border-[#5E5134] bg-[#28251D] text-[#CBB985] hover:border-[#D6B36A] hover:text-white"
                       }`}
                     >
                       Crossing later
@@ -1609,7 +1632,7 @@ export default function DetectionReviewDashboard() {
                       className={`col-span-2 min-h-11 rounded-xl border px-4 py-2.5 text-sm font-semibold transition active:translate-y-px ${
                         issue === "false_positive"
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
-                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                          : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
                       }`}
                     >
                       {issue === "false_positive" ? "No crossing selected" : "No real crossing / false detection"}

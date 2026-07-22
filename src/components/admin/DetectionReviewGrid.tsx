@@ -123,6 +123,7 @@ function framePositionLabel(frame: GridTemporalFrame) {
 }
 
 function outsideFrameLabel(issue: GridReviewIssue | undefined) {
+  if (issue === "real_crossing") return "None of the saved frames"
   if (issue === "outsideFrameBefore") return "Crossing before frames"
   if (issue === "outsideFrameAfter") return "Crossing after frames"
   return null
@@ -354,9 +355,10 @@ export function DetectionReviewGrid({
       const savedPoint = savedOnFrame && review?.actualX != null && review.actualY != null
         ? { x: review.actualX, y: review.actualY }
         : null
-      let nextIssue = existing?.issue === "false_positive"
-        ? "unlabeled" as GridReviewIssue
-        : existing?.issue ?? review?.issue ?? "unlabeled"
+      let nextIssue = existing?.issue ?? review?.issue ?? "unlabeled"
+      if (["false_positive", "real_crossing", "outsideFrameBefore", "outsideFrameAfter"].includes(nextIssue)) {
+        nextIssue = "unlabeled"
+      }
       if (frame.relativeFrame !== 0 && nextIssue === "unlabeled") nextIssue = "wrongFrame"
       if (frame.relativeFrame === 0 && nextIssue === "wrongFrame") nextIssue = "unlabeled"
       const nextDraft: GridDraft = {
@@ -417,7 +419,10 @@ export function DetectionReviewGrid({
     setBatchError("")
   }
 
-  function toggleOutsideFrame(capture: DetectionGridCapture, issue: "outsideFrameBefore" | "outsideFrameAfter") {
+  function toggleOutsideFrame(
+    capture: DetectionGridCapture,
+    issue: "real_crossing" | "outsideFrameBefore" | "outsideFrameAfter",
+  ) {
     if (!capture.editable) return
     const upload = uploadsByCapture.get(capture.id)
     if (upload && upload.status !== "failed") return
@@ -431,7 +436,9 @@ export function DetectionReviewGrid({
       }
       const boundaryFrame = issue === "outsideFrameBefore"
         ? capture.temporalFrames[0]
-        : capture.temporalFrames[capture.temporalFrames.length - 1]
+        : issue === "outsideFrameAfter"
+          ? capture.temporalFrames[capture.temporalFrames.length - 1]
+          : capture.temporalFrames.find((frame) => frame.relativeFrame === 0) || initialFrame(capture)
       return {
         ...current,
         [capture.id]: {
@@ -542,7 +549,7 @@ export function DetectionReviewGrid({
 
   if (!filteredCaptures.length) {
     return (
-      <section className="border-y border-[#34373B] py-20 text-center">
+      <section className="rounded-2xl border border-[#31404A] bg-[#1B2228] py-20 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
         <h2 className="font-[var(--font-bricolage)] text-2xl font-semibold text-white">
           {allCaptures.length ? "No captures match this grid" : "No review captures in this window"}
         </h2>
@@ -555,7 +562,7 @@ export function DetectionReviewGrid({
 
   return (
     <section className="space-y-4" aria-labelledby="grid-review-heading">
-      <header className="grid gap-4 border-y border-[#34373B] py-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+      <header className="grid gap-4 rounded-2xl border border-[#31404A] bg-[#1A2229] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-[#5C8DB8]">
             All sessions · {visibleSessionCount} sessions · {filteredCaptures.length} captures
@@ -603,6 +610,7 @@ export function DetectionReviewGrid({
           const deltaX = displayPoint ? displayPoint.x - capture.detectorX : null
           const band = qualityBand(deltaX)
           const isFalsePositive = draft?.issue === "false_positive" || (!draft && capture.review?.issue === "false_positive")
+          const isNoCorrectFrame = draft?.issue === "real_crossing" || (!draft && capture.review?.issue === "real_crossing")
           const isOutsideFrameBefore = draft?.issue === "outsideFrameBefore" || (!draft && capture.review?.issue === "outsideFrameBefore")
           const isOutsideFrameAfter = draft?.issue === "outsideFrameAfter" || (!draft && capture.review?.issue === "outsideFrameAfter")
           const selectedOutsideFrameLabel = outsideFrameLabel(draft?.issue ?? capture.review?.issue)
@@ -622,15 +630,17 @@ export function DetectionReviewGrid({
           return (
             <article
               key={capture.id}
-              className={`overflow-hidden rounded-2xl border bg-[#1E2022] transition duration-200 ${
-                draft
-                  ? "border-[#5C8DB8] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+              className={`overflow-hidden rounded-2xl border bg-[#1B2228] shadow-[0_18px_48px_-38px_rgba(3,12,18,0.95),inset_0_1px_0_rgba(255,255,255,0.04)] transition duration-200 ${
+                draft && selectedOutsideFrameLabel
+                  ? "border-[#9A814A]"
+                  : draft
+                    ? "border-[#5C8DB8]"
                   : upload?.status === "failed"
                     ? "border-[#9A5755]"
-                    : "border-[#34373B]"
+                    : "border-[#31404A] hover:border-[#456175]"
               }`}
             >
-              <div className="flex items-start justify-between gap-3 border-b border-[#34373B] px-3.5 py-3">
+              <div className="flex items-start justify-between gap-3 border-b border-[#31404A] bg-[#202A32] px-3.5 py-3">
                 <div>
                   <div className="text-sm font-semibold text-white">Run {capture.runNumber} · {capture.target}</div>
                   <div className="mt-0.5 font-mono text-[10px] text-[#777B80]">
@@ -673,7 +683,7 @@ export function DetectionReviewGrid({
               />
 
               {capture.temporalFrames.length > 0 && (
-                <div className="border-b border-[#34373B] bg-[#17191B] px-3.5 py-3">
+                <div className="border-b border-[#31404A] bg-[#151D23] px-3.5 py-3">
                   <div className="mb-2">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">
                       Frame
@@ -682,19 +692,19 @@ export function DetectionReviewGrid({
                   <div
                     role="group"
                     aria-label={`Frame scrubber for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
-                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-[#3D4145] bg-[#111315]"
+                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-xl border border-[#3B5362] bg-[#11181D] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
                   >
                     <button
                       type="button"
                       aria-label="Show previous frame"
                       onClick={() => previousFrame && chooseGridFrame(capture, previousFrame)}
                       disabled={!previousFrame || !capture.editable || Boolean(upload && upload.status !== "failed")}
-                      className="min-h-12 border-r border-[#3D4145] px-3 text-xs font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                      className="min-h-12 border-r border-[#3B5362] px-3 text-xs font-semibold text-[#D6E2E9] transition hover:bg-[#22303A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#55636D] disabled:hover:bg-transparent"
                     >
                       Back
                     </button>
-                    <div aria-live="polite" className="grid min-w-[92px] place-content-center px-3 text-center">
-                      <span className="text-[10px] font-semibold text-[#A4D7B5]">
+                    <div aria-live="polite" className="grid min-w-[98px] place-content-center bg-[#203229] px-3 text-center shadow-[inset_0_0_0_1px_rgba(111,181,138,0.12)]">
+                      <span className="text-[10px] font-semibold text-[#B9E2C8]">
                         {frame ? framePositionLabel(frame) : "Detected frame"}
                       </span>
                       <span className="mt-0.5 font-mono text-[9px] text-[#686D72]">
@@ -706,7 +716,7 @@ export function DetectionReviewGrid({
                       aria-label="Show next frame"
                       onClick={() => nextFrame && chooseGridFrame(capture, nextFrame)}
                       disabled={!nextFrame || !capture.editable || Boolean(upload && upload.status !== "failed")}
-                      className="min-h-12 border-l border-[#3D4145] px-3 text-xs font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                      className="min-h-12 border-l border-[#3B5362] px-3 text-xs font-semibold text-[#D6E2E9] transition hover:bg-[#22303A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#55636D] disabled:hover:bg-transparent"
                     >
                       Forward
                     </button>
@@ -714,10 +724,56 @@ export function DetectionReviewGrid({
                   <p className="mt-2 text-[10px] leading-4 text-[#777B80]">
                     Choose a frame, then tap the true torso edge in the image.
                   </p>
+
+                  {capture.editable && (
+                    <div className="mt-3 rounded-xl border border-[#5E5134] bg-[#28251D] p-2.5">
+                      <button
+                        type="button"
+                        aria-pressed={isNoCorrectFrame}
+                        onClick={() => toggleOutsideFrame(capture, "real_crossing")}
+                        disabled={Boolean(upload && upload.status !== "failed")}
+                        className={`min-h-12 w-full rounded-lg border px-3 py-2 text-xs font-semibold transition active:-translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                          isNoCorrectFrame
+                            ? "border-[#D6B36A] bg-[#6C592F] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                            : "border-[#8B7444] bg-[#352F20] text-[#F0D89B] hover:border-[#D6B36A] hover:bg-[#403722] hover:text-white"
+                        }`}
+                      >
+                        {isNoCorrectFrame ? "None of these frames selected" : "None of these frames"}
+                      </button>
+                      <div className="mt-2 grid grid-cols-2 gap-1.5">
+                        <button
+                          type="button"
+                          aria-pressed={isOutsideFrameBefore}
+                          onClick={() => toggleOutsideFrame(capture, "outsideFrameBefore")}
+                          disabled={Boolean(upload && upload.status !== "failed")}
+                          className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:-translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                            isOutsideFrameBefore
+                              ? "border-[#D6B36A] bg-[#4A4028] text-white"
+                              : "border-[#5E5134] text-[#CBB985] hover:border-[#8B7444] hover:text-white"
+                          }`}
+                        >
+                          Crossing was earlier
+                        </button>
+                        <button
+                          type="button"
+                          aria-pressed={isOutsideFrameAfter}
+                          onClick={() => toggleOutsideFrame(capture, "outsideFrameAfter")}
+                          disabled={Boolean(upload && upload.status !== "failed")}
+                          className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:-translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                            isOutsideFrameAfter
+                              ? "border-[#D6B36A] bg-[#4A4028] text-white"
+                              : "border-[#5E5134] text-[#CBB985] hover:border-[#8B7444] hover:text-white"
+                          }`}
+                        >
+                          Crossing was later
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
-              <div className="border-b border-[#34373B] px-3.5 py-3">
+              <div className="border-b border-[#31404A] bg-[#192127] px-3.5 py-3">
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <label
                     htmlFor={`thumbnail-note-${capture.id}`}
@@ -737,7 +793,7 @@ export function DetectionReviewGrid({
                   disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
                   maxLength={500}
                   placeholder={capture.editable ? "Short note about this frame" : "Saved in the app"}
-                  className="w-full rounded-lg border border-[#3D4145] bg-[#17191B] px-3 py-2 text-xs text-white outline-none transition placeholder:text-[#5F6368] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/20 disabled:cursor-default disabled:opacity-70"
+                  className="w-full rounded-lg border border-[#3B4B56] bg-[#131A1F] px-3 py-2 text-xs text-white outline-none transition placeholder:text-[#64717A] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/20 disabled:cursor-default disabled:opacity-70"
                 />
               </div>
 
@@ -764,39 +820,13 @@ export function DetectionReviewGrid({
                   )}
                   <button
                     type="button"
-                    aria-pressed={isOutsideFrameBefore}
-                    onClick={() => toggleOutsideFrame(capture, "outsideFrameBefore")}
-                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
-                      isOutsideFrameBefore
-                        ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
-                        : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
-                    }`}
-                  >
-                    Crossing earlier
-                  </button>
-                  <button
-                    type="button"
-                    aria-pressed={isOutsideFrameAfter}
-                    onClick={() => toggleOutsideFrame(capture, "outsideFrameAfter")}
-                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
-                      isOutsideFrameAfter
-                        ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
-                        : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
-                    }`}
-                  >
-                    Crossing later
-                  </button>
-                  <button
-                    type="button"
                     aria-pressed={isFalsePositive}
                     onClick={() => toggleFalsePositive(capture)}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
                     className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
                       isFalsePositive
                         ? "border-[#9A5755] bg-[#342526] text-[#F2B1AE]"
-                        : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#9A5755] hover:text-[#F2B1AE]"
+                        : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-[#F2B1AE]"
                     }`}
                   >
                     No real crossing
@@ -806,7 +836,7 @@ export function DetectionReviewGrid({
                     onClick={() => onOpenDetail(capture.id)}
                     disabled={draftCount > 0 || preparing}
                     title={draftCount > 0 ? "Queue or clear the grid marks before opening detail view" : undefined}
-                    className="min-h-11 rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+                    className="min-h-11 rounded-lg border border-[#41647B] bg-[#1B2A35] px-2.5 py-2 text-[10px] font-semibold text-[#AFC9DB] transition hover:border-[#5C8DB8] hover:bg-[#223746] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Open large
                   </button>
@@ -817,7 +847,7 @@ export function DetectionReviewGrid({
         })}
       </div>
 
-      <footer className="sticky bottom-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl border border-[#3A3D41] bg-[#202225]/95 p-2 shadow-[0_20px_50px_-28px_rgba(0,0,0,0.9)] backdrop-blur-md sm:bottom-3 sm:gap-3 sm:rounded-2xl sm:p-3">
+      <footer className="sticky bottom-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl border border-[#45657A] bg-[#19242C]/95 p-2 shadow-[0_20px_50px_-28px_rgba(2,11,17,0.95),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md sm:bottom-3 sm:gap-3 sm:rounded-2xl sm:p-3">
         <div className="min-w-0 px-1">
           <div className="truncate text-xs font-semibold text-white sm:text-sm">
             {draftCount} drafted <span className="hidden sm:inline">· {reviewedInGrid} already reviewed </span>· {filteredCaptures.length} visible
