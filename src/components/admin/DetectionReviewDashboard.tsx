@@ -227,6 +227,11 @@ function initialSelectedFrame(capture: DetectionCapture | null): TemporalFrame |
   ) || capture.temporalFrames.find((frame) => frame.relativeFrame === 0) || capture.temporalFrames[0]
 }
 
+function temporalFrameLabel(frame: TemporalFrame | null) {
+  if (!frame || frame.relativeFrame === 0) return "Detected frame"
+  return frame.relativeFrame < 0 ? "Earlier frame" : "Later frame"
+}
+
 export default function DetectionReviewDashboard() {
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
   const [sessionContexts, setSessionContexts] = useState<SessionContext[]>([])
@@ -414,6 +419,15 @@ export default function DetectionReviewDashboard() {
       || initialSelectedFrame(selected),
     [selected, selectedFrameIndex],
   )
+  const selectedFramePosition = selected?.temporalFrames.findIndex((frame) => frame.index === selectedFrame?.index) ?? -1
+  const previousTemporalFrame = selected && selectedFramePosition > 0
+    ? selected.temporalFrames[selectedFramePosition - 1]
+    : null
+  const nextTemporalFrame = selected
+    && selectedFramePosition >= 0
+    && selectedFramePosition < selected.temporalFrames.length - 1
+    ? selected.temporalFrames[selectedFramePosition + 1]
+    : null
 
   const sessionContextsById = useMemo(
     () => new Map(sessionContexts.map((context) => [context.sessionId, context])),
@@ -557,6 +571,20 @@ export default function DetectionReviewDashboard() {
       image.src = ""
     })
   }, [filteredCaptures, selectedId, viewMode])
+
+  useEffect(() => {
+    if (viewMode !== "focus" || !selected?.temporalFrames.length) return
+    const images = selected.temporalFrames.map((frame) => {
+      const image = new Image()
+      image.decoding = "async"
+      image.src = frame.url
+      return image
+    })
+    return () => images.forEach((image) => {
+      image.onload = null
+      image.onerror = null
+    })
+  }, [selected, viewMode])
 
   useEffect(() => {
     if (uploads.length === 0) return
@@ -1346,37 +1374,36 @@ export default function DetectionReviewDashboard() {
                         <div className="mt-0.5 text-[11px] text-[#8B8F94]">Choose the moment the torso reaches the timing line.</div>
                       </div>
                     </div>
-                    <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-mono text-[10px] font-semibold text-[#8FC8A3]">
-                      {selectedFrame?.relation || "r0"} selected
-                    </span>
                   </div>
-                  <div className="flex gap-2 overflow-x-auto pb-1">
-                    {selected.temporalFrames.map((frame) => (
-                      <button
-                        key={`${frame.index}:${frame.ptsNanos}`}
-                        type="button"
-                        aria-pressed={frame.index === selectedFrame?.index}
-                        onClick={() => chooseTemporalFrame(frame)}
-                        disabled={!selected.editable}
-                        className={`w-[132px] shrink-0 overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default sm:w-[152px] ${
-                          frame.index === selectedFrame?.index
-                            ? "border-[#6FB58A] bg-[#18241D] shadow-[0_0_0_1px_rgba(111,181,138,0.4)]"
-                            : "border-[#34373B] hover:border-[#5C8DB8]"
-                        }`}
-                      >
-                        <img
-                          src={frame.url}
-                          alt={`Temporal evidence ${frame.relation}`}
-                          loading="lazy"
-                          className="aspect-[4/3] w-full object-cover"
-                        />
-                        <div className={`px-2 py-2 text-center text-[11px] font-semibold ${
-                          frame.index === selectedFrame?.index ? "text-[#8FC8A3]" : "text-[#8B8F94]"
-                        }`}>
-                          {frame.relativeFrame === 0 ? "Detected frame" : frame.relation}
-                        </div>
-                      </button>
-                    ))}
+                  <div
+                    role="group"
+                    aria-label="Frame navigation"
+                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-xl border border-[#3D4145] bg-[#111315]"
+                  >
+                    <button
+                      type="button"
+                      aria-label="Show previous frame"
+                      onClick={() => previousTemporalFrame && chooseTemporalFrame(previousTemporalFrame)}
+                      disabled={!previousTemporalFrame || !selected.editable}
+                      className="min-h-12 border-r border-[#3D4145] px-4 text-sm font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                    >
+                      Back
+                    </button>
+                    <div aria-live="polite" className="grid min-w-[112px] place-content-center px-4 text-center">
+                      <span className="text-xs font-semibold text-[#A4D7B5]">{temporalFrameLabel(selectedFrame)}</span>
+                      <span className="mt-0.5 font-mono text-[10px] text-[#686D72]">
+                        {selectedFramePosition >= 0 ? selectedFramePosition + 1 : 1} of {selected.temporalFrames.length}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Show next frame"
+                      onClick={() => nextTemporalFrame && chooseTemporalFrame(nextTemporalFrame)}
+                      disabled={!nextTemporalFrame || !selected.editable}
+                      className="min-h-12 border-l border-[#3D4145] px-4 text-sm font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                    >
+                      Forward
+                    </button>
                   </div>
                 </div>
               )}

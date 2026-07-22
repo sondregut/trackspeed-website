@@ -115,15 +115,9 @@ function selectedFrame(capture: DetectionGridCapture, draft?: GridDraft): GridTe
     || initialFrame(capture)
 }
 
-function frameLabel(frame: GridTemporalFrame) {
-  if (frame.relativeFrame === 0) return "Detected"
-  return frame.relativeFrame > 0 ? `+${frame.relativeFrame}` : String(frame.relativeFrame).replace("-", "−")
-}
-
 function framePositionLabel(frame: GridTemporalFrame) {
   if (frame.relativeFrame === 0) return "Detected frame"
-  const distance = Math.abs(frame.relativeFrame)
-  return `${distance} ${frame.relativeFrame < 0 ? "before" : "after"}`
+  return frame.relativeFrame < 0 ? "Earlier frame" : "Later frame"
 }
 
 interface StableCaptureMediaProps {
@@ -553,6 +547,11 @@ export function DetectionReviewGrid({
           const draft = drafts[capture.id]
           const upload = uploadsByCapture.get(capture.id)
           const frame = selectedFrame(capture, draft)
+          const framePosition = capture.temporalFrames.findIndex((temporalFrame) => temporalFrame.index === frame?.index)
+          const previousFrame = framePosition > 0 ? capture.temporalFrames[framePosition - 1] : null
+          const nextFrame = framePosition >= 0 && framePosition < capture.temporalFrames.length - 1
+            ? capture.temporalFrames[framePosition + 1]
+            : null
           const reviewPointBelongsToFrame = Boolean(
             capture.review && (
               (capture.review.selectedFramePtsNanos && capture.review.selectedFramePtsNanos === frame?.ptsNanos)
@@ -636,39 +635,42 @@ export function DetectionReviewGrid({
 
               {capture.temporalFrames.length > 0 && (
                 <div className="border-b border-[#34373B] bg-[#17191B] px-3.5 py-3">
-                  <div className="mb-2 flex items-center justify-between gap-3">
+                  <div className="mb-2">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">
-                      Frame scrubber
-                    </span>
-                    <span className="font-mono text-[10px] font-semibold text-[#8FC8A3]">
-                      {frame ? framePositionLabel(frame) : "Detected frame"}
+                      Frame
                     </span>
                   </div>
                   <div
                     role="group"
                     aria-label={`Frame scrubber for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
-                    className="grid grid-cols-5 overflow-hidden rounded-lg border border-[#3D4145] bg-[#111315]"
+                    className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-[#3D4145] bg-[#111315]"
                   >
-                    {capture.temporalFrames.map((temporalFrame) => {
-                      const isSelected = temporalFrame.index === frame?.index
-                      return (
-                        <button
-                          key={`${capture.id}:${temporalFrame.index}`}
-                          type="button"
-                          aria-label={`Select ${framePositionLabel(temporalFrame)}`}
-                          aria-pressed={isSelected}
-                          onClick={() => chooseGridFrame(capture, temporalFrame)}
-                          disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                          className={`min-h-11 border-r border-[#3D4145] px-1 text-[10px] font-semibold transition last:border-r-0 active:translate-y-px disabled:cursor-default ${
-                            isSelected
-                              ? "bg-[#274132] text-[#A4D7B5] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                              : "text-[#8B8F94] hover:bg-[#23272A] hover:text-white"
-                          }`}
-                        >
-                          {frameLabel(temporalFrame)}
-                        </button>
-                      )
-                    })}
+                    <button
+                      type="button"
+                      aria-label="Show previous frame"
+                      onClick={() => previousFrame && chooseGridFrame(capture, previousFrame)}
+                      disabled={!previousFrame || !capture.editable || Boolean(upload && upload.status !== "failed")}
+                      className="min-h-12 border-r border-[#3D4145] px-3 text-xs font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                    >
+                      Back
+                    </button>
+                    <div aria-live="polite" className="grid min-w-[92px] place-content-center px-3 text-center">
+                      <span className="text-[10px] font-semibold text-[#A4D7B5]">
+                        {frame ? framePositionLabel(frame) : "Detected frame"}
+                      </span>
+                      <span className="mt-0.5 font-mono text-[9px] text-[#686D72]">
+                        {framePosition >= 0 ? framePosition + 1 : 1} of {capture.temporalFrames.length}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Show next frame"
+                      onClick={() => nextFrame && chooseGridFrame(capture, nextFrame)}
+                      disabled={!nextFrame || !capture.editable || Boolean(upload && upload.status !== "failed")}
+                      className="min-h-12 border-l border-[#3D4145] px-3 text-xs font-semibold text-[#C7CACD] transition hover:bg-[#23272A] hover:text-white active:-translate-y-px disabled:cursor-default disabled:text-[#555A5F] disabled:hover:bg-transparent"
+                    >
+                      Forward
+                    </button>
                   </div>
                   <p className="mt-2 text-[10px] leading-4 text-[#777B80]">
                     Choose a frame, then tap the true torso edge in the image.
