@@ -757,7 +757,7 @@ export function DetectionReviewGrid({
                     <button
                       type="button"
                       onClick={() => clearDraft(capture.id)}
-                      className="col-span-2 rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:text-white active:translate-y-px"
+                      className="col-span-2 min-h-11 rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:text-white active:translate-y-px"
                     >
                       Clear draft
                     </button>
@@ -767,7 +767,7 @@ export function DetectionReviewGrid({
                     aria-pressed={isOutsideFrameBefore}
                     onClick={() => toggleOutsideFrame(capture, "outsideFrameBefore")}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
                       isOutsideFrameBefore
                         ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
                         : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
@@ -780,7 +780,7 @@ export function DetectionReviewGrid({
                     aria-pressed={isOutsideFrameAfter}
                     onClick={() => toggleOutsideFrame(capture, "outsideFrameAfter")}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
                       isOutsideFrameAfter
                         ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
                         : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
@@ -793,7 +793,7 @@ export function DetectionReviewGrid({
                     aria-pressed={isFalsePositive}
                     onClick={() => toggleFalsePositive(capture)}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
                       isFalsePositive
                         ? "border-[#9A5755] bg-[#342526] text-[#F2B1AE]"
                         : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#9A5755] hover:text-[#F2B1AE]"
@@ -806,7 +806,7 @@ export function DetectionReviewGrid({
                     onClick={() => onOpenDetail(capture.id)}
                     disabled={draftCount > 0 || preparing}
                     title={draftCount > 0 ? "Queue or clear the grid marks before opening detail view" : undefined}
-                    className="rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+                    className="min-h-11 rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Open large
                   </button>
