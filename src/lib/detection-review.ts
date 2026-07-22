@@ -1,5 +1,5 @@
 export const ADMIN_REVIEW_DEVICE_ID = "admin-dashboard"
-export const ADMIN_REVIEW_SCHEMA = 5
+export const ADMIN_REVIEW_SCHEMA = 6
 
 export const SESSION_SHIRT_CONTRASTS = ["good", "ok", "poor"] as const
 
@@ -13,6 +13,8 @@ export const DETECTION_REVIEW_ISSUES = [
   "arm",
   "leg",
   "wrongFrame",
+  "outsideFrameBefore",
+  "outsideFrameAfter",
   "blur",
   "thumbnail",
   "false_positive",

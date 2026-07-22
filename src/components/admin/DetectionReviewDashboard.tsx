@@ -12,6 +12,8 @@ type ReviewIssue =
   | "arm"
   | "leg"
   | "wrongFrame"
+  | "outsideFrameBefore"
+  | "outsideFrameAfter"
   | "blur"
   | "thumbnail"
   | "false_positive"
@@ -167,6 +169,8 @@ const issueOptions: Array<{ value: ReviewIssue; label: string; helper: string }>
   { value: "arm", label: "Arm", helper: "Arm or hand drove the timing edge" },
   { value: "leg", label: "Leg", helper: "Leg drove the timing edge" },
   { value: "wrongFrame", label: "Wrong frame", helper: "Saved evidence frame is wrong" },
+  { value: "outsideFrameBefore", label: "Before saved frames", helper: "The real crossing happened before every saved frame" },
+  { value: "outsideFrameAfter", label: "After saved frames", helper: "The real crossing happened after every saved frame" },
   { value: "blur", label: "Blur", helper: "Motion blur prevents a confident mark" },
   { value: "thumbnail", label: "Thumbnail", helper: "Image mapping or crop is wrong" },
   { value: "false_positive", label: "False positive", helper: "No real crossing occurred" },
@@ -196,6 +200,12 @@ function errorBand(deltaX: number | null) {
   if (absolute < 0.06) return { label: "Watch", tone: "text-[#D6B36A]" }
   if (absolute < 0.1) return { label: "Fail", tone: "text-[#DC8B72]" }
   return { label: "Severe", tone: "text-[#F06C68]" }
+}
+
+function outsideFrameLabel(issue: ReviewIssue) {
+  if (issue === "outsideFrameBefore") return "Crossing was before saved frames"
+  if (issue === "outsideFrameAfter") return "Crossing was after saved frames"
+  return null
 }
 
 function reviewStateChanged(
@@ -798,8 +808,20 @@ export default function DetectionReviewDashboard() {
 
   function chooseIssue(value: ReviewIssue) {
     if (!selected?.editable) return
-    setIssue((current) => (current === value ? "unlabeled" : value))
-    if (value === "false_positive") setPoint(null)
+    const isClearing = issue === value
+    setIssue(isClearing ? "unlabeled" : value)
+    if (!isClearing && (value === "false_positive" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+      setPoint(null)
+    }
+    if (!isClearing && (value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+      const boundaryFrame = value === "outsideFrameBefore"
+        ? selected.temporalFrames[0]
+        : selected.temporalFrames[selected.temporalFrames.length - 1]
+      if (boundaryFrame) {
+        setSelectedFrameIndex(boundaryFrame.index)
+        setImageLoading(true)
+      }
+    }
     setError("")
     setSuccess("")
   }
@@ -1004,6 +1026,7 @@ export default function DetectionReviewDashboard() {
   const deltaX = point && selected ? point.x - selected.detectorX : null
   const band = errorBand(deltaX)
   const selectedIssueOption = issueOptions.find((option) => option.value === issue)
+  const selectedOutsideFrameLabel = outsideFrameLabel(issue)
   const selectedUpload = selected ? uploadsByCapture.get(selected.id) || null : null
   const selectedIndex = selected
     ? filteredCaptures.findIndex((capture) => capture.id === selected.id)
@@ -1421,11 +1444,11 @@ export default function DetectionReviewDashboard() {
                 <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
                   point
                     ? "border-[#527E62] bg-[#213027] text-[#8FC8A3]"
-                    : issue === "false_positive"
+                    : issue === "false_positive" || selectedOutsideFrameLabel
                       ? "border-[#8B7444] bg-[#302B20] text-[#E3C881]"
                       : "border-[#555A60] bg-[#25272A] text-[#9B9A97]"
                 }`}>
-                  {point ? "Point ready" : issue === "false_positive" ? "No person" : "Waiting for click"}
+                  {point ? "Point ready" : selectedOutsideFrameLabel || (issue === "false_positive" ? "No person" : "Waiting for click")}
                 </span>
               </div>
 
@@ -1525,13 +1548,13 @@ export default function DetectionReviewDashboard() {
                 <div className={`rounded-xl border px-3 py-3 ${
                   point
                     ? "border-[#527E62] bg-[#213027]"
-                    : issue === "false_positive"
+                    : issue === "false_positive" || selectedOutsideFrameLabel
                       ? "border-[#8B7444] bg-[#302B20]"
                       : "border-[#3D4145] bg-[#25272A]"
                 }`}>
                   <div className="flex items-center justify-between gap-3">
-                    <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : issue === "false_positive" ? "text-[#E3C881]" : "text-white"}`}>
-                      {point ? "Crossing point ready" : issue === "false_positive" ? "Marked as no person" : "Click the image to place the point"}
+                    <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : issue === "false_positive" || selectedOutsideFrameLabel ? "text-[#E3C881]" : "text-white"}`}>
+                      {point ? "Crossing point ready" : selectedOutsideFrameLabel || (issue === "false_positive" ? "Marked as no person" : "Click the image to place the point")}
                     </span>
                     {point && selected.editable && (
                       <button
@@ -1549,18 +1572,44 @@ export default function DetectionReviewDashboard() {
                 </div>
 
                 {selected.editable && (
-                  <button
-                    type="button"
-                    aria-pressed={issue === "false_positive"}
-                    onClick={() => chooseIssue("false_positive")}
-                    className={`w-full rounded-xl border px-4 py-2.5 text-sm font-semibold transition active:translate-y-px ${
-                      issue === "false_positive"
-                        ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
-                        : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
-                    }`}
-                  >
-                    {issue === "false_positive" ? "No person selected" : "No person / false detection"}
-                  </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      aria-pressed={issue === "outsideFrameBefore"}
+                      onClick={() => chooseIssue("outsideFrameBefore")}
+                      className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
+                        issue === "outsideFrameBefore"
+                          ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                      }`}
+                    >
+                      Crossing earlier
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={issue === "outsideFrameAfter"}
+                      onClick={() => chooseIssue("outsideFrameAfter")}
+                      className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
+                        issue === "outsideFrameAfter"
+                          ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                      }`}
+                    >
+                      Crossing later
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={issue === "false_positive"}
+                      onClick={() => chooseIssue("false_positive")}
+                      className={`col-span-2 min-h-11 rounded-xl border px-4 py-2.5 text-sm font-semibold transition active:translate-y-px ${
+                        issue === "false_positive"
+                          ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                          : "border-[#3D4145] bg-[#25272A] text-[#D6D8DA] hover:border-[#D6B36A] hover:text-white"
+                      }`}
+                    >
+                      {issue === "false_positive" ? "No crossing selected" : "No real crossing / false detection"}
+                    </button>
+                  </div>
                 )}
 
                 <button

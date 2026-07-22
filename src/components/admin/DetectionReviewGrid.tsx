@@ -26,6 +26,8 @@ type GridReviewIssue =
   | "arm"
   | "leg"
   | "wrongFrame"
+  | "outsideFrameBefore"
+  | "outsideFrameAfter"
   | "blur"
   | "thumbnail"
   | "false_positive"
@@ -118,6 +120,12 @@ function selectedFrame(capture: DetectionGridCapture, draft?: GridDraft): GridTe
 function framePositionLabel(frame: GridTemporalFrame) {
   if (frame.relativeFrame === 0) return "Detected frame"
   return frame.relativeFrame < 0 ? "Earlier frame" : "Later frame"
+}
+
+function outsideFrameLabel(issue: GridReviewIssue | undefined) {
+  if (issue === "outsideFrameBefore") return "Crossing before frames"
+  if (issue === "outsideFrameAfter") return "Crossing after frames"
+  return null
 }
 
 interface StableCaptureMediaProps {
@@ -409,6 +417,34 @@ export function DetectionReviewGrid({
     setBatchError("")
   }
 
+  function toggleOutsideFrame(capture: DetectionGridCapture, issue: "outsideFrameBefore" | "outsideFrameAfter") {
+    if (!capture.editable) return
+    const upload = uploadsByCapture.get(capture.id)
+    if (upload && upload.status !== "failed") return
+    setDrafts((current) => {
+      const existing = current[capture.id]
+      if (existing?.issue === issue) {
+        const next = { ...current }
+        if (existing.note.trim()) next[capture.id] = { ...existing, issue: "unlabeled" }
+        else delete next[capture.id]
+        return next
+      }
+      const boundaryFrame = issue === "outsideFrameBefore"
+        ? capture.temporalFrames[0]
+        : capture.temporalFrames[capture.temporalFrames.length - 1]
+      return {
+        ...current,
+        [capture.id]: {
+          point: null,
+          issue,
+          note: existing?.note ?? capture.review?.note ?? "",
+          selectedFrameIndex: boundaryFrame?.index ?? selectedFrame(capture, existing)?.index ?? null,
+        },
+      }
+    })
+    setBatchError("")
+  }
+
   function updateGridNote(capture: DetectionGridCapture, note: string) {
     if (!capture.editable) return
     const upload = uploadsByCapture.get(capture.id)
@@ -567,6 +603,9 @@ export function DetectionReviewGrid({
           const deltaX = displayPoint ? displayPoint.x - capture.detectorX : null
           const band = qualityBand(deltaX)
           const isFalsePositive = draft?.issue === "false_positive" || (!draft && capture.review?.issue === "false_positive")
+          const isOutsideFrameBefore = draft?.issue === "outsideFrameBefore" || (!draft && capture.review?.issue === "outsideFrameBefore")
+          const isOutsideFrameAfter = draft?.issue === "outsideFrameAfter" || (!draft && capture.review?.issue === "outsideFrameAfter")
+          const selectedOutsideFrameLabel = outsideFrameLabel(draft?.issue ?? capture.review?.issue)
           const stateLabel = upload?.status === "failed"
             ? "Upload failed"
             : upload?.status === "uploading"
@@ -702,27 +741,53 @@ export function DetectionReviewGrid({
                 />
               </div>
 
-              <div className="grid grid-cols-[1fr_auto] items-center gap-2 px-3.5 py-3">
+              <div className="grid gap-2 px-3.5 py-3">
                 <div>
-                  <div className={`font-mono text-[10px] font-semibold uppercase tracking-[0.1em] ${isFalsePositive ? "text-[#F2B1AE]" : band.tone}`}>
-                    {isFalsePositive ? "False positive" : band.label}
+                  <div className={`font-mono text-[10px] font-semibold uppercase tracking-[0.1em] ${isFalsePositive ? "text-[#F2B1AE]" : selectedOutsideFrameLabel ? "text-[#E3C881]" : band.tone}`}>
+                    {isFalsePositive ? "False positive" : selectedOutsideFrameLabel || band.label}
                   </div>
                   <div className="mt-1 font-mono text-[10px] text-[#63676C]">
                     {displayPoint && deltaX !== null
                       ? `x ${(displayPoint.x * 100).toFixed(2)}% · Δ ${(deltaX * 100).toFixed(2)}%`
-                      : "Click image to mark"}
+                      : selectedOutsideFrameLabel ? "No point needed" : "Click image to mark"}
                   </div>
                 </div>
-                <div className="flex gap-1.5">
+                <div className="grid grid-cols-2 gap-1.5">
                   {draft && (
                     <button
                       type="button"
                       onClick={() => clearDraft(capture.id)}
-                      className="rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:text-white active:translate-y-px"
+                      className="col-span-2 rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:text-white active:translate-y-px"
                     >
-                      Clear
+                      Clear draft
                     </button>
                   )}
+                  <button
+                    type="button"
+                    aria-pressed={isOutsideFrameBefore}
+                    onClick={() => toggleOutsideFrame(capture, "outsideFrameBefore")}
+                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                    className={`rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                      isOutsideFrameBefore
+                        ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
+                        : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
+                    }`}
+                  >
+                    Crossing earlier
+                  </button>
+                  <button
+                    type="button"
+                    aria-pressed={isOutsideFrameAfter}
+                    onClick={() => toggleOutsideFrame(capture, "outsideFrameAfter")}
+                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                    className={`rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                      isOutsideFrameAfter
+                        ? "border-[#8B7444] bg-[#302B20] text-[#F0D89B]"
+                        : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#8B7444] hover:text-[#F0D89B]"
+                    }`}
+                  >
+                    Crossing later
+                  </button>
                   <button
                     type="button"
                     aria-pressed={isFalsePositive}
@@ -734,7 +799,7 @@ export function DetectionReviewGrid({
                         : "border-[#3D3D3D] text-[#9B9A97] hover:border-[#9A5755] hover:text-[#F2B1AE]"
                     }`}
                   >
-                    No crossing
+                    No real crossing
                   </button>
                   <button
                     type="button"
