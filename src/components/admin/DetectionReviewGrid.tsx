@@ -474,12 +474,12 @@ export function DetectionReviewGrid({
         })}
       </div>
 
-      <footer className="sticky bottom-3 grid gap-3 rounded-2xl border border-[#3A3D41] bg-[#202225]/95 p-3 shadow-[0_20px_50px_-28px_rgba(0,0,0,0.9)] backdrop-blur-md sm:grid-cols-[1fr_auto] sm:items-center">
-        <div className="px-1">
-          <div className="text-sm font-semibold text-white">
-            {draftCount} drafted · {reviewedInGrid} already reviewed · {filteredCaptures.length} visible
+      <footer className="sticky bottom-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl border border-[#3A3D41] bg-[#202225]/95 p-2 shadow-[0_20px_50px_-28px_rgba(0,0,0,0.9)] backdrop-blur-md sm:bottom-3 sm:gap-3 sm:rounded-2xl sm:p-3">
+        <div className="min-w-0 px-1">
+          <div className="truncate text-xs font-semibold text-white sm:text-sm">
+            {draftCount} drafted <span className="hidden sm:inline">· {reviewedInGrid} already reviewed </span>· {filteredCaptures.length} visible
           </div>
-          <div className="mt-0.5 text-[11px] text-[#777B80]">
+          <div className="mt-0.5 hidden text-[11px] text-[#777B80] sm:block">
             Marks and thumbnail notes upload together in the background.
           </div>
         </div>
@@ -487,7 +487,7 @@ export function DetectionReviewGrid({
           type="button"
           onClick={() => void queueDrafts()}
           disabled={preparing || draftCount === 0}
-          className="min-w-48 rounded-xl bg-[#5C8DB8] px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-[#6C9AC2] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#3A4650] disabled:text-[#7C858D]"
+          className="min-w-0 rounded-lg bg-[#5C8DB8] px-3 py-2.5 text-xs font-semibold text-white transition duration-200 hover:bg-[#6C9AC2] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#3A4650] disabled:text-[#7C858D] sm:min-w-48 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm"
         >
           {preparing ? "Preparing batch…" : `Queue ${draftCount} ${draftCount === 1 ? "review" : "reviews"}`}
         </button>
