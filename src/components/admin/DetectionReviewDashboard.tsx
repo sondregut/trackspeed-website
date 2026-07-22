@@ -810,6 +810,11 @@ export default function DetectionReviewDashboard() {
     if (!selected?.editable) return
     const isClearing = issue === value
     setIssue(isClearing ? "unlabeled" : value)
+    if (isClearing && (value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+      const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
+      setSelectedFrameIndex(detectedFrame?.index ?? initialSelectedFrame(selected)?.index ?? null)
+      setImageLoading(true)
+    }
     if (!isClearing && (value === "false_positive" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
       setPoint(null)
     }
