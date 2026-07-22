@@ -1382,7 +1382,7 @@ export default function DetectionReviewDashboard() {
                         aria-pressed={frame.index === selectedFrame?.index}
                         onClick={() => chooseTemporalFrame(frame)}
                         disabled={!selected.editable}
-                        className={`min-w-[88px] flex-1 overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default ${
+                        className={`w-[132px] shrink-0 overflow-hidden rounded-lg border bg-[#0C0D0E] text-left transition duration-200 active:translate-y-px disabled:cursor-default sm:w-[152px] ${
                           frame.index === selectedFrame?.index
                             ? "border-[#6FB58A] bg-[#18241D] shadow-[0_0_0_1px_rgba(111,181,138,0.4)]"
                             : "border-[#34373B] hover:border-[#5C8DB8]"
@@ -1392,7 +1392,7 @@ export default function DetectionReviewDashboard() {
                           src={frame.url}
                           alt={`Temporal evidence ${frame.relation}`}
                           loading="lazy"
-                          className="aspect-[3/4] w-full object-cover"
+                          className="aspect-[4/3] w-full object-cover"
                         />
                         <div className={`px-2 py-2 text-center text-[11px] font-semibold ${
                           frame.index === selectedFrame?.index ? "text-[#8FC8A3]" : "text-[#8B8F94]"
