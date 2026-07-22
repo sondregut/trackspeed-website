@@ -126,6 +126,144 @@ function framePositionLabel(frame: GridTemporalFrame) {
   return `${distance} ${frame.relativeFrame < 0 ? "before" : "after"}`
 }
 
+interface StableCaptureMediaProps {
+  capture: DetectionGridCapture
+  displayPoint: Point | null
+  frame: GridTemporalFrame | null
+  imageIndex: number
+  isFalsePositive: boolean
+  isUnavailable: boolean
+  onImageRef: (image: HTMLImageElement | null) => void
+  onMark: (event: React.PointerEvent<HTMLButtonElement>) => void
+}
+
+function StableCaptureMedia({
+  capture,
+  displayPoint,
+  frame,
+  imageIndex,
+  isFalsePositive,
+  isUnavailable,
+  onImageRef,
+  onMark,
+}: StableCaptureMediaProps) {
+  const desiredSrc = frame?.url || capture.imageUrl
+  const desiredFrameIndex = frame?.index ?? null
+  const [displayedMedia, setDisplayedMedia] = useState({
+    src: desiredSrc,
+    frameIndex: desiredFrameIndex,
+  })
+  const [failedSrc, setFailedSrc] = useState<string | null>(null)
+
+  const showingDesiredFrame = displayedMedia.src === desiredSrc
+    && displayedMedia.frameIndex === desiredFrameIndex
+  const loadError = !showingDesiredFrame && failedSrc === desiredSrc
+  const isLoadingFrame = !showingDesiredFrame && !loadError
+
+  useEffect(() => {
+    if (showingDesiredFrame) return
+
+    let cancelled = false
+    const loader = new Image()
+
+    const revealFrame = () => {
+      if (cancelled) return
+      setDisplayedMedia({ src: desiredSrc, frameIndex: desiredFrameIndex })
+      setFailedSrc(null)
+    }
+    const failFrame = () => {
+      if (cancelled) return
+      setFailedSrc(desiredSrc)
+    }
+
+    loader.decoding = "async"
+    loader.onload = revealFrame
+    loader.onerror = failFrame
+    loader.src = desiredSrc
+    void loader.decode().then(revealFrame).catch(() => {
+      if (!loader.complete) return
+      if (loader.naturalWidth > 0) revealFrame()
+      else failFrame()
+    })
+
+    return () => {
+      cancelled = true
+      loader.onload = null
+      loader.onerror = null
+    }
+  }, [desiredFrameIndex, desiredSrc, showingDesiredFrame])
+
+  useEffect(() => {
+    if (imageIndex >= 4 || capture.temporalFrames.length === 0) return
+    const timeout = window.setTimeout(() => {
+      capture.temporalFrames.forEach((temporalFrame) => {
+        if (temporalFrame.url === displayedMedia.src) return
+        const preloader = new Image()
+        preloader.decoding = "async"
+        preloader.src = temporalFrame.url
+      })
+    }, 150)
+    return () => window.clearTimeout(timeout)
+  }, [capture.temporalFrames, displayedMedia.src, imageIndex])
+
+  const canMark = capture.editable
+    && !isUnavailable
+    && showingDesiredFrame
+    && !isLoadingFrame
+    && !loadError
+  const visiblePoint = showingDesiredFrame ? displayPoint : null
+
+  return (
+    <button
+      type="button"
+      aria-label={`Mark true crossing for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
+      aria-busy={isLoadingFrame}
+      onPointerDown={onMark}
+      disabled={!canMark}
+      className="relative block aspect-[9/16] w-full overflow-hidden bg-[#0C0D0E] text-left active:scale-[0.995] disabled:cursor-default"
+    >
+      <img
+        ref={onImageRef}
+        src={displayedMedia.src}
+        data-capture-id={capture.id}
+        data-frame-index={displayedMedia.frameIndex ?? "thumbnail"}
+        alt={`Detection thumbnail for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
+        loading={imageIndex < 4 ? "eager" : "lazy"}
+        decoding="async"
+        draggable={false}
+        className={`absolute inset-0 h-full w-full select-none object-contain ${isFalsePositive ? "opacity-45" : "opacity-100"}`}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 w-[3px] -translate-x-1/2 bg-[#FF3B30] shadow-[0_0_0_1px_rgba(50,10,8,0.22)]"
+        style={{ left: `${capture.detectorX * 100}%` }}
+      />
+      {visiblePoint && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white bg-[#35B96F] shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
+          style={{ left: `${visiblePoint.x * 100}%`, top: `${visiblePoint.y * 100}%` }}
+        />
+      )}
+      {isFalsePositive && (
+        <span className="pointer-events-none absolute inset-0 grid place-items-center bg-[#111315]/45">
+          <span className="rounded-lg border border-[#9A5755] bg-[#2B2223]/95 px-3 py-2 text-xs font-semibold text-[#F2B1AE]">
+            No crossing
+          </span>
+        </span>
+      )}
+      {(isLoadingFrame || loadError) && (
+        <span
+          role="status"
+          className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-center rounded-lg border border-white/10 bg-[#111315]/90 px-3 py-2 font-mono text-[10px] font-semibold text-[#D4D7DA] shadow-lg backdrop-blur-sm"
+        >
+          {loadError ? "Frame unavailable — choose another" : `Loading ${frame ? framePositionLabel(frame).toLowerCase() : "frame"}…`}
+        </span>
+      )}
+    </button>
+  )
+}
+
 export function DetectionReviewGrid({
   allCaptures,
   filteredCaptures,
@@ -154,12 +292,23 @@ export function DetectionReviewGrid({
 
   useEffect(() => () => onDraftCountChange(0), [onDraftCountChange])
 
-  function placeGridMark(capture: DetectionGridCapture, event: React.PointerEvent<HTMLButtonElement>) {
+  function placeGridMark(
+    capture: DetectionGridCapture,
+    frame: GridTemporalFrame | null,
+    event: React.PointerEvent<HTMLButtonElement>,
+  ) {
     if (!capture.editable) return
     const upload = uploadsByCapture.get(capture.id)
     if (upload && upload.status !== "failed") return
     const image = imageRefs.current.get(capture.id)
     if (!image || image.dataset.captureId !== capture.id) return
+    const displayedFrameIndex = image.dataset.frameIndex === "thumbnail"
+      ? null
+      : Number(image.dataset.frameIndex)
+    if (displayedFrameIndex !== (frame?.index ?? null)) {
+      setBatchError("That frame is still loading. Try the mark again when the loading label disappears.")
+      return
+    }
     const rect = image.getBoundingClientRect()
     if (!rect.width || !rect.height) return
     const point = {
@@ -471,48 +620,19 @@ export function DetectionReviewGrid({
                 </div>
               </div>
 
-              <button
-                type="button"
-                aria-label={`Mark true crossing for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
-                onPointerDown={(event) => placeGridMark(capture, event)}
-                disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                className="relative block w-full overflow-hidden bg-[#0C0D0E] text-left active:scale-[0.995] disabled:cursor-default"
-              >
-                <img
-                  ref={(image) => {
-                    if (image) imageRefs.current.set(capture.id, image)
-                    else imageRefs.current.delete(capture.id)
-                  }}
-                  key={`${capture.id}:${frame?.index ?? "thumbnail"}`}
-                  src={frame?.url || capture.imageUrl}
-                  data-capture-id={capture.id}
-                  data-frame-index={frame?.index ?? "thumbnail"}
-                  alt={`Detection thumbnail for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
-                  loading={index < 4 ? "eager" : "lazy"}
-                  decoding="async"
-                  draggable={false}
-                  className={`block w-full select-none ${isFalsePositive ? "opacity-45" : "opacity-100"}`}
-                />
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 w-[3px] -translate-x-1/2 bg-[#FF3B30] shadow-[0_0_0_1px_rgba(50,10,8,0.22)]"
-                  style={{ left: `${capture.detectorX * 100}%` }}
-                />
-                {displayPoint && (
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white bg-[#35B96F] shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
-                    style={{ left: `${displayPoint.x * 100}%`, top: `${displayPoint.y * 100}%` }}
-                  />
-                )}
-                {isFalsePositive && (
-                  <span className="pointer-events-none absolute inset-0 grid place-items-center bg-[#111315]/45">
-                    <span className="rounded-lg border border-[#9A5755] bg-[#2B2223]/95 px-3 py-2 text-xs font-semibold text-[#F2B1AE]">
-                      No crossing
-                    </span>
-                  </span>
-                )}
-              </button>
+              <StableCaptureMedia
+                capture={capture}
+                displayPoint={displayPoint}
+                frame={frame}
+                imageIndex={index}
+                isFalsePositive={isFalsePositive}
+                isUnavailable={Boolean(upload && upload.status !== "failed")}
+                onImageRef={(image) => {
+                  if (image) imageRefs.current.set(capture.id, image)
+                  else imageRefs.current.delete(capture.id)
+                }}
+                onMark={(event) => placeGridMark(capture, frame, event)}
+              />
 
               {capture.temporalFrames.length > 0 && (
                 <div className="border-b border-[#34373B] bg-[#17191B] px-3.5 py-3">
