@@ -275,7 +275,7 @@ export function DetectionReviewGrid({
       <header className="grid gap-4 border-y border-[#34373B] py-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-[#5C8DB8]">
-            All filtered thumbnails · {filteredCaptures.length} visible · {visibleSessionCount} sessions
+            All sessions · {visibleSessionCount} sessions · {filteredCaptures.length} captures
           </p>
           <h2 id="grid-review-heading" className="mt-1 font-[var(--font-bricolage)] text-xl font-semibold text-white">
             Click each true torso crossing edge
@@ -465,7 +465,7 @@ export function DetectionReviewGrid({
                     title={draftCount > 0 ? "Queue or clear the grid marks before opening detail view" : undefined}
                     className="rounded-lg border border-[#3D3D3D] px-2.5 py-2 text-[10px] font-semibold text-[#9B9A97] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    Detail
+                    Frame &amp; point
                   </button>
                 </div>
               </div>

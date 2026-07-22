@@ -235,7 +235,7 @@ export default function DetectionReviewDashboard() {
   const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("pending")
   const [days, setDays] = useState(7)
   const [search, setSearch] = useState("")
-  const [viewMode, setViewMode] = useState<"grid" | "focus">("focus")
+  const [viewMode, setViewMode] = useState<"grid" | "focus">("grid")
   const [gridDraftCount, setGridDraftCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [imageLoading, setImageLoading] = useState(true)
@@ -387,12 +387,6 @@ export default function DetectionReviewDashboard() {
   useEffect(() => {
     void loadQueue()
   }, [loadQueue])
-
-  useEffect(() => {
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      setViewMode("focus")
-    }
-  }, [])
 
   const filteredCaptures = useMemo(() => {
     const query = search.trim().toLowerCase()
@@ -1062,7 +1056,7 @@ export default function DetectionReviewDashboard() {
           </div>
         </header>
 
-        <section className="grid gap-3 md:grid-cols-[1fr_auto_auto_auto]">
+        <section className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
           <label className="grid gap-2">
             <span className="text-xs font-medium text-[#9B9A97]">Find a session, run, device, or build</span>
             <input
@@ -1100,37 +1094,6 @@ export default function DetectionReviewDashboard() {
               <option value={365}>1 year</option>
             </select>
           </label>
-          <div className="grid gap-2 md:hidden">
-            <span className="text-xs font-medium text-[#9B9A97]">Review view</span>
-            <div className="grid h-11 place-items-center rounded-xl border border-[#3D3D3D] bg-[#232528] px-4 text-xs font-semibold text-white">
-              One at a time
-            </div>
-          </div>
-          <div className="hidden gap-2 md:grid">
-            <span className="text-xs font-medium text-[#9B9A97]">Review view</span>
-            <div className="grid h-11 grid-cols-2 rounded-xl border border-[#3D3D3D] bg-[#232528] p-1">
-              <button
-                type="button"
-                aria-pressed={viewMode === "focus"}
-                onClick={() => chooseViewMode("focus")}
-                className={`rounded-lg px-3 text-xs font-semibold transition active:translate-y-px ${
-                  viewMode === "focus" ? "bg-[#5C8DB8] text-white" : "text-[#9B9A97] hover:text-white"
-                }`}
-              >
-                One at a time
-              </button>
-              <button
-                type="button"
-                aria-pressed={viewMode === "grid"}
-                onClick={() => chooseViewMode("grid")}
-                className={`rounded-lg px-3 text-xs font-semibold transition active:translate-y-px ${
-                  viewMode === "grid" ? "bg-[#5C8DB8] text-white" : "text-[#9B9A97] hover:text-white"
-                }`}
-              >
-                Batch grid
-              </button>
-            </div>
-          </div>
         </section>
 
         {error && (
@@ -1324,6 +1287,13 @@ export default function DetectionReviewDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center justify-end gap-3 font-mono text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => chooseViewMode("grid")}
+                    className="rounded-lg border border-[#3D4145] px-3 py-2 font-sans text-xs font-semibold text-[#D6D8DA] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px"
+                  >
+                    Back to all sessions
+                  </button>
                   {selected.review?.source === "app" && (
                     <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FC8A3]">
                       Marked in app
