@@ -2,6 +2,13 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import {
+  falseTriggerReviewLabel,
+  isIgnoredCrossingIssue,
+  isPointFreeDetectionReviewIssue,
+  measureContainedImagePoint,
+  type DetectionReviewIssue,
+} from "@/lib/detection-review"
 
 interface Point {
   x: number
@@ -18,32 +25,21 @@ interface GridReview {
   selectedFramePtsNanos: string | null
 }
 
-type GridReviewIssue =
-  | "unlabeled"
-  | "good"
-  | "early"
-  | "late"
-  | "arm"
-  | "leg"
-  | "wrongFrame"
-  | "outsideFrameBefore"
-  | "outsideFrameAfter"
-  | "blur"
-  | "thumbnail"
-  | "false_positive"
-  | "real_crossing"
-  | "other"
+type GridReviewIssue = DetectionReviewIssue
 
 export interface DetectionGridCapture {
   id: string
   source: "debug_capture" | "app_mark"
   editable: boolean
+  editBlockReason: string | null
   sessionId: string | null
   runNumber: number
   target: string
   createdAt: string
   direction: string | null
   detectorX: number
+  detectorCoordinateVerified: boolean
+  detectorCoordinateSource: string
   imageUrl: string
   temporalFrames: GridTemporalFrame[]
   review: GridReview | null
@@ -134,7 +130,7 @@ interface StableCaptureMediaProps {
   displayPoint: Point | null
   frame: GridTemporalFrame | null
   imageIndex: number
-  isFalsePositive: boolean
+  falseTriggerLabel: string | null
   isUnavailable: boolean
   onImageRef: (image: HTMLImageElement | null) => void
   onMark: (event: React.PointerEvent<HTMLButtonElement>) => void
@@ -145,7 +141,7 @@ function StableCaptureMedia({
   displayPoint,
   frame,
   imageIndex,
-  isFalsePositive,
+  falseTriggerLabel,
   isUnavailable,
   onImageRef,
   onMark,
@@ -156,12 +152,14 @@ function StableCaptureMedia({
     src: desiredSrc,
     frameIndex: desiredFrameIndex,
   })
+  const [readyMediaSrc, setReadyMediaSrc] = useState<string | null>(null)
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
 
   const showingDesiredFrame = displayedMedia.src === desiredSrc
     && displayedMedia.frameIndex === desiredFrameIndex
-  const loadError = !showingDesiredFrame && failedSrc === desiredSrc
-  const isLoadingFrame = !showingDesiredFrame && !loadError
+  const displayedImageReady = readyMediaSrc === displayedMedia.src
+  const loadError = failedSrc === desiredSrc
+  const isLoadingFrame = (!showingDesiredFrame || !displayedImageReady) && !loadError
 
   useEffect(() => {
     if (showingDesiredFrame) return
@@ -212,6 +210,7 @@ function StableCaptureMedia({
   const canMark = capture.editable
     && !isUnavailable
     && showingDesiredFrame
+    && displayedImageReady
     && !isLoadingFrame
     && !loadError
   const visiblePoint = showingDesiredFrame ? displayPoint : null
@@ -223,7 +222,7 @@ function StableCaptureMedia({
       aria-busy={isLoadingFrame}
       onPointerDown={onMark}
       disabled={!canMark}
-      className="relative block aspect-[9/16] w-full overflow-hidden bg-[#0C0D0E] text-left active:scale-[0.995] disabled:cursor-default"
+      className="relative block w-full overflow-hidden bg-[#0C0D0E] text-left active:scale-[0.995] disabled:cursor-default"
     >
       <img
         ref={onImageRef}
@@ -234,7 +233,15 @@ function StableCaptureMedia({
         loading={imageIndex < 4 ? "eager" : "lazy"}
         decoding="async"
         draggable={false}
-        className={`absolute inset-0 h-full w-full select-none object-contain ${isFalsePositive ? "opacity-45" : "opacity-100"}`}
+        onLoad={() => {
+          setReadyMediaSrc(displayedMedia.src)
+          setFailedSrc(null)
+        }}
+        onError={() => {
+          setReadyMediaSrc(null)
+          setFailedSrc(displayedMedia.src)
+        }}
+        className={`relative block h-auto w-full select-none ${falseTriggerLabel ? "opacity-45" : "opacity-100"}`}
       />
       <span
         aria-hidden="true"
@@ -248,10 +255,10 @@ function StableCaptureMedia({
           style={{ left: `${visiblePoint.x * 100}%`, top: `${visiblePoint.y * 100}%` }}
         />
       )}
-      {isFalsePositive && (
+      {falseTriggerLabel && (
         <span className="pointer-events-none absolute inset-0 grid place-items-center bg-[#111315]/45">
           <span className="rounded-lg border border-[#9A5755] bg-[#2B2223]/95 px-3 py-2 text-xs font-semibold text-[#F2B1AE]">
-            No crossing
+            {falseTriggerLabel}
           </span>
         </span>
       )}
@@ -312,23 +319,30 @@ export function DetectionReviewGrid({
       setBatchError("That frame is still loading. Try the mark again when the loading label disappears.")
       return
     }
-    const rect = image.getBoundingClientRect()
-    if (!rect.width || !rect.height) return
-    const point = {
-      x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
-      y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)),
+    const measurement = measureContainedImagePoint(
+      event.clientX,
+      event.clientY,
+      image.getBoundingClientRect(),
+      image.naturalWidth,
+      image.naturalHeight,
+    )
+    if (!measurement) {
+      setBatchError("Click inside the visible image, not the surrounding empty area.")
+      return
     }
+    const point = measurement.normalized
     setDrafts((current) => {
       const existing = current[capture.id]
       const frame = selectedFrame(capture, existing)
-      const savedIssue = capture.review?.issue === "false_positive"
+      const savedIssue = capture.review?.issue || "unlabeled"
+      const nextIssue = isPointFreeDetectionReviewIssue(existing?.issue ?? savedIssue)
         ? "unlabeled"
-        : capture.review?.issue || "unlabeled"
+        : existing?.issue || savedIssue
       return {
         ...current,
         [capture.id]: {
           point,
-          issue: existing?.issue === "false_positive" ? "unlabeled" : existing?.issue || savedIssue,
+          issue: nextIssue,
           note: existing?.note ?? capture.review?.note ?? "",
           selectedFrameIndex: frame?.index ?? null,
         },
@@ -356,7 +370,7 @@ export function DetectionReviewGrid({
         ? { x: review.actualX, y: review.actualY }
         : null
       let nextIssue = existing?.issue ?? review?.issue ?? "unlabeled"
-      if (["false_positive", "real_crossing", "outsideFrameBefore", "outsideFrameAfter"].includes(nextIssue)) {
+      if (isPointFreeDetectionReviewIssue(nextIssue)) {
         nextIssue = "unlabeled"
       }
       if (frame.relativeFrame !== 0 && nextIssue === "unlabeled") nextIssue = "wrongFrame"
@@ -391,30 +405,33 @@ export function DetectionReviewGrid({
     setBatchError("")
   }
 
-  function toggleFalsePositive(capture: DetectionGridCapture) {
+  function toggleFalseTrigger(
+    capture: DetectionGridCapture,
+    nextIssue: "ignore_crossing" | "phone_shake",
+  ) {
     if (!capture.editable) return
     const upload = uploadsByCapture.get(capture.id)
     if (upload && upload.status !== "failed") return
     setDrafts((current) => {
       const existing = current[capture.id]
-      if (existing?.issue === "false_positive") {
+      const currentIssue = existing?.issue ?? capture.review?.issue ?? "unlabeled"
+      const isSelected = nextIssue === "ignore_crossing"
+        ? isIgnoredCrossingIssue(currentIssue)
+        : currentIssue === nextIssue
+      if (isSelected && existing) {
         const next = { ...current }
-        if (existing.note.trim() || existing.point) {
-          next[capture.id] = { ...existing, issue: "unlabeled" }
-        } else {
-          delete next[capture.id]
-        }
+        delete next[capture.id]
         return next
       }
-      return {
-        ...current,
-        [capture.id]: {
-          point: null,
-          issue: "false_positive",
-          note: existing?.note ?? capture.review?.note ?? "",
-          selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
-        },
+      const nextDraft: GridDraft = {
+        point: null,
+        issue: isSelected ? "unlabeled" : nextIssue,
+        note: existing?.note ?? capture.review?.note ?? "",
+        selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
       }
+      const next = { ...current }
+      next[capture.id] = nextDraft
+      return next
     })
     setBatchError("")
   }
@@ -609,7 +626,10 @@ export function DetectionReviewGrid({
           )
           const deltaX = displayPoint ? displayPoint.x - capture.detectorX : null
           const band = qualityBand(deltaX)
-          const isFalsePositive = draft?.issue === "false_positive" || (!draft && capture.review?.issue === "false_positive")
+          const activeIssue = draft?.issue ?? capture.review?.issue
+          const selectedFalseTriggerLabel = falseTriggerReviewLabel(activeIssue)
+          const isIgnoredCrossing = isIgnoredCrossingIssue(activeIssue)
+          const isPhoneShake = activeIssue === "phone_shake"
           const isNoCorrectFrame = draft?.issue === "real_crossing" || (!draft && capture.review?.issue === "real_crossing")
           const isOutsideFrameBefore = draft?.issue === "outsideFrameBefore" || (!draft && capture.review?.issue === "outsideFrameBefore")
           const isOutsideFrameAfter = draft?.issue === "outsideFrameAfter" || (!draft && capture.review?.issue === "outsideFrameAfter")
@@ -626,12 +646,16 @@ export function DetectionReviewGrid({
                     ? capture.review.source === "app"
                       ? "Marked in app"
                       : "Saved"
-                    : "Unmarked"
+                    : !capture.detectorCoordinateVerified
+                      ? "Needs camera metadata"
+                      : "Unmarked"
           return (
             <article
               key={capture.id}
               className={`overflow-hidden rounded-2xl border bg-[#1B2228] shadow-[0_18px_48px_-38px_rgba(3,12,18,0.95),inset_0_1px_0_rgba(255,255,255,0.04)] transition duration-200 ${
-                draft && selectedOutsideFrameLabel
+                draft && selectedFalseTriggerLabel
+                  ? "border-[#7B4B4D]"
+                  : draft && selectedOutsideFrameLabel
                   ? "border-[#9A814A]"
                   : draft
                     ? "border-[#5C8DB8]"
@@ -653,7 +677,9 @@ export function DetectionReviewGrid({
                   </span>
                   {capture.review?.source === "app" && (
                     <span className="rounded-full border border-[#527E62] bg-[#213027] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8FC8A3]">
-                      {capture.review.issue === "unlabeled" ? "App review" : capture.review.issue}
+                      {capture.review.issue === "unlabeled"
+                        ? "App review"
+                        : falseTriggerReviewLabel(capture.review.issue) || capture.review.issue}
                     </span>
                   )}
                   {capture.sessionId && (
@@ -673,7 +699,7 @@ export function DetectionReviewGrid({
                 displayPoint={displayPoint}
                 frame={frame}
                 imageIndex={index}
-                isFalsePositive={isFalsePositive}
+                falseTriggerLabel={selectedFalseTriggerLabel}
                 isUnavailable={Boolean(upload && upload.status !== "failed")}
                 onImageRef={(image) => {
                   if (image) imageRefs.current.set(capture.id, image)
@@ -681,6 +707,12 @@ export function DetectionReviewGrid({
                 }}
                 onMark={(event) => placeGridMark(capture, frame, event)}
               />
+
+              {!capture.detectorCoordinateVerified && capture.editBlockReason && (
+                <p className="border-b border-[#6B4140] bg-[#2B2223] px-3.5 py-2.5 text-[11px] leading-4 text-[#F2B1AE]">
+                  {capture.editBlockReason}
+                </p>
+              )}
 
               {capture.temporalFrames.length > 0 && (
                 <div className="border-b border-[#31404A] bg-[#151D23] px-3.5 py-3">
@@ -799,13 +831,13 @@ export function DetectionReviewGrid({
 
               <div className="grid gap-2 px-3.5 py-3">
                 <div>
-                  <div className={`font-mono text-[10px] font-semibold uppercase tracking-[0.1em] ${isFalsePositive ? "text-[#F2B1AE]" : selectedOutsideFrameLabel ? "text-[#E3C881]" : band.tone}`}>
-                    {isFalsePositive ? "False positive" : selectedOutsideFrameLabel || band.label}
+                  <div className={`font-mono text-[10px] font-semibold uppercase tracking-[0.1em] ${selectedFalseTriggerLabel ? "text-[#F2B1AE]" : selectedOutsideFrameLabel ? "text-[#E3C881]" : band.tone}`}>
+                    {selectedFalseTriggerLabel || selectedOutsideFrameLabel || band.label}
                   </div>
                   <div className="mt-1 font-mono text-[10px] text-[#63676C]">
                     {displayPoint && deltaX !== null
                       ? `x ${(displayPoint.x * 100).toFixed(2)}% · Δ ${(deltaX * 100).toFixed(2)}%`
-                      : selectedOutsideFrameLabel ? "No point needed" : "Click image to mark"}
+                      : selectedOutsideFrameLabel || selectedFalseTriggerLabel ? "No point needed" : "Click image to mark"}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-1.5">
@@ -820,23 +852,42 @@ export function DetectionReviewGrid({
                   )}
                   <button
                     type="button"
-                    aria-pressed={isFalsePositive}
-                    onClick={() => toggleFalsePositive(capture)}
+                    aria-pressed={isIgnoredCrossing}
+                    onClick={() => toggleFalseTrigger(capture, "ignore_crossing")}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                    className={`min-h-11 rounded-lg border px-2.5 py-2 text-[10px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
-                      isFalsePositive
+                    className={`min-h-14 rounded-lg border px-2.5 py-2 text-left transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                      isIgnoredCrossing
                         ? "border-[#9A5755] bg-[#342526] text-[#F2B1AE]"
                         : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-[#F2B1AE]"
                     }`}
                   >
-                    No real crossing
+                    <span className="block text-[10px] font-semibold">Ignore crossing</span>
+                    <span className="mt-0.5 block text-[8px] font-medium leading-3 opacity-70">
+                      Hand · pick up · set down
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    aria-pressed={isPhoneShake}
+                    onClick={() => toggleFalseTrigger(capture, "phone_shake")}
+                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                    className={`min-h-14 rounded-lg border px-2.5 py-2 text-left transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                      isPhoneShake
+                        ? "border-[#9A5755] bg-[#342526] text-[#F2B1AE]"
+                        : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-[#F2B1AE]"
+                    }`}
+                  >
+                    <span className="block text-[10px] font-semibold">Phone shake</span>
+                    <span className="mt-0.5 block text-[8px] font-medium leading-3 opacity-70">
+                      Camera moved
+                    </span>
                   </button>
                   <button
                     type="button"
                     onClick={() => onOpenDetail(capture.id)}
                     disabled={draftCount > 0 || preparing}
                     title={draftCount > 0 ? "Queue or clear the grid marks before opening detail view" : undefined}
-                    className="min-h-11 rounded-lg border border-[#41647B] bg-[#1B2A35] px-2.5 py-2 text-[10px] font-semibold text-[#AFC9DB] transition hover:border-[#5C8DB8] hover:bg-[#223746] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+                    className="col-span-2 min-h-11 rounded-lg border border-[#41647B] bg-[#1B2A35] px-2.5 py-2 text-[10px] font-semibold text-[#AFC9DB] transition hover:border-[#5C8DB8] hover:bg-[#223746] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Open large
                   </button>

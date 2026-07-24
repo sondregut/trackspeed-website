@@ -2,23 +2,17 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import {
+  falseTriggerReviewLabel,
+  isIgnoredCrossingIssue,
+  isPointFreeDetectionReviewIssue,
+  makeReviewPixelAudit,
+  measureContainedImagePoint,
+  type DetectionReviewIssue,
+} from "@/lib/detection-review"
 import { DetectionReviewGrid, type GridReviewItem } from "./DetectionReviewGrid"
 
-type ReviewIssue =
-  | "unlabeled"
-  | "good"
-  | "early"
-  | "late"
-  | "arm"
-  | "leg"
-  | "wrongFrame"
-  | "outsideFrameBefore"
-  | "outsideFrameAfter"
-  | "blur"
-  | "thumbnail"
-  | "false_positive"
-  | "real_crossing"
-  | "other"
+type ReviewIssue = DetectionReviewIssue
 
 interface ReviewMark {
   id: string
@@ -49,6 +43,7 @@ interface DetectionCapture {
   id: string
   source: "debug_capture" | "app_mark"
   editable: boolean
+  editBlockReason: string | null
   sessionId: string | null
   deviceId: string
   runId: string
@@ -61,6 +56,8 @@ interface DetectionCapture {
   createdAt: string
   direction: string | null
   detectorX: number
+  detectorCoordinateVerified: boolean
+  detectorCoordinateSource: string
   configuredGateX: number
   blobHeightFraction: number | null
   blobWidthFraction: number | null
@@ -131,6 +128,10 @@ interface ReviewUploadPayload {
   issue: ReviewIssue
   note: string
   reviewImageDataUrl: string
+  imageWidthPx: number
+  imageHeightPx: number
+  actualPixelX: number | null
+  actualPixelY: number | null
   selectedFrameIndex?: number
   selectedFrameRelation?: string
   selectedFramePtsNanos?: string | null
@@ -148,7 +149,7 @@ interface ReviewUpload {
 const MAX_CONCURRENT_UPLOADS = 2
 const MAX_UPLOAD_ATTEMPTS = 3
 const MAX_QUEUE_PAGE_ATTEMPTS = 3
-const QUEUE_PAGE_SIZE = 300
+const QUEUE_PAGE_SIZE = 160
 
 const shirtColorPresets = [
   "Black",
@@ -173,7 +174,8 @@ const issueOptions: Array<{ value: ReviewIssue; label: string; helper: string }>
   { value: "outsideFrameAfter", label: "After saved frames", helper: "The real crossing happened after every saved frame" },
   { value: "blur", label: "Blur", helper: "Motion blur prevents a confident mark" },
   { value: "thumbnail", label: "Thumbnail", helper: "Image mapping or crop is wrong" },
-  { value: "false_positive", label: "False positive", helper: "No real crossing occurred" },
+  { value: "ignore_crossing", label: "Ignore crossing", helper: "Hand swipe, phone pickup, or phone set-down" },
+  { value: "phone_shake", label: "Phone shake", helper: "Camera movement triggered the detection" },
   { value: "real_crossing", label: "None of the frames", helper: "A real crossing occurred, but none of the saved frames contains it" },
   { value: "other", label: "Other", helper: "Describe the problem in a note" },
 ]
@@ -255,6 +257,7 @@ export default function DetectionReviewDashboard() {
   const [gridDraftCount, setGridDraftCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [imageLoading, setImageLoading] = useState(true)
+  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
   const [preparing, setPreparing] = useState(false)
   const [uploads, setUploads] = useState<ReviewUpload[]>([])
   const [uploadClock, setUploadClock] = useState(0)
@@ -546,6 +549,31 @@ export default function DetectionReviewDashboard() {
       if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.tagName === "SELECT") {
         return
       }
+      const isArrow = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)
+      if (!isArrow) return
+      if (event.shiftKey && point && selected?.editable) {
+        const width = imageRef.current?.naturalWidth || 0
+        const height = imageRef.current?.naturalHeight || 0
+        if (!width || !height) return
+        event.preventDefault()
+        const deltaX = event.key === "ArrowLeft"
+          ? -1 / width
+          : event.key === "ArrowRight"
+            ? 1 / width
+            : 0
+        const deltaY = event.key === "ArrowUp"
+          ? -1 / height
+          : event.key === "ArrowDown"
+            ? 1 / height
+            : 0
+        setPoint({
+          x: Math.min(1, Math.max(0, point.x + deltaX)),
+          y: Math.min(1, Math.max(0, point.y + deltaY)),
+        })
+        setError("")
+        setSuccess("")
+        return
+      }
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
       if (!selectedId) return
       if (reviewStateChanged(selected, point, issue, note, selectedFrame)) {
@@ -776,12 +804,20 @@ export default function DetectionReviewDashboard() {
 
   function placeMark(event: React.PointerEvent<HTMLImageElement>) {
     if (!selected?.editable) return
-    const rect = event.currentTarget.getBoundingClientRect()
-    if (!rect.width || !rect.height) return
-    const x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width))
-    const y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height))
-    setPoint({ x, y })
-    if (issue === "false_positive") setIssue("unlabeled")
+    const image = event.currentTarget
+    const measurement = measureContainedImagePoint(
+      event.clientX,
+      event.clientY,
+      image.getBoundingClientRect(),
+      image.naturalWidth,
+      image.naturalHeight,
+    )
+    if (!measurement) {
+      setError("Click inside the visible image, not the surrounding empty area.")
+      return
+    }
+    setPoint(measurement.normalized)
+    if (isPointFreeDetectionReviewIssue(issue)) setIssue("unlabeled")
     setError("")
     setSuccess("")
   }
@@ -798,7 +834,7 @@ export default function DetectionReviewDashboard() {
       : null
     setPoint(savedPoint)
     setIssue((current) => {
-      if (["false_positive", "real_crossing", "outsideFrameBefore", "outsideFrameAfter"].includes(current)) {
+      if (isPointFreeDetectionReviewIssue(current)) {
         return frame.relativeFrame === 0 ? "unlabeled" : "wrongFrame"
       }
       if (frame.relativeFrame !== 0 && current === "unlabeled") return "wrongFrame"
@@ -813,13 +849,14 @@ export default function DetectionReviewDashboard() {
   function chooseIssue(value: ReviewIssue) {
     if (!selected?.editable) return
     const isClearing = issue === value
+      || (value === "ignore_crossing" && isIgnoredCrossingIssue(issue))
     setIssue(isClearing ? "unlabeled" : value)
     if (isClearing && (value === "real_crossing" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
       const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
       setSelectedFrameIndex(detectedFrame?.index ?? initialSelectedFrame(selected)?.index ?? null)
       setImageLoading(true)
     }
-    if (!isClearing && (value === "false_positive" || value === "real_crossing" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+    if (!isClearing && isPointFreeDetectionReviewIssue(value)) {
       setPoint(null)
     }
     if (!isClearing && value === "real_crossing") {
@@ -899,9 +936,22 @@ export default function DetectionReviewDashboard() {
         const capture = capturesById.get(item.captureId)
         if (!capture) throw new Error("A thumbnail left the queue before its mark could be prepared.")
         if (!capture.editable) throw new Error("In-app-only review images are read-only on the website.")
+        if (!item.point && !isPointFreeDetectionReviewIssue(item.issue)) {
+          throw new Error(
+            "Every real crossing needs a source-image point. Otherwise choose Ignore crossing, Phone shake, or an outside-frame classification.",
+          )
+        }
+        if (item.point && isPointFreeDetectionReviewIssue(item.issue)) {
+          throw new Error("Clear the point before saving a point-free classification.")
+        }
         const actualX = item.point?.x ?? null
         const actualY = item.point?.y ?? null
         const reviewImageDataUrl = await renderReviewImageFromElement(capture, item.point, item.image)
+        const pixelAudit = makeReviewPixelAudit(
+          item.point,
+          item.image.naturalWidth,
+          item.image.naturalHeight,
+        )
         const selectedTemporalFrame = item.selectedFrame
         const optimisticReview: ReviewMark = {
           id: `queued:${capture.id}`,
@@ -928,6 +978,7 @@ export default function DetectionReviewDashboard() {
             issue: item.issue,
             note: item.note,
             reviewImageDataUrl,
+            ...pixelAudit,
             ...(selectedTemporalFrame ? {
               selectedFrameIndex: selectedTemporalFrame.index,
               selectedFrameRelation: selectedTemporalFrame.relation,
@@ -959,11 +1010,20 @@ export default function DetectionReviewDashboard() {
   async function submitReview() {
     if (!selected) return
     if (!selected.editable) {
-      setError("This mark was saved in the app and is shown here as read-only evidence.")
+      setError(
+        selected.editBlockReason
+        || "This mark is shown here as read-only evidence.",
+      )
       return
     }
-    if (!point && issue === "unlabeled" && !note.trim()) {
-      setError("Place a mark, choose an issue, or add a note before saving.")
+    if (!point && !isPointFreeDetectionReviewIssue(issue)) {
+      setError(
+        "Place a source-image point, or choose Ignore crossing, Phone shake, or an outside-frame classification.",
+      )
+      return
+    }
+    if (point && isPointFreeDetectionReviewIssue(issue)) {
+      setError("Clear the point before saving a point-free classification.")
       return
     }
 
@@ -976,6 +1036,15 @@ export default function DetectionReviewDashboard() {
     setSuccess("")
     try {
       const reviewImageDataUrl = await renderReviewImage(capture, reviewPoint)
+      const reviewImage = imageRef.current
+      if (!reviewImage?.naturalWidth || !reviewImage.naturalHeight) {
+        throw new Error("Review image dimensions are unavailable")
+      }
+      const pixelAudit = makeReviewPixelAudit(
+        reviewPoint,
+        reviewImage.naturalWidth,
+        reviewImage.naturalHeight,
+      )
       const currentIndex = filteredCaptures.findIndex((item) => item.id === capture.id)
       const pendingAfterCurrent = filteredCaptures
         .slice(currentIndex + 1)
@@ -1011,6 +1080,7 @@ export default function DetectionReviewDashboard() {
           issue,
           note,
           reviewImageDataUrl,
+          ...pixelAudit,
           ...(selectedFrame ? {
             selectedFrameIndex: selectedFrame.index,
             selectedFrameRelation: selectedFrame.relation,
@@ -1042,6 +1112,8 @@ export default function DetectionReviewDashboard() {
   const deltaX = point && selected ? point.x - selected.detectorX : null
   const band = errorBand(deltaX)
   const selectedIssueOption = issueOptions.find((option) => option.value === issue)
+  const selectedIssueLabel = falseTriggerReviewLabel(issue) || selectedIssueOption?.label || issue
+  const selectedFalseTriggerLabel = falseTriggerReviewLabel(issue)
   const selectedOutsideFrameLabel = outsideFrameLabel(issue)
   const selectedUpload = selected ? uploadsByCapture.get(selected.id) || null : null
   const selectedIndex = selected
@@ -1454,17 +1526,24 @@ export default function DetectionReviewDashboard() {
                   </span>
                   <div>
                     <div className="text-sm font-semibold text-white">Click the true torso crossing point</div>
-                    <div className="mt-0.5 text-[11px] text-[#8B8F94]">Use the chest or torso edge, never a hand, arm, or leg.</div>
+                    <div className="mt-0.5 text-[11px] text-[#8B8F94]">
+                      Use the chest or torso edge, never a hand, arm, or leg. Hold Shift and use an arrow key to move the point by one source-image pixel.
+                    </div>
+                    {!selected.detectorCoordinateVerified && selected.editBlockReason && (
+                      <div className="mt-1 text-[11px] text-[#F2B1AE]">
+                        {selected.editBlockReason}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
                   point
                     ? "border-[#527E62] bg-[#213027] text-[#8FC8A3]"
-                    : issue === "false_positive" || selectedOutsideFrameLabel
+                    : selectedFalseTriggerLabel || selectedOutsideFrameLabel
                       ? "border-[#8B7444] bg-[#302B20] text-[#E3C881]"
                       : "border-[#555A60] bg-[#25272A] text-[#9B9A97]"
                 }`}>
-                  {point ? "Point ready" : selectedOutsideFrameLabel || (issue === "false_positive" ? "No person" : "Waiting for click")}
+                  {point ? "Point ready" : selectedOutsideFrameLabel || selectedFalseTriggerLabel || "Waiting for click"}
                 </span>
               </div>
 
@@ -1475,8 +1554,15 @@ export default function DetectionReviewDashboard() {
                     key={`${selected.id}:${selectedFrame?.index ?? "original"}`}
                     src={selectedFrame?.url || selected.imageUrl}
                     alt={`Detection capture for session ${shortId(selected.sessionId)}, run ${selected.runNumber}`}
-                    onLoad={() => setImageLoading(false)}
+                    onLoad={(event) => {
+                      setImageDimensions({
+                        width: event.currentTarget.naturalWidth,
+                        height: event.currentTarget.naturalHeight,
+                      })
+                      setImageLoading(false)
+                    }}
                     onError={() => {
+                      setImageDimensions({ width: 0, height: 0 })
                       setImageLoading(false)
                       setError("This thumbnail could not be loaded.")
                     }}
@@ -1564,13 +1650,13 @@ export default function DetectionReviewDashboard() {
                 <div className={`rounded-xl border px-3 py-3 ${
                   point
                     ? "border-[#527E62] bg-[#213027]"
-                    : issue === "false_positive" || selectedOutsideFrameLabel
+                    : selectedFalseTriggerLabel || selectedOutsideFrameLabel
                       ? "border-[#8B7444] bg-[#302B20]"
                       : "border-[#3D4145] bg-[#25272A]"
                 }`}>
                   <div className="flex items-center justify-between gap-3">
-                    <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : issue === "false_positive" || selectedOutsideFrameLabel ? "text-[#E3C881]" : "text-white"}`}>
-                      {point ? "Crossing point ready" : selectedOutsideFrameLabel || (issue === "false_positive" ? "Marked as no person" : "Click the image to place the point")}
+                    <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : selectedFalseTriggerLabel || selectedOutsideFrameLabel ? "text-[#E3C881]" : "text-white"}`}>
+                      {point ? "Crossing point ready" : selectedOutsideFrameLabel || selectedFalseTriggerLabel || "Click the image to place the point"}
                     </span>
                     {point && selected.editable && (
                       <button
@@ -1583,7 +1669,12 @@ export default function DetectionReviewDashboard() {
                     )}
                   </div>
                   <div className="mt-1 font-mono text-[10px] text-[#8B8F94]">
-                    Frame {selectedFrame?.relation || "r0"}{point ? ` · x ${point.x.toFixed(4)} · y ${point.y.toFixed(4)}` : ""}
+                    Frame {selectedFrame?.relation || "r0"}
+                    {point ? ` · x ${point.x.toFixed(4)} · y ${point.y.toFixed(4)}` : ""}
+                    {point && imageDimensions.width && imageDimensions.height
+                      ? ` · px ${(point.x * imageDimensions.width).toFixed(1)}, ${(point.y * imageDimensions.height).toFixed(1)} · ${imageDimensions.width}×${imageDimensions.height}`
+                      : ""}
+                    {` · detector ${selected.detectorCoordinateSource}`}
                   </div>
                 </div>
 
@@ -1627,15 +1718,33 @@ export default function DetectionReviewDashboard() {
                     </button>
                     <button
                       type="button"
-                      aria-pressed={issue === "false_positive"}
-                      onClick={() => chooseIssue("false_positive")}
-                      className={`col-span-2 min-h-11 rounded-xl border px-4 py-2.5 text-sm font-semibold transition active:translate-y-px ${
-                        issue === "false_positive"
+                      aria-pressed={isIgnoredCrossingIssue(issue)}
+                      onClick={() => chooseIssue("ignore_crossing")}
+                      className={`min-h-14 rounded-xl border px-3 py-2.5 text-left transition active:translate-y-px ${
+                        isIgnoredCrossingIssue(issue)
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
                           : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
                       }`}
                     >
-                      {issue === "false_positive" ? "No crossing selected" : "No real crossing / false detection"}
+                      <span className="block text-xs font-semibold">Ignore crossing</span>
+                      <span className="mt-0.5 block text-[9px] font-medium leading-3 opacity-70">
+                        Hand swipe · picked up · set down
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={issue === "phone_shake"}
+                      onClick={() => chooseIssue("phone_shake")}
+                      className={`min-h-14 rounded-xl border px-3 py-2.5 text-left transition active:translate-y-px ${
+                        issue === "phone_shake"
+                          ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                          : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                      }`}
+                    >
+                      <span className="block text-xs font-semibold">Phone shake</span>
+                      <span className="mt-0.5 block text-[9px] font-medium leading-3 opacity-70">
+                        Camera moved during capture
+                      </span>
                     </button>
                   </div>
                 )}
@@ -1647,7 +1756,7 @@ export default function DetectionReviewDashboard() {
                     preparing ||
                     selectedUpload?.status === "queued" ||
                     selectedUpload?.status === "uploading" ||
-                    (!selectedUpload && !point && issue === "unlabeled" && !note.trim())
+                    (!selectedUpload && !point && !isPointFreeDetectionReviewIssue(issue))
                   }
                   onClick={() =>
                     selectedUpload?.status === "failed"
@@ -1672,7 +1781,7 @@ export default function DetectionReviewDashboard() {
                     <span>Issue or note (optional)</span>
                     {issue !== "unlabeled" && (
                       <span className="rounded-full bg-[#294157] px-2 py-1 text-[9px] uppercase tracking-[0.08em] text-[#B7D0E5]">
-                        {selectedIssueOption?.label || issue}
+                        {selectedIssueLabel}
                       </span>
                     )}
                   </summary>

@@ -5,14 +5,18 @@ import {
   ADMIN_REVIEW_DEVICE_ID,
   ADMIN_REVIEW_SCHEMA,
   adminReviewKey,
+  detectionReviewMode,
   detectionReviewIdentityKey,
-  detectorDisplayPosition,
   isDetectionReviewIssue,
+  isPointFreeDetectionReviewIssue,
   isSessionShirtContrast,
   isUuid,
   normalizedCoordinate,
   normalizeReviewTarget,
+  resolveDetectorDisplayPosition,
+  validateReviewPixelAudit,
 } from "@/lib/detection-review"
+import { jpegDimensions } from "@/lib/jpeg-dimensions"
 import { getSupabaseAdmin } from "@/lib/supabase"
 
 export const runtime = "nodejs"
@@ -76,6 +80,9 @@ interface ReviewMarkRow {
   saved_thumbnail_frame_pts: number | string | null
   note: string | null
   thumbnail_storage_path: string | null
+  is_front_camera: boolean | null
+  detection_distance: string | null
+  iso: number | null
 }
 
 interface SessionContextRow {
@@ -84,8 +91,10 @@ interface SessionContextRow {
   evidence_correlation_id: string | null
   local_race_session_id: string | null
   cloud_session_id: string | null
+  realtime_session_id: string | null
   device_id: string
   timing_mode: string | null
+  number_of_phones: number | null
   run_count: number | null
   local_role: string | null
   gate_index: number | null
@@ -157,6 +166,9 @@ const markSelect = [
   "saved_thumbnail_frame_pts",
   "note",
   "thumbnail_storage_path",
+  "is_front_camera",
+  "detection_distance",
+  "iso",
 ].join(",")
 
 const sessionContextSelect = [
@@ -165,8 +177,10 @@ const sessionContextSelect = [
   "evidence_correlation_id",
   "local_race_session_id",
   "cloud_session_id",
+  "realtime_session_id",
   "device_id",
   "timing_mode",
+  "number_of_phones",
   "run_count",
   "local_role",
   "gate_index",
@@ -229,6 +243,108 @@ function framePts(frame: Record<string, unknown>): string | null {
   return typeof value === "number" || typeof value === "string" ? String(value) : null
 }
 
+function captureMetadataValue(capture: CaptureRow, camel: string, snake: string): unknown {
+  for (const frame of capture.frames_metadata || []) {
+    const value = metadataValue(frame, camel, snake)
+    if (value !== null && value !== undefined) return value
+  }
+  return null
+}
+
+function captureMetadataNumber(capture: CaptureRow, camel: string, snake: string): number | null {
+  const value = captureMetadataValue(capture, camel, snake)
+  return typeof value === "number" && Number.isFinite(value) ? value : null
+}
+
+function captureMetadataBoolean(capture: CaptureRow, camel: string, snake: string): boolean | null {
+  const value = captureMetadataValue(capture, camel, snake)
+  return typeof value === "boolean" ? value : null
+}
+
+function sourceCameraMarkForCapture(
+  capture: CaptureRow,
+  appMarks: ReviewMarkRow[],
+): ReviewMarkRow | null {
+  const matches = appMarks.filter((mark) =>
+    mark.session_id === capture.session_id
+    && mark.device_id === capture.device_id
+    && typeof mark.is_front_camera === "boolean",
+  )
+  const orientations = new Set(matches.map((mark) => mark.is_front_camera))
+  if (orientations.size !== 1) return null
+  const target = normalizeReviewTarget(capture.gate_label)
+  return matches.find((mark) =>
+    mark.run_number === capture.run_number
+    && normalizeReviewTarget(mark.target || mark.gate_label) === target
+  ) || matches[0] || null
+}
+
+function detectorResolutionForCapture(
+  capture: CaptureRow,
+  sourceCameraMark: ReviewMarkRow | null,
+) {
+  const capturedDisplayPosition = captureMetadataNumber(
+    capture,
+    "detectorDisplayX",
+    "detector_display_x",
+  )
+  const capturedIsFrontCamera = captureMetadataBoolean(
+    capture,
+    "isFrontCamera",
+    "is_front_camera",
+  )
+  const isFrontCamera = capturedIsFrontCamera ?? sourceCameraMark?.is_front_camera ?? null
+
+  return {
+    isFrontCamera,
+    resolution: resolveDetectorDisplayPosition({
+      captured_display_position: capturedDisplayPosition,
+      interpolated_display_position: capture.interpolated_display_position,
+      projected_display_position: capture.projected_display_position,
+      detector_position: capture.detector_position,
+      configured_gate_position: capture.configured_gate_position,
+      algo_interpolation_alpha: capture.algo_interpolation_alpha,
+      algo_s0: capture.algo_s0,
+      algo_s1: capture.algo_s1,
+      algo_work_width: capture.algo_work_width,
+      algo_gate_position: capture.algo_gate_position,
+      algo_crossing_direction: capture.algo_crossing_direction,
+      has_x_anchor_comparison: Boolean(capture.x_anchor_comparison),
+    }, isFrontCamera),
+  }
+}
+
+function detectorYForCapture(
+  capture: CaptureRow,
+  renderedImageWidth: number,
+  renderedImageHeight: number,
+): number | null {
+  const capturedDetectorY = captureMetadataNumber(
+    capture,
+    "detectorYPosition",
+    "detector_y_position",
+  )
+  if (capturedDetectorY !== null && capturedDetectorY >= 0 && capturedDetectorY <= 1) {
+    return capturedDetectorY
+  }
+
+  const comparisonDetY = capture.x_anchor_comparison?.detY
+    ?? capture.x_anchor_comparison?.det_y
+  if (
+    typeof comparisonDetY !== "number"
+    || !Number.isFinite(comparisonDetY)
+    || !(capture.algo_work_width && capture.algo_work_width > 0)
+    || renderedImageWidth <= 0
+    || renderedImageHeight <= 0
+  ) {
+    return null
+  }
+  const workHeight = capture.algo_work_width * renderedImageHeight / renderedImageWidth
+  if (!(workHeight > 0)) return null
+  const normalized = comparisonDetY / workHeight
+  return normalized >= 0 && normalized <= 1 ? normalized : null
+}
+
 function temporalRelation(
   frame: Record<string, unknown>,
   ptsNanos: string | null,
@@ -283,8 +399,10 @@ function publicSessionEvidence(context: SessionContextRow) {
     evidenceCorrelationId: context.evidence_correlation_id,
     localRaceSessionId: context.local_race_session_id,
     cloudSessionId: context.cloud_session_id,
+    realtimeSessionId: context.realtime_session_id,
     deviceId: context.device_id,
     timingMode: context.timing_mode,
+    numberOfPhones: context.number_of_phones,
     expectedRunCount: context.run_count,
     localRole: context.local_role,
     gateIndex: context.gate_index,
@@ -354,6 +472,73 @@ function adminSessionContextId(sessionId: string): string {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
 }
 
+function sourceContextForCapture(
+  capture: CaptureRow,
+  contexts: SessionContextRow[],
+): SessionContextRow | null {
+  if (!capture.session_id) return null
+  const sessionId = capture.session_id
+  const matches = contexts.filter((context) =>
+    context.device_id !== ADMIN_REVIEW_DEVICE_ID
+    && [
+      context.session_id,
+      context.cloud_session_id,
+      context.local_race_session_id,
+      context.evidence_correlation_id,
+      context.realtime_session_id,
+    ].includes(sessionId),
+  )
+  return matches.find((context) => context.device_id === capture.device_id)
+    || matches[0]
+    || null
+}
+
+async function loadSourceContextForCapture(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  capture: CaptureRow,
+): Promise<SessionContextRow | null> {
+  if (!capture.session_id) return null
+  const sessionId = capture.session_id
+  const { data, error } = await supabase
+    .from("session_test_context")
+    .select(sessionContextSelect)
+    .neq("device_id", ADMIN_REVIEW_DEVICE_ID)
+    .or([
+      `session_id.eq.${sessionId}`,
+      `cloud_session_id.eq.${sessionId}`,
+      `local_race_session_id.eq.${sessionId}`,
+      `evidence_correlation_id.eq.${sessionId}`,
+      `realtime_session_id.eq.${sessionId}`,
+    ].join(","))
+    .order("updated_at", { ascending: false })
+    .limit(20)
+
+  if (error) throw new Error(error.message)
+  return sourceContextForCapture(capture, (data || []) as unknown as SessionContextRow[])
+}
+
+async function loadSourceCameraMarkForCapture(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  capture: CaptureRow,
+): Promise<ReviewMarkRow | null> {
+  if (!capture.session_id) return null
+  const { data, error } = await supabase
+    .from("crossing_review_marks")
+    .select(markSelect)
+    .eq("session_id", capture.session_id)
+    .eq("device_id", capture.device_id)
+    .neq("device_id", ADMIN_REVIEW_DEVICE_ID)
+    .not("is_front_camera", "is", null)
+    .order("created_at", { ascending: false })
+    .limit(100)
+
+  if (error) throw new Error(error.message)
+  return sourceCameraMarkForCapture(
+    capture,
+    (data || []) as unknown as ReviewMarkRow[],
+  )
+}
+
 export async function GET(request: Request) {
   if (!(await verifyAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -390,7 +575,7 @@ export async function GET(request: Request) {
             .in("review_key", reviewKeys)
         : Promise.resolve({ data: [], error: null }),
       loadAppReviewMarks(supabase, since),
-      offset === 0 ? loadSessionContexts(supabase, since) : Promise.resolve([]),
+      loadSessionContexts(supabase, since),
     ])
 
     if (markResult.error) {
@@ -451,6 +636,15 @@ export async function GET(request: Request) {
     const captureIdentityKeys = new Set<string>()
     const captureRows = captures.map((capture) => {
       const target = normalizeReviewTarget(capture.gate_label)
+      const sourceContext = sourceContextForCapture(capture, sessionContexts)
+      const sourceCameraMark = sourceCameraMarkForCapture(capture, appMarks)
+      const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
+      const editable = Boolean(sourceContext) && detectorCoordinate.resolution.verified
+      const editBlockReason = !sourceContext
+        ? "This capture has no source session context, so a desktop mark cannot be linked safely to optimizer evidence."
+        : detectorCoordinate.resolution.verified
+          ? null
+          : "This legacy capture has no verified camera/display transform. Re-capture it with the current app before using it as optimizer ground truth."
       const identity = detectionReviewIdentityKey(capture.session_id, capture.run_number, target)
       if (identity) captureIdentityKeys.add(identity)
       const review =
@@ -476,19 +670,26 @@ export async function GET(request: Request) {
       return {
         id: capture.id,
         source: "debug_capture" as const,
-        editable: true,
+        editable,
+        editBlockReason,
         sessionId: capture.session_id,
         deviceId: capture.device_id,
         runId: capture.run_id,
         runNumber: capture.run_number,
         gateLabel: capture.gate_label,
         target,
-        mode: target === "crossing" || target === "lap" ? "solo" : "multi",
+        mode: detectionReviewMode(
+          sourceContext?.timing_mode,
+          sourceContext?.number_of_phones,
+          target,
+        ),
         appVersion: capture.app_version,
         deviceModel: capture.device_model,
         createdAt: capture.created_at,
         direction: capture.algo_crossing_direction,
-        detectorX: detectorDisplayPosition(capture),
+        detectorX: detectorCoordinate.resolution.x,
+        detectorCoordinateVerified: detectorCoordinate.resolution.verified,
+        detectorCoordinateSource: detectorCoordinate.resolution.source,
         configuredGateX: capture.configured_gate_position,
         blobHeightFraction: capture.algo_blob_height_fraction,
         blobWidthFraction: capture.algo_blob_width_fraction,
@@ -512,6 +713,7 @@ export async function GET(request: Request) {
               id: mark.id,
               source: "app_mark" as const,
               editable: false,
+              editBlockReason: "This review was saved in the app and is read-only on the desktop.",
               sessionId: mark.session_id,
               deviceId: mark.device_id,
               runId: mark.id,
@@ -524,6 +726,8 @@ export async function GET(request: Request) {
               createdAt: mark.created_at,
               direction: mark.crossing_direction,
               detectorX: Math.min(1, Math.max(0, mark.detector_x)),
+              detectorCoordinateVerified: true,
+              detectorCoordinateSource: "app_review_coordinate",
               configuredGateX: Math.min(1, Math.max(0, mark.detector_x)),
               blobHeightFraction: null,
               blobWidthFraction: null,
@@ -680,15 +884,24 @@ export async function POST(request: Request) {
         { status: 400 },
       )
     }
-
-    const note = typeof body.note === "string" ? body.note.trim().slice(0, 500) : ""
-    if (actualX === null && body.issue === "unlabeled" && !note) {
+    const pointFreeIssue = isPointFreeDetectionReviewIssue(body.issue)
+    if (actualX === null && !pointFreeIssue) {
       return NextResponse.json(
-        { error: "Place a mark, choose an issue, or add a note before saving" },
+        {
+          error:
+            "Place a source-image point, or choose Ignore crossing, Phone shake, or an outside-frame classification.",
+        },
+        { status: 400 },
+      )
+    }
+    if (actualX !== null && pointFreeIssue) {
+      return NextResponse.json(
+        { error: "Point-free classifications cannot include a crossing point" },
         { status: 400 },
       )
     }
 
+    const note = typeof body.note === "string" ? body.note.trim().slice(0, 500) : ""
     if (typeof body.reviewImageDataUrl !== "string") {
       return NextResponse.json({ error: "The rendered review image is required" }, { status: 400 })
     }
@@ -705,6 +918,10 @@ export async function POST(request: Request) {
       reviewImage[2] !== 0xff
     ) {
       return NextResponse.json({ error: "Review image is invalid or too large" }, { status: 400 })
+    }
+    const renderedReviewDimensions = jpegDimensions(reviewImage)
+    if (!renderedReviewDimensions) {
+      return NextResponse.json({ error: "Review image dimensions could not be verified" }, { status: 400 })
     }
 
     const supabase = getSupabaseAdmin()
@@ -724,9 +941,22 @@ export async function POST(request: Request) {
     }
 
     const requestedFrameIndex = body.selectedFrameIndex
+    const temporalFrameCount = (capture.frames_metadata || []).filter((frame) => {
+      const ptsNanos = framePts(frame)
+      return Boolean(temporalRelation(frame, ptsNanos, capture.detector_chosen_frame_pts_nanos))
+    }).length
+    if (temporalFrameCount > 0 && (requestedFrameIndex === undefined || requestedFrameIndex === null)) {
+      return NextResponse.json(
+        { error: "Select one of the saved evidence frames before saving the review" },
+        { status: 400 },
+      )
+    }
+
     let selectedFrameRelation = "r0"
     let selectedFramePtsNanos = capture.detector_chosen_frame_pts_nanos
       ?? capture.saved_thumbnail_frame_pts_nanos
+    let selectedStoragePath = capture.thumbnail_storage_path
+    let selectedMetadata: Record<string, unknown> | null = null
     if (requestedFrameIndex !== undefined && requestedFrameIndex !== null) {
       if (
         typeof requestedFrameIndex !== "number"
@@ -735,40 +965,120 @@ export async function POST(request: Request) {
       ) {
         return NextResponse.json({ error: "Selected frame index is invalid" }, { status: 400 })
       }
-      const selectedMetadata = (capture.frames_metadata || [])[requestedFrameIndex]
+      selectedMetadata = (capture.frames_metadata || [])[requestedFrameIndex]
       if (!selectedMetadata) {
         return NextResponse.json({ error: "Selected frame is not part of this capture" }, { status: 400 })
       }
-      const selectedStoragePath = metadataValue(selectedMetadata, "storagePath", "storage_path")
+      const frameStoragePath = metadataValue(selectedMetadata, "storagePath", "storage_path")
       const selectedPts = framePts(selectedMetadata)
       const selectedTemporal = temporalRelation(
         selectedMetadata,
         selectedPts,
         capture.detector_chosen_frame_pts_nanos,
       )
-      if (!selectedTemporal || typeof selectedStoragePath !== "string" || !selectedStoragePath || !selectedPts) {
+      if (!selectedTemporal || typeof frameStoragePath !== "string" || !frameStoragePath || !selectedPts) {
         return NextResponse.json({ error: "Selected evidence frame is unavailable" }, { status: 400 })
       }
-      if (
-        body.selectedFrameRelation !== undefined
-        && body.selectedFrameRelation !== selectedTemporal.relation
-      ) {
+      if (body.selectedFrameRelation !== selectedTemporal.relation) {
         return NextResponse.json({ error: "Selected frame relation does not match the capture" }, { status: 400 })
       }
-      if (
-        body.selectedFramePtsNanos !== undefined
-        && String(body.selectedFramePtsNanos) !== selectedPts
-      ) {
+      if (String(body.selectedFramePtsNanos) !== selectedPts) {
         return NextResponse.json({ error: "Selected frame timestamp does not match the capture" }, { status: 400 })
       }
       selectedFrameRelation = selectedTemporal.relation
       selectedFramePtsNanos = selectedPts
+      selectedStoragePath = frameStoragePath
     }
 
-    const detectorX = detectorDisplayPosition(capture)
+    const { data: sourceFrame, error: sourceFrameError } = await supabase.storage
+      .from("race-photos")
+      .download(selectedStoragePath)
+    if (sourceFrameError || !sourceFrame) {
+      return NextResponse.json({ error: "Selected source frame could not be verified" }, { status: 502 })
+    }
+    const sourceFrameBytes = new Uint8Array(await sourceFrame.arrayBuffer())
+    const sourceFrameDimensions = jpegDimensions(sourceFrameBytes)
+    if (!sourceFrameDimensions) {
+      return NextResponse.json({ error: "Selected source frame dimensions are invalid" }, { status: 502 })
+    }
+    if (
+      sourceFrameDimensions.width !== renderedReviewDimensions.width
+      || sourceFrameDimensions.height !== renderedReviewDimensions.height
+    ) {
+      return NextResponse.json(
+        { error: "Rendered review image does not match the selected source frame" },
+        { status: 400 },
+      )
+    }
+    const pixelAuditValidation = validateReviewPixelAudit({
+      actualX,
+      actualY,
+      imageWidthPx: body.imageWidthPx,
+      imageHeightPx: body.imageHeightPx,
+      actualPixelX: body.actualPixelX,
+      actualPixelY: body.actualPixelY,
+      renderedImageWidthPx: sourceFrameDimensions.width,
+      renderedImageHeightPx: sourceFrameDimensions.height,
+    })
+    if (!pixelAuditValidation.ok) {
+      return NextResponse.json({ error: pixelAuditValidation.error }, { status: 400 })
+    }
+
     const target = normalizeReviewTarget(capture.gate_label)
+    const [sourceContext, sourceCameraMark] = await Promise.all([
+      loadSourceContextForCapture(supabase, capture),
+      loadSourceCameraMarkForCapture(supabase, capture),
+    ])
+    if (!sourceContext) {
+      return NextResponse.json(
+        {
+          error:
+            "The source session context is missing, so this mark cannot be linked safely to optimizer evidence.",
+        },
+        { status: 409 },
+      )
+    }
+    const mode = detectionReviewMode(
+      sourceContext.timing_mode,
+      sourceContext.number_of_phones,
+      target,
+    )
+    const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
+    if (!detectorCoordinate.resolution.verified) {
+      return NextResponse.json(
+        {
+          error:
+            "The camera/display transform for this legacy capture cannot be verified. Re-capture it with the current app before using it as optimizer ground truth.",
+        },
+        { status: 409 },
+      )
+    }
+    const detectorX = detectorCoordinate.resolution.x
+    const detectorY = detectorYForCapture(
+      capture,
+      sourceFrameDimensions.width,
+      sourceFrameDimensions.height,
+    )
     const reviewKey = adminReviewKey(capture.id)
     const reviewStoragePath = `admin/crossing_review_marks/${capture.id}/review.jpg`
+    const audit = pixelAuditValidation.audit
+    const exposureValue = selectedMetadata
+      ? metadataValue(selectedMetadata, "exposureDurationMs", "exposure_duration_ms")
+      : null
+    const exposureMs = typeof exposureValue === "number" && Number.isFinite(exposureValue)
+      ? exposureValue
+      : null
+    const imageISOValue = selectedMetadata
+      ? metadataValue(selectedMetadata, "imageISO", "image_iso")
+      : null
+    const imageISO = typeof imageISOValue === "number" && Number.isFinite(imageISOValue)
+      ? Math.round(imageISOValue)
+      : sourceCameraMark?.run_number === capture.run_number
+          && normalizeReviewTarget(sourceCameraMark.target || sourceCameraMark.gate_label) === target
+        ? sourceCameraMark.iso
+        : null
+    const sourceFrameSha256 = createHash("sha256").update(sourceFrameBytes).digest("hex")
+    const reviewImageSha256 = createHash("sha256").update(reviewImage).digest("hex")
     const { error: uploadError } = await supabase.storage
       .from("race-photos")
       .upload(reviewStoragePath, reviewImage, {
@@ -783,6 +1093,7 @@ export async function POST(request: Request) {
 
     const createdAt = new Date().toISOString()
     const deltaX = actualX === null ? null : actualX - detectorX
+    const deltaY = actualY === null || detectorY === null ? null : actualY - detectorY
     const rawMessage = [
       "[DETECTION-MARK]",
       "source=admin-dashboard",
@@ -790,12 +1101,36 @@ export async function POST(request: Request) {
       `session=${capture.session_id || "nil"}`,
       `run=${capture.run_number}`,
       `target=${target}`,
+      `mode=${mode}`,
+      "coordinateSpace=image-normalized",
       `actualX=${actualX === null ? "nil" : actualX.toFixed(4)}`,
       `actualY=${actualY === null ? "nil" : actualY.toFixed(4)}`,
+      `actualImagePx=${
+        audit.actualPixelX === null || audit.actualPixelY === null
+          ? "nil"
+          : `${audit.actualPixelX.toFixed(1)},${audit.actualPixelY.toFixed(1)}`
+      }`,
+      `imagePx=${audit.imageWidthPx}x${audit.imageHeightPx}`,
       `detectorX=${detectorX.toFixed(4)}`,
+      `detectorY=${detectorY === null ? "nil" : detectorY.toFixed(4)}`,
       `deltaX=${deltaX === null ? "nil" : deltaX.toFixed(4)}`,
+      `deltaY=${deltaY === null ? "nil" : deltaY.toFixed(4)}`,
+      `detectorCoordinateSource=${detectorCoordinate.resolution.source}`,
+      "detectorCoordinateVerified=true",
       `selectedFrame=${selectedFrameRelation}`,
+      `selectedFrameIndex=${requestedFrameIndex ?? "thumbnail"}`,
       `selectedFramePts=${selectedFramePtsNanos ?? "nil"}`,
+      `selectedSourcePath=${selectedStoragePath}`,
+      `sourceFrameSha256=${sourceFrameSha256}`,
+      `detectorChosenFramePts=${capture.detector_chosen_frame_pts_nanos ?? "nil"}`,
+      `detectorSavedFramePts=${capture.saved_thumbnail_frame_pts_nanos ?? "nil"}`,
+      `reviewImageSha256=${reviewImageSha256}`,
+      `sourceContextId=${sourceContext?.id ?? "nil"}`,
+      `evidenceCorrelationId=${sourceContext?.evidence_correlation_id ?? "nil"}`,
+      `localRaceSessionId=${sourceContext?.local_race_session_id ?? "nil"}`,
+      `cloudSessionId=${sourceContext?.cloud_session_id ?? "nil"}`,
+      `realtimeSessionId=${sourceContext?.realtime_session_id ?? "nil"}`,
+      `isFrontCamera=${detectorCoordinate.isFrontCamera ?? "nil"}`,
       `issue=${body.issue}`,
       `reviewSchema=${ADMIN_REVIEW_SCHEMA}`,
     ].join(" ")
@@ -806,26 +1141,32 @@ export async function POST(request: Request) {
       device_model: capture.device_model,
       app_version: capture.app_version,
       session_id: capture.session_id,
-      evidence_correlation_id: capture.session_id,
-      cloud_session_id: capture.session_id,
+      evidence_correlation_id: sourceContext?.evidence_correlation_id || capture.session_id,
+      local_race_session_id: sourceContext?.local_race_session_id || null,
+      cloud_session_id: sourceContext?.cloud_session_id || capture.session_id,
+      realtime_session_id: sourceContext?.realtime_session_id || null,
       review_key: reviewKey,
       run_number: capture.run_number,
       gate_label: capture.gate_label,
       target,
-      mode: target === "crossing" || target === "lap" ? "solo" : "multi",
+      mode,
       crossing_direction: capture.algo_crossing_direction,
       issue: body.issue,
       actual_x: actualX,
       actual_y: actualY,
       detector_x: detectorX,
-      detector_y: null,
+      detector_y: detectorY,
       delta_x: deltaX,
-      delta_y: null,
+      delta_y: deltaY,
       interpolation_alpha: capture.algo_interpolation_alpha,
       frame_pick: `admin_dashboard:${selectedFrameRelation}`,
       s0: capture.algo_s0,
       s1: capture.algo_s1,
+      is_front_camera: detectorCoordinate.isFrontCamera,
+      detection_distance: sourceCameraMark?.detection_distance || null,
       work_width: capture.algo_work_width,
+      exposure_ms: exposureMs,
+      iso: imageISO,
       detector_trigger_frame_pts: capture.detector_trigger_frame_pts_nanos,
       chosen_thumbnail_frame_pts: selectedFramePtsNanos,
       saved_thumbnail_frame_pts: selectedFramePtsNanos,
