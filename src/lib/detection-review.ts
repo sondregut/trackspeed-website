@@ -170,6 +170,42 @@ export function normalizedCoordinate(value: unknown): number | null | undefined 
   return value
 }
 
+export function resolveDetectorYPosition(input: {
+  capturedDetectorY: unknown
+  comparisonDetectorYPx?: unknown
+  workBufferHeightPx?: unknown
+  workBufferWidthPx?: unknown
+  renderedImageWidthPx?: unknown
+  renderedImageHeightPx?: unknown
+}): number | null {
+  const captured = normalizedCoordinate(input.capturedDetectorY)
+  if (typeof captured === "number") return captured
+
+  const detectorYPx = finitePixelCoordinate(input.comparisonDetectorYPx)
+  if (detectorYPx === null || detectorYPx < 0) return null
+
+  const capturedWorkHeight = finitePixelCoordinate(input.workBufferHeightPx)
+  let workHeight = capturedWorkHeight && capturedWorkHeight > 0
+    ? capturedWorkHeight
+    : null
+  if (workHeight === null) {
+    const workWidth = finitePixelCoordinate(input.workBufferWidthPx)
+    const renderedWidth = finitePixelCoordinate(input.renderedImageWidthPx)
+    const renderedHeight = finitePixelCoordinate(input.renderedImageHeightPx)
+    if (
+      workWidth === null || workWidth <= 0
+      || renderedWidth === null || renderedWidth <= 0
+      || renderedHeight === null || renderedHeight <= 0
+    ) {
+      return null
+    }
+    workHeight = workWidth * renderedHeight / renderedWidth
+  }
+
+  const normalized = detectorYPx / workHeight
+  return normalized >= 0 && normalized <= 1 ? normalized : null
+}
+
 function positiveDimension(value: unknown): number | null {
   if (typeof value !== "number" || !Number.isInteger(value)) return null
   if (value < 1 || value > 16_384) return null

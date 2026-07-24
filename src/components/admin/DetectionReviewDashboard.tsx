@@ -56,6 +56,7 @@ interface DetectionCapture {
   createdAt: string
   direction: string | null
   detectorX: number
+  detectorY: number | null
   detectorCoordinateVerified: boolean
   detectorCoordinateSource: string
   configuredGateX: number
@@ -909,6 +910,17 @@ export default function DetectionReviewDashboard() {
     context.lineWidth = Math.max(3, Math.min(canvas.width, canvas.height) * 0.004)
     context.stroke()
 
+    if (capture.detectorY !== null) {
+      const radius = Math.max(6, Math.min(canvas.width, canvas.height) * 0.017)
+      context.beginPath()
+      context.arc(detectorX, capture.detectorY * canvas.height, radius, 0, Math.PI * 2)
+      context.fillStyle = "#FFD60A"
+      context.fill()
+      context.strokeStyle = "rgba(255,255,255,0.96)"
+      context.lineWidth = Math.max(1.5, radius * 0.16)
+      context.stroke()
+    }
+
     if (reviewPoint) {
       const radius = Math.max(4, Math.min(canvas.width, canvas.height) * 0.008)
       context.beginPath()
@@ -968,9 +980,11 @@ export default function DetectionReviewDashboard() {
           actualX,
           actualY,
           detectorX: capture.detectorX,
-          detectorY: null,
+          detectorY: capture.detectorY,
           deltaX: actualX === null ? null : actualX - capture.detectorX,
-          deltaY: null,
+          deltaY: actualY === null || capture.detectorY === null
+            ? null
+            : actualY - capture.detectorY,
           selectedFrameRelation: selectedTemporalFrame?.relation ?? "r0",
           selectedFramePtsNanos: selectedTemporalFrame?.ptsNanos ?? null,
           note: item.note,
@@ -1070,9 +1084,11 @@ export default function DetectionReviewDashboard() {
         actualX,
         actualY,
         detectorX: capture.detectorX,
-        detectorY: null,
+        detectorY: capture.detectorY,
         deltaX: actualX === null ? null : actualX - capture.detectorX,
-        deltaY: null,
+        deltaY: actualY === null || capture.detectorY === null
+          ? null
+          : actualY - capture.detectorY,
         selectedFrameRelation: selectedFrame?.relation ?? "r0",
         selectedFramePtsNanos: selectedFrame?.ptsNanos ?? null,
         note,
@@ -1188,7 +1204,7 @@ export default function DetectionReviewDashboard() {
             </h1>
             <p className="mt-2 max-w-[68ch] text-sm leading-6 text-[#9B9A97]">
               {viewMode === "grid"
-                ? "Review every filtered thumbnail in one continuous grid. The red line is Replica’s detector position; click each true torso edge, then queue your marks for background upload."
+                ? "Review every filtered thumbnail in one continuous grid. The red line and yellow dot show Replica’s detector position; click each true torso edge, then queue your marks for background upload."
                 : "Pick the correct frame, click the athlete’s true torso timing edge, then save. Issue labels and notes are optional."}
             </p>
           </div>
@@ -1468,7 +1484,8 @@ export default function DetectionReviewDashboard() {
                       Marked in app
                     </span>
                   )}
-                  <span className="text-[#F06C68]">Red: detector</span>
+                  <span className="text-[#F06C68]">Red: detector line</span>
+                  <span className="text-[#FFD60A]">Yellow: detector point</span>
                   <span className="text-[#6FB58A]">Green: your mark</span>
                 </div>
               </div>
@@ -1599,6 +1616,13 @@ export default function DetectionReviewDashboard() {
                     className="pointer-events-none absolute inset-y-0 w-[3px] -translate-x-1/2 bg-[#FF3B30] shadow-[0_0_0_1px_rgba(50,10,8,0.22)]"
                     style={{ left: `${selected.detectorX * 100}%` }}
                   />
+                  {selected.detectorY !== null && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white bg-[#FFD60A] shadow-[0_2px_8px_rgba(0,0,0,0.65)]"
+                      style={{ left: `${selected.detectorX * 100}%`, top: `${selected.detectorY * 100}%` }}
+                    />
+                  )}
                   {point && (
                     <span
                       aria-hidden="true"

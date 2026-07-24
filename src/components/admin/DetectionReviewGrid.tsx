@@ -38,6 +38,7 @@ export interface DetectionGridCapture {
   createdAt: string
   direction: string | null
   detectorX: number
+  detectorY: number | null
   detectorCoordinateVerified: boolean
   detectorCoordinateSource: string
   imageUrl: string
@@ -248,6 +249,13 @@ function StableCaptureMedia({
         className="pointer-events-none absolute inset-y-0 w-[3px] -translate-x-1/2 bg-[#FF3B30] shadow-[0_0_0_1px_rgba(50,10,8,0.22)]"
         style={{ left: `${capture.detectorX * 100}%` }}
       />
+      {capture.detectorY !== null && showingDesiredFrame && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white bg-[#FFD60A] shadow-[0_2px_6px_rgba(0,0,0,0.55)]"
+          style={{ left: `${capture.detectorX * 100}%`, top: `${capture.detectorY * 100}%` }}
+        />
+      )}
       {visiblePoint && (
         <span
           aria-hidden="true"
@@ -591,8 +599,9 @@ export function DetectionReviewGrid({
             Scroll through every session in one grid. New marks are editable; marks saved in the app stay read-only.
           </p>
         </div>
-        <div className="font-mono text-right text-[10px] uppercase tracking-[0.12em] text-[#777B80]">
-          Images load as you scroll
+        <div className="grid justify-items-end gap-1 font-mono text-right text-[10px] uppercase tracking-[0.12em]">
+          <span className="text-[#FFD60A]">Yellow dot · detector point</span>
+          <span className="text-[#777B80]">Images load as you scroll</span>
         </div>
       </header>
 

@@ -11,6 +11,7 @@ import {
   makeReviewPixelAudit,
   measureContainedImagePoint,
   resolveDetectorDisplayPosition,
+  resolveDetectorYPosition,
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
@@ -48,6 +49,34 @@ test("maps a desktop click into the same normalized and pixel space as iOS", () 
   assert.deepEqual(measurement.pixel, { x: 360, y: 640 })
   assert.equal(measurement.imageWidthPx, 720)
   assert.equal(measurement.imageHeightPx, 1280)
+})
+
+test("uses the captured mobile detector Y for the desktop yellow dot", () => {
+  assert.equal(resolveDetectorYPosition({
+    capturedDetectorY: 0.3125,
+    comparisonDetectorYPx: 96,
+    workBufferHeightPx: 320,
+  }), 0.3125)
+
+  assert.equal(resolveDetectorYPosition({
+    capturedDetectorY: null,
+    comparisonDetectorYPx: 96,
+    workBufferHeightPx: 320,
+  }), 0.3)
+
+  assert.equal(resolveDetectorYPosition({
+    capturedDetectorY: null,
+    comparisonDetectorYPx: 96,
+    workBufferWidthPx: 180,
+    renderedImageWidthPx: 720,
+    renderedImageHeightPx: 1280,
+  }), 0.3)
+
+  assert.equal(resolveDetectorYPosition({
+    capturedDetectorY: null,
+    comparisonDetectorYPx: 400,
+    workBufferHeightPx: 320,
+  }), null)
 })
 
 test("ignores clicks in object-contain letterboxing", () => {

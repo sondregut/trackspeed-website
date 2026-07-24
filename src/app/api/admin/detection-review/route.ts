@@ -17,6 +17,7 @@ import {
   normalizedCoordinate,
   normalizeReviewTarget,
   resolveDetectorDisplayPosition,
+  resolveDetectorYPosition,
   validateReviewPixelAudit,
 } from "@/lib/detection-review"
 import { jpegDimensions } from "@/lib/jpeg-dimensions"
@@ -319,33 +320,27 @@ function detectorResolutionForCapture(
 
 function detectorYForCapture(
   capture: CaptureRow,
-  renderedImageWidth: number,
-  renderedImageHeight: number,
+  renderedImageWidth = 0,
+  renderedImageHeight = 0,
 ): number | null {
-  const capturedDetectorY = captureMetadataNumber(
-    capture,
-    "detectorYPosition",
-    "detector_y_position",
-  )
-  if (capturedDetectorY !== null && capturedDetectorY >= 0 && capturedDetectorY <= 1) {
-    return capturedDetectorY
-  }
-
   const comparisonDetY = capture.x_anchor_comparison?.detY
     ?? capture.x_anchor_comparison?.det_y
-  if (
-    typeof comparisonDetY !== "number"
-    || !Number.isFinite(comparisonDetY)
-    || !(capture.algo_work_width && capture.algo_work_width > 0)
-    || renderedImageWidth <= 0
-    || renderedImageHeight <= 0
-  ) {
-    return null
-  }
-  const workHeight = capture.algo_work_width * renderedImageHeight / renderedImageWidth
-  if (!(workHeight > 0)) return null
-  const normalized = comparisonDetY / workHeight
-  return normalized >= 0 && normalized <= 1 ? normalized : null
+  return resolveDetectorYPosition({
+    capturedDetectorY: captureMetadataNumber(
+      capture,
+      "detectorYPosition",
+      "detector_y_position",
+    ),
+    comparisonDetectorYPx: comparisonDetY,
+    workBufferHeightPx: captureMetadataNumber(
+      capture,
+      "workBufferHeightPx",
+      "work_buffer_height_px",
+    ),
+    workBufferWidthPx: capture.algo_work_width,
+    renderedImageWidthPx: renderedImageWidth,
+    renderedImageHeightPx: renderedImageHeight,
+  })
 }
 
 function temporalRelation(
@@ -652,6 +647,7 @@ export async function GET(request: Request) {
       const sourceContext = sourceContextForCapture(capture, sessionContexts)
       const sourceCameraMark = sourceCameraMarkForCapture(capture, appMarks)
       const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
+      const detectorY = detectorYForCapture(capture)
       const editable = Boolean(sourceContext) && detectorCoordinate.resolution.verified
       const editBlockReason = !sourceContext
         ? "This capture has no source session context, so a desktop mark cannot be linked safely to optimizer evidence."
@@ -701,6 +697,7 @@ export async function GET(request: Request) {
         createdAt: capture.created_at,
         direction: capture.algo_crossing_direction,
         detectorX: detectorCoordinate.resolution.x,
+        detectorY,
         detectorCoordinateVerified: detectorCoordinate.resolution.verified,
         detectorCoordinateSource: detectorCoordinate.resolution.source,
         configuredGateX: capture.configured_gate_position,
@@ -725,6 +722,7 @@ export async function GET(request: Request) {
           .filter(([identity]) => !captureIdentityKeys.has(identity))
           .map(([, mark]) => {
             const target = normalizeReviewTarget(mark.target || mark.gate_label)
+            const detectorY = normalizedCoordinate(mark.detector_y)
             return {
               id: mark.id,
               source: "app_mark" as const,
@@ -742,6 +740,7 @@ export async function GET(request: Request) {
               createdAt: mark.created_at,
               direction: mark.crossing_direction,
               detectorX: Math.min(1, Math.max(0, mark.detector_x)),
+              detectorY: detectorY === undefined ? null : detectorY,
               detectorCoordinateVerified: true,
               detectorCoordinateSource: "app_review_coordinate",
               configuredGateX: Math.min(1, Math.max(0, mark.detector_x)),
