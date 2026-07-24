@@ -1,9 +1,12 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 import {
+  CURRENT_DETECTION_REVIEW_DATASET,
+  currentDetectionReviewSince,
   detectionReviewMode,
   falseTriggerReviewLabel,
   isIgnoredCrossingIssue,
+  isCurrentDetectionReviewCapture,
   isPointFreeDetectionReviewIssue,
   makeReviewPixelAudit,
   measureContainedImagePoint,
@@ -11,6 +14,25 @@ import {
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
+
+test("archives all captures before the clean post-fix dataset boundary", () => {
+  assert.equal(
+    CURRENT_DETECTION_REVIEW_DATASET.startedAt,
+    "2026-07-24T14:30:00.000Z",
+  )
+  assert.equal(isCurrentDetectionReviewCapture("2026-07-24T14:29:59.999Z"), false)
+  assert.equal(isCurrentDetectionReviewCapture("2026-07-24T14:30:00.000Z"), true)
+  assert.equal(isCurrentDetectionReviewCapture("not-a-date"), false)
+
+  assert.equal(
+    currentDetectionReviewSince(7, Date.parse("2026-07-24T15:00:00.000Z")),
+    CURRENT_DETECTION_REVIEW_DATASET.startedAt,
+  )
+  assert.equal(
+    currentDetectionReviewSince(7, Date.parse("2026-08-10T15:00:00.000Z")),
+    "2026-08-03T15:00:00.000Z",
+  )
+})
 
 test("maps a desktop click into the same normalized and pixel space as iOS", () => {
   const measurement = measureContainedImagePoint(

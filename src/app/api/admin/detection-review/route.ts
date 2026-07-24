@@ -4,9 +4,12 @@ import { verifyAdminSession } from "@/lib/admin-auth"
 import {
   ADMIN_REVIEW_DEVICE_ID,
   ADMIN_REVIEW_SCHEMA,
+  CURRENT_DETECTION_REVIEW_DATASET,
   adminReviewKey,
+  currentDetectionReviewSince,
   detectionReviewMode,
   detectionReviewIdentityKey,
+  isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
   isSessionShirtContrast,
@@ -549,7 +552,7 @@ export async function GET(request: Request) {
     const days = boundedInteger(url.searchParams.get("days"), 30, 1, 365)
     const limit = boundedInteger(url.searchParams.get("limit"), 160, 1, 300)
     const offset = boundedInteger(url.searchParams.get("offset"), 0, 0, 100_000)
-    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
+    const since = currentDetectionReviewSince(days)
     const supabase = getSupabaseAdmin()
 
     const { data: captureData, error: captureError, count: captureCount } = await supabase
@@ -585,7 +588,17 @@ export async function GET(request: Request) {
     const latestAdminContextBySession = new Map<string, SessionContextRow>()
     const latestDeviceContextBySession = new Map<string, SessionContextRow>()
     const latestEvidenceByDeviceSession = new Map<string, SessionContextRow>()
+    const currentDatasetSessionIds = new Set<string>()
     sessionContexts.forEach((context) => {
+      for (const sessionId of [
+        context.session_id,
+        context.cloud_session_id,
+        context.local_race_session_id,
+        context.evidence_correlation_id,
+        context.realtime_session_id,
+      ]) {
+        if (sessionId) currentDatasetSessionIds.add(sessionId)
+      }
       if (context.device_id === ADMIN_REVIEW_DEVICE_ID) {
         if (!latestAdminContextBySession.has(context.session_id)) {
           latestAdminContextBySession.set(context.session_id, context)
@@ -706,6 +719,9 @@ export async function GET(request: Request) {
     const appOnlyRows = offset === 0
       ? [...latestAppMarksByIdentity.entries()]
           .filter(([, mark]) => Boolean(mark.thumbnail_storage_path))
+          .filter(([, mark]) => Boolean(
+            mark.session_id && currentDatasetSessionIds.has(mark.session_id),
+          ))
           .filter(([identity]) => !captureIdentityKeys.has(identity))
           .map(([, mark]) => {
             const target = normalizeReviewTarget(mark.target || mark.gate_label)
@@ -748,6 +764,10 @@ export async function GET(request: Request) {
     return NextResponse.json({
       generatedAt: new Date().toISOString(),
       windowDays: days,
+      dataset: {
+        ...CURRENT_DETECTION_REVIEW_DATASET,
+        archivedBefore: CURRENT_DETECTION_REVIEW_DATASET.startedAt,
+      },
       captures: rows,
       sessionContexts: [...mergedSessionContexts.values()].map(publicSessionContext),
       sessionEvidence: [...latestEvidenceByDeviceSession.values()].map(publicSessionEvidence),
@@ -936,6 +956,15 @@ export async function POST(request: Request) {
     }
 
     const capture = captureData as unknown as CaptureRow
+    if (!isCurrentDetectionReviewCapture(capture.created_at)) {
+      return NextResponse.json(
+        {
+          error:
+            "This capture belongs to the archived pre-fix dataset and is no longer reviewable from the active dashboard.",
+        },
+        { status: 409 },
+      )
+    }
     if (!capture.thumbnail_storage_path) {
       return NextResponse.json({ error: "Detection capture has no thumbnail" }, { status: 409 })
     }

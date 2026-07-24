@@ -1,6 +1,17 @@
 export const ADMIN_REVIEW_DEVICE_ID = "admin-dashboard"
 export const ADMIN_REVIEW_SCHEMA = 7
 
+/**
+ * Review rows before this boundary remain in Supabase for audit/history, but
+ * are intentionally excluded from the active dashboard and optimizer dataset.
+ * This starts the clean post-reliability-fix collection requested on July 24.
+ */
+export const CURRENT_DETECTION_REVIEW_DATASET = {
+  id: "post-reliability-fixes-2026-07-24",
+  label: "Post-reliability-fix tests",
+  startedAt: "2026-07-24T14:30:00.000Z",
+} as const
+
 export const SESSION_SHIRT_CONTRASTS = ["good", "ok", "poor"] as const
 
 export type SessionShirtContrast = (typeof SESSION_SHIRT_CONTRASTS)[number]
@@ -72,6 +83,27 @@ export type ReviewPixelAuditValidation =
 
 const uuidPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+
+export function currentDetectionReviewSince(
+  windowDays: number,
+  nowMs: number = Date.now(),
+): string {
+  const boundedWindowDays = Number.isFinite(windowDays)
+    ? Math.min(365, Math.max(1, windowDays))
+    : 30
+  const windowStartedAtMs = nowMs - boundedWindowDays * 24 * 60 * 60 * 1000
+  const datasetStartedAtMs = Date.parse(CURRENT_DETECTION_REVIEW_DATASET.startedAt)
+  return new Date(Math.max(windowStartedAtMs, datasetStartedAtMs)).toISOString()
+}
+
+export function isCurrentDetectionReviewCapture(createdAt: unknown): boolean {
+  if (typeof createdAt !== "string") return false
+  const createdAtMs = Date.parse(createdAt)
+  return (
+    Number.isFinite(createdAtMs)
+    && createdAtMs >= Date.parse(CURRENT_DETECTION_REVIEW_DATASET.startedAt)
+  )
+}
 
 export function isUuid(value: unknown): value is string {
   return typeof value === "string" && uuidPattern.test(value)

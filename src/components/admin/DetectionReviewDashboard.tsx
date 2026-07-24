@@ -98,6 +98,12 @@ interface SessionEvidence {
 interface QueueResponse {
   generatedAt: string
   windowDays: number
+  dataset: {
+    id: string
+    label: string
+    startedAt: string
+    archivedBefore: string
+  }
   captures: DetectionCapture[]
   sessionContexts: SessionContext[]
   sessionEvidence: SessionEvidence[]
@@ -249,6 +255,7 @@ export default function DetectionReviewDashboard() {
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
   const [sessionContexts, setSessionContexts] = useState<SessionContext[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
+  const [dataset, setDataset] = useState<QueueResponse["dataset"] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("pending")
   const [days, setDays] = useState(7)
@@ -335,6 +342,7 @@ export default function DetectionReviewDashboard() {
         if (!page) throw pageError || new Error("Could not load review queue")
 
         loadedCaptures.push(...page.captures)
+        setDataset(page.dataset)
         page.sessionContexts.forEach((context) => {
           if (!loadedContexts.has(context.sessionId)) loadedContexts.set(context.sessionId, context)
         })
@@ -1201,6 +1209,20 @@ export default function DetectionReviewDashboard() {
           </div>
         </header>
 
+        {dataset && (
+          <section
+            aria-labelledby="active-review-dataset-heading"
+            className="border-l-2 border-[#5C8DB8] bg-[#1A252D] px-4 py-3"
+          >
+            <h2 id="active-review-dataset-heading" className="text-sm font-semibold text-white">
+              Clean test dataset
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-[#9FB3C1]">
+              Only tests recorded after {formatDate(dataset.startedAt)} appear here. Earlier captures and marks remain stored for audit, but are archived from this dashboard and excluded from new optimization work.
+            </p>
+          </section>
+        )}
+
         <section className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
           <label className="grid gap-2">
             <span className="text-xs font-medium text-[#9B9A97]">Find a session, run, device, or build</span>
@@ -1226,7 +1248,7 @@ export default function DetectionReviewDashboard() {
             </select>
           </label>
           <label className="grid gap-2">
-            <span className="text-xs font-medium text-[#9B9A97]">Window</span>
+            <span className="text-xs font-medium text-[#9B9A97]">Recent window</span>
             <select
               value={days}
               onChange={(event) => setDays(Number(event.target.value))}
@@ -1344,10 +1366,12 @@ export default function DetectionReviewDashboard() {
         ) : filteredCaptures.length === 0 ? (
           <div className="border-y border-[#34373B] py-20 text-center">
             <h2 className="font-[var(--font-bricolage)] text-2xl font-semibold text-white">
-              {captures.length ? "No captures match this view" : "No review captures in this window"}
+              {captures.length ? "No captures match this view" : "No new test captures yet"}
             </h2>
             <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[#9B9A97]">
-              Change the status, search, or date window. New debug captures and saved in-app review thumbnails appear here after users complete sessions.
+              {captures.length
+                ? "Change the status, search, or recent window."
+                : "The previous test dataset is archived from this dashboard. New captures will appear here after the next post-fix phone test uploads."}
             </p>
           </div>
         ) : viewMode === "grid" ? (
