@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
+import Link from "next/link"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   falseTriggerReviewLabel,
@@ -69,17 +70,6 @@ interface DetectionCapture {
   review: ReviewMark | null
 }
 
-type ShirtContrast = "" | "good" | "ok" | "poor"
-
-interface SessionContext {
-  id: string
-  sessionId: string
-  updatedAt: string
-  shirtColor: string
-  shirtContrast: ShirtContrast
-  notes: string
-}
-
 interface SessionEvidence {
   id: string
   sessionId: string
@@ -106,7 +96,6 @@ interface QueueResponse {
     archivedBefore: string
   }
   captures: DetectionCapture[]
-  sessionContexts: SessionContext[]
   sessionEvidence: SessionEvidence[]
   counts: {
     total: number
@@ -157,18 +146,6 @@ const MAX_CONCURRENT_UPLOADS = 2
 const MAX_UPLOAD_ATTEMPTS = 3
 const MAX_QUEUE_PAGE_ATTEMPTS = 3
 const QUEUE_PAGE_SIZE = 160
-
-const shirtColorPresets = [
-  "Black",
-  "White",
-  "Gray",
-  "Blue",
-  "Green",
-  "Red",
-  "Yellow",
-  "Mixed / multiple",
-  "No shirt",
-] as const
 
 const issueOptions: Array<{ value: ReviewIssue; label: string; helper: string }> = [
   { value: "good", label: "Good", helper: "Detector line is accurate" },
@@ -254,7 +231,6 @@ function temporalFrameLabel(frame: TemporalFrame | null) {
 
 export default function DetectionReviewDashboard() {
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
-  const [sessionContexts, setSessionContexts] = useState<SessionContext[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
   const [dataset, setDataset] = useState<QueueResponse["dataset"] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -275,12 +251,6 @@ export default function DetectionReviewDashboard() {
   const [selectedFrameIndex, setSelectedFrameIndex] = useState<number | null>(null)
   const [issue, setIssue] = useState<ReviewIssue>("unlabeled")
   const [note, setNote] = useState("")
-  const [contextSessionId, setContextSessionId] = useState<string | null>(null)
-  const [shirtColor, setShirtColor] = useState("")
-  const [shirtContrast, setShirtContrast] = useState<ShirtContrast>("")
-  const [contextNotes, setContextNotes] = useState("")
-  const [contextSaving, setContextSaving] = useState(false)
-  const [contextError, setContextError] = useState("")
   const imageRef = useRef<HTMLImageElement | null>(null)
   const uploadsRef = useRef<ReviewUpload[]>([])
   const activeUploadsRef = useRef(new Set<string>())
@@ -307,7 +277,6 @@ export default function DetectionReviewDashboard() {
     setError("")
     try {
       const loadedCaptures: DetectionCapture[] = []
-      const loadedContexts = new Map<string, SessionContext>()
       const loadedEvidence = new Map<string, SessionEvidence>()
       let offset = 0
       let hasMore = true
@@ -344,9 +313,6 @@ export default function DetectionReviewDashboard() {
 
         loadedCaptures.push(...page.captures)
         setDataset(page.dataset)
-        page.sessionContexts.forEach((context) => {
-          if (!loadedContexts.has(context.sessionId)) loadedContexts.set(context.sessionId, context)
-        })
         page.sessionEvidence.forEach((evidence) => {
           const key = `${evidence.evidenceCorrelationId || evidence.localRaceSessionId || evidence.sessionId}:${evidence.deviceId}`
           if (!loadedEvidence.has(key)) loadedEvidence.set(key, evidence)
@@ -403,7 +369,6 @@ export default function DetectionReviewDashboard() {
             : capture,
         ),
       )
-      setSessionContexts([...loadedContexts.values()])
       setSessionEvidence([...loadedEvidence.values()])
     } catch (loadError) {
       setError(loadError instanceof Error ? loadError.message : "Could not load review queue")
@@ -451,80 +416,6 @@ export default function DetectionReviewDashboard() {
     && selectedFramePosition < selected.temporalFrames.length - 1
     ? selected.temporalFrames[selectedFramePosition + 1]
     : null
-
-  const sessionContextsById = useMemo(
-    () => new Map(sessionContexts.map((context) => [context.sessionId, context])),
-    [sessionContexts],
-  )
-  const sessionContextIds = useMemo(
-    () => new Set(sessionContexts.map((context) => context.sessionId)),
-    [sessionContexts],
-  )
-
-  const selectedContext = selected?.sessionId
-    ? sessionContextsById.get(selected.sessionId) || null
-    : null
-
-  function openSessionContext(sessionId: string) {
-    const context = sessionContextsById.get(sessionId)
-    setContextSessionId(sessionId)
-    setShirtColor(context?.shirtColor || "")
-    setShirtContrast(context?.shirtContrast || "")
-    setContextNotes(context?.notes || "")
-    setContextError("")
-  }
-
-  function closeSessionContext() {
-    if (contextSaving) return
-    setContextSessionId(null)
-    setContextError("")
-  }
-
-  async function saveSessionContext() {
-    if (!contextSessionId) return
-    if (!shirtColor.trim() && !shirtContrast && !contextNotes.trim()) {
-      setContextError("Add a shirt color, contrast rating, or note before saving.")
-      return
-    }
-
-    setContextSaving(true)
-    setContextError("")
-    try {
-      const response = await fetch("/api/admin/detection-review", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "save-session-context",
-          sessionId: contextSessionId,
-          shirtColor,
-          shirtContrast,
-          notes: contextNotes,
-        }),
-      })
-      const result = (await response.json().catch(() => ({}))) as {
-        sessionContext?: SessionContext
-        error?: string
-      }
-      if (response.status === 401) {
-        window.location.href = `/admin/login?redirect=${encodeURIComponent("/admin/detection-review")}`
-        return
-      }
-      if (!response.ok || !result.sessionContext) {
-        throw new Error(result.error || "Could not save session notes")
-      }
-
-      setSessionContexts((current) => [
-        ...current.filter((context) => context.sessionId !== result.sessionContext?.sessionId),
-        result.sessionContext as SessionContext,
-      ])
-      setContextSessionId(null)
-      setSuccess(`Session ${shortId(result.sessionContext.sessionId)} notes saved for the daily analysis.`)
-    } catch (saveError) {
-      setContextError(saveError instanceof Error ? saveError.message : "Could not save session notes")
-    } finally {
-      setContextSaving(false)
-    }
-  }
 
   useEffect(() => {
     if (!filteredCaptures.length) {
@@ -643,18 +534,6 @@ export default function DetectionReviewDashboard() {
     window.addEventListener("beforeunload", warnBeforeLeaving)
     return () => window.removeEventListener("beforeunload", warnBeforeLeaving)
   }, [uploads.length])
-
-  useEffect(() => {
-    if (!contextSessionId) return
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape" && !contextSaving) {
-        setContextSessionId(null)
-        setContextError("")
-      }
-    }
-    window.addEventListener("keydown", closeOnEscape)
-    return () => window.removeEventListener("keydown", closeOnEscape)
-  }, [contextSaving, contextSessionId])
 
   const uploadReview = useCallback(async (upload: ReviewUpload) => {
     if (activeUploadsRef.current.has(upload.captureId)) return
@@ -1207,6 +1086,12 @@ export default function DetectionReviewDashboard() {
                 ? "Review every filtered thumbnail in one continuous grid. The red line and yellow dot show Replica’s detector position; click each true torso edge, then queue your marks for background upload."
                 : "Pick the correct frame, click the athlete’s true torso timing edge, then save. Issue labels and notes are optional."}
             </p>
+            <Link
+              href="/admin/detection-review/misses"
+              className="mt-3 inline-block text-sm font-semibold text-[#9CC1D9] underline decoration-[#587A90] underline-offset-4"
+            >
+              Review missed crossings and hard negatives
+            </Link>
           </div>
 
           <div className="grid grid-cols-3 overflow-hidden rounded-xl border border-[#38505F] bg-[#131B21] font-mono lg:min-w-[360px]">
@@ -1395,11 +1280,9 @@ export default function DetectionReviewDashboard() {
             key={gridFilterKey}
             allCaptures={captures}
             filteredCaptures={filteredCaptures}
-            sessionContextIds={sessionContextIds}
             uploadsByCapture={uploadsByCapture}
             onDraftCountChange={setGridDraftCount}
             onOpenDetail={openCaptureDetail}
-            onOpenSessionNotes={openSessionContext}
             onQueue={queueGridReviews}
           />
         ) : selected ? (
@@ -1884,29 +1767,6 @@ export default function DetectionReviewDashboard() {
                   </div>
                 </details>
 
-                {selected.sessionId && (
-                  <details className="rounded-xl border border-[#34373B] bg-[#202225]">
-                    <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-3 text-xs font-semibold text-[#B7BAC0] hover:text-white">
-                      <span>Session notes (optional)</span>
-                      <span className={`text-[9px] uppercase tracking-[0.08em] ${selectedContext ? "text-[#8FC8A3]" : "text-[#777B80]"}`}>
-                        {selectedContext ? "Added" : "Missing"}
-                      </span>
-                    </summary>
-                    <div className="border-t border-[#34373B] p-3">
-                      <p className="text-[11px] leading-5 text-[#777B80]">
-                        Shirt color and notes apply to every crossing in session {shortId(selected.sessionId)}.
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => openSessionContext(selected.sessionId as string)}
-                        className="mt-3 w-full rounded-xl border border-[#3D3D3D] bg-[#25272A] px-4 py-2.5 text-xs font-semibold text-[#D6D8DA] transition duration-200 hover:border-[#5C8DB8] hover:text-white active:translate-y-px"
-                      >
-                        {selectedContext ? "Edit session notes" : "Add session notes"}
-                      </button>
-                    </div>
-                  </details>
-                )}
-
                 <details className="rounded-xl border border-[#34373B] bg-[#202225]">
                   <summary className="cursor-pointer px-3 py-3 text-xs font-semibold text-[#8B8F94] hover:text-white">Capture details</summary>
                   <div className="space-y-1 border-t border-[#34373B] p-3 text-[11px] leading-5 text-[#777B80]">
@@ -1941,147 +1801,6 @@ export default function DetectionReviewDashboard() {
         )}
       </div>
 
-      {contextSessionId && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-[#090A0B]/80 p-0 backdrop-blur-sm sm:items-center sm:p-6"
-          role="presentation"
-          onPointerDown={(event) => {
-            if (event.target === event.currentTarget) closeSessionContext()
-          }}
-        >
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="session-context-title"
-            className="flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-[#3A3D41] bg-[#1E2022] shadow-[0_30px_90px_-30px_rgba(0,0,0,0.85)] sm:rounded-3xl"
-          >
-            <header className="flex shrink-0 items-start justify-between gap-5 border-b border-[#34373B] px-5 py-5 sm:px-7">
-              <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5C8DB8]">
-                  End of session {shortId(contextSessionId)}
-                </p>
-                <h2
-                  id="session-context-title"
-                  className="mt-1 font-[var(--font-bricolage)] text-2xl font-semibold tracking-[-0.025em] text-white"
-                >
-                  Add session context
-                </h2>
-                <p className="mt-2 max-w-[58ch] text-sm leading-6 text-[#9B9A97]">
-                  These details are saved once for the whole session and paired with every crossing in the daily detector analysis.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={closeSessionContext}
-                disabled={contextSaving}
-                className="rounded-lg border border-[#3D3D3D] px-3 py-2 text-xs font-semibold text-[#B7BAC0] transition hover:border-[#5C8DB8] hover:text-white active:translate-y-px disabled:opacity-50"
-              >
-                Close
-              </button>
-            </header>
-
-            <div className="min-h-0 space-y-6 overflow-y-auto px-5 py-6 sm:px-7">
-              {contextError && (
-                <div role="alert" className="border-l-2 border-[#F06C68] bg-[#2B2223] px-4 py-3 text-sm text-[#F2B1AE]">
-                  {contextError}
-                </div>
-              )}
-
-              <label className="grid gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#B7BAC0]">
-                  Shirt color
-                </span>
-                <input
-                  autoFocus
-                  value={shirtColor}
-                  onChange={(event) => setShirtColor(event.target.value.slice(0, 80))}
-                  placeholder="For example: blue, dark gray, mixed athletes, no shirt"
-                  className="h-12 rounded-xl border border-[#3D3D3D] bg-[#25272A] px-4 text-sm text-white outline-none transition placeholder:text-[#63676C] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25"
-                />
-                <span className="text-[11px] leading-4 text-[#777B80]">
-                  If shirts changed during the session, choose Mixed and describe the run split below.
-                </span>
-              </label>
-
-              <div className="flex flex-wrap gap-2" aria-label="Shirt color presets">
-                {shirtColorPresets.map((color) => (
-                  <button
-                    key={color}
-                    type="button"
-                    aria-pressed={shirtColor === color}
-                    onClick={() => setShirtColor(color)}
-                    className={`rounded-lg border px-3 py-2 text-xs font-medium transition duration-200 active:translate-y-px ${
-                      shirtColor === color
-                        ? "border-[#5C8DB8] bg-[#294157] text-white"
-                        : "border-[#3D3D3D] bg-[#25272A] text-[#B7BAC0] hover:border-[#555A60] hover:text-white"
-                    }`}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
-
-              <fieldset className="grid gap-2">
-                <legend className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#B7BAC0]">
-                  Shirt / background contrast
-                </legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {(["good", "ok", "poor"] as const).map((contrast) => (
-                    <button
-                      key={contrast}
-                      type="button"
-                      aria-pressed={shirtContrast === contrast}
-                      onClick={() => setShirtContrast((current) => current === contrast ? "" : contrast)}
-                      className={`rounded-xl border px-3 py-3 text-sm font-semibold capitalize transition duration-200 active:translate-y-px ${
-                        shirtContrast === contrast
-                          ? "border-[#5C8DB8] bg-[#294157] text-white"
-                          : "border-[#3D3D3D] bg-[#25272A] text-[#B7BAC0] hover:border-[#555A60] hover:text-white"
-                      }`}
-                    >
-                      {contrast}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
-              <label className="grid gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#B7BAC0]">
-                  Other relevant notes
-                </span>
-                <textarea
-                  value={contextNotes}
-                  onChange={(event) => setContextNotes(event.target.value.slice(0, 1500))}
-                  rows={5}
-                  placeholder="Lighting, background, athlete count, camera distance or height, clothing changes, occlusion, unusual movement, connection problems…"
-                  className="resize-none rounded-xl border border-[#3D3D3D] bg-[#25272A] px-4 py-3 text-sm leading-6 text-white outline-none transition placeholder:text-[#63676C] focus:border-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]/25"
-                />
-                <span className="justify-self-end font-mono text-[10px] text-[#63676C]">
-                  {contextNotes.length}/1500
-                </span>
-              </label>
-            </div>
-
-            <footer className="grid shrink-0 gap-3 border-t border-[#34373B] bg-[#1E2022] px-5 py-5 sm:grid-cols-[auto_1fr] sm:px-7">
-              <button
-                type="button"
-                onClick={closeSessionContext}
-                disabled={contextSaving}
-                className="rounded-xl border border-[#3D3D3D] px-4 py-3 text-sm font-semibold text-[#B7BAC0] transition hover:border-[#555A60] hover:text-white active:translate-y-px disabled:opacity-50"
-              >
-                Skip for now
-              </button>
-              <button
-                type="button"
-                onClick={() => void saveSessionContext()}
-                disabled={contextSaving || (!shirtColor.trim() && !shirtContrast && !contextNotes.trim())}
-                className="rounded-xl bg-[#5C8DB8] px-4 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-[#6C9AC2] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#3A4650] disabled:text-[#7C858D]"
-              >
-                {contextSaving ? "Saving session notes…" : "Save notes and continue"}
-              </button>
-            </footer>
-          </section>
-        </div>
-      )}
     </main>
   )
 }

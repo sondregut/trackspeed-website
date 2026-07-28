@@ -77,11 +77,9 @@ interface GridUploadState {
 interface DetectionReviewGridProps {
   allCaptures: DetectionGridCapture[]
   filteredCaptures: DetectionGridCapture[]
-  sessionContextIds: Set<string>
   uploadsByCapture: Map<string, GridUploadState>
   onDraftCountChange: (count: number) => void
   onOpenDetail: (captureId: string) => void
-  onOpenSessionNotes: (sessionId: string) => void
   onQueue: (items: GridReviewItem[]) => Promise<void>
 }
 
@@ -285,11 +283,9 @@ function StableCaptureMedia({
 export function DetectionReviewGrid({
   allCaptures,
   filteredCaptures,
-  sessionContextIds,
   uploadsByCapture,
   onDraftCountChange,
   onOpenDetail,
-  onOpenSessionNotes,
   onQueue,
 }: DetectionReviewGridProps) {
   const [drafts, setDrafts] = useState<Record<string, GridDraft>>({})
@@ -546,25 +542,7 @@ export function DetectionReviewGrid({
     setBatchError("")
     try {
       await onQueue(items)
-      const queuedIds = new Set(items.map((item) => item.captureId))
       setDrafts({})
-      const completedSessionId = Array.from(
-        new Set(
-          items
-            .map((item) => allCaptures.find((capture) => capture.id === item.captureId)?.sessionId)
-            .filter((sessionId): sessionId is string => Boolean(sessionId)),
-        ),
-      ).find(
-        (sessionId) =>
-          !sessionContextIds.has(sessionId) &&
-          !allCaptures.some(
-            (capture) =>
-              capture.sessionId === sessionId &&
-              !capture.review &&
-              !queuedIds.has(capture.id),
-          ),
-      )
-      if (completedSessionId) onOpenSessionNotes(completedSessionId)
     } catch (queueError) {
       setBatchError(queueError instanceof Error ? queueError.message : "Could not prepare this review batch")
     } finally {
@@ -690,15 +668,6 @@ export function DetectionReviewGrid({
                         ? "App review"
                         : falseTriggerReviewLabel(capture.review.issue) || capture.review.issue}
                     </span>
-                  )}
-                  {capture.sessionId && (
-                    <button
-                      type="button"
-                      onClick={() => onOpenSessionNotes(capture.sessionId as string)}
-                      className="text-[10px] font-semibold text-[#8B8F94] underline decoration-[#4A4D51] underline-offset-2 transition hover:text-white active:translate-y-px"
-                    >
-                      {sessionContextIds.has(capture.sessionId) ? "Notes added" : "Session notes"}
-                    </button>
                   )}
                 </div>
               </div>
