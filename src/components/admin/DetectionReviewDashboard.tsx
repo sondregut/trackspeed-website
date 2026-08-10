@@ -19,10 +19,14 @@ import {
   isPointFreeDetectionReviewIssue,
   makeReviewPixelAudit,
   measureContainedImagePoint,
+  normalizeSceneMotionCauses,
   orderDetectionReviewCaptures,
   parseDetectionReviewSet,
+  SCENE_MOTION_CAUSE_OPTIONS,
+  sceneMotionCausesEqual,
   type DetectionReviewDirectionEvidence,
   type DetectionReviewIssue,
+  type SceneMotionCause,
 } from "@/lib/detection-review"
 import { DetectionReviewGrid, type GridReviewItem } from "./DetectionReviewGrid"
 
@@ -41,6 +45,7 @@ interface ReviewMark {
   selectedFrameRelation: string | null
   selectedFramePtsNanos: string | null
   note: string
+  sceneMotionCauses: SceneMotionCause[]
   hasReviewImage: boolean
   source: "app" | "admin"
 }
@@ -160,6 +165,7 @@ interface ReviewUploadPayload {
   actualY: number | null
   issue: ReviewIssue
   note: string
+  sceneMotionCauses: SceneMotionCause[]
   reviewImageDataUrl: string
   imageWidthPx: number
   imageHeightPx: number
@@ -240,6 +246,7 @@ function reviewStateChanged(
   point: Point | null,
   issue: ReviewIssue,
   note: string,
+  sceneMotionCauses: readonly SceneMotionCause[],
   selectedFrame: TemporalFrame | null,
 ) {
   if (!capture || !capture.editable) return false
@@ -249,6 +256,10 @@ function reviewStateChanged(
     (point?.y ?? null) !== (review?.actualY ?? null) ||
     issue !== (review?.issue ?? "unlabeled") ||
     note !== (review?.note ?? "") ||
+    !sceneMotionCausesEqual(
+      issue === "false_positive" ? sceneMotionCauses : [],
+      review?.issue === "false_positive" ? review.sceneMotionCauses : [],
+    ) ||
     (selectedFrame?.relation ?? "r0") !== (review?.selectedFrameRelation ?? "r0")
   )
 }
@@ -306,6 +317,7 @@ export default function DetectionReviewDashboard({
   const [selectedFrameIndex, setSelectedFrameIndex] = useState<number | null>(null)
   const [issue, setIssue] = useState<ReviewIssue>("unlabeled")
   const [note, setNote] = useState("")
+  const [sceneMotionCauses, setSceneMotionCauses] = useState<SceneMotionCause[]>([])
   const imageRef = useRef<HTMLImageElement | null>(null)
   const uploadsRef = useRef<ReviewUpload[]>([])
   const activeUploadsRef = useRef(new Set<string>())
@@ -419,6 +431,9 @@ export default function DetectionReviewDashboard({
             selectedFrameRelation: upload.payload.selectedFrameRelation ?? "r0",
             selectedFramePtsNanos: upload.payload.selectedFramePtsNanos ?? null,
             note: upload.payload.note,
+            sceneMotionCauses: upload.payload.issue === "false_positive"
+              ? normalizeSceneMotionCauses(upload.payload.sceneMotionCauses)
+              : [],
             hasReviewImage: false,
             source: "admin" as const,
           } satisfies ReviewMark,
@@ -522,6 +537,11 @@ export default function DetectionReviewDashboard({
     )
     setIssue(review?.issue || "unlabeled")
     setNote(review?.note || "")
+    setSceneMotionCauses(
+      review?.issue === "false_positive"
+        ? normalizeSceneMotionCauses(review.sceneMotionCauses || [])
+        : [],
+    )
     setImageLoading(true)
     setError("")
     setSuccess("")
@@ -589,7 +609,7 @@ export default function DetectionReviewDashboard({
       }
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
       if (!selectedId) return
-      if (reviewStateChanged(selected, point, issue, note, selectedFrame)) {
+      if (reviewStateChanged(selected, point, issue, note, sceneMotionCauses, selectedFrame)) {
         setError("Save and continue before leaving this thumbnail, or clear your changes first.")
         return
       }
@@ -605,7 +625,7 @@ export default function DetectionReviewDashboard({
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [filteredCaptures, issue, note, point, selected, selectedFrame, selectedId, viewMode])
+  }, [filteredCaptures, issue, note, point, sceneMotionCauses, selected, selectedFrame, selectedId, viewMode])
 
   useEffect(() => {
     if (viewMode !== "focus") return
@@ -859,6 +879,7 @@ export default function DetectionReviewDashboard({
       setIssue(detectionReviewIssueForCrossingTiming(crossingTiming, true))
     } else if (isPointForbiddenDetectionReviewIssue(issue)) {
       setIssue("unlabeled")
+      setSceneMotionCauses([])
     }
     setError("")
     setSuccess("")
@@ -875,6 +896,7 @@ export default function DetectionReviewDashboard({
       ? { x: savedReview.actualX, y: savedReview.actualY }
       : null
     setPoint(savedPoint)
+    if (isPointForbiddenDetectionReviewIssue(issue)) setSceneMotionCauses([])
     setIssue((current) => {
       const crossingTiming = detectionReviewCrossingTiming(current)
       if (crossingTiming) {
@@ -895,6 +917,7 @@ export default function DetectionReviewDashboard({
   function chooseIssue(value: ReviewIssue) {
     if (!selected?.editable) return
     if (value === "outsideFrameBefore" || value === "outsideFrameAfter") {
+      setSceneMotionCauses([])
       const timing = value === "outsideFrameBefore" ? "earlier" : "later"
       const isClearing = detectionReviewCrossingTiming(issue) === timing
       if (isClearing) {
@@ -918,6 +941,7 @@ export default function DetectionReviewDashboard({
     const isClearing = issue === value
       || (value === "ignore_crossing" && isIgnoredCrossingIssue(issue))
     setIssue(isClearing ? "unlabeled" : value)
+    if (isClearing || value !== "false_positive") setSceneMotionCauses([])
     if (isClearing && value === "real_crossing") {
       const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
       setSelectedFrameIndex(detectedFrame?.index ?? initialSelectedFrame(selected)?.index ?? null)
@@ -933,6 +957,20 @@ export default function DetectionReviewDashboard({
         setImageLoading(true)
       }
     }
+    setError("")
+    setSuccess("")
+  }
+
+  function toggleSceneMotionCause(cause: SceneMotionCause) {
+    if (!selected?.editable) return
+    setIssue("false_positive")
+    setPoint(null)
+    setSceneMotionCauses((current) => {
+      const normalized = normalizeSceneMotionCauses(current)
+      return normalized.includes(cause)
+        ? normalized.filter((value) => value !== cause)
+        : normalizeSceneMotionCauses([...normalized, cause])
+    })
     setError("")
     setSuccess("")
   }
@@ -1045,6 +1083,9 @@ export default function DetectionReviewDashboard({
           selectedFrameRelation: selectedTemporalFrame?.relation ?? "r0",
           selectedFramePtsNanos: selectedTemporalFrame?.ptsNanos ?? null,
           note: item.note,
+          sceneMotionCauses: item.issue === "false_positive"
+            ? normalizeSceneMotionCauses(item.sceneMotionCauses)
+            : [],
           hasReviewImage: false,
           source: "admin",
         }
@@ -1056,6 +1097,9 @@ export default function DetectionReviewDashboard({
             actualY,
             issue: item.issue,
             note: item.note,
+            sceneMotionCauses: item.issue === "false_positive"
+              ? normalizeSceneMotionCauses(item.sceneMotionCauses)
+              : [],
             reviewImageDataUrl,
             ...pixelAudit,
             ...(selectedTemporalFrame ? {
@@ -1148,6 +1192,9 @@ export default function DetectionReviewDashboard({
         selectedFrameRelation: selectedFrame?.relation ?? "r0",
         selectedFramePtsNanos: selectedFrame?.ptsNanos ?? null,
         note,
+        sceneMotionCauses: issue === "false_positive"
+          ? normalizeSceneMotionCauses(sceneMotionCauses)
+          : [],
         hasReviewImage: false,
         source: "admin",
       }
@@ -1159,6 +1206,9 @@ export default function DetectionReviewDashboard({
           actualY,
           issue,
           note,
+          sceneMotionCauses: issue === "false_positive"
+            ? normalizeSceneMotionCauses(sceneMotionCauses)
+            : [],
           reviewImageDataUrl,
           ...pixelAudit,
           ...(selectedFrame ? {
@@ -1199,7 +1249,14 @@ export default function DetectionReviewDashboard({
   const selectedIndex = selected
     ? filteredCaptures.findIndex((capture) => capture.id === selected.id)
     : -1
-  const hasUnsavedReviewChanges = reviewStateChanged(selected, point, issue, note, selectedFrame)
+  const hasUnsavedReviewChanges = reviewStateChanged(
+    selected,
+    point,
+    issue,
+    note,
+    sceneMotionCauses,
+    selectedFrame,
+  )
   const gridFilterKey = `${days}:${statusFilter}:${search.trim().toLowerCase()}:${reviewSet.raw}`
 
   function clearReviewSet() {
@@ -1968,6 +2025,34 @@ export default function DetectionReviewDashboard({
                         No runner · wind · trees · glare · shadows
                       </span>
                     </button>
+                    {issue === "false_positive" && (
+                      <fieldset className="col-span-2 rounded-xl border border-[#5F4547] bg-[#211A1C] p-3">
+                        <legend className="px-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C9908D]">
+                          Causes · choose all that apply
+                        </legend>
+                        <div className="grid grid-cols-2 gap-2">
+                          {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
+                            const selectedCause = sceneMotionCauses.includes(option.value)
+                            return (
+                              <button
+                                key={option.value}
+                                type="button"
+                                aria-pressed={selectedCause}
+                                onClick={() => toggleSceneMotionCause(option.value)}
+                                disabled={!selected.editable}
+                                className={`min-h-11 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition active:translate-y-px disabled:cursor-default disabled:opacity-70 ${
+                                  selectedCause
+                                    ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
+                                    : "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                                }`}
+                              >
+                                {option.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </fieldset>
+                    )}
                     <button
                       type="button"
                       aria-pressed={isIgnoredCrossingIssue(issue)}
@@ -2062,7 +2147,10 @@ export default function DetectionReviewDashboard({
                       {issue !== "unlabeled" && selected.editable && (
                         <button
                           type="button"
-                          onClick={() => setIssue("unlabeled")}
+                          onClick={() => {
+                            setIssue("unlabeled")
+                            setSceneMotionCauses([])
+                          }}
                           className="justify-self-start text-xs text-[#8B8F94] underline decoration-[#555A60] underline-offset-4 hover:text-white"
                         >
                           Clear issue

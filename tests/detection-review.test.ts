@@ -18,6 +18,7 @@ import {
   isCurrentDetectionReviewCapture,
   isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
+  normalizeSceneMotionCauses,
   makeReviewPixelAudit,
   measureContainedImagePoint,
   orderDetectionReviewCaptures,
@@ -27,6 +28,9 @@ import {
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
+  sceneMotionCausesEqual,
+  sceneMotionCausesFromRawMessage,
+  serializeSceneMotionCauses,
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
@@ -345,6 +349,27 @@ test("keeps point-free false-trigger classifications semantically distinct", () 
   assert.equal(falseTriggerReviewLabel("false_positive"), "Scene motion")
   assert.equal(falseTriggerReviewLabel("phone_shake"), "Phone shake")
   assert.equal(falseTriggerReviewLabel("good"), null)
+})
+
+test("round-trips ordered multi-select scene motion causes through raw evidence", () => {
+  const causes = normalizeSceneMotionCauses([
+    "light_glare",
+    "shadow",
+    "light_glare",
+    "not-a-cause",
+  ])
+  assert.deepEqual(causes, ["shadow", "light_glare"])
+  assert.equal(serializeSceneMotionCauses(causes), "shadow,light_glare")
+  assert.deepEqual(
+    sceneMotionCausesFromRawMessage(
+      `[DETECTION-MARK] issue=false_positive sceneMotionCauses=${serializeSceneMotionCauses(causes)} reviewSchema=8`,
+    ),
+    causes,
+  )
+  assert.deepEqual(sceneMotionCausesFromRawMessage("[DETECTION-MARK] issue=false_positive"), [])
+  assert.deepEqual(sceneMotionCausesFromRawMessage("sceneMotionCauses=none"), [])
+  assert.equal(sceneMotionCausesEqual(["light_glare", "shadow"], causes), true)
+  assert.equal(sceneMotionCausesEqual(["shadow"], causes), false)
 })
 
 test("corrects a fallback direction when post-frame motion proves the opposite", () => {

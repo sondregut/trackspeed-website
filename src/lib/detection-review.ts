@@ -1,5 +1,5 @@
 export const ADMIN_REVIEW_DEVICE_ID = "admin-dashboard"
-export const ADMIN_REVIEW_SCHEMA = 7
+export const ADMIN_REVIEW_SCHEMA = 8
 
 /**
  * Review rows before this boundary remain in Supabase for audit/history, but
@@ -36,6 +36,52 @@ export const DETECTION_REVIEW_ISSUES = [
 ] as const
 
 export type DetectionReviewIssue = (typeof DETECTION_REVIEW_ISSUES)[number]
+
+export const SCENE_MOTION_CAUSE_OPTIONS = [
+  { value: "wind_trees", label: "Wind / trees" },
+  { value: "shadow", label: "Shadow" },
+  { value: "light_glare", label: "Light / glare" },
+  { value: "other_scene", label: "Other scene" },
+] as const
+
+export type SceneMotionCause = (typeof SCENE_MOTION_CAUSE_OPTIONS)[number]["value"]
+
+const sceneMotionCauseValues = SCENE_MOTION_CAUSE_OPTIONS.map((option) => option.value)
+
+export function isSceneMotionCause(value: unknown): value is SceneMotionCause {
+  return (
+    typeof value === "string"
+    && (sceneMotionCauseValues as readonly string[]).includes(value)
+  )
+}
+
+export function normalizeSceneMotionCauses(values: readonly unknown[]): SceneMotionCause[] {
+  const requested = new Set(values.filter(isSceneMotionCause))
+  return sceneMotionCauseValues.filter((value) => requested.has(value))
+}
+
+export function serializeSceneMotionCauses(causes: readonly unknown[]): string {
+  const normalized = normalizeSceneMotionCauses(causes)
+  return normalized.length ? normalized.join(",") : "none"
+}
+
+export function sceneMotionCausesFromRawMessage(rawMessage: unknown): SceneMotionCause[] {
+  if (typeof rawMessage !== "string") return []
+  const match = rawMessage.match(/(?:^|\s)sceneMotionCauses=([a-z_,]+)(?=\s|$)/)
+  return match ? normalizeSceneMotionCauses(match[1].split(",")) : []
+}
+
+export function sceneMotionCausesEqual(
+  left: readonly unknown[],
+  right: readonly unknown[],
+): boolean {
+  const normalizedLeft = normalizeSceneMotionCauses(left)
+  const normalizedRight = normalizeSceneMotionCauses(right)
+  return (
+    normalizedLeft.length === normalizedRight.length
+    && normalizedLeft.every((value, index) => value === normalizedRight[index])
+  )
+}
 
 export const POINT_FREE_DETECTION_REVIEW_ISSUES = [
   "ignore_crossing",

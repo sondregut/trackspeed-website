@@ -13,6 +13,7 @@ import {
   detectionReviewSessionIdentifiers,
   isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
+  isSceneMotionCause,
   isSessionShirtContrast,
   isUuid,
   normalizedCoordinate,
@@ -20,6 +21,8 @@ import {
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
+  sceneMotionCausesFromRawMessage,
+  serializeSceneMotionCauses,
   validateReviewPixelAudit,
 } from "@/lib/detection-review"
 import { jpegDimensions } from "@/lib/jpeg-dimensions"
@@ -89,6 +92,7 @@ interface ReviewMarkRow {
   is_front_camera: boolean | null
   detection_distance: string | null
   iso: number | null
+  raw_message: string | null
 }
 
 interface SessionContextRow {
@@ -200,6 +204,7 @@ const markSelect = [
   "is_front_camera",
   "detection_distance",
   "iso",
+  "raw_message",
 ].join(",")
 
 const sessionContextSelect = [
@@ -268,6 +273,9 @@ function sameOrigin(request: Request): boolean {
 
 function publicReview(mark: ReviewMarkRow | null) {
   if (!mark) return null
+  const sceneMotionCauses = mark.issue === "false_positive"
+    ? sceneMotionCausesFromRawMessage(mark.raw_message)
+    : []
   return {
     id: mark.id,
     createdAt: mark.created_at,
@@ -285,6 +293,7 @@ function publicReview(mark: ReviewMarkRow | null) {
       ? null
       : String(mark.chosen_thumbnail_frame_pts),
     note: mark.note || "",
+    sceneMotionCauses,
     hasReviewImage: Boolean(mark.thumbnail_storage_path),
     source: mark.device_id === ADMIN_REVIEW_DEVICE_ID ? "admin" : "app",
   }
@@ -1078,6 +1087,18 @@ export async function POST(request: Request) {
     if (!isDetectionReviewIssue(body.issue)) {
       return NextResponse.json({ error: "Invalid review issue" }, { status: 400 })
     }
+    if (
+      body.sceneMotionCauses !== undefined
+      && (
+        !Array.isArray(body.sceneMotionCauses)
+        || body.sceneMotionCauses.some((cause: unknown) => !isSceneMotionCause(cause))
+      )
+    ) {
+      return NextResponse.json({ error: "Invalid scene motion cause" }, { status: 400 })
+    }
+    const sceneMotionCauses = body.issue === "false_positive"
+      ? (body.sceneMotionCauses as unknown[] | undefined) || []
+      : []
 
     const actualX = normalizedCoordinate(body.actualX)
     const actualY = normalizedCoordinate(body.actualY)
@@ -1345,6 +1366,7 @@ export async function POST(request: Request) {
       `realtimeSessionId=${sourceContext?.realtime_session_id ?? "nil"}`,
       `isFrontCamera=${detectorCoordinate.isFrontCamera ?? "nil"}`,
       `issue=${body.issue}`,
+      `sceneMotionCauses=${serializeSceneMotionCauses(sceneMotionCauses)}`,
       `reviewSchema=${ADMIN_REVIEW_SCHEMA}`,
     ].join(" ")
 

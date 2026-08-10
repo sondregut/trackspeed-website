@@ -15,8 +15,12 @@ import {
   isIgnoredCrossingIssue,
   isPointForbiddenDetectionReviewIssue,
   measureContainedImagePoint,
+  normalizeSceneMotionCauses,
+  SCENE_MOTION_CAUSE_OPTIONS,
+  sceneMotionCausesEqual,
   type DetectionReviewDirectionEvidence,
   type DetectionReviewIssue,
+  type SceneMotionCause,
 } from "@/lib/detection-review"
 
 interface Point {
@@ -29,6 +33,7 @@ interface GridReview {
   actualY: number | null
   issue: GridReviewIssue
   note: string
+  sceneMotionCauses: SceneMotionCause[]
   source: "app" | "admin"
   selectedFrameRelation: string | null
   selectedFramePtsNanos: string | null
@@ -74,6 +79,7 @@ export interface GridReviewItem {
   point: Point | null
   issue: GridReviewIssue
   note: string
+  sceneMotionCauses: SceneMotionCause[]
   image: HTMLImageElement
   selectedFrame: GridTemporalFrame | null
 }
@@ -82,6 +88,7 @@ interface GridDraft {
   point: Point | null
   issue: GridReviewIssue
   note: string
+  sceneMotionCauses: SceneMotionCause[]
   selectedFrameIndex: number | null
 }
 
@@ -465,6 +472,7 @@ export function DetectionReviewGrid({
           point,
           issue: nextIssue,
           note: existing?.note ?? capture.review?.note ?? "",
+          sceneMotionCauses: [],
           selectedFrameIndex: frame?.index ?? null,
         },
       }
@@ -504,6 +512,9 @@ export function DetectionReviewGrid({
         point: nextPoint,
         issue: nextIssue,
         note: existing?.note ?? review?.note ?? "",
+        sceneMotionCauses: nextIssue === "false_positive"
+          ? normalizeSceneMotionCauses(existing?.sceneMotionCauses ?? review?.sceneMotionCauses ?? [])
+          : [],
         selectedFrameIndex: frame.index,
       }
       const matchesSavedReview = Boolean(
@@ -511,6 +522,7 @@ export function DetectionReviewGrid({
         savedOnFrame &&
         nextDraft.issue === review.issue &&
         nextDraft.note === review.note &&
+        sceneMotionCausesEqual(nextDraft.sceneMotionCauses, review.sceneMotionCauses) &&
         (nextDraft.point?.x ?? null) === review.actualX &&
         (nextDraft.point?.y ?? null) === review.actualY,
       )
@@ -520,6 +532,7 @@ export function DetectionReviewGrid({
         frame.index === defaultFrame?.index &&
         !nextDraft.point &&
         nextDraft.issue === "unlabeled" &&
+        nextDraft.sceneMotionCauses.length === 0 &&
         !nextDraft.note,
       )
       const next = { ...current }
@@ -552,10 +565,47 @@ export function DetectionReviewGrid({
         point: null,
         issue: isSelected ? "unlabeled" : nextIssue,
         note: existing?.note ?? capture.review?.note ?? "",
+        sceneMotionCauses: !isSelected && nextIssue === "false_positive"
+          ? normalizeSceneMotionCauses(existing?.sceneMotionCauses ?? capture.review?.sceneMotionCauses ?? [])
+          : [],
         selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
       }
       const next = { ...current }
       next[capture.id] = nextDraft
+      return next
+    })
+    clearBatchError()
+  }
+
+  function toggleSceneMotionCause(capture: DetectionGridCapture, cause: SceneMotionCause) {
+    if (!capture.editable) return
+    const upload = uploadsByCapture.get(capture.id)
+    if (upload && upload.status !== "failed") return
+    setDrafts((current) => {
+      const existing = current[capture.id]
+      const review = capture.review
+      const currentCauses = normalizeSceneMotionCauses(
+        existing?.sceneMotionCauses ?? review?.sceneMotionCauses ?? [],
+      )
+      const nextCauses = currentCauses.includes(cause)
+        ? currentCauses.filter((value) => value !== cause)
+        : normalizeSceneMotionCauses([...currentCauses, cause])
+      const nextDraft: GridDraft = {
+        point: null,
+        issue: "false_positive",
+        note: existing?.note ?? review?.note ?? "",
+        sceneMotionCauses: nextCauses,
+        selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
+      }
+      const matchesSavedReview = Boolean(
+        review
+        && review.issue === "false_positive"
+        && nextDraft.note === review.note
+        && sceneMotionCausesEqual(nextDraft.sceneMotionCauses, review.sceneMotionCauses),
+      )
+      const next = { ...current }
+      if (matchesSavedReview) delete next[capture.id]
+      else next[capture.id] = nextDraft
       return next
     })
     clearBatchError()
@@ -599,6 +649,7 @@ export function DetectionReviewGrid({
             point: null,
             issue,
             note: existing?.note ?? review?.note ?? "",
+            sceneMotionCauses: [],
             selectedFrameIndex: detectedFrame?.index ?? null,
           },
         }
@@ -613,6 +664,7 @@ export function DetectionReviewGrid({
           point,
           issue: clearedIssue,
           note: existing?.note ?? review?.note ?? "",
+          sceneMotionCauses: [],
           selectedFrameIndex: frame?.index ?? null,
         }
         if (!review && !point && !nextDraft.note.trim() && clearedIssue === "unlabeled") delete next[capture.id]
@@ -628,6 +680,7 @@ export function DetectionReviewGrid({
           point,
           issue: detectionReviewIssueForCrossingTiming(timing, Boolean(point)),
           note: existing?.note ?? capture.review?.note ?? "",
+          sceneMotionCauses: [],
           selectedFrameIndex: point ? frame?.index ?? null : boundaryFrame?.index ?? frame?.index ?? null,
         },
       }
@@ -648,6 +701,9 @@ export function DetectionReviewGrid({
         point: existing?.point ?? savedPoint,
         issue: existing?.issue ?? capture.review?.issue ?? "unlabeled",
         note,
+        sceneMotionCauses: normalizeSceneMotionCauses(
+          existing?.sceneMotionCauses ?? capture.review?.sceneMotionCauses ?? [],
+        ),
         selectedFrameIndex: selectedFrame(capture, existing)?.index ?? null,
       }
       const matchesSavedReview = Boolean(
@@ -657,6 +713,7 @@ export function DetectionReviewGrid({
         ) &&
         nextDraft.issue === capture.review.issue &&
         nextDraft.note === capture.review.note &&
+        sceneMotionCausesEqual(nextDraft.sceneMotionCauses, capture.review.sceneMotionCauses) &&
         (nextDraft.point?.x ?? null) === capture.review.actualX &&
         (nextDraft.point?.y ?? null) === capture.review.actualY,
       )
@@ -664,6 +721,7 @@ export function DetectionReviewGrid({
         !capture.review &&
         !nextDraft.point &&
         nextDraft.issue === "unlabeled" &&
+        nextDraft.sceneMotionCauses.length === 0 &&
         !nextDraft.note,
       )
       const next = { ...current }
@@ -712,7 +770,15 @@ export function DetectionReviewGrid({
       return draft
         && image?.dataset.captureId === capture.id
         && image.dataset.frameIndex === String(expectedFrameIndex)
-        ? [{ captureId: capture.id, point: draft.point, issue: draft.issue, note: draft.note.trim(), image, selectedFrame: frame }]
+        ? [{
+            captureId: capture.id,
+            point: draft.point,
+            issue: draft.issue,
+            note: draft.note.trim(),
+            sceneMotionCauses: draft.issue === "false_positive" ? draft.sceneMotionCauses : [],
+            image,
+            selectedFrame: frame,
+          }]
         : []
     })
     if (!items.length) return
@@ -823,6 +889,9 @@ export function DetectionReviewGrid({
           const activeIssue = draft?.issue ?? capture.review?.issue
           const selectedFalseTriggerLabel = falseTriggerReviewLabel(activeIssue)
           const isSceneMotion = activeIssue === "false_positive"
+          const activeSceneMotionCauses = isSceneMotion
+            ? normalizeSceneMotionCauses(draft?.sceneMotionCauses ?? capture.review?.sceneMotionCauses ?? [])
+            : []
           const isIgnoredCrossing = isIgnoredCrossingIssue(activeIssue)
           const isPhoneShake = activeIssue === "phone_shake"
           const isNoCorrectFrame = draft?.issue === "real_crossing" || (!draft && capture.review?.issue === "real_crossing")
@@ -1093,6 +1162,34 @@ export function DetectionReviewGrid({
                       No runner · wind · trees · glare · shadows
                     </span>
                   </button>
+                  {isSceneMotion && (
+                    <fieldset className="col-span-2 rounded-lg border border-[#5F4547] bg-[#211A1C] p-2.5">
+                      <legend className="px-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#C9908D]">
+                        Causes · choose all
+                      </legend>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
+                          const selectedCause = activeSceneMotionCauses.includes(option.value)
+                          return (
+                            <button
+                              key={option.value}
+                              type="button"
+                              aria-pressed={selectedCause}
+                              onClick={() => toggleSceneMotionCause(capture, option.value)}
+                              disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                              className={`min-h-10 rounded-md border px-2 py-1.5 text-left text-[9px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                                selectedCause
+                                  ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
+                                  : "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                              }`}
+                            >
+                              {option.label}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </fieldset>
+                  )}
                   <button
                     type="button"
                     aria-pressed={isIgnoredCrossing}
