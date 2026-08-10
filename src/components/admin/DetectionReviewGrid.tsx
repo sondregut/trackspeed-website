@@ -1,12 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 import {
+  DetectionReviewBlockingError,
+  detectionReviewCrossingTiming,
+  detectionReviewBatchKey,
+  detectionReviewCaptureReference,
+  detectionReviewDirectionLabel,
+  detectionReviewDraftValidationError,
+  detectionReviewImageRequestUrl,
+  detectionReviewIssueForCrossingTiming,
   falseTriggerReviewLabel,
   isIgnoredCrossingIssue,
-  isPointFreeDetectionReviewIssue,
+  isPointForbiddenDetectionReviewIssue,
   measureContainedImagePoint,
+  type DetectionReviewDirectionEvidence,
   type DetectionReviewIssue,
 } from "@/lib/detection-review"
 
@@ -35,8 +44,14 @@ export interface DetectionGridCapture {
   sessionId: string | null
   runNumber: number
   target: string
+  mode: string
   createdAt: string
+  deviceId: string
+  deviceModel: string | null
+  appVersion: string | null
+  isFrontCamera: boolean | null
   direction: string | null
+  directionEvidence: DetectionReviewDirectionEvidence
   detectorX: number
   detectorY: number | null
   detectorCoordinateVerified: boolean
@@ -121,8 +136,42 @@ function outsideFrameLabel(issue: GridReviewIssue | undefined) {
   if (issue === "real_crossing") return "None of the saved frames"
   if (issue === "outsideFrameBefore") return "Crossing before frames"
   if (issue === "outsideFrameAfter") return "Crossing after frames"
+  if (issue === "late") return "Crossing was earlier"
+  if (issue === "early") return "Crossing was later"
   return null
 }
+
+function reviewCardId(captureId: string) {
+  return `detection-review-card-${captureId}`
+}
+
+interface DetectionReviewBatch {
+  key: string
+  captures: DetectionGridCapture[]
+}
+
+function cameraSetupLabel(captures: readonly DetectionGridCapture[]): string {
+  const facings = new Set(
+    captures
+      .map((capture) => capture.isFrontCamera)
+      .filter((value): value is boolean => typeof value === "boolean"),
+  )
+  if (facings.size > 1) return "Mixed front/back cameras"
+  if (facings.has(true)) return "Front camera"
+  if (facings.has(false)) return "Back camera"
+  return "Camera not recorded"
+}
+
+function formatSetupDate(value: string): string {
+  const timestamp = Date.parse(value)
+  if (!Number.isFinite(timestamp)) return "Time not recorded"
+  return new Intl.DateTimeFormat("en", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(timestamp))
+}
+
+const IMAGE_LOAD_RETRY_DELAYS_MS = [400, 1_200, 2_500] as const
 
 interface StableCaptureMediaProps {
   capture: DetectionGridCapture
@@ -151,14 +200,44 @@ function StableCaptureMedia({
     src: desiredSrc,
     frameIndex: desiredFrameIndex,
   })
+  const [retryState, setRetryState] = useState({
+    src: desiredSrc,
+    attempt: 0,
+  })
   const [readyMediaSrc, setReadyMediaSrc] = useState<string | null>(null)
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
 
   const showingDesiredFrame = displayedMedia.src === desiredSrc
     && displayedMedia.frameIndex === desiredFrameIndex
+  const retryAttempt = retryState.src === desiredSrc ? retryState.attempt : 0
   const displayedImageReady = readyMediaSrc === displayedMedia.src
   const loadError = failedSrc === desiredSrc
+    && retryAttempt >= IMAGE_LOAD_RETRY_DELAYS_MS.length
   const isLoadingFrame = (!showingDesiredFrame || !displayedImageReady) && !loadError
+  const displayedRequestSrc = showingDesiredFrame
+    ? detectionReviewImageRequestUrl(displayedMedia.src, retryAttempt)
+    : displayedMedia.src
+
+  useEffect(() => {
+    if (
+      failedSrc !== desiredSrc
+      || retryAttempt >= IMAGE_LOAD_RETRY_DELAYS_MS.length
+    ) {
+      return
+    }
+
+    const timeout = window.setTimeout(() => {
+      setFailedSrc(null)
+      setRetryState((current) => {
+        if (current.src === desiredSrc && current.attempt > retryAttempt) {
+          return current
+        }
+        return { src: desiredSrc, attempt: retryAttempt + 1 }
+      })
+    }, IMAGE_LOAD_RETRY_DELAYS_MS[retryAttempt])
+
+    return () => window.clearTimeout(timeout)
+  }, [desiredSrc, failedSrc, retryAttempt])
 
   useEffect(() => {
     if (showingDesiredFrame) return
@@ -179,7 +258,7 @@ function StableCaptureMedia({
     loader.decoding = "async"
     loader.onload = revealFrame
     loader.onerror = failFrame
-    loader.src = desiredSrc
+    loader.src = detectionReviewImageRequestUrl(desiredSrc, retryAttempt)
     void loader.decode().then(revealFrame).catch(() => {
       if (!loader.complete) return
       if (loader.naturalWidth > 0) revealFrame()
@@ -191,13 +270,19 @@ function StableCaptureMedia({
       loader.onload = null
       loader.onerror = null
     }
-  }, [desiredFrameIndex, desiredSrc, showingDesiredFrame])
+  }, [desiredFrameIndex, desiredSrc, retryAttempt, showingDesiredFrame])
 
   useEffect(() => {
     if (imageIndex >= 4 || capture.temporalFrames.length === 0) return
     const timeout = window.setTimeout(() => {
-      capture.temporalFrames.forEach((temporalFrame) => {
-        if (temporalFrame.url === displayedMedia.src) return
+      const displayedPosition = capture.temporalFrames.findIndex(
+        (temporalFrame) => temporalFrame.url === displayedMedia.src,
+      )
+      const adjacentFrames = [
+        capture.temporalFrames[displayedPosition - 1],
+        capture.temporalFrames[displayedPosition + 1],
+      ].filter((temporalFrame): temporalFrame is GridTemporalFrame => Boolean(temporalFrame))
+      adjacentFrames.forEach((temporalFrame) => {
         const preloader = new Image()
         preloader.decoding = "async"
         preloader.src = temporalFrame.url
@@ -225,7 +310,7 @@ function StableCaptureMedia({
     >
       <img
         ref={onImageRef}
-        src={displayedMedia.src}
+        src={displayedRequestSrc}
         data-capture-id={capture.id}
         data-frame-index={displayedMedia.frameIndex ?? "thumbnail"}
         alt={`Detection thumbnail for session ${shortId(capture.sessionId)}, run ${capture.runNumber}`}
@@ -240,7 +325,7 @@ function StableCaptureMedia({
           setReadyMediaSrc(null)
           setFailedSrc(displayedMedia.src)
         }}
-        className={`relative block h-auto w-full select-none ${falseTriggerLabel ? "opacity-45" : "opacity-100"}`}
+        className={`relative block h-auto min-h-72 w-full select-none object-contain ${falseTriggerLabel ? "opacity-45" : "opacity-100"}`}
       />
       <span
         aria-hidden="true"
@@ -273,7 +358,9 @@ function StableCaptureMedia({
           role="status"
           className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-center rounded-lg border border-white/10 bg-[#111315]/90 px-3 py-2 font-mono text-[10px] font-semibold text-[#D4D7DA] shadow-lg backdrop-blur-sm"
         >
-          {loadError ? "Frame unavailable — choose another" : `Loading ${frame ? framePositionLabel(frame).toLowerCase() : "frame"}…`}
+          {loadError
+            ? "Frame still unavailable — reload this page"
+            : `Loading ${frame ? framePositionLabel(frame).toLowerCase() : "frame"}…`}
         </span>
       )}
     </button>
@@ -291,13 +378,24 @@ export function DetectionReviewGrid({
   const [drafts, setDrafts] = useState<Record<string, GridDraft>>({})
   const [preparing, setPreparing] = useState(false)
   const [batchError, setBatchError] = useState("")
+  const [blockingCaptureId, setBlockingCaptureId] = useState<string | null>(null)
   const imageRefs = useRef(new Map<string, HTMLImageElement>())
 
   const draftCount = Object.keys(drafts).length
   const reviewedInGrid = filteredCaptures.filter((capture) => capture.review && !drafts[capture.id]).length
-  const visibleSessionCount = useMemo(
-    () => new Set(filteredCaptures.map((capture) => capture.sessionId || `unlinked:${capture.id}`)).size,
-    [filteredCaptures],
+  const reviewBatches = useMemo(() => {
+    const batches: DetectionReviewBatch[] = []
+    for (const capture of filteredCaptures) {
+      const key = detectionReviewBatchKey(capture)
+      const current = batches[batches.length - 1]
+      if (current?.key === key) current.captures.push(capture)
+      else batches.push({ key, captures: [capture] })
+    }
+    return batches
+  }, [filteredCaptures])
+  const reviewBatchByKey = useMemo(
+    () => new Map(reviewBatches.map((batch, index) => [batch.key, { ...batch, index }])),
+    [reviewBatches],
   )
 
   useEffect(() => {
@@ -305,6 +403,21 @@ export function DetectionReviewGrid({
   }, [draftCount, onDraftCountChange])
 
   useEffect(() => () => onDraftCountChange(0), [onDraftCountChange])
+
+  function clearBatchError() {
+    setBatchError("")
+    setBlockingCaptureId(null)
+  }
+
+  function showBlockingCapture(capture: DetectionGridCapture, message: string) {
+    setBatchError(message)
+    setBlockingCaptureId(capture.id)
+    window.requestAnimationFrame(() => {
+      const card = document.getElementById(reviewCardId(capture.id))
+      card?.scrollIntoView({ behavior: "smooth", block: "center" })
+      card?.focus({ preventScroll: true })
+    })
+  }
 
   function placeGridMark(
     capture: DetectionGridCapture,
@@ -339,9 +452,13 @@ export function DetectionReviewGrid({
       const existing = current[capture.id]
       const frame = selectedFrame(capture, existing)
       const savedIssue = capture.review?.issue || "unlabeled"
-      const nextIssue = isPointFreeDetectionReviewIssue(existing?.issue ?? savedIssue)
-        ? "unlabeled"
-        : existing?.issue || savedIssue
+      const currentIssue = existing?.issue ?? savedIssue
+      const crossingTiming = detectionReviewCrossingTiming(currentIssue)
+      const nextIssue = crossingTiming
+        ? detectionReviewIssueForCrossingTiming(crossingTiming, true)
+        : isPointForbiddenDetectionReviewIssue(currentIssue)
+          ? "unlabeled"
+          : currentIssue
       return {
         ...current,
         [capture.id]: {
@@ -352,7 +469,7 @@ export function DetectionReviewGrid({
         },
       }
     })
-    setBatchError("")
+    clearBatchError()
   }
 
   function chooseGridFrame(capture: DetectionGridCapture, frame: GridTemporalFrame) {
@@ -373,14 +490,18 @@ export function DetectionReviewGrid({
       const savedPoint = savedOnFrame && review?.actualX != null && review.actualY != null
         ? { x: review.actualX, y: review.actualY }
         : null
+      const nextPoint = previousFrame?.index === frame.index ? existing?.point ?? savedPoint : savedPoint
       let nextIssue = existing?.issue ?? review?.issue ?? "unlabeled"
-      if (isPointFreeDetectionReviewIssue(nextIssue)) {
+      const crossingTiming = detectionReviewCrossingTiming(nextIssue)
+      if (crossingTiming) {
+        nextIssue = detectionReviewIssueForCrossingTiming(crossingTiming, Boolean(nextPoint))
+      } else if (isPointForbiddenDetectionReviewIssue(nextIssue)) {
         nextIssue = "unlabeled"
       }
       if (frame.relativeFrame !== 0 && nextIssue === "unlabeled") nextIssue = "wrongFrame"
       if (frame.relativeFrame === 0 && nextIssue === "wrongFrame") nextIssue = "unlabeled"
       const nextDraft: GridDraft = {
-        point: previousFrame?.index === frame.index ? existing?.point ?? savedPoint : savedPoint,
+        point: nextPoint,
         issue: nextIssue,
         note: existing?.note ?? review?.note ?? "",
         selectedFrameIndex: frame.index,
@@ -406,12 +527,12 @@ export function DetectionReviewGrid({
       else next[capture.id] = nextDraft
       return next
     })
-    setBatchError("")
+    clearBatchError()
   }
 
   function toggleFalseTrigger(
     capture: DetectionGridCapture,
-    nextIssue: "ignore_crossing" | "phone_shake",
+    nextIssue: "false_positive" | "ignore_crossing" | "phone_shake",
   ) {
     if (!capture.editable) return
     const upload = uploadsByCapture.get(capture.id)
@@ -437,7 +558,7 @@ export function DetectionReviewGrid({
       next[capture.id] = nextDraft
       return next
     })
-    setBatchError("")
+    clearBatchError()
   }
 
   function toggleOutsideFrame(
@@ -449,28 +570,69 @@ export function DetectionReviewGrid({
     if (upload && upload.status !== "failed") return
     setDrafts((current) => {
       const existing = current[capture.id]
-      if (existing?.issue === issue) {
+      const frame = selectedFrame(capture, existing)
+      const review = capture.review
+      const savedPointBelongsToFrame = Boolean(
+        review && frame && (
+          (review.selectedFramePtsNanos && review.selectedFramePtsNanos === frame.ptsNanos)
+          || (review.selectedFrameRelation && review.selectedFrameRelation === frame.relation)
+          || (!review.selectedFrameRelation && frame.relativeFrame === 0)
+        ),
+      )
+      const savedPoint = savedPointBelongsToFrame && review?.actualX != null && review.actualY != null
+        ? { x: review.actualX, y: review.actualY }
+        : null
+      const point = existing?.point ?? savedPoint
+      const currentIssue = existing?.issue ?? review?.issue ?? "unlabeled"
+
+      if (issue === "real_crossing") {
+        if (currentIssue === issue) {
+          const next = { ...current }
+          if (existing?.note.trim()) next[capture.id] = { ...existing, issue: "unlabeled" }
+          else delete next[capture.id]
+          return next
+        }
+        const detectedFrame = capture.temporalFrames.find((candidate) => candidate.relativeFrame === 0) || initialFrame(capture)
+        return {
+          ...current,
+          [capture.id]: {
+            point: null,
+            issue,
+            note: existing?.note ?? review?.note ?? "",
+            selectedFrameIndex: detectedFrame?.index ?? null,
+          },
+        }
+      }
+
+      const timing = issue === "outsideFrameBefore" ? "earlier" : "later"
+      const isSelected = detectionReviewCrossingTiming(currentIssue) === timing
+      if (isSelected) {
         const next = { ...current }
-        if (existing.note.trim()) next[capture.id] = { ...existing, issue: "unlabeled" }
-        else delete next[capture.id]
+        const clearedIssue = point && frame?.relativeFrame !== 0 ? "wrongFrame" : "unlabeled"
+        const nextDraft: GridDraft = {
+          point,
+          issue: clearedIssue,
+          note: existing?.note ?? review?.note ?? "",
+          selectedFrameIndex: frame?.index ?? null,
+        }
+        if (!review && !point && !nextDraft.note.trim() && clearedIssue === "unlabeled") delete next[capture.id]
+        else next[capture.id] = nextDraft
         return next
       }
-      const boundaryFrame = issue === "outsideFrameBefore"
+      const boundaryFrame = timing === "earlier"
         ? capture.temporalFrames[0]
-        : issue === "outsideFrameAfter"
-          ? capture.temporalFrames[capture.temporalFrames.length - 1]
-          : capture.temporalFrames.find((frame) => frame.relativeFrame === 0) || initialFrame(capture)
+        : capture.temporalFrames[capture.temporalFrames.length - 1]
       return {
         ...current,
         [capture.id]: {
-          point: null,
-          issue,
+          point,
+          issue: detectionReviewIssueForCrossingTiming(timing, Boolean(point)),
           note: existing?.note ?? capture.review?.note ?? "",
-          selectedFrameIndex: boundaryFrame?.index ?? selectedFrame(capture, existing)?.index ?? null,
+          selectedFrameIndex: point ? frame?.index ?? null : boundaryFrame?.index ?? frame?.index ?? null,
         },
       }
     })
-    setBatchError("")
+    clearBatchError()
   }
 
   function updateGridNote(capture: DetectionGridCapture, note: string) {
@@ -509,7 +671,7 @@ export function DetectionReviewGrid({
       else next[capture.id] = nextDraft
       return next
     })
-    setBatchError("")
+    clearBatchError()
   }
 
   function clearDraft(captureId: string) {
@@ -518,9 +680,30 @@ export function DetectionReviewGrid({
       delete next[captureId]
       return next
     })
+    clearBatchError()
   }
 
   async function queueDrafts() {
+    const draftedCaptures = filteredCaptures.filter((capture) => drafts[capture.id])
+    const validationFailures = draftedCaptures.flatMap((capture) => {
+      const draft = drafts[capture.id]
+      const error = detectionReviewDraftValidationError({
+        capture,
+        hasPoint: Boolean(draft.point),
+        issue: draft.issue,
+      })
+      return error ? [{ capture, error }] : []
+    })
+    if (validationFailures.length) {
+      const first = validationFailures[0]
+      const remaining = validationFailures.length - 1
+      showBlockingCapture(
+        first.capture,
+        `${first.error.message}${remaining ? ` ${remaining} additional blocking ${remaining === 1 ? "draft remains" : "drafts remain"}.` : ""}`,
+      )
+      return
+    }
+
     const items = filteredCaptures.flatMap((capture) => {
       const draft = drafts[capture.id]
       const image = imageRefs.current.get(capture.id)
@@ -534,17 +717,37 @@ export function DetectionReviewGrid({
     })
     if (!items.length) return
     if (items.length !== draftCount) {
-      setBatchError("Wait for every marked thumbnail to finish loading, then queue the batch again.")
+      const firstUnready = draftedCaptures.find((capture) => {
+        const image = imageRefs.current.get(capture.id)
+        const frame = selectedFrame(capture, drafts[capture.id])
+        const expectedFrameIndex = frame?.index ?? "thumbnail"
+        return image?.dataset.captureId !== capture.id
+          || image.dataset.frameIndex !== String(expectedFrameIndex)
+      })
+      if (firstUnready) {
+        showBlockingCapture(
+          firstUnready,
+          `Blocking crossing: ${detectionReviewCaptureReference(firstUnready)}. Its selected frame is still loading; wait for that card, then queue the batch again.`,
+        )
+      } else {
+        setBatchError("Wait for every marked thumbnail to finish loading, then queue the batch again.")
+      }
       return
     }
 
     setPreparing(true)
-    setBatchError("")
+    clearBatchError()
     try {
       await onQueue(items)
       setDrafts({})
     } catch (queueError) {
-      setBatchError(queueError instanceof Error ? queueError.message : "Could not prepare this review batch")
+      if (queueError instanceof DetectionReviewBlockingError) {
+        const capture = filteredCaptures.find((item) => item.id === queueError.captureId)
+        if (capture) showBlockingCapture(capture, queueError.message)
+        else setBatchError(queueError.message)
+      } else {
+        setBatchError(queueError instanceof Error ? queueError.message : "Could not prepare this review batch")
+      }
     } finally {
       setPreparing(false)
     }
@@ -568,13 +771,13 @@ export function DetectionReviewGrid({
       <header className="grid gap-4 rounded-2xl border border-[#31404A] bg-[#1A2229] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-[#5C8DB8]">
-            All sessions · {visibleSessionCount} sessions · {filteredCaptures.length} captures
+            {reviewBatches.length} camera/setup {reviewBatches.length === 1 ? "batch" : "batches"} · {filteredCaptures.length} captures
           </p>
           <h2 id="grid-review-heading" className="mt-1 font-[var(--font-bricolage)] text-xl font-semibold text-white">
             Click each true torso crossing edge
           </h2>
           <p className="mt-1 text-xs leading-5 text-[#8B8F94]">
-            Scroll through every session in one grid. New marks are editable; marks saved in the app stay read-only.
+            Each phone session stays together. Batches are newest first; runs inside each batch are ordered from first to last.
           </p>
         </div>
         <div className="grid justify-items-end gap-1 font-mono text-right text-[10px] uppercase tracking-[0.12em]">
@@ -591,6 +794,10 @@ export function DetectionReviewGrid({
 
       <div className="grid items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredCaptures.map((capture, index) => {
+          const batchKey = detectionReviewBatchKey(capture)
+          const batch = reviewBatchByKey.get(batchKey)
+          const beginsBatch = index === 0
+            || detectionReviewBatchKey(filteredCaptures[index - 1]) !== batchKey
           const draft = drafts[capture.id]
           const upload = uploadsByCapture.get(capture.id)
           const frame = selectedFrame(capture, draft)
@@ -615,12 +822,14 @@ export function DetectionReviewGrid({
           const band = qualityBand(deltaX)
           const activeIssue = draft?.issue ?? capture.review?.issue
           const selectedFalseTriggerLabel = falseTriggerReviewLabel(activeIssue)
+          const isSceneMotion = activeIssue === "false_positive"
           const isIgnoredCrossing = isIgnoredCrossingIssue(activeIssue)
           const isPhoneShake = activeIssue === "phone_shake"
           const isNoCorrectFrame = draft?.issue === "real_crossing" || (!draft && capture.review?.issue === "real_crossing")
-          const isOutsideFrameBefore = draft?.issue === "outsideFrameBefore" || (!draft && capture.review?.issue === "outsideFrameBefore")
-          const isOutsideFrameAfter = draft?.issue === "outsideFrameAfter" || (!draft && capture.review?.issue === "outsideFrameAfter")
-          const selectedOutsideFrameLabel = outsideFrameLabel(draft?.issue ?? capture.review?.issue)
+          const crossingTiming = detectionReviewCrossingTiming(activeIssue)
+          const isOutsideFrameBefore = crossingTiming === "earlier"
+          const isOutsideFrameAfter = crossingTiming === "later"
+          const selectedOutsideFrameLabel = outsideFrameLabel(activeIssue)
           const stateLabel = upload?.status === "failed"
             ? "Upload failed"
             : upload?.status === "uploading"
@@ -637,10 +846,41 @@ export function DetectionReviewGrid({
                       ? "Needs camera metadata"
                       : "Unmarked"
           return (
+            <Fragment key={capture.id}>
+            {beginsBatch && batch && (
+              <header className="col-span-full scroll-mt-24 border-l-2 border-[#5C8DB8] bg-[#19252D] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-5">
+                <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                  <div>
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8FB5D4]">
+                      Setup batch {batch.index + 1} of {reviewBatches.length}
+                    </p>
+                    <h3 className="mt-1 text-sm font-semibold text-white sm:text-base">
+                      {capture.deviceModel || "Unknown iPhone"} · {cameraSetupLabel(batch.captures)}
+                    </h3>
+                    <p className="mt-1 font-mono text-[10px] leading-4 text-[#7F929F]">
+                      Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "build not recorded"} · {formatSetupDate(capture.createdAt)}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-5 gap-y-1 font-mono text-right text-[10px]">
+                    <span className="text-[#8B8F94]">Runs</span>
+                    <span className="font-semibold text-white">
+                      {batch.captures[0].runNumber}–{batch.captures[batch.captures.length - 1].runNumber}
+                    </span>
+                    <span className="text-[#8B8F94]">Saved / visible</span>
+                    <span className="font-semibold text-[#A8D8B9]">
+                      {batch.captures.filter((item) => item.review).length} / {batch.captures.length}
+                    </span>
+                  </div>
+                </div>
+              </header>
+            )}
             <article
-              key={capture.id}
+              id={reviewCardId(capture.id)}
+              tabIndex={-1}
               className={`overflow-hidden rounded-2xl border bg-[#1B2228] shadow-[0_18px_48px_-38px_rgba(3,12,18,0.95),inset_0_1px_0_rgba(255,255,255,0.04)] transition duration-200 ${
-                draft && selectedFalseTriggerLabel
+                blockingCaptureId === capture.id
+                  ? "border-[#F06C68] ring-2 ring-[#F06C68]/60 ring-offset-2 ring-offset-[#11181D]"
+                  : draft && selectedFalseTriggerLabel
                   ? "border-[#7B4B4D]"
                   : draft && selectedOutsideFrameLabel
                   ? "border-[#9A814A]"
@@ -655,7 +895,7 @@ export function DetectionReviewGrid({
                 <div>
                   <div className="text-sm font-semibold text-white">Run {capture.runNumber} · {capture.target}</div>
                   <div className="mt-0.5 font-mono text-[10px] text-[#777B80]">
-                    Session {shortId(capture.sessionId)} · {capture.direction || "direction n/a"}
+                    {capture.isFrontCamera === null ? "camera n/a" : capture.isFrontCamera ? "front camera" : "back camera"} · {detectionReviewDirectionLabel(capture.direction, capture.directionEvidence)}
                   </div>
                 </div>
                 <div className="grid justify-items-end gap-1">
@@ -671,6 +911,12 @@ export function DetectionReviewGrid({
                   )}
                 </div>
               </div>
+
+              {blockingCaptureId === capture.id && (
+                <p role="alert" className="border-b border-[#6B4140] bg-[#2B2223] px-3.5 py-2.5 text-[11px] font-semibold leading-4 text-[#F2B1AE]">
+                  Blocking crossing: {detectionReviewCaptureReference(capture)}. Mark the true source-image point, or choose an explicit point-free classification.
+                </p>
+              )}
 
               <StableCaptureMedia
                 capture={capture}
@@ -750,6 +996,9 @@ export function DetectionReviewGrid({
                       >
                         {isNoCorrectFrame ? "None of these frames selected" : "None of these frames"}
                       </button>
+                      <p className="mt-2 text-[9px] leading-3.5 text-[#A99B78]">
+                        Earlier/later can also be saved with a green point on the image.
+                      </p>
                       <div className="mt-2 grid grid-cols-2 gap-1.5">
                         <button
                           type="button"
@@ -830,6 +1079,22 @@ export function DetectionReviewGrid({
                   )}
                   <button
                     type="button"
+                    aria-pressed={isSceneMotion}
+                    onClick={() => toggleFalseTrigger(capture, "false_positive")}
+                    disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                    className={`col-span-2 min-h-14 rounded-lg border px-2.5 py-2 text-left transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                      isSceneMotion
+                        ? "border-[#9A5755] bg-[#342526] text-[#F2B1AE]"
+                        : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-[#F2B1AE]"
+                    }`}
+                  >
+                    <span className="block text-[10px] font-semibold">Scene motion</span>
+                    <span className="mt-0.5 block text-[8px] font-medium leading-3 opacity-70">
+                      No runner · wind · trees · glare · shadows
+                    </span>
+                  </button>
+                  <button
+                    type="button"
                     aria-pressed={isIgnoredCrossing}
                     onClick={() => toggleFalseTrigger(capture, "ignore_crossing")}
                     disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
@@ -872,6 +1137,7 @@ export function DetectionReviewGrid({
                 </div>
               </div>
             </article>
+            </Fragment>
           )
         })}
       </div>

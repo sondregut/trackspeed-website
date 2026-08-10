@@ -4,11 +4,21 @@
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
+  detectionReviewDraftValidationError,
+  detectionReviewCrossingTiming,
+  detectionReviewDirectionLabel,
+  detectionReviewImageRequestUrl,
+  detectionReviewIdentityKey,
+  detectionReviewIssueForCrossingTiming,
+  detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
   isIgnoredCrossingIssue,
+  isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
   makeReviewPixelAudit,
   measureContainedImagePoint,
+  orderDetectionReviewCaptures,
+  type DetectionReviewDirectionEvidence,
   type DetectionReviewIssue,
 } from "@/lib/detection-review"
 import { DetectionReviewGrid, type GridReviewItem } from "./DetectionReviewGrid"
@@ -54,8 +64,10 @@ interface DetectionCapture {
   mode: string
   appVersion: string | null
   deviceModel: string | null
+  isFrontCamera: boolean | null
   createdAt: string
   direction: string | null
+  directionEvidence: DetectionReviewDirectionEvidence
   detectorX: number
   detectorY: number | null
   detectorCoordinateVerified: boolean
@@ -76,6 +88,7 @@ interface SessionEvidence {
   evidenceCorrelationId: string | null
   localRaceSessionId: string | null
   cloudSessionId: string | null
+  realtimeSessionId: string | null
   deviceId: string
   timingMode: string | null
   expectedRunCount: number | null
@@ -84,6 +97,26 @@ interface SessionEvidence {
   appVersion: string | null
   deviceModel: string | null
   createdAt: string
+}
+
+interface DeviceLogSession {
+  id: string
+  sessionId: string | null
+  evidenceCorrelationId: string | null
+  localRaceSessionId: string | null
+  cloudSessionId: string | null
+  realtimeSessionId: string | null
+  deviceId: string
+  mode: string | null
+  role: string | null
+  gateIndex: number | null
+  deviceModel: string | null
+  appVersion: string | null
+  appBuild: string | null
+  sessionStartedAt: string
+  lastUploadedAt: string
+  uploadCount: number
+  reasons: string[]
 }
 
 interface QueueResponse {
@@ -97,6 +130,7 @@ interface QueueResponse {
   }
   captures: DetectionCapture[]
   sessionEvidence: SessionEvidence[]
+  deviceLogSessions: DeviceLogSession[]
   counts: {
     total: number
     reviewed: number
@@ -158,6 +192,7 @@ const issueOptions: Array<{ value: ReviewIssue; label: string; helper: string }>
   { value: "outsideFrameAfter", label: "After saved frames", helper: "The real crossing happened after every saved frame" },
   { value: "blur", label: "Blur", helper: "Motion blur prevents a confident mark" },
   { value: "thumbnail", label: "Thumbnail", helper: "Image mapping or crop is wrong" },
+  { value: "false_positive", label: "Scene motion", helper: "No runner crossed; wind, trees, glare, or shadows triggered detection" },
   { value: "ignore_crossing", label: "Ignore crossing", helper: "Hand swipe, phone pickup, or phone set-down" },
   { value: "phone_shake", label: "Phone shake", helper: "Camera movement triggered the detection" },
   { value: "real_crossing", label: "None of the frames", helper: "A real crossing occurred, but none of the saved frames contains it" },
@@ -192,6 +227,8 @@ function outsideFrameLabel(issue: ReviewIssue) {
   if (issue === "real_crossing") return "None of the saved frames contains the crossing"
   if (issue === "outsideFrameBefore") return "Crossing was before saved frames"
   if (issue === "outsideFrameAfter") return "Crossing was after saved frames"
+  if (issue === "late") return "Crossing was earlier"
+  if (issue === "early") return "Crossing was later"
   return null
 }
 
@@ -229,9 +266,12 @@ function temporalFrameLabel(frame: TemporalFrame | null) {
   return frame.relativeFrame < 0 ? "Earlier frame" : "Later frame"
 }
 
+const FOCUS_IMAGE_RETRY_DELAYS_MS = [400, 1_200, 2_500] as const
+
 export default function DetectionReviewDashboard() {
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
+  const [deviceLogSessions, setDeviceLogSessions] = useState<DeviceLogSession[]>([])
   const [dataset, setDataset] = useState<QueueResponse["dataset"] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("pending")
@@ -242,6 +282,8 @@ export default function DetectionReviewDashboard() {
   const [loading, setLoading] = useState(true)
   const [imageLoading, setImageLoading] = useState(true)
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
+  const [focusImageRetry, setFocusImageRetry] = useState({ src: "", attempt: 0 })
+  const [focusImageFailure, setFocusImageFailure] = useState<string | null>(null)
   const [preparing, setPreparing] = useState(false)
   const [uploads, setUploads] = useState<ReviewUpload[]>([])
   const [uploadClock, setUploadClock] = useState(0)
@@ -278,6 +320,7 @@ export default function DetectionReviewDashboard() {
     try {
       const loadedCaptures: DetectionCapture[] = []
       const loadedEvidence = new Map<string, SessionEvidence>()
+      const loadedDeviceLogSessions = new Map<string, DeviceLogSession>()
       let offset = 0
       let hasMore = true
 
@@ -317,6 +360,11 @@ export default function DetectionReviewDashboard() {
           const key = `${evidence.evidenceCorrelationId || evidence.localRaceSessionId || evidence.sessionId}:${evidence.deviceId}`
           if (!loadedEvidence.has(key)) loadedEvidence.set(key, evidence)
         })
+        const pageDeviceLogSessions = page.deviceLogSessions || []
+        pageDeviceLogSessions.forEach((session) => {
+          const key = `${session.evidenceCorrelationId || session.localRaceSessionId || session.sessionId}:${session.deviceId}`
+          if (!loadedDeviceLogSessions.has(key)) loadedDeviceLogSessions.set(key, session)
+        })
         hasMore = page.pagination.hasMore
         offset = page.pagination.nextOffset
         if (hasMore && page.captures.length === 0) {
@@ -326,17 +374,18 @@ export default function DetectionReviewDashboard() {
 
       const capturesByIdentity = new Map<string, DetectionCapture>()
       loadedCaptures.forEach((capture) => {
-        const identity = capture.sessionId
-          ? `${capture.sessionId.toLowerCase()}:run${capture.runNumber}:${capture.target}`
-          : `unlinked:${capture.id}`
+        const identity = detectionReviewIdentityKey(
+          capture.sessionId,
+          capture.runNumber,
+          capture.target,
+          capture.deviceId,
+        ) || `unlinked:${capture.id}`
         const existing = capturesByIdentity.get(identity)
         if (!existing || (existing.source === "app_mark" && capture.source === "debug_capture")) {
           capturesByIdentity.set(identity, capture)
         }
       })
-      const dedupedCaptures = [...capturesByIdentity.values()].sort(
-        (left, right) => Date.parse(right.createdAt) - Date.parse(left.createdAt),
-      )
+      const dedupedCaptures = orderDetectionReviewCaptures([...capturesByIdentity.values()])
       const capturesById = new Map(dedupedCaptures.map((capture) => [capture.id, capture]))
       const optimisticReviews = new Map(
         uploadsRef.current.map((upload) => [
@@ -370,6 +419,7 @@ export default function DetectionReviewDashboard() {
         ),
       )
       setSessionEvidence([...loadedEvidence.values()])
+      setDeviceLogSessions([...loadedDeviceLogSessions.values()])
     } catch (loadError) {
       setError(loadError instanceof Error ? loadError.message : "Could not load review queue")
     } finally {
@@ -407,6 +457,14 @@ export default function DetectionReviewDashboard() {
       || initialSelectedFrame(selected),
     [selected, selectedFrameIndex],
   )
+  const selectedImageSource = selectedFrame?.url || selected?.imageUrl || ""
+  const focusImageRetryAttempt = focusImageRetry.src === selectedImageSource
+    ? focusImageRetry.attempt
+    : 0
+  const selectedImageRequestUrl = detectionReviewImageRequestUrl(
+    selectedImageSource,
+    focusImageRetryAttempt,
+  )
   const selectedFramePosition = selected?.temporalFrames.findIndex((frame) => frame.index === selectedFrame?.index) ?? -1
   const previousTemporalFrame = selected && selectedFramePosition > 0
     ? selected.temporalFrames[selectedFramePosition - 1]
@@ -441,6 +499,34 @@ export default function DetectionReviewDashboard() {
     setError("")
     setSuccess("")
   }, [selected])
+
+  useEffect(() => {
+    if (
+      !selectedImageSource
+      || focusImageFailure !== selectedImageSource
+      || focusImageRetryAttempt >= FOCUS_IMAGE_RETRY_DELAYS_MS.length
+    ) {
+      return
+    }
+
+    const timeout = window.setTimeout(() => {
+      setFocusImageFailure(null)
+      setFocusImageRetry((current) => {
+        if (
+          current.src === selectedImageSource
+          && current.attempt > focusImageRetryAttempt
+        ) {
+          return current
+        }
+        return {
+          src: selectedImageSource,
+          attempt: focusImageRetryAttempt + 1,
+        }
+      })
+    }, FOCUS_IMAGE_RETRY_DELAYS_MS[focusImageRetryAttempt])
+
+    return () => window.clearTimeout(timeout)
+  }, [focusImageFailure, focusImageRetryAttempt, selectedImageSource])
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -513,7 +599,10 @@ export default function DetectionReviewDashboard() {
 
   useEffect(() => {
     if (viewMode !== "focus" || !selected?.temporalFrames.length) return
-    const images = selected.temporalFrames.map((frame) => {
+    const adjacentFrames = [previousTemporalFrame, nextTemporalFrame].filter(
+      (frame): frame is TemporalFrame => Boolean(frame),
+    )
+    const images = adjacentFrames.map((frame) => {
       const image = new Image()
       image.decoding = "async"
       image.src = frame.url
@@ -523,7 +612,7 @@ export default function DetectionReviewDashboard() {
       image.onload = null
       image.onerror = null
     })
-  }, [selected, viewMode])
+  }, [nextTemporalFrame, previousTemporalFrame, selected, viewMode])
 
   useEffect(() => {
     if (uploads.length === 0) return
@@ -690,6 +779,29 @@ export default function DetectionReviewDashboard() {
 
   const incompleteSessionEvidence = sessionEvidenceHealth.filter((evidence) => !evidence.complete)
 
+  const logOnlySessions = useMemo(() => {
+    const linkedSessionIds = new Set(detectionReviewSessionIdentifiers([
+      ...captures.map((capture) => capture.sessionId),
+      ...sessionEvidence.flatMap((evidence) => [
+        evidence.sessionId,
+        evidence.evidenceCorrelationId,
+        evidence.localRaceSessionId,
+        evidence.cloudSessionId,
+        evidence.realtimeSessionId,
+      ]),
+    ]))
+
+    return deviceLogSessions
+      .filter((session) => !detectionReviewSessionIdentifiers([
+        session.sessionId,
+        session.evidenceCorrelationId,
+        session.localRaceSessionId,
+        session.cloudSessionId,
+        session.realtimeSessionId,
+      ]).some((identifier) => linkedSessionIds.has(identifier)))
+      .sort((left, right) => Date.parse(right.sessionStartedAt) - Date.parse(left.sessionStartedAt))
+  }, [captures, deviceLogSessions, sessionEvidence])
+
   function placeMark(event: React.PointerEvent<HTMLImageElement>) {
     if (!selected?.editable) return
     const image = event.currentTarget
@@ -705,7 +817,12 @@ export default function DetectionReviewDashboard() {
       return
     }
     setPoint(measurement.normalized)
-    if (isPointFreeDetectionReviewIssue(issue)) setIssue("unlabeled")
+    const crossingTiming = detectionReviewCrossingTiming(issue)
+    if (crossingTiming) {
+      setIssue(detectionReviewIssueForCrossingTiming(crossingTiming, true))
+    } else if (isPointForbiddenDetectionReviewIssue(issue)) {
+      setIssue("unlabeled")
+    }
     setError("")
     setSuccess("")
   }
@@ -722,7 +839,11 @@ export default function DetectionReviewDashboard() {
       : null
     setPoint(savedPoint)
     setIssue((current) => {
-      if (isPointFreeDetectionReviewIssue(current)) {
+      const crossingTiming = detectionReviewCrossingTiming(current)
+      if (crossingTiming) {
+        return detectionReviewIssueForCrossingTiming(crossingTiming, Boolean(savedPoint))
+      }
+      if (isPointForbiddenDetectionReviewIssue(current)) {
         return frame.relativeFrame === 0 ? "unlabeled" : "wrongFrame"
       }
       if (frame.relativeFrame !== 0 && current === "unlabeled") return "wrongFrame"
@@ -736,15 +857,36 @@ export default function DetectionReviewDashboard() {
 
   function chooseIssue(value: ReviewIssue) {
     if (!selected?.editable) return
+    if (value === "outsideFrameBefore" || value === "outsideFrameAfter") {
+      const timing = value === "outsideFrameBefore" ? "earlier" : "later"
+      const isClearing = detectionReviewCrossingTiming(issue) === timing
+      if (isClearing) {
+        setIssue(point && selectedFrame?.relativeFrame !== 0 ? "wrongFrame" : "unlabeled")
+      } else {
+        setIssue(detectionReviewIssueForCrossingTiming(timing, Boolean(point)))
+        if (!point) {
+          const boundaryFrame = timing === "earlier"
+            ? selected.temporalFrames[0]
+            : selected.temporalFrames[selected.temporalFrames.length - 1]
+          if (boundaryFrame) {
+            setSelectedFrameIndex(boundaryFrame.index)
+            setImageLoading(true)
+          }
+        }
+      }
+      setError("")
+      setSuccess("")
+      return
+    }
     const isClearing = issue === value
       || (value === "ignore_crossing" && isIgnoredCrossingIssue(issue))
     setIssue(isClearing ? "unlabeled" : value)
-    if (isClearing && (value === "real_crossing" || value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
+    if (isClearing && value === "real_crossing") {
       const detectedFrame = selected.temporalFrames.find((frame) => frame.relativeFrame === 0)
       setSelectedFrameIndex(detectedFrame?.index ?? initialSelectedFrame(selected)?.index ?? null)
       setImageLoading(true)
     }
-    if (!isClearing && isPointFreeDetectionReviewIssue(value)) {
+    if (!isClearing && isPointForbiddenDetectionReviewIssue(value)) {
       setPoint(null)
     }
     if (!isClearing && value === "real_crossing") {
@@ -754,14 +896,15 @@ export default function DetectionReviewDashboard() {
         setImageLoading(true)
       }
     }
-    if (!isClearing && (value === "outsideFrameBefore" || value === "outsideFrameAfter")) {
-      const boundaryFrame = value === "outsideFrameBefore"
-        ? selected.temporalFrames[0]
-        : selected.temporalFrames[selected.temporalFrames.length - 1]
-      if (boundaryFrame) {
-        setSelectedFrameIndex(boundaryFrame.index)
-        setImageLoading(true)
-      }
+    setError("")
+    setSuccess("")
+  }
+
+  function clearReviewPoint() {
+    setPoint(null)
+    const crossingTiming = detectionReviewCrossingTiming(issue)
+    if (crossingTiming) {
+      setIssue(detectionReviewIssueForCrossingTiming(crossingTiming, false))
     }
     setError("")
     setSuccess("")
@@ -835,14 +978,12 @@ export default function DetectionReviewDashboard() {
         const capture = capturesById.get(item.captureId)
         if (!capture) throw new Error("A thumbnail left the queue before its mark could be prepared.")
         if (!capture.editable) throw new Error("In-app-only review images are read-only on the website.")
-        if (!item.point && !isPointFreeDetectionReviewIssue(item.issue)) {
-          throw new Error(
-            "Every real crossing needs a source-image point. Otherwise choose Ignore crossing, Phone shake, or an outside-frame classification.",
-          )
-        }
-        if (item.point && isPointFreeDetectionReviewIssue(item.issue)) {
-          throw new Error("Clear the point before saving a point-free classification.")
-        }
+        const validationError = detectionReviewDraftValidationError({
+          capture,
+          hasPoint: Boolean(item.point),
+          issue: item.issue,
+        })
+        if (validationError) throw validationError
         const actualX = item.point?.x ?? null
         const actualY = item.point?.y ?? null
         const reviewImageDataUrl = await renderReviewImageFromElement(capture, item.point, item.image)
@@ -917,14 +1058,13 @@ export default function DetectionReviewDashboard() {
       )
       return
     }
-    if (!point && !isPointFreeDetectionReviewIssue(issue)) {
-      setError(
-        "Place a source-image point, or choose Ignore crossing, Phone shake, or an outside-frame classification.",
-      )
-      return
-    }
-    if (point && isPointFreeDetectionReviewIssue(issue)) {
-      setError("Clear the point before saving a point-free classification.")
+    const validationError = detectionReviewDraftValidationError({
+      capture: selected,
+      hasPoint: Boolean(point),
+      issue,
+    })
+    if (validationError) {
+      setError(validationError.message)
       return
     }
 
@@ -1174,6 +1314,47 @@ export default function DetectionReviewDashboard() {
             {success}
           </div>
         )}
+        {logOnlySessions.length > 0 && (
+          <section
+            aria-labelledby="log-only-sessions-heading"
+            className="border-l-2 border-[#F06C68] bg-[#2B2223] px-4 py-4"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 id="log-only-sessions-heading" className="text-sm font-semibold text-white">
+                  Log-only sessions
+                </h2>
+                <p className="mt-1 text-xs leading-5 text-[#D4A8A5]">
+                  Device logs arrived, but no session context or review thumbnail is linked. These sessions may have stopped before post-crossing processing completed.
+                </p>
+              </div>
+              <span className="font-mono text-xs font-semibold text-[#F2B1AE]">
+                {logOnlySessions.length} incomplete
+              </span>
+            </div>
+
+            <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+              {logOnlySessions.map((session) => (
+                <div key={`${session.id}:${session.deviceId}`} className="border border-[#5D3D3F] bg-[#241B1C] px-3 py-2.5">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-xs font-semibold text-white">
+                      {session.deviceModel || "Unknown device"}
+                    </span>
+                    <span className="font-mono text-xs text-[#F2B1AE]">
+                      {session.uploadCount} {session.uploadCount === 1 ? "log" : "logs"}
+                    </span>
+                  </div>
+                  <div className="mt-1 font-mono text-[10px] text-[#A98381]">
+                    Session {shortId(session.sessionId || session.localRaceSessionId || session.evidenceCorrelationId)} · {session.role || session.mode || "detection"}
+                  </div>
+                  <div className="mt-1 text-[10px] text-[#8F7776]">
+                    {session.appVersion || "unknown version"}{session.appBuild ? ` (${session.appBuild})` : ""} · {formatDate(session.sessionStartedAt)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         {sessionEvidenceHealth.length > 0 && (
           <section
             aria-labelledby="evidence-upload-health-heading"
@@ -1334,7 +1515,7 @@ export default function DetectionReviewDashboard() {
                           <span className="font-mono text-[10px] text-[#777B80]">{shortId(capture.sessionId)}</span>
                         </span>
                         <span className="mt-1 flex items-center justify-between gap-2 text-[11px] text-[#8B8F94]">
-                          <span>{capture.direction || "direction n/a"}</span>
+                          <span>{detectionReviewDirectionLabel(capture.direction, capture.directionEvidence)}</span>
                           <span className={captureUpload?.status === "failed" ? "text-[#F2B1AE]" : undefined}>{uploadLabel}</span>
                         </span>
                       </span>
@@ -1475,20 +1656,26 @@ export default function DetectionReviewDashboard() {
                 <div className="relative inline-block max-w-full overflow-hidden rounded-xl bg-[#0C0D0E] shadow-[0_24px_70px_-32px_rgba(0,0,0,0.9)]">
                   <img
                     ref={imageRef}
-                    key={`${selected.id}:${selectedFrame?.index ?? "original"}`}
-                    src={selectedFrame?.url || selected.imageUrl}
+                    key={`${selected.id}:${selectedFrame?.index ?? "original"}:${focusImageRetryAttempt}`}
+                    src={selectedImageRequestUrl}
                     alt={`Detection capture for session ${shortId(selected.sessionId)}, run ${selected.runNumber}`}
                     onLoad={(event) => {
                       setImageDimensions({
                         width: event.currentTarget.naturalWidth,
                         height: event.currentTarget.naturalHeight,
                       })
+                      setFocusImageFailure(null)
                       setImageLoading(false)
                     }}
                     onError={() => {
                       setImageDimensions({ width: 0, height: 0 })
-                      setImageLoading(false)
-                      setError("This thumbnail could not be loaded.")
+                      setFocusImageFailure(selectedImageSource)
+                      if (focusImageRetryAttempt >= FOCUS_IMAGE_RETRY_DELAYS_MS.length) {
+                        setImageLoading(false)
+                        setError("This thumbnail could not be loaded after three retries.")
+                      } else {
+                        setImageLoading(true)
+                      }
                     }}
                     onPointerDown={placeMark}
                     draggable={false}
@@ -1587,12 +1774,16 @@ export default function DetectionReviewDashboard() {
                 }`}>
                   <div className="flex items-center justify-between gap-3">
                     <span className={`text-sm font-semibold ${point ? "text-[#A8D8B9]" : selectedFalseTriggerLabel || selectedOutsideFrameLabel ? "text-[#E3C881]" : "text-white"}`}>
-                      {point ? "Crossing point ready" : selectedOutsideFrameLabel || selectedFalseTriggerLabel || "Click the image to place the point"}
+                      {point
+                        ? selectedOutsideFrameLabel
+                          ? `${selectedOutsideFrameLabel} + point ready`
+                          : "Crossing point ready"
+                        : selectedOutsideFrameLabel || selectedFalseTriggerLabel || "Click the image to place the point"}
                     </span>
                     {point && selected.editable && (
                       <button
                         type="button"
-                        onClick={() => setPoint(null)}
+                        onClick={clearReviewPoint}
                         className="text-xs font-medium text-[#B7BAC0] underline decoration-[#555A60] underline-offset-4 hover:text-white"
                       >
                         Clear
@@ -1623,12 +1814,15 @@ export default function DetectionReviewDashboard() {
                     >
                       {issue === "real_crossing" ? "None of these frames selected" : "None of these frames"}
                     </button>
+                    <p className="col-span-2 text-[10px] leading-4 text-[#A99B78]">
+                      Earlier/later can also be saved with a green point on the image.
+                    </p>
                     <button
                       type="button"
-                      aria-pressed={issue === "outsideFrameBefore"}
+                      aria-pressed={detectionReviewCrossingTiming(issue) === "earlier"}
                       onClick={() => chooseIssue("outsideFrameBefore")}
                       className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
-                        issue === "outsideFrameBefore"
+                        detectionReviewCrossingTiming(issue) === "earlier"
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
                           : "border-[#5E5134] bg-[#28251D] text-[#CBB985] hover:border-[#D6B36A] hover:text-white"
                       }`}
@@ -1637,15 +1831,30 @@ export default function DetectionReviewDashboard() {
                     </button>
                     <button
                       type="button"
-                      aria-pressed={issue === "outsideFrameAfter"}
+                      aria-pressed={detectionReviewCrossingTiming(issue) === "later"}
                       onClick={() => chooseIssue("outsideFrameAfter")}
                       className={`min-h-12 rounded-xl border px-3 py-2.5 text-xs font-semibold transition active:translate-y-px ${
-                        issue === "outsideFrameAfter"
+                        detectionReviewCrossingTiming(issue) === "later"
                           ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
                           : "border-[#5E5134] bg-[#28251D] text-[#CBB985] hover:border-[#D6B36A] hover:text-white"
                       }`}
                     >
                       Crossing later
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={issue === "false_positive"}
+                      onClick={() => chooseIssue("false_positive")}
+                      className={`col-span-2 min-h-14 rounded-xl border px-3 py-2.5 text-left transition active:translate-y-px ${
+                        issue === "false_positive"
+                          ? "border-[#D6B36A] bg-[#302B20] text-[#F0D89B]"
+                          : "border-[#68484A] bg-[#251D20] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                      }`}
+                    >
+                      <span className="block text-xs font-semibold">Scene motion</span>
+                      <span className="mt-0.5 block text-[9px] font-medium leading-3 opacity-70">
+                        No runner · wind · trees · glare · shadows
+                      </span>
                     </button>
                     <button
                       type="button"
@@ -1770,7 +1979,7 @@ export default function DetectionReviewDashboard() {
                 <details className="rounded-xl border border-[#34373B] bg-[#202225]">
                   <summary className="cursor-pointer px-3 py-3 text-xs font-semibold text-[#8B8F94] hover:text-white">Capture details</summary>
                   <div className="space-y-1 border-t border-[#34373B] p-3 text-[11px] leading-5 text-[#777B80]">
-                    <div className="flex justify-between gap-3"><span>Direction</span><span className="font-mono text-[#B7BAC0]">{selected.direction || "n/a"}</span></div>
+                    <div className="flex justify-between gap-3"><span>Direction</span><span className="font-mono text-[#B7BAC0]">{detectionReviewDirectionLabel(selected.direction, selected.directionEvidence)}</span></div>
                     <div className="flex justify-between gap-3"><span>Blob height</span><span className="font-mono text-[#B7BAC0]">{percent(selected.blobHeightFraction)}</span></div>
                     <div className="flex justify-between gap-3"><span>FPS</span><span className="font-mono text-[#B7BAC0]">{selected.fps === null ? "n/a" : selected.fps.toFixed(1)}</span></div>
                   </div>

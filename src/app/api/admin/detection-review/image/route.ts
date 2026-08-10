@@ -75,7 +75,7 @@ export async function GET(request: Request) {
     return new NextResponse(await image.arrayBuffer(), {
       headers: {
         "Content-Type": image.type || "image/jpeg",
-        "Cache-Control": "private, max-age=300",
+        "Cache-Control": "private, max-age=86400, immutable",
         "X-Content-Type-Options": "nosniff",
       },
     })

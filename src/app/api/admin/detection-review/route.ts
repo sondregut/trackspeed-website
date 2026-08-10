@@ -7,15 +7,17 @@ import {
   CURRENT_DETECTION_REVIEW_DATASET,
   adminReviewKey,
   currentDetectionReviewSince,
+  detectionReviewDraftValidationError,
   detectionReviewMode,
   detectionReviewIdentityKey,
+  detectionReviewSessionIdentifiers,
   isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
-  isPointFreeDetectionReviewIssue,
   isSessionShirtContrast,
   isUuid,
   normalizedCoordinate,
   normalizeReviewTarget,
+  resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
   validateReviewPixelAudit,
@@ -106,9 +108,34 @@ interface SessionContextRow {
   device_model: string | null
   created_at: string
   updated_at: string
+  environment: string | null
+  lighting: string | null
+  surface: string | null
   shirt_color: string | null
   shirt_contrast: string | null
+  phone_distance: string | null
+  phone_distance_m: number | null
   notes: string | null
+}
+
+interface DeviceLogUploadRow {
+  id: string
+  session_id: string | null
+  evidence_correlation_id: string | null
+  local_race_session_id: string | null
+  cloud_session_id: string | null
+  realtime_session_id: string | null
+  device_id: string
+  mode: string | null
+  role: string | null
+  gate_index: number | null
+  reason: string
+  local_session_started_at: string | null
+  local_uploaded_at: string
+  created_at: string
+  device_model: string | null
+  app_version: string | null
+  app_build: string | null
 }
 
 const captureSelect = [
@@ -192,9 +219,34 @@ const sessionContextSelect = [
   "device_model",
   "created_at",
   "updated_at",
+  "environment",
+  "lighting",
+  "surface",
   "shirt_color",
   "shirt_contrast",
+  "phone_distance",
+  "phone_distance_m",
   "notes",
+].join(",")
+
+const deviceLogUploadSelect = [
+  "id",
+  "session_id",
+  "evidence_correlation_id",
+  "local_race_session_id",
+  "cloud_session_id",
+  "realtime_session_id",
+  "device_id",
+  "mode",
+  "role",
+  "gate_index",
+  "reason",
+  "local_session_started_at",
+  "local_uploaded_at",
+  "created_at",
+  "device_model",
+  "app_version",
+  "app_build",
 ].join(",")
 
 function boundedInteger(value: string | null, fallback: number, min: number, max: number) {
@@ -384,8 +436,13 @@ function publicSessionContext(context: SessionContextRow) {
     id: context.id,
     sessionId: context.session_id,
     updatedAt: context.updated_at || context.created_at,
+    environment: context.environment || "",
+    lighting: context.lighting || "",
+    surface: context.surface || "",
     shirtColor: context.shirt_color || "",
     shirtContrast: context.shirt_contrast || "",
+    phoneDistance: context.phone_distance || "",
+    phoneDistanceM: context.phone_distance_m,
     notes: context.notes || "",
   }
 }
@@ -432,6 +489,81 @@ async function loadSessionContexts(
     if (page.length < pageSize) return rows
     offset += page.length
   }
+}
+
+async function loadDeviceLogUploads(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  since: string,
+): Promise<DeviceLogUploadRow[]> {
+  const pageSize = 500
+  const rows: DeviceLogUploadRow[] = []
+  let offset = 0
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("device_log_uploads")
+      .select(deviceLogUploadSelect)
+      .gte("created_at", since)
+      .order("created_at", { ascending: false })
+      .range(offset, offset + pageSize - 1)
+
+    if (error) throw new Error(error.message)
+    const page = (data || []) as unknown as DeviceLogUploadRow[]
+    rows.push(...page)
+    if (page.length < pageSize) return rows
+    offset += page.length
+  }
+}
+
+function publicDeviceLogSessions(rows: DeviceLogUploadRow[]) {
+  const grouped = new Map<string, {
+    row: DeviceLogUploadRow
+    uploadCount: number
+    reasons: Set<string>
+  }>()
+
+  for (const row of rows) {
+    const identifiers = detectionReviewSessionIdentifiers([
+      row.evidence_correlation_id,
+      row.local_race_session_id,
+      row.session_id,
+      row.cloud_session_id,
+      row.realtime_session_id,
+    ])
+    if (identifiers.length === 0) continue
+    const key = `${identifiers[0]}:${row.device_id.toLowerCase()}`
+    const existing = grouped.get(key)
+    if (existing) {
+      existing.uploadCount += 1
+      existing.reasons.add(row.reason)
+    } else {
+      grouped.set(key, {
+        row,
+        uploadCount: 1,
+        reasons: new Set([row.reason]),
+      })
+    }
+  }
+
+  return [...grouped.values()].map(({ row, uploadCount, reasons }) => ({
+    id: row.id,
+    sessionId: row.session_id,
+    evidenceCorrelationId: row.evidence_correlation_id,
+    localRaceSessionId: row.local_race_session_id,
+    cloudSessionId: row.cloud_session_id,
+    realtimeSessionId: row.realtime_session_id,
+    deviceId: row.device_id,
+    mode: row.mode,
+    role: row.role,
+    gateIndex: row.gate_index,
+    deviceModel: row.device_model,
+    appVersion: row.app_version,
+    appBuild: row.app_build,
+    sessionStartedAt: row.local_session_started_at || row.created_at,
+    lastUploadedAt: row.local_uploaded_at || row.created_at,
+    uploadCount,
+    reasons: [...reasons].sort(),
+  }))
 }
 
 async function loadAppReviewMarks(
@@ -564,7 +696,7 @@ export async function GET(request: Request) {
 
     const captures = (captureData || []) as unknown as CaptureRow[]
     const reviewKeys = captures.map((capture) => adminReviewKey(capture.id))
-    const [markResult, appMarks, sessionContexts] = await Promise.all([
+    const [markResult, appMarks, sessionContexts, deviceLogUploads] = await Promise.all([
       reviewKeys.length > 0
         ? supabase
             .from("crossing_review_marks")
@@ -574,6 +706,7 @@ export async function GET(request: Request) {
         : Promise.resolve({ data: [], error: null }),
       loadAppReviewMarks(supabase, since),
       loadSessionContexts(supabase, since),
+      offset === 0 ? loadDeviceLogUploads(supabase, since) : Promise.resolve([]),
     ])
 
     if (markResult.error) {
@@ -622,8 +755,13 @@ export async function GET(request: Request) {
       mergedSessionContexts.set(sessionId, {
         ...deviceContext,
         ...context,
+        environment: context.environment || deviceContext?.environment || null,
+        lighting: context.lighting || deviceContext?.lighting || null,
+        surface: context.surface || deviceContext?.surface || null,
         shirt_color: context.shirt_color || deviceContext?.shirt_color || null,
         shirt_contrast: context.shirt_contrast || deviceContext?.shirt_contrast || null,
+        phone_distance: context.phone_distance || deviceContext?.phone_distance || null,
+        phone_distance_m: context.phone_distance_m ?? deviceContext?.phone_distance_m ?? null,
         notes: context.notes || deviceContext?.notes || null,
       })
     })
@@ -635,6 +773,7 @@ export async function GET(request: Request) {
         mark.session_id,
         mark.run_number,
         mark.target || mark.gate_label,
+        mark.device_id,
       )
       if (identity && !latestAppMarksByIdentity.has(identity)) {
         latestAppMarksByIdentity.set(identity, mark)
@@ -647,6 +786,11 @@ export async function GET(request: Request) {
       const sourceContext = sourceContextForCapture(capture, sessionContexts)
       const sourceCameraMark = sourceCameraMarkForCapture(capture, appMarks)
       const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
+      const directionResolution = resolveDetectionReviewDisplayDirection({
+        storedDirection: capture.algo_crossing_direction,
+        isFrontCamera: detectorCoordinate.isFrontCamera,
+        temporalEvidence: capture.temporal_evidence,
+      })
       const detectorY = detectorYForCapture(capture)
       const editable = Boolean(sourceContext) && detectorCoordinate.resolution.verified
       const editBlockReason = !sourceContext
@@ -654,7 +798,12 @@ export async function GET(request: Request) {
         : detectorCoordinate.resolution.verified
           ? null
           : "This legacy capture has no verified camera/display transform. Re-capture it with the current app before using it as optimizer ground truth."
-      const identity = detectionReviewIdentityKey(capture.session_id, capture.run_number, target)
+      const identity = detectionReviewIdentityKey(
+        capture.session_id,
+        capture.run_number,
+        target,
+        capture.device_id,
+      )
       if (identity) captureIdentityKeys.add(identity)
       const review =
         adminMarksByKey.get(adminReviewKey(capture.id)) ||
@@ -694,8 +843,10 @@ export async function GET(request: Request) {
         ),
         appVersion: capture.app_version,
         deviceModel: capture.device_model,
+        isFrontCamera: detectorCoordinate.isFrontCamera,
         createdAt: capture.created_at,
-        direction: capture.algo_crossing_direction,
+        direction: directionResolution.direction,
+        directionEvidence: directionResolution.evidence,
         detectorX: detectorCoordinate.resolution.x,
         detectorY,
         detectorCoordinateVerified: detectorCoordinate.resolution.verified,
@@ -723,6 +874,10 @@ export async function GET(request: Request) {
           .map(([, mark]) => {
             const target = normalizeReviewTarget(mark.target || mark.gate_label)
             const detectorY = normalizedCoordinate(mark.detector_y)
+            const directionResolution = resolveDetectionReviewDisplayDirection({
+              storedDirection: mark.crossing_direction,
+              isFrontCamera: mark.is_front_camera,
+            })
             return {
               id: mark.id,
               source: "app_mark" as const,
@@ -737,8 +892,10 @@ export async function GET(request: Request) {
               mode: mark.mode || (target === "crossing" || target === "lap" ? "solo" : "multi"),
               appVersion: mark.app_version,
               deviceModel: mark.device_model,
+              isFrontCamera: mark.is_front_camera,
               createdAt: mark.created_at,
-              direction: mark.crossing_direction,
+              direction: directionResolution.direction,
+              directionEvidence: directionResolution.evidence,
               detectorX: Math.min(1, Math.max(0, mark.detector_x)),
               detectorY: detectorY === undefined ? null : detectorY,
               detectorCoordinateVerified: true,
@@ -770,6 +927,7 @@ export async function GET(request: Request) {
       captures: rows,
       sessionContexts: [...mergedSessionContexts.values()].map(publicSessionContext),
       sessionEvidence: [...latestEvidenceByDeviceSession.values()].map(publicSessionEvidence),
+      deviceLogSessions: publicDeviceLogSessions(deviceLogUploads),
       pagination: {
         offset,
         limit,
@@ -806,22 +964,43 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "A valid sessionId is required" }, { status: 400 })
       }
 
+      const environment = ["indoor", "outdoor"].includes(String(body.environment))
+        ? String(body.environment)
+        : null
+      const lighting = ["bright", "overcast", "dim", "mixed"].includes(String(body.lighting))
+        ? String(body.lighting)
+        : null
+      const surface = ["track", "turf", "grass", "indoor", "other"].includes(String(body.surface))
+        ? String(body.surface)
+        : null
       const shirtColor = typeof body.shirtColor === "string" ? body.shirtColor.trim().slice(0, 80) : ""
-      const shirtContrast = body.shirtContrast === "" || body.shirtContrast === null
-        ? null
-        : isSessionShirtContrast(body.shirtContrast)
-          ? body.shirtContrast
-          : undefined
+      const shirtContrast = isSessionShirtContrast(body.shirtContrast)
+        ? body.shirtContrast
+        : null
+      const phoneDistanceM = typeof body.phoneDistanceM === "number"
+        ? body.phoneDistanceM
+        : Number(body.phoneDistanceM)
       const notes = typeof body.notes === "string" ? body.notes.trim().slice(0, 1500) : ""
-      if (shirtContrast === undefined) {
-        return NextResponse.json({ error: "Invalid shirt contrast" }, { status: 400 })
+      if (!lighting) {
+        return NextResponse.json({ error: "Choose the session lighting" }, { status: 400 })
       }
-      if (!shirtColor && !shirtContrast && !notes) {
+      if (!shirtContrast) {
         return NextResponse.json(
-          { error: "Add a shirt color, contrast rating, or session note before saving" },
+          { error: "Choose the shirt/background contrast" },
           { status: 400 },
         )
       }
+      if (!Number.isFinite(phoneDistanceM) || phoneDistanceM < 0.5 || phoneDistanceM > 20) {
+        return NextResponse.json(
+          { error: "Enter a camera distance between 0.5 and 20 metres" },
+          { status: 400 },
+        )
+      }
+      const phoneDistance = phoneDistanceM < 2.5
+        ? "close_1_5_2_0"
+        : phoneDistanceM <= 3.5
+          ? "recommended_2_5_3_5"
+          : "far_3_5_plus"
 
       const supabase = getSupabaseAdmin()
       const { data: linkedCapture, error: linkedCaptureError } = await supabase
@@ -864,8 +1043,13 @@ export async function POST(request: Request) {
         device_id: ADMIN_REVIEW_DEVICE_ID,
         app_version: linkedEvidence.app_version,
         device_model: linkedEvidence.device_model,
+        environment,
+        lighting,
+        surface,
         shirt_color: shirtColor || null,
         shirt_contrast: shirtContrast,
+        phone_distance: phoneDistance,
+        phone_distance_m: phoneDistanceM,
         notes: notes || null,
         created_at: savedAt,
         updated_at: savedAt,
@@ -903,19 +1087,32 @@ export async function POST(request: Request) {
         { status: 400 },
       )
     }
-    const pointFreeIssue = isPointFreeDetectionReviewIssue(body.issue)
-    if (actualX === null && !pointFreeIssue) {
-      return NextResponse.json(
-        {
-          error:
-            "Place a source-image point, or choose Ignore crossing, Phone shake, or an outside-frame classification.",
-        },
-        { status: 400 },
-      )
+
+    const supabase = getSupabaseAdmin()
+    const { data: captureData, error: captureError } = await supabase
+      .from("crossing_debug_captures")
+      .select(captureSelect)
+      .eq("id", body.captureId)
+      .single()
+
+    if (captureError || !captureData) {
+      return NextResponse.json({ error: "Detection capture was not found" }, { status: 404 })
     }
-    if (actualX !== null && pointFreeIssue) {
+
+    const capture = captureData as unknown as CaptureRow
+    const validationError = detectionReviewDraftValidationError({
+      capture: {
+        id: capture.id,
+        sessionId: capture.session_id,
+        runNumber: capture.run_number,
+        target: normalizeReviewTarget(capture.gate_label),
+      },
+      hasPoint: actualX !== null,
+      issue: body.issue,
+    })
+    if (validationError) {
       return NextResponse.json(
-        { error: "Point-free classifications cannot include a crossing point" },
+        { error: validationError.message, captureId: validationError.captureId },
         { status: 400 },
       )
     }
@@ -943,18 +1140,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Review image dimensions could not be verified" }, { status: 400 })
     }
 
-    const supabase = getSupabaseAdmin()
-    const { data: captureData, error: captureError } = await supabase
-      .from("crossing_debug_captures")
-      .select(captureSelect)
-      .eq("id", body.captureId)
-      .single()
-
-    if (captureError || !captureData) {
-      return NextResponse.json({ error: "Detection capture was not found" }, { status: 404 })
-    }
-
-    const capture = captureData as unknown as CaptureRow
     if (!isCurrentDetectionReviewCapture(capture.created_at)) {
       return NextResponse.json(
         {

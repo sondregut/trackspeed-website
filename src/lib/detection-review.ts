@@ -46,6 +46,21 @@ export const POINT_FREE_DETECTION_REVIEW_ISSUES = [
   "outsideFrameAfter",
 ] as const satisfies readonly DetectionReviewIssue[]
 
+/**
+ * These classifications describe captures where a source-image torso point
+ * would be misleading. Outside-frame timing labels are intentionally absent:
+ * they may be saved alone, or combined with a reference point in the nearest
+ * available frame.
+ */
+export const POINT_FORBIDDEN_DETECTION_REVIEW_ISSUES = [
+  "ignore_crossing",
+  "phone_shake",
+  "false_positive",
+  "real_crossing",
+] as const satisfies readonly DetectionReviewIssue[]
+
+export type DetectionReviewCrossingTiming = "earlier" | "later"
+
 export interface NormalizedImagePoint {
   x: number
   y: number
@@ -75,6 +90,38 @@ export interface DetectorDisplayResolution {
     | "projected_coordinate"
     | "detector_coordinate"
     | "configured_gate_fallback"
+}
+
+export type DetectionReviewDirection = "L->R" | "R->L"
+
+export type DetectionReviewDirectionEvidence =
+  | "motion"
+  | "post_verified"
+  | "post_corrected"
+  | "fallback"
+  | "stored"
+  | "conflict"
+  | "unknown"
+
+export interface DetectionReviewDirectionResolution {
+  direction: DetectionReviewDirection | null
+  evidence: DetectionReviewDirectionEvidence
+}
+
+export function detectionReviewDirectionLabel(
+  direction: string | null,
+  evidence: DetectionReviewDirectionEvidence,
+): string {
+  if (evidence === "conflict") return "direction conflict"
+  if (evidence === "stored" || evidence === "fallback") {
+    return "direction unverified"
+  }
+  if (!direction || evidence === "unknown") return "direction unavailable"
+  const arrow = direction.replace("->", "→")
+  if (evidence === "post_corrected") return `${arrow} · frame-corrected`
+  if (evidence === "post_verified") return `${arrow} · frame-verified`
+  if (evidence === "motion") return `${arrow} · frame-verified`
+  return "direction unavailable"
 }
 
 export type ReviewPixelAuditValidation =
@@ -117,9 +164,81 @@ export function detectionReviewIdentityKey(
   sessionId: string | null | undefined,
   runNumber: number | null | undefined,
   target: string | null | undefined,
+  deviceId?: string | null,
 ): string | null {
   if (!sessionId || !Number.isInteger(runNumber) || (runNumber ?? 0) < 0) return null
-  return `${sessionId.toLowerCase()}:run${runNumber}:${normalizeReviewTarget(target || "crossing")}`
+  const device = deviceId?.trim().toLowerCase()
+  const deviceSegment = device ? `:device:${device}` : ""
+  return `${sessionId.toLowerCase()}${deviceSegment}:run${runNumber}:${normalizeReviewTarget(target || "crossing")}`
+}
+
+export function detectionReviewSessionIdentifiers(
+  values: readonly (string | null | undefined)[],
+): string[] {
+  return [...new Set(
+    values
+      .map((value) => value?.trim().toLowerCase() || "")
+      .filter(Boolean),
+  )]
+}
+
+export interface DetectionReviewOrderableCapture {
+  id: string
+  sessionId: string | null
+  deviceId: string
+  runNumber: number
+  target: string
+  createdAt: string
+}
+
+export function detectionReviewBatchKey(
+  capture: Pick<DetectionReviewOrderableCapture, "id" | "sessionId" | "deviceId">,
+): string {
+  if (!capture.sessionId) return `unlinked:${capture.id.toLowerCase()}`
+  return `session:${capture.sessionId.toLowerCase()}:device:${capture.deviceId.toLowerCase()}`
+}
+
+function reviewTargetOrder(target: string): number {
+  const normalized = normalizeReviewTarget(target)
+  if (normalized === "start") return 0
+  if (normalized === "crossing") return 1
+  if (normalized === "lap") return 2
+  if (normalized === "finish") return 3
+  return 4
+}
+
+/**
+ * Keep one phone/setup contiguous while reviewing. Newer setup batches appear
+ * first, but every batch itself runs forward from Run 1 to Run N.
+ */
+export function orderDetectionReviewCaptures<T extends DetectionReviewOrderableCapture>(
+  captures: readonly T[],
+): T[] {
+  const batchStartedAt = new Map<string, number>()
+  for (const capture of captures) {
+    const key = detectionReviewBatchKey(capture)
+    const parsed = Date.parse(capture.createdAt)
+    const timestamp = Number.isFinite(parsed) ? parsed : 0
+    const existing = batchStartedAt.get(key)
+    if (existing === undefined || timestamp < existing) batchStartedAt.set(key, timestamp)
+  }
+
+  return [...captures].sort((left, right) => {
+    const leftKey = detectionReviewBatchKey(left)
+    const rightKey = detectionReviewBatchKey(right)
+    if (leftKey !== rightKey) {
+      const startedAtDifference = (batchStartedAt.get(rightKey) || 0) - (batchStartedAt.get(leftKey) || 0)
+      if (startedAtDifference !== 0) return startedAtDifference
+      return leftKey.localeCompare(rightKey)
+    }
+
+    if (left.runNumber !== right.runNumber) return left.runNumber - right.runNumber
+    const targetDifference = reviewTargetOrder(left.target) - reviewTargetOrder(right.target)
+    if (targetDifference !== 0) return targetDifference
+    const createdAtDifference = Date.parse(left.createdAt) - Date.parse(right.createdAt)
+    if (Number.isFinite(createdAtDifference) && createdAtDifference !== 0) return createdAtDifference
+    return left.id.localeCompare(right.id)
+  })
 }
 
 export function normalizeReviewTarget(gateLabel: string | null): string {
@@ -146,14 +265,201 @@ export function isPointFreeDetectionReviewIssue(
   )
 }
 
+export function isPointForbiddenDetectionReviewIssue(
+  value: unknown,
+): value is (typeof POINT_FORBIDDEN_DETECTION_REVIEW_ISSUES)[number] {
+  return (
+    typeof value === "string"
+    && (POINT_FORBIDDEN_DETECTION_REVIEW_ISSUES as readonly string[]).includes(value)
+  )
+}
+
+export interface DetectionReviewCaptureReference {
+  id: string
+  sessionId: string | null
+  runNumber: number
+  target: string
+}
+
+export class DetectionReviewBlockingError extends Error {
+  readonly captureId: string
+
+  constructor(captureId: string, message: string) {
+    super(message)
+    this.name = "DetectionReviewBlockingError"
+    this.captureId = captureId
+  }
+}
+
+export function detectionReviewCaptureReference(
+  capture: Pick<DetectionReviewCaptureReference, "sessionId" | "runNumber" | "target">,
+): string {
+  const session = capture.sessionId ? capture.sessionId.slice(0, 8) : "unlinked"
+  return `Session ${session} · Run ${capture.runNumber} · ${capture.target}`
+}
+
+export function detectionReviewDraftValidationError(input: {
+  capture: DetectionReviewCaptureReference
+  hasPoint: boolean
+  issue: DetectionReviewIssue
+}): DetectionReviewBlockingError | null {
+  const reference = detectionReviewCaptureReference(input.capture)
+  if (!input.hasPoint && !isPointFreeDetectionReviewIssue(input.issue)) {
+    return new DetectionReviewBlockingError(
+      input.capture.id,
+      `Blocking crossing: ${reference}. Add a source-image point or choose Scene motion, Ignore crossing, Phone shake, or an outside-frame classification.`,
+    )
+  }
+  if (input.hasPoint && isPointForbiddenDetectionReviewIssue(input.issue)) {
+    return new DetectionReviewBlockingError(
+      input.capture.id,
+      `Blocking crossing: ${reference}. Clear its source-image point before saving the non-crossing classification. Earlier/later timing can be combined with a point.`,
+    )
+  }
+  return null
+}
+
+/**
+ * The UI speaks from the crossing's perspective, while the stored early/late
+ * issue speaks from the detector's perspective. A crossing that happened
+ * earlier means the detector was late, and vice versa. Without a point, the
+ * same relation is stored as an outside-frame classification.
+ */
+export function detectionReviewCrossingTiming(
+  value: unknown,
+): DetectionReviewCrossingTiming | null {
+  if (value === "late" || value === "outsideFrameBefore") return "earlier"
+  if (value === "early" || value === "outsideFrameAfter") return "later"
+  return null
+}
+
+export function detectionReviewIssueForCrossingTiming(
+  timing: DetectionReviewCrossingTiming,
+  hasPoint: boolean,
+): DetectionReviewIssue {
+  if (timing === "earlier") return hasPoint ? "late" : "outsideFrameBefore"
+  return hasPoint ? "early" : "outsideFrameAfter"
+}
+
 export function isIgnoredCrossingIssue(value: unknown): boolean {
-  return value === "ignore_crossing" || value === "false_positive"
+  return value === "ignore_crossing"
 }
 
 export function falseTriggerReviewLabel(value: unknown): string | null {
-  if (isIgnoredCrossingIssue(value)) return "Ignore crossing"
+  if (value === "ignore_crossing") return "Ignore crossing"
+  if (value === "false_positive") return "Scene motion"
   if (value === "phone_shake") return "Phone shake"
   return null
+}
+
+export function detectionReviewImageRequestUrl(
+  sourceUrl: string,
+  retryAttempt: number,
+): string {
+  if (!Number.isInteger(retryAttempt) || retryAttempt <= 0) return sourceUrl
+  const separator = sourceUrl.includes("?") ? "&" : "?"
+  return `${sourceUrl}${separator}loadAttempt=${retryAttempt}`
+}
+
+function normalizedDetectionReviewDirection(
+  value: unknown,
+): DetectionReviewDirection | null {
+  if (typeof value !== "string") return null
+  const normalized = value
+    .trim()
+    .toUpperCase()
+    .replaceAll("→", ">")
+    .replaceAll("-", "")
+    .replaceAll(" ", "")
+  if (normalized === "L>R") return "L->R"
+  if (normalized === "R>L") return "R->L"
+  return null
+}
+
+function mirroredDetectionReviewDirection(
+  direction: DetectionReviewDirection,
+  mirrorX: boolean,
+): DetectionReviewDirection {
+  if (!mirrorX) return direction
+  return direction === "L->R" ? "R->L" : "L->R"
+}
+
+/**
+ * Resolve the direction shown beside the rendered review image. Replica stores
+ * detector-space direction, while selfie thumbnails are mirrored. A fallback
+ * accepted at the crossing can also be superseded by consistent post-frame
+ * motion evidence collected milliseconds later. Genuine motion conflicts stay
+ * explicit instead of presenting one side as fact.
+ */
+export function resolveDetectionReviewDisplayDirection(input: {
+  storedDirection: unknown
+  isFrontCamera: boolean | null | undefined
+  temporalEvidence?: { frames?: unknown[] } | null
+}): DetectionReviewDirectionResolution {
+  const storedDirection = normalizedDetectionReviewDirection(input.storedDirection)
+  const frames = Array.isArray(input.temporalEvidence?.frames)
+    ? input.temporalEvidence.frames.filter(
+      (value): value is Record<string, unknown> => Boolean(value) && typeof value === "object",
+    )
+    : []
+  const acceptedFrame = frames.find((frame) => frame.status === "accepted")
+  const acceptedDirection = normalizedDetectionReviewDirection(acceptedFrame?.direction)
+  const acceptedSource = typeof acceptedFrame?.directionSource === "string"
+    ? acceptedFrame.directionSource
+    : null
+  const baseDirection = acceptedDirection || storedDirection
+
+  if (
+    storedDirection
+    && acceptedDirection
+    && storedDirection !== acceptedDirection
+    && acceptedSource !== "motion_center_history"
+  ) {
+    return { direction: null, evidence: "conflict" }
+  }
+
+  const postDirections = [...new Set(
+    frames
+      .filter((frame) => (
+        typeof frame.relativeFrame === "number"
+        && frame.relativeFrame > 0
+        && frame.directionSource === "motion_center_history"
+      ))
+      .map((frame) => normalizedDetectionReviewDirection(frame.direction))
+      .filter((direction): direction is DetectionReviewDirection => Boolean(direction)),
+  )]
+
+  if (postDirections.length > 1) {
+    return { direction: null, evidence: "conflict" }
+  }
+
+  const postDirection = postDirections[0] || null
+  let resolvedDirection = baseDirection
+  let evidence: DetectionReviewDirectionEvidence = acceptedSource === "motion_center_history"
+    ? "motion"
+    : acceptedSource === "center_vs_gate_fallback"
+      ? "fallback"
+      : storedDirection
+        ? "stored"
+        : "unknown"
+
+  if (postDirection) {
+    if (acceptedSource !== "motion_center_history") {
+      evidence = postDirection === baseDirection ? "post_verified" : "post_corrected"
+      resolvedDirection = postDirection
+    } else if (baseDirection !== postDirection) {
+      return { direction: null, evidence: "conflict" }
+    }
+  }
+
+  if (!resolvedDirection) return { direction: null, evidence: "unknown" }
+  return {
+    direction: mirroredDetectionReviewDirection(
+      resolvedDirection,
+      input.isFrontCamera === true,
+    ),
+    evidence,
+  }
 }
 
 export function isSessionShirtContrast(value: unknown): value is SessionShirtContrast {

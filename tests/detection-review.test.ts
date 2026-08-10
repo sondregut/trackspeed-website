@@ -3,13 +3,25 @@ import test from "node:test"
 import {
   CURRENT_DETECTION_REVIEW_DATASET,
   currentDetectionReviewSince,
+  DetectionReviewBlockingError,
+  detectionReviewCrossingTiming,
+  detectionReviewDirectionLabel,
+  detectionReviewDraftValidationError,
+  detectionReviewImageRequestUrl,
+  detectionReviewBatchKey,
+  detectionReviewIdentityKey,
+  detectionReviewIssueForCrossingTiming,
   detectionReviewMode,
+  detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
   isIgnoredCrossingIssue,
   isCurrentDetectionReviewCapture,
+  isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
   makeReviewPixelAudit,
   measureContainedImagePoint,
+  orderDetectionReviewCaptures,
+  resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
   validateReviewPixelAudit,
@@ -32,6 +44,88 @@ test("archives all captures before the clean post-fix dataset boundary", () => {
   assert.equal(
     currentDetectionReviewSince(7, Date.parse("2026-08-10T15:00:00.000Z")),
     "2026-08-03T15:00:00.000Z",
+  )
+})
+
+test("cache-busts only explicit detection-image retry attempts", () => {
+  const imageUrl = "/api/admin/detection-review/image?id=capture&frame=2"
+  assert.equal(detectionReviewImageRequestUrl(imageUrl, 0), imageUrl)
+  assert.equal(detectionReviewImageRequestUrl(imageUrl, -1), imageUrl)
+  assert.equal(detectionReviewImageRequestUrl(imageUrl, 1), `${imageUrl}&loadAttempt=1`)
+  assert.equal(
+    detectionReviewImageRequestUrl("/api/admin/detection-review/image", 3),
+    "/api/admin/detection-review/image?loadAttempt=3",
+  )
+})
+
+test("identifies the exact crossing that blocks a review batch", () => {
+  const capture = {
+    id: "capture-aeb3e7af-run4",
+    sessionId: "aeb3e7af-1234-5678-9abc-def012345678",
+    runNumber: 4,
+    target: "crossing",
+  }
+  const missingPoint = detectionReviewDraftValidationError({
+    capture,
+    hasPoint: false,
+    issue: "unlabeled",
+  })
+
+  assert.ok(missingPoint instanceof DetectionReviewBlockingError)
+  assert.equal(missingPoint.captureId, capture.id)
+  assert.match(missingPoint.message, /Session aeb3e7af · Run 4 · crossing/)
+  assert.equal(
+    detectionReviewDraftValidationError({
+      capture,
+      hasPoint: false,
+      issue: "ignore_crossing",
+    }),
+    null,
+  )
+
+  const pointOnIgnoredCrossing = detectionReviewDraftValidationError({
+    capture,
+    hasPoint: true,
+    issue: "ignore_crossing",
+  })
+  assert.ok(pointOnIgnoredCrossing instanceof DetectionReviewBlockingError)
+  assert.equal(pointOnIgnoredCrossing.captureId, capture.id)
+  assert.match(pointOnIgnoredCrossing.message, /Clear its source-image point/)
+})
+
+test("normalizes and deduplicates cross-source session identifiers", () => {
+  assert.deepEqual(
+    detectionReviewSessionIdentifiers([
+      "E7DE3B1C-E79F-4D25-AB0C-F8FD9DC685F9",
+      " e7de3b1c-e79f-4d25-ab0c-f8fd9dc685f9 ",
+      null,
+      "",
+      "cloud-session",
+    ]),
+    ["e7de3b1c-e79f-4d25-ab0c-f8fd9dc685f9", "cloud-session"],
+  )
+})
+
+test("groups each phone session and orders its runs from first to last", () => {
+  const captures = [
+    { id: "older-run-3", sessionId: "older", deviceId: "phone-a", runNumber: 3, target: "crossing", createdAt: "2026-08-08T10:03:00Z" },
+    { id: "newer-finish", sessionId: "newer", deviceId: "phone-b", runNumber: 2, target: "finish", createdAt: "2026-08-08T11:02:01Z" },
+    { id: "newer-start", sessionId: "newer", deviceId: "phone-b", runNumber: 2, target: "start", createdAt: "2026-08-08T11:02:00Z" },
+    { id: "older-run-1", sessionId: "older", deviceId: "phone-a", runNumber: 1, target: "crossing", createdAt: "2026-08-08T10:01:00Z" },
+    { id: "newer-run-1", sessionId: "newer", deviceId: "phone-b", runNumber: 1, target: "crossing", createdAt: "2026-08-08T11:01:00Z" },
+  ]
+
+  assert.deepEqual(
+    orderDetectionReviewCaptures(captures).map((capture) => capture.id),
+    ["newer-run-1", "newer-start", "newer-finish", "older-run-1", "older-run-3"],
+  )
+  assert.notEqual(
+    detectionReviewBatchKey({ id: "one", sessionId: "shared", deviceId: "phone-a" }),
+    detectionReviewBatchKey({ id: "two", sessionId: "shared", deviceId: "phone-b" }),
+  )
+  assert.notEqual(
+    detectionReviewIdentityKey("shared", 1, "crossing", "phone-a"),
+    detectionReviewIdentityKey("shared", 1, "crossing", "phone-b"),
   )
 })
 
@@ -158,14 +252,145 @@ test("requires points except for explicit no-coordinate classifications", () => 
   assert.equal(isPointFreeDetectionReviewIssue("blur"), false)
 })
 
-test("keeps legacy false-positive marks under the new ignore label", () => {
+test("allows earlier and later timing evidence with or without an image point", () => {
+  assert.equal(isPointForbiddenDetectionReviewIssue("ignore_crossing"), true)
+  assert.equal(isPointForbiddenDetectionReviewIssue("phone_shake"), true)
+  assert.equal(isPointForbiddenDetectionReviewIssue("false_positive"), true)
+  assert.equal(isPointForbiddenDetectionReviewIssue("real_crossing"), true)
+  assert.equal(isPointForbiddenDetectionReviewIssue("outsideFrameBefore"), false)
+  assert.equal(isPointForbiddenDetectionReviewIssue("outsideFrameAfter"), false)
+  assert.equal(detectionReviewCrossingTiming("outsideFrameBefore"), "earlier")
+  assert.equal(detectionReviewCrossingTiming("late"), "earlier")
+  assert.equal(detectionReviewCrossingTiming("outsideFrameAfter"), "later")
+  assert.equal(detectionReviewCrossingTiming("early"), "later")
+  assert.equal(detectionReviewIssueForCrossingTiming("earlier", false), "outsideFrameBefore")
+  assert.equal(detectionReviewIssueForCrossingTiming("earlier", true), "late")
+  assert.equal(detectionReviewIssueForCrossingTiming("later", false), "outsideFrameAfter")
+  assert.equal(detectionReviewIssueForCrossingTiming("later", true), "early")
+})
+
+test("keeps point-free false-trigger classifications semantically distinct", () => {
   assert.equal(isIgnoredCrossingIssue("ignore_crossing"), true)
-  assert.equal(isIgnoredCrossingIssue("false_positive"), true)
+  assert.equal(isIgnoredCrossingIssue("false_positive"), false)
   assert.equal(isIgnoredCrossingIssue("phone_shake"), false)
   assert.equal(falseTriggerReviewLabel("ignore_crossing"), "Ignore crossing")
-  assert.equal(falseTriggerReviewLabel("false_positive"), "Ignore crossing")
+  assert.equal(falseTriggerReviewLabel("false_positive"), "Scene motion")
   assert.equal(falseTriggerReviewLabel("phone_shake"), "Phone shake")
   assert.equal(falseTriggerReviewLabel("good"), null)
+})
+
+test("corrects a fallback direction when post-frame motion proves the opposite", () => {
+  assert.deepEqual(
+    resolveDetectionReviewDisplayDirection({
+      storedDirection: "L->R",
+      isFrontCamera: false,
+      temporalEvidence: {
+        frames: [
+          {
+            status: "accepted",
+            relativeFrame: 0,
+            direction: "L>R",
+            directionSource: "center_vs_gate_fallback",
+          },
+          {
+            status: "post_candidate",
+            relativeFrame: 1,
+            direction: "R>L",
+            directionSource: "motion_center_history",
+          },
+        ],
+      },
+    }),
+    { direction: "R->L", evidence: "post_corrected" },
+  )
+})
+
+test("corrects a stored-only direction when post-frame motion proves the opposite", () => {
+  assert.deepEqual(
+    resolveDetectionReviewDisplayDirection({
+      storedDirection: "R->L",
+      isFrontCamera: false,
+      temporalEvidence: {
+        frames: [{
+          status: "post_candidate",
+          relativeFrame: 1,
+          direction: "L>R",
+          directionSource: "motion_center_history",
+        }],
+      },
+    }),
+    { direction: "L->R", evidence: "post_corrected" },
+  )
+})
+
+test("prefers accepted frame motion over stale stored direction", () => {
+  assert.deepEqual(
+    resolveDetectionReviewDisplayDirection({
+      storedDirection: "R->L",
+      isFrontCamera: false,
+      temporalEvidence: {
+        frames: [{
+          status: "accepted",
+          relativeFrame: 0,
+          direction: "L>R",
+          directionSource: "motion_center_history",
+        }],
+      },
+    }),
+    { direction: "L->R", evidence: "motion" },
+  )
+})
+
+test("does not present stored or fallback direction guesses as fact", () => {
+  assert.equal(detectionReviewDirectionLabel("L->R", "stored"), "direction unverified")
+  assert.equal(detectionReviewDirectionLabel("R->L", "fallback"), "direction unverified")
+  assert.equal(detectionReviewDirectionLabel(null, "conflict"), "direction conflict")
+  assert.equal(detectionReviewDirectionLabel("L->R", "motion"), "L→R · frame-verified")
+  assert.equal(detectionReviewDirectionLabel("R->L", "post_corrected"), "R→L · frame-corrected")
+})
+
+test("mirrors detector-space direction for a front-camera review image", () => {
+  assert.deepEqual(
+    resolveDetectionReviewDisplayDirection({
+      storedDirection: "L->R",
+      isFrontCamera: true,
+      temporalEvidence: {
+        frames: [{
+          status: "accepted",
+          relativeFrame: 0,
+          direction: "L>R",
+          directionSource: "motion_center_history",
+        }],
+      },
+    }),
+    { direction: "R->L", evidence: "motion" },
+  )
+})
+
+test("shows a conflict instead of guessing when motion evidence reverses", () => {
+  assert.deepEqual(
+    resolveDetectionReviewDisplayDirection({
+      storedDirection: "R->L",
+      isFrontCamera: false,
+      temporalEvidence: {
+        frames: [
+          {
+            status: "accepted",
+            relativeFrame: 0,
+            direction: "R>L",
+            directionSource: "motion_center_history",
+          },
+          {
+            status: "post_candidate",
+            relativeFrame: 1,
+            direction: "L>R",
+            directionSource: "motion_center_history",
+          },
+        ],
+      },
+    }),
+    { direction: null, evidence: "conflict" },
+  )
 })
 
 test("matches the iOS front-camera display line for current captured rows", () => {
