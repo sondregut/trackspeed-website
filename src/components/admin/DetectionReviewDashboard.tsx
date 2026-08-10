@@ -2022,7 +2022,7 @@ export default function DetectionReviewDashboard({
                     >
                       <span className="block text-xs font-semibold">Scene motion</span>
                       <span className="mt-0.5 block text-[9px] font-medium leading-3 opacity-70">
-                        No runner · wind · trees · glare · shadows
+                        No runner · wind · trees · glare
                       </span>
                     </button>
                     <fieldset
@@ -2063,7 +2063,7 @@ export default function DetectionReviewDashboard({
                         })}
                       </div>
                       <p className={`mt-2 text-[10px] leading-4 ${issue === "false_positive" ? "text-[#9D7776]" : "text-[#77838B]"}`}>
-                        Choose a cause to select Scene motion automatically. Add every cause that applies.
+                        Choose all that apply. Use Ignore crossing for shadows.
                       </p>
                     </fieldset>
                     <button
@@ -2078,7 +2078,7 @@ export default function DetectionReviewDashboard({
                     >
                       <span className="block text-xs font-semibold">Ignore crossing</span>
                       <span className="mt-0.5 block text-[9px] font-medium leading-3 opacity-70">
-                        Hand swipe · picked up · set down
+                        Shadow · hand swipe · picked up · set down
                       </span>
                     </button>
                     <button

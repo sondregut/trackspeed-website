@@ -1159,7 +1159,7 @@ export function DetectionReviewGrid({
                   >
                     <span className="block text-[10px] font-semibold">Scene motion</span>
                     <span className="mt-0.5 block text-[8px] font-medium leading-3 opacity-70">
-                      No runner · wind · trees · glare · shadows
+                      No runner · wind · trees · glare
                     </span>
                   </button>
                   <fieldset
@@ -1200,7 +1200,7 @@ export function DetectionReviewGrid({
                       })}
                     </div>
                     <p className={`mt-2 text-[8px] leading-3 ${isSceneMotion ? "text-[#9D7776]" : "text-[#77838B]"}`}>
-                      Choose a cause to select Scene motion automatically. Add every cause that applies.
+                      Choose all that apply. Use Ignore crossing for shadows.
                     </p>
                   </fieldset>
                   <button
@@ -1216,7 +1216,7 @@ export function DetectionReviewGrid({
                   >
                     <span className="block text-[10px] font-semibold">Ignore crossing</span>
                     <span className="mt-0.5 block text-[8px] font-medium leading-3 opacity-70">
-                      Hand · pick up · set down
+                      Shadow · hand · pick up · set down
                     </span>
                   </button>
                   <button

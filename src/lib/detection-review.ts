@@ -37,16 +37,22 @@ export const DETECTION_REVIEW_ISSUES = [
 
 export type DetectionReviewIssue = (typeof DETECTION_REVIEW_ISSUES)[number]
 
-export const SCENE_MOTION_CAUSE_OPTIONS = [
-  { value: "wind_trees", label: "Wind / trees" },
-  { value: "shadow", label: "Shadow" },
-  { value: "light_glare", label: "Light / glare" },
-  { value: "other_scene", label: "Other scene" },
+const SCENE_MOTION_CAUSE_VALUES = [
+  "wind_trees",
+  "shadow",
+  "light_glare",
+  "other_scene",
 ] as const
 
-export type SceneMotionCause = (typeof SCENE_MOTION_CAUSE_OPTIONS)[number]["value"]
+export type SceneMotionCause = (typeof SCENE_MOTION_CAUSE_VALUES)[number]
 
-const sceneMotionCauseValues = SCENE_MOTION_CAUSE_OPTIONS.map((option) => option.value)
+export const SCENE_MOTION_CAUSE_OPTIONS = [
+  { value: "wind_trees", label: "Wind / trees" },
+  { value: "light_glare", label: "Light / glare" },
+  { value: "other_scene", label: "Other scene" },
+] as const satisfies readonly { value: SceneMotionCause; label: string }[]
+
+const sceneMotionCauseValues: readonly SceneMotionCause[] = SCENE_MOTION_CAUSE_VALUES
 
 export function isSceneMotionCause(value: unknown): value is SceneMotionCause {
   return (

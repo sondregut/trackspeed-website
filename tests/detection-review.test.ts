@@ -28,9 +28,11 @@ import {
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
+  SCENE_MOTION_CAUSE_OPTIONS,
   sceneMotionCausesEqual,
   sceneMotionCausesFromRawMessage,
   serializeSceneMotionCauses,
+  isSceneMotionCause,
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
@@ -370,6 +372,11 @@ test("round-trips ordered multi-select scene motion causes through raw evidence"
   assert.deepEqual(sceneMotionCausesFromRawMessage("sceneMotionCauses=none"), [])
   assert.equal(sceneMotionCausesEqual(["light_glare", "shadow"], causes), true)
   assert.equal(sceneMotionCausesEqual(["shadow"], causes), false)
+})
+
+test("keeps legacy shadow evidence readable without offering it as a new scene-motion tag", () => {
+  assert.equal(isSceneMotionCause("shadow"), true)
+  assert.equal(SCENE_MOTION_CAUSE_OPTIONS.some((option) => option.value === "shadow"), false)
 })
 
 test("corrects a fallback direction when post-frame motion proves the opposite", () => {
