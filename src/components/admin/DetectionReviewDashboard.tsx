@@ -780,6 +780,16 @@ export default function DetectionReviewDashboard({
     }),
     [captures],
   )
+  const displayCounts = useMemo(
+    () => hasReviewSetRequest
+      ? {
+          total: filteredCaptures.length,
+          reviewed: filteredCaptures.filter((capture) => capture.review).length,
+          pending: filteredCaptures.filter((capture) => !capture.review).length,
+        }
+      : counts,
+    [counts, filteredCaptures, hasReviewSetRequest],
+  )
 
   const sessionEvidenceHealth = useMemo(() => {
     const reviewableCaptureCount = new Map<string, number>()
@@ -1282,15 +1292,15 @@ export default function DetectionReviewDashboard({
 
           <div className="grid grid-cols-3 overflow-hidden rounded-xl border border-[#38505F] bg-[#131B21] font-mono lg:min-w-[360px]">
             <div className="px-4">
-              <div className="pt-3 text-xl font-semibold text-[#E4C985]">{counts.pending}</div>
+              <div className="pt-3 text-xl font-semibold text-[#E4C985]">{displayCounts.pending}</div>
               <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#8F8772]">Pending</div>
             </div>
             <div className="border-x border-[#38505F] bg-[#17231D] px-4">
-              <div className="pt-3 text-xl font-semibold text-[#A8D8B9]">{counts.reviewed}</div>
+              <div className="pt-3 text-xl font-semibold text-[#A8D8B9]">{displayCounts.reviewed}</div>
               <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#718D7A]">Reviewed</div>
             </div>
             <div className="px-4">
-              <div className="pt-3 text-xl font-semibold text-[#B7D0E5]">{counts.total}</div>
+              <div className="pt-3 text-xl font-semibold text-[#B7D0E5]">{displayCounts.total}</div>
               <div className="pb-3 text-[10px] uppercase tracking-[0.14em] text-[#758A9C]">Loaded</div>
             </div>
           </div>
@@ -1342,7 +1352,9 @@ export default function DetectionReviewDashboard({
             </div>
 
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px]">
-              <span className="text-[#E4C985]">{filteredCaptures.length} captures shown</span>
+              <span className="text-[#E4C985]">
+                {filteredCaptures.length} {filteredCaptures.length === 1 ? "capture" : "captures"} shown
+              </span>
               <span className="text-[#B7BAC0]">{matchedReviewSelectorKeys.size}/{reviewSet.selectors.length} requests found</span>
               {unmatchedReviewSelectors.length > 0 && (
                 <span className="text-[#F2B1AE]">
@@ -1408,7 +1420,7 @@ export default function DetectionReviewDashboard({
             {success}
           </div>
         )}
-        {logOnlySessions.length > 0 && (
+        {!hasReviewSetRequest && logOnlySessions.length > 0 && (
           <section
             aria-labelledby="log-only-sessions-heading"
             className="border-l-2 border-[#F06C68] bg-[#2B2223] px-4 py-4"
@@ -1449,7 +1461,7 @@ export default function DetectionReviewDashboard({
             </div>
           </section>
         )}
-        {sessionEvidenceHealth.length > 0 && (
+        {!hasReviewSetRequest && sessionEvidenceHealth.length > 0 && (
           <section
             aria-labelledby="evidence-upload-health-heading"
             className={`border-l-2 px-4 py-4 ${
