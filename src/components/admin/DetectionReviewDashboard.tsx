@@ -2025,34 +2025,47 @@ export default function DetectionReviewDashboard({
                         No runner · wind · trees · glare · shadows
                       </span>
                     </button>
-                    {issue === "false_positive" && (
-                      <fieldset className="col-span-2 rounded-xl border border-[#5F4547] bg-[#211A1C] p-3">
-                        <legend className="px-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C9908D]">
-                          Causes · choose all that apply
-                        </legend>
-                        <div className="grid grid-cols-2 gap-2">
-                          {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
-                            const selectedCause = sceneMotionCauses.includes(option.value)
-                            return (
-                              <button
-                                key={option.value}
-                                type="button"
-                                aria-pressed={selectedCause}
-                                onClick={() => toggleSceneMotionCause(option.value)}
-                                disabled={!selected.editable}
-                                className={`min-h-11 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition active:translate-y-px disabled:cursor-default disabled:opacity-70 ${
-                                  selectedCause
-                                    ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
-                                    : "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
-                                }`}
-                              >
-                                {option.label}
-                              </button>
-                            )
-                          })}
-                        </div>
-                      </fieldset>
-                    )}
+                    <fieldset
+                      className={`col-span-2 rounded-xl border p-3 transition-colors ${
+                        issue === "false_positive"
+                          ? "border-[#5F4547] bg-[#211A1C]"
+                          : "border-[#39444C] bg-[#171E23]"
+                      }`}
+                    >
+                      <legend
+                        className={`px-1 text-[10px] font-semibold uppercase tracking-[0.1em] ${
+                          issue === "false_positive" ? "text-[#C9908D]" : "text-[#8F9AA2]"
+                        }`}
+                      >
+                        Scene causes · choose all that apply
+                      </legend>
+                      <div className="grid grid-cols-2 gap-2">
+                        {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
+                          const selectedCause = sceneMotionCauses.includes(option.value)
+                          return (
+                            <button
+                              key={option.value}
+                              type="button"
+                              aria-pressed={selectedCause}
+                              onClick={() => toggleSceneMotionCause(option.value)}
+                              disabled={!selected.editable}
+                              className={`min-h-11 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition active:translate-y-px disabled:cursor-default disabled:opacity-70 ${
+                                selectedCause
+                                  ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
+                                  : issue === "false_positive"
+                                    ? "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                                    : "border-[#46515A] bg-[#1B242B] text-[#AEB8C0] hover:border-[#9A5755] hover:text-white"
+                              }`}
+                            >
+                              {option.label}
+                            </button>
+                          )
+                        })}
+                      </div>
+                      <p className={`mt-2 text-[10px] leading-4 ${issue === "false_positive" ? "text-[#9D7776]" : "text-[#77838B]"}`}>
+                        Choose a cause to select Scene motion automatically. Add every cause that applies.
+                      </p>
+                    </fieldset>
                     <button
                       type="button"
                       aria-pressed={isIgnoredCrossingIssue(issue)}

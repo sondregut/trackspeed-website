@@ -1162,34 +1162,47 @@ export function DetectionReviewGrid({
                       No runner · wind · trees · glare · shadows
                     </span>
                   </button>
-                  {isSceneMotion && (
-                    <fieldset className="col-span-2 rounded-lg border border-[#5F4547] bg-[#211A1C] p-2.5">
-                      <legend className="px-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#C9908D]">
-                        Causes · choose all
-                      </legend>
-                      <div className="grid grid-cols-2 gap-1.5">
-                        {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
-                          const selectedCause = activeSceneMotionCauses.includes(option.value)
-                          return (
-                            <button
-                              key={option.value}
-                              type="button"
-                              aria-pressed={selectedCause}
-                              onClick={() => toggleSceneMotionCause(capture, option.value)}
-                              disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
-                              className={`min-h-10 rounded-md border px-2 py-1.5 text-left text-[9px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
-                                selectedCause
-                                  ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
-                                  : "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
-                              }`}
-                            >
-                              {option.label}
-                            </button>
-                          )
-                        })}
-                      </div>
-                    </fieldset>
-                  )}
+                  <fieldset
+                    className={`col-span-2 rounded-lg border p-2.5 transition-colors ${
+                      isSceneMotion
+                        ? "border-[#5F4547] bg-[#211A1C]"
+                        : "border-[#39444C] bg-[#171E23]"
+                    }`}
+                  >
+                    <legend
+                      className={`px-1 text-[9px] font-semibold uppercase tracking-[0.1em] ${
+                        isSceneMotion ? "text-[#C9908D]" : "text-[#8F9AA2]"
+                      }`}
+                    >
+                      Scene causes · choose all
+                    </legend>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {SCENE_MOTION_CAUSE_OPTIONS.map((option) => {
+                        const selectedCause = activeSceneMotionCauses.includes(option.value)
+                        return (
+                          <button
+                            key={option.value}
+                            type="button"
+                            aria-pressed={selectedCause}
+                            onClick={() => toggleSceneMotionCause(capture, option.value)}
+                            disabled={!capture.editable || Boolean(upload && upload.status !== "failed")}
+                            className={`min-h-10 rounded-md border px-2 py-1.5 text-left text-[9px] font-semibold transition active:translate-y-px disabled:cursor-wait disabled:opacity-50 ${
+                              selectedCause
+                                ? "border-[#D6B36A] bg-[#4A4028] text-[#FFF1C8]"
+                                : isSceneMotion
+                                  ? "border-[#5F4547] bg-[#2A2022] text-[#C9908D] hover:border-[#9A5755] hover:text-white"
+                                  : "border-[#46515A] bg-[#1B242B] text-[#AEB8C0] hover:border-[#9A5755] hover:text-white"
+                            }`}
+                          >
+                            {option.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                    <p className={`mt-2 text-[8px] leading-3 ${isSceneMotion ? "text-[#9D7776]" : "text-[#77838B]"}`}>
+                      Choose a cause to select Scene motion automatically. Add every cause that applies.
+                    </p>
+                  </fieldset>
                   <button
                     type="button"
                     aria-pressed={isIgnoredCrossing}
