@@ -281,6 +281,126 @@ export interface DetectionReviewCaptureReference {
   target: string
 }
 
+export type DetectionReviewSetSelector =
+  | {
+      kind: "capture"
+      key: string
+      captureId: string
+      label: string
+    }
+  | {
+      kind: "run"
+      key: string
+      sessionPrefix: string
+      runNumber: number
+      target: string | null
+      devicePrefix: string | null
+      label: string
+    }
+
+export interface DetectionReviewSet {
+  raw: string
+  selectors: DetectionReviewSetSelector[]
+  rejected: string[]
+}
+
+export interface DetectionReviewSetCapture {
+  id: string
+  sessionId: string | null
+  deviceId: string
+  runNumber: number
+  target: string
+}
+
+/**
+ * Parse a durable, URL-safe list of captures to review. Full capture UUIDs are
+ * exact. Human-readable run references use
+ * `session-prefix:run[:target][@device-prefix]`, for example
+ * `6be6016f:44:crossing`.
+ */
+export function parseDetectionReviewSet(value: unknown): DetectionReviewSet {
+  const raw = typeof value === "string" ? value.trim() : ""
+  const selectors: DetectionReviewSetSelector[] = []
+  const rejected: string[] = []
+  const seen = new Set<string>()
+
+  for (const candidate of raw.split(/[\n,;|]+/)) {
+    const token = candidate.trim()
+    if (!token) continue
+
+    const captureId = token.replace(/^capture:/i, "").trim().toLowerCase()
+    if (isUuid(captureId)) {
+      const key = `capture:${captureId}`
+      if (!seen.has(key)) {
+        seen.add(key)
+        selectors.push({
+          kind: "capture",
+          key,
+          captureId,
+          label: `Capture ${captureId.slice(0, 8)}`,
+        })
+      }
+      continue
+    }
+
+    const runMatch = token.match(
+      /^(?:session:)?([a-z0-9-]{4,}):(?:run)?(\d+)(?::(start|crossing|lap|finish))?(?:@([a-z0-9._-]{2,}))?$/i,
+    )
+    if (!runMatch) {
+      rejected.push(token)
+      continue
+    }
+
+    const sessionPrefix = runMatch[1].toLowerCase()
+    const runNumber = Number(runMatch[2])
+    if (!Number.isSafeInteger(runNumber) || runNumber < 0) {
+      rejected.push(token)
+      continue
+    }
+    const target = runMatch[3] ? normalizeReviewTarget(runMatch[3]) : null
+    const devicePrefix = runMatch[4]?.toLowerCase() || null
+    const key = `run:${sessionPrefix}:${runNumber}:${target || "*"}:${devicePrefix || "*"}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    selectors.push({
+      kind: "run",
+      key,
+      sessionPrefix,
+      runNumber,
+      target,
+      devicePrefix,
+      label: `Session ${sessionPrefix.slice(0, 8)} · Run ${runNumber}${target ? ` · ${target}` : ""}${devicePrefix ? ` · device ${devicePrefix}` : ""}`,
+    })
+  }
+
+  return { raw, selectors, rejected }
+}
+
+export function detectionReviewSetSelectorMatches(
+  selector: DetectionReviewSetSelector,
+  capture: DetectionReviewSetCapture,
+): boolean {
+  if (selector.kind === "capture") {
+    return capture.id.toLowerCase() === selector.captureId
+  }
+
+  return Boolean(
+    capture.sessionId?.toLowerCase().startsWith(selector.sessionPrefix)
+    && capture.runNumber === selector.runNumber
+    && (!selector.target || normalizeReviewTarget(capture.target) === selector.target)
+    && (!selector.devicePrefix || capture.deviceId.toLowerCase().startsWith(selector.devicePrefix)),
+  )
+}
+
+export function detectionReviewSetMatches(
+  reviewSet: DetectionReviewSet,
+  capture: DetectionReviewSetCapture,
+): boolean {
+  return reviewSet.selectors.some((selector) =>
+    detectionReviewSetSelectorMatches(selector, capture),
+  )
+}
+
 export class DetectionReviewBlockingError extends Error {
   readonly captureId: string
 

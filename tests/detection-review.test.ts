@@ -21,6 +21,9 @@ import {
   makeReviewPixelAudit,
   measureContainedImagePoint,
   orderDetectionReviewCaptures,
+  parseDetectionReviewSet,
+  detectionReviewSetMatches,
+  detectionReviewSetSelectorMatches,
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
@@ -91,6 +94,71 @@ test("identifies the exact crossing that blocks a review batch", () => {
   assert.ok(pointOnIgnoredCrossing instanceof DetectionReviewBlockingError)
   assert.equal(pointOnIgnoredCrossing.captureId, capture.id)
   assert.match(pointOnIgnoredCrossing.message, /Clear its source-image point/)
+})
+
+test("parses durable focused-review links without requiring a deployment", () => {
+  const captureId = "aeb3e7af-1234-5678-9abc-def012345678"
+  const reviewSet = parseDetectionReviewSet(
+    `${captureId}, 6be6016f:44:crossing | 2aca5926:run9@phone-a; bad token`,
+  )
+
+  assert.deepEqual(
+    reviewSet.selectors.map((selector) => selector.key),
+    [
+      `capture:${captureId}`,
+      "run:6be6016f:44:crossing:*",
+      "run:2aca5926:9:*:phone-a",
+    ],
+  )
+  assert.deepEqual(reviewSet.rejected, ["bad token"])
+  assert.equal(
+    detectionReviewSetMatches(reviewSet, {
+      id: captureId,
+      sessionId: "unrelated-session",
+      deviceId: "phone-z",
+      runNumber: 1,
+      target: "finish",
+    }),
+    true,
+  )
+  assert.equal(
+    detectionReviewSetMatches(reviewSet, {
+      id: "bbbbbbbb-1234-5678-9abc-def012345678",
+      sessionId: "6be6016f-9a22-4f96-852e-91e321ab4535",
+      deviceId: "phone-z",
+      runNumber: 44,
+      target: "crossing",
+    }),
+    true,
+  )
+  assert.equal(
+    detectionReviewSetMatches(reviewSet, {
+      id: "cccccccc-1234-5678-9abc-def012345678",
+      sessionId: "2aca5926-0000-4000-8000-000000000000",
+      deviceId: "phone-b",
+      runNumber: 9,
+      target: "crossing",
+    }),
+    false,
+  )
+})
+
+test("deduplicates focused-review selectors and exposes each unmatched selector", () => {
+  const reviewSet = parseDetectionReviewSet(
+    "SESSION:6be6016f:run44:finish, 6be6016f:44:finish, invalid",
+  )
+  assert.equal(reviewSet.selectors.length, 1)
+  assert.deepEqual(reviewSet.rejected, ["invalid"])
+  assert.equal(
+    detectionReviewSetSelectorMatches(reviewSet.selectors[0], {
+      id: "aeb3e7af-1234-5678-9abc-def012345678",
+      sessionId: "6be6016f-9a22-4f96-852e-91e321ab4535",
+      deviceId: "phone-a",
+      runNumber: 44,
+      target: "crossing",
+    }),
+    false,
+  )
 })
 
 test("normalizes and deduplicates cross-source session identifiers", () => {

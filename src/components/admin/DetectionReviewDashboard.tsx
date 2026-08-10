@@ -10,6 +10,8 @@ import {
   detectionReviewImageRequestUrl,
   detectionReviewIdentityKey,
   detectionReviewIssueForCrossingTiming,
+  detectionReviewSetMatches,
+  detectionReviewSetSelectorMatches,
   detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
   isIgnoredCrossingIssue,
@@ -18,6 +20,7 @@ import {
   makeReviewPixelAudit,
   measureContainedImagePoint,
   orderDetectionReviewCaptures,
+  parseDetectionReviewSet,
   type DetectionReviewDirectionEvidence,
   type DetectionReviewIssue,
 } from "@/lib/detection-review"
@@ -268,14 +271,24 @@ function temporalFrameLabel(frame: TemporalFrame | null) {
 
 const FOCUS_IMAGE_RETRY_DELAYS_MS = [400, 1_200, 2_500] as const
 
-export default function DetectionReviewDashboard() {
+interface DetectionReviewDashboardProps {
+  initialReviewSetQuery?: string
+}
+
+export default function DetectionReviewDashboard({
+  initialReviewSetQuery = "",
+}: DetectionReviewDashboardProps) {
+  const initialReviewSet = parseDetectionReviewSet(initialReviewSetQuery)
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
   const [deviceLogSessions, setDeviceLogSessions] = useState<DeviceLogSession[]>([])
   const [dataset, setDataset] = useState<QueueResponse["dataset"] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">("pending")
-  const [days, setDays] = useState(7)
+  const [reviewSetQuery, setReviewSetQuery] = useState(initialReviewSet.raw)
+  const [statusFilter, setStatusFilter] = useState<"pending" | "reviewed" | "all">(
+    initialReviewSet.raw ? "all" : "pending",
+  )
+  const [days, setDays] = useState(initialReviewSet.raw ? 365 : 7)
   const [search, setSearch] = useState("")
   const [viewMode, setViewMode] = useState<"grid" | "focus">("grid")
   const [gridDraftCount, setGridDraftCount] = useState(0)
@@ -431,9 +444,23 @@ export default function DetectionReviewDashboard() {
     void loadQueue()
   }, [loadQueue])
 
+  const reviewSet = useMemo(() => parseDetectionReviewSet(reviewSetQuery), [reviewSetQuery])
+  const hasReviewSetRequest = reviewSet.raw.length > 0
+  const matchedReviewSelectorKeys = useMemo(() => new Set(
+    reviewSet.selectors
+      .filter((selector) => captures.some((capture) =>
+        detectionReviewSetSelectorMatches(selector, capture),
+      ))
+      .map((selector) => selector.key),
+  ), [captures, reviewSet.selectors])
+  const unmatchedReviewSelectors = reviewSet.selectors.filter(
+    (selector) => !matchedReviewSelectorKeys.has(selector.key),
+  )
+
   const filteredCaptures = useMemo(() => {
     const query = search.trim().toLowerCase()
     return captures.filter((capture) => {
+      if (hasReviewSetRequest && !detectionReviewSetMatches(reviewSet, capture)) return false
       if (statusFilter === "pending" && capture.review) return false
       if (statusFilter === "reviewed" && !capture.review) return false
       if (!query) return true
@@ -446,7 +473,7 @@ export default function DetectionReviewDashboard() {
         String(capture.runNumber),
       ].some((value) => value?.toLowerCase().includes(query))
     })
-  }, [captures, search, statusFilter])
+  }, [captures, hasReviewSetRequest, reviewSet, search, statusFilter])
 
   const selected = useMemo(
     () => captures.find((capture) => capture.id === selectedId) || null,
@@ -1163,7 +1190,26 @@ export default function DetectionReviewDashboard() {
     ? filteredCaptures.findIndex((capture) => capture.id === selected.id)
     : -1
   const hasUnsavedReviewChanges = reviewStateChanged(selected, point, issue, note, selectedFrame)
-  const gridFilterKey = `${days}:${statusFilter}:${search.trim().toLowerCase()}`
+  const gridFilterKey = `${days}:${statusFilter}:${search.trim().toLowerCase()}:${reviewSet.raw}`
+
+  function clearReviewSet() {
+    if (gridDraftCount > 0) {
+      setError("Queue or clear the current grid marks before leaving this focused review set.")
+      return
+    }
+    if (viewMode === "focus" && hasUnsavedReviewChanges) {
+      setError("Save or clear the current detail changes before leaving this focused review set.")
+      return
+    }
+
+    setReviewSetQuery("")
+    setStatusFilter("pending")
+    setDays(7)
+    setError("")
+    const url = new URL(window.location.href)
+    url.searchParams.delete("review")
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`)
+  }
 
   function navigateFocus(offset: -1 | 1) {
     if (hasUnsavedReviewChanges) {
@@ -1264,6 +1310,54 @@ export default function DetectionReviewDashboard() {
           </section>
         )}
 
+        {hasReviewSetRequest && (
+          <section
+            aria-labelledby="focused-review-set-heading"
+            className={`border-l-2 px-4 py-4 ${
+              reviewSet.selectors.length > 0
+                ? "border-[#D6B36A] bg-[#2A2821]"
+                : "border-[#F06C68] bg-[#2B2223]"
+            }`}
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B8A46F]">
+                  Link-controlled queue
+                </p>
+                <h2 id="focused-review-set-heading" className="mt-1 text-base font-semibold text-white">
+                  Focused review set
+                </h2>
+                <p className="mt-1 max-w-3xl text-xs leading-5 text-[#C4BDAA]">
+                  This link shows only the requested captures, including already-reviewed runs. Marks still save normally; the full queue remains unchanged.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={clearReviewSet}
+                disabled={gridDraftCount > 0}
+                className="rounded-lg border border-[#746A4E] px-3 py-2 text-xs font-semibold text-[#E4C985] transition hover:border-[#A19061] hover:text-white active:translate-y-px disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                Show full queue
+              </button>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px]">
+              <span className="text-[#E4C985]">{filteredCaptures.length} captures shown</span>
+              <span className="text-[#B7BAC0]">{matchedReviewSelectorKeys.size}/{reviewSet.selectors.length} requests found</span>
+              {unmatchedReviewSelectors.length > 0 && (
+                <span className="text-[#F2B1AE]">
+                  Not found: {unmatchedReviewSelectors.map((selector) => selector.label).join(", ")}
+                </span>
+              )}
+              {reviewSet.rejected.length > 0 && (
+                <span className="text-[#F2B1AE]">
+                  Could not read: {reviewSet.rejected.join(", ")}
+                </span>
+              )}
+            </div>
+          </section>
+        )}
+
         <section className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
           <label className="grid gap-2">
             <span className="text-xs font-medium text-[#9B9A97]">Find a session, run, device, or build</span>
@@ -1280,7 +1374,7 @@ export default function DetectionReviewDashboard() {
             <select
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}
-              disabled={gridDraftCount > 0}
+              disabled={gridDraftCount > 0 || hasReviewSetRequest}
               className="h-11 min-w-36 rounded-xl border border-[#3B4D59] bg-[#1C252C] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="pending">Pending</option>
@@ -1293,7 +1387,7 @@ export default function DetectionReviewDashboard() {
             <select
               value={days}
               onChange={(event) => setDays(Number(event.target.value))}
-              disabled={gridDraftCount > 0}
+              disabled={gridDraftCount > 0 || hasReviewSetRequest}
               className="h-11 min-w-32 rounded-xl border border-[#3B4D59] bg-[#1C252C] px-3 text-sm text-white outline-none transition focus:border-[#5C8DB8] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value={7}>7 days</option>
@@ -1448,12 +1542,18 @@ export default function DetectionReviewDashboard() {
         ) : filteredCaptures.length === 0 ? (
           <div className="border-y border-[#34373B] py-20 text-center">
             <h2 className="font-[var(--font-bricolage)] text-2xl font-semibold text-white">
-              {captures.length ? "No captures match this view" : "No new test captures yet"}
+              {hasReviewSetRequest
+                ? "No requested captures found"
+                : captures.length
+                  ? "No captures match this view"
+                  : "No new test captures yet"}
             </h2>
             <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[#9B9A97]">
-              {captures.length
-                ? "Change the status, search, or recent window."
-                : "The previous test dataset is archived from this dashboard. New captures will appear here after the next post-fix phone test uploads."}
+              {hasReviewSetRequest
+                ? "Check the focused-review reference above. Exact capture IDs or session-prefix:run:target references are supported."
+                : captures.length
+                  ? "Change the status, search, or recent window."
+                  : "The previous test dataset is archived from this dashboard. New captures will appear here after the next post-fix phone test uploads."}
             </p>
           </div>
         ) : viewMode === "grid" ? (
