@@ -83,7 +83,8 @@ async function capturePageview() {
 export default function CookieConsent() {
   const pathname = usePathname();
   const [consentStatus, setConsentStatus] = useState<ConsentStatus>(null);
-  const visible = consentStatus === null;
+  const isInstallHandoff = /(?:^|\/)get\/?$/.test(pathname);
+  const visible = consentStatus === null && !isInstallHandoff;
 
   useEffect(() => {
     const syncConsent = () => {

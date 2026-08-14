@@ -4,6 +4,7 @@ import {Link} from "@/i18n/navigation";
 import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -44,7 +45,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
       logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-05",
-    dateModified: "2026-02-05",
+    dateModified: "2026-08-09",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup",
   };
@@ -351,9 +352,8 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 Place one phone at the start line and the other at the finish
                 line. Each phone should be perpendicular to the lane the athlete
                 will run through, with the camera pointing across the lane at
-                approximately chest height. This ensures the detection system
-                tracks the athlete&apos;s torso rather than an arm or leg, which
-                matches how official timing works. If you are using tripods,
+                the height recommended by the app so the configured crossing
+                line and the athlete&apos;s path are clearly visible. If you are using tripods,
                 extend them so the camera lens is roughly 1.0 to 1.3 meters off
                 the ground. Position the phone about 1 to 2 meters back from
                 the lane edge so the full lane width is visible in the frame.
@@ -378,22 +378,21 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Step C: Wait for clock synchronization
+                Step C: Wait for session coordination
               </h3>
               <p className="text-body mb-6">
-                Once connected, the devices begin an{" "}
+                Once connected, the devices begin a{" "}
                 <Link
                   href="/technology"
                   className="text-[#5C8DB8] hover:underline"
                 >
-                  NTP-style clock synchronization
+                  multi-phone timing check
                 </Link>{" "}
-                process. They exchange a series of timestamped messages to
-                measure and correct for the clock offset between them. A sync
-                indicator on each phone shows the current status. Wait until
-                both devices show a successful sync before proceeding. This
-                typically takes a few seconds and achieves sub-5-millisecond
-                alignment.
+                . A status indicator on each phone shows when the session is
+                ready. Wait until every device confirms a successful connection
+                before proceeding. The exact coordination method is proprietary;
+                the practical requirement is that all devices are ready before
+                the athlete runs.
               </p>
 
               <h3
@@ -668,7 +667,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
               minutes away.
             </p>
             <div className="flex flex-col items-center gap-4">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -676,7 +675,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                   height={40}
                   className="h-[40px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <Link
                 href="/blog"
                 className="text-sm text-[#5C8DB8] hover:underline"

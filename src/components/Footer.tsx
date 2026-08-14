@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export default function Footer() {
   const t = useTranslations("common");
@@ -32,8 +33,8 @@ export default function Footer() {
 
             {/* App Store download */}
             <div className="mt-4">
-              <a
-                href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
+              <DownloadLink
+                store="ios"
                 className="inline-block hover:opacity-80 transition-opacity"
               >
                 <Image
@@ -44,7 +45,7 @@ export default function Footer() {
                   sizes="120px"
                   className="h-[40px] w-auto"
                 />
-              </a>
+              </DownloadLink>
             </div>
 
             <div className="flex items-center gap-4 mt-4">
@@ -112,12 +113,12 @@ export default function Footer() {
                 </Link>
               </li> */}
               <li>
-                <a
-                  href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
+                <DownloadLink
+                  store="ios"
                   className="text-muted transition-colors hover:opacity-70"
                 >
                   {t("footer.downloadIos")}
-                </a>
+                </DownloadLink>
               </li>
             </ul>
           </div>
@@ -139,6 +140,11 @@ export default function Footer() {
               <li>
                 <Link href="/blog" className="text-muted transition-colors hover:opacity-70">
                   {t("nav.blog")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/best-app-for-tracking-sprint-speed" className="text-muted transition-colors hover:opacity-70">
+                  Best sprint speed apps
                 </Link>
               </li>
               <li>

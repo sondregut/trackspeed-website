@@ -12,7 +12,7 @@ export default function CreateCodePage() {
 
   async function handleSubmit(data: {
     code: string;
-    type: 'free' | 'trial';
+    type: 'free' | 'trial' | 'discount';
     duration_days: number | null;
     max_uses: number | null;
     expires_at: string | null;
@@ -33,7 +33,22 @@ export default function CreateCodePage() {
         throw new Error(errorData.error || "Failed to create code");
       }
 
-      router.push("/admin");
+      const created = await res.json();
+      if (!created.redemption_readiness?.ready) {
+        throw new Error(
+          created.redemption_readiness?.message ||
+            "Code was saved, but its redemption readiness could not be verified"
+        );
+      }
+
+      sessionStorage.setItem(
+        "trackspeed.createdPromoCode",
+        JSON.stringify({
+          code: created.code,
+          message: created.redemption_readiness.message,
+        })
+      );
+      router.push("/admin/codes");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -46,13 +61,13 @@ export default function CreateCodePage() {
       {/* Header */}
       <div className="mb-8">
         <Link
-          href="/admin"
+          href="/admin/codes"
           className="text-[#9B9A97] hover:text-white transition-colors mb-4 inline-block"
         >
-          &larr; Back to Dashboard
+          &larr; Back to Promo Codes
         </Link>
         <h1 className="text-2xl font-bold text-white">Create Promo Code</h1>
-        <p className="text-[#9B9A97] mt-1">Create a new promotional code</p>
+        <p className="text-[#9B9A97] mt-1">Create individual creator access or a custom promotional code</p>
       </div>
 
       {/* Error */}

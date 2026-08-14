@@ -3,6 +3,7 @@ import { ArrowRight, Check, ExternalLink, Smartphone, Timer } from "lucide-react
 import { setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { getRevenueCatWebCheckoutConfigIssues } from "@/lib/revenuecat-web"
+import { DownloadLink } from "@/components/DownloadLink"
 
 export default async function ProPage({
   params,
@@ -59,8 +60,8 @@ export default async function ProPage({
             </div>
 
             <div className="mt-6">
-              <a
-                href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
+              <DownloadLink
+                store="ios"
                 className="inline-block transition-opacity hover:opacity-80"
               >
                 <Image
@@ -70,7 +71,7 @@ export default async function ProPage({
                   height={44}
                   className="h-[44px] w-auto"
                 />
-              </a>
+              </DownloadLink>
             </div>
           </div>
 

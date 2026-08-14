@@ -1,7 +1,7 @@
 {
   "name": "TrackSpeed",
   "short_name": "TrackSpeed",
-  "description": "Sprint timing app for phone. ~4ms accuracy, no hardware needed.",
+  "description": "Automatic sprint timing, split times, and speed tracking on iPhone with no dedicated timing-gate hardware.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#F5F5F7",

@@ -4,6 +4,7 @@ import {Link} from "@/i18n/navigation";
 import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -42,7 +43,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
       logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-01",
-    dateModified: "2026-02-01",
+    dateModified: "2026-08-09",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/what-is-photo-finish-timing",
     keywords: ["photo finish timing", "how photo finish works"],
@@ -483,50 +484,42 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Full-Frame Capture at High Speed
+                Full-Frame Capture Adds Context
               </h3>
               <p className="text-body mb-6">
-                Unlike a line-scan camera that captures one column of pixels at a
-                time, a smartphone captures the entire scene in every frame.
-                This is both an advantage and a limitation. The advantage is that
-                you get full context&mdash;you can see the athlete approaching,
-                crossing, and departing the finish area. The limitation is that
-                at 120fps, you only get a new frame every 8.3 milliseconds,
-                whereas a line-scan camera produces a new data point every 0.5
-                milliseconds or less.
+                Unlike a line-scan camera that records only the finish plane, a
+                smartphone records the surrounding scene. That context can make a
+                training event easier to review because the athlete, configured
+                line, and approach remain visible. A phone camera is still not the
+                specialized certified system used for an official stadium result.
               </p>
 
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Computer Vision Fills the Gap
+                The Timing Event Must Be Defined
               </h3>
               <p className="text-body mb-6">
-                The key insight is that you do not need a data point at every
-                half-millisecond if you can accurately model the athlete&apos;s
-                motion between frames. By tracking the athlete&apos;s position
-                across multiple consecutive frames, computer vision algorithms
-                can construct a trajectory and then calculate where the athlete
-                was at any instant between frames&mdash;including the exact
-                moment they crossed the timing line.
+                A camera training timer needs a clear rule for the crossing it
+                records. The phone must be stable, the line must be placed
+                correctly, and the view must stay unobstructed. An unusual result
+                should be checked against the saved evidence instead of accepted
+                only because it has several decimal places.
               </p>
 
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Sub-Frame Interpolation
+                The Implementation Is Proprietary
               </h3>
               <p className="text-body">
-                This technique, called sub-frame interpolation, uses linear
-                regression across multiple position samples to estimate the
-                crossing time with precision well beyond the frame interval.
-                With enough frames before and after the crossing, the
-                interpolated time can achieve accuracy of approximately 4
-                milliseconds at 120fps&mdash;far better than the 8.3ms frame
-                interval would suggest, and far better than what any human with
-                a stopwatch could achieve.
+                TrackSpeed&apos;s internal detection and multi-phone coordination are
+                not published in this guide. What a coach can validate is the
+                complete measurement workflow: a defined start, a measured course,
+                an automatic configured crossing, reviewable evidence, and a
+                consistent protocol from one session to the next.
               </p>
             </div>
           </section>
@@ -558,54 +551,44 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Frame Differencing Instead of Line Scanning
+                Automatic Configured Crossing
               </h3>
               <p className="text-body mb-6">
-                Rather than scanning a single line of pixels, TrackSpeed
-                compares consecutive full frames to detect motion. When an
-                athlete enters the camera&apos;s field of view and moves across
-                it, the pixels that change between frames reveal their position
-                and trajectory. This frame differencing approach works with any
-                standard camera&mdash;no specialized hardware needed.
+                TrackSpeed watches a configured timing line and records the
+                intended camera crossing automatically. That removes a coach&apos;s
+                manual stop reaction from the result and makes the event definition
+                visible before the athlete runs.
               </p>
 
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Trajectory Analysis
+                Reviewable Finish Evidence
               </h3>
               <p className="text-body mb-6">
-                By tracking the detected motion blob across several frames,
-                TrackSpeed builds a position-vs-time trajectory. Linear
-                regression on this trajectory yields both the athlete&apos;s
-                velocity and the interpolated crossing time. Using multiple
-                frames rather than just the two frames immediately surrounding
-                the crossing reduces noise and improves accuracy.
+                TrackSpeed preserves finish evidence so a coach can inspect an
+                unexpected time. A moved phone, blocked view, incorrect line, or
+                other setup problem should lead to a rejected result rather than
+                an invented explanation.
               </p>
 
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Rolling Shutter Correction
+                Stable, Repeatable Placement
               </h3>
               <p className="text-body mb-6">
-                Smartphone cameras do not capture all rows of pixels
-                simultaneously. They scan from top to bottom, meaning the bottom
-                of the frame is captured several milliseconds after the top. If
-                an athlete crosses near the bottom of the frame, their position
-                was recorded later than the frame&apos;s nominal timestamp
-                suggests. TrackSpeed measures where the crossing occurred
-                vertically and applies a proportional time correction, removing
-                this systematic error. For a deeper look at this and other
-                techniques, see the{" "}
+                Camera side, height, angle, line position, visibility, device
+                conditions, and course measurement all affect the test. Keep them
+                documented and fixed. For the full validation checklist, see the{" "}
                 <Link
                   href="/technology"
                   className="font-medium hover:underline"
                   style={{ color: "#5C8DB8" }}
                 >
-                  full technical deep dive
+                  TrackSpeed measurement guide
                 </Link>
                 .
               </p>
@@ -614,17 +597,13 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Body Mass Tracking for Consistent Triggers
+                A Consistent Event Definition
               </h3>
               <p className="text-body mb-6">
-                One of the biggest problems with laser gate timing is
-                inconsistency: an outstretched arm or a leading knee might break
-                the beam before the torso arrives, causing times to vary based on
-                running form rather than actual speed. TrackSpeed solves this by
-                identifying the largest moving region in the frame&mdash;the
-                athlete&apos;s torso&mdash;and using its leading edge as the
-                trigger point. This mirrors the official standard where the
-                torso (chest) crossing the line determines the result.
+                Beam systems and camera systems can record different physical
+                events. Do not mix results across methods as if they were identical.
+                Within TrackSpeed, use the same start mode, line definition, measured
+                distance, and placement whenever you compare an athlete over time.
               </p>
 
               <h3
@@ -651,8 +630,8 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="text-sm"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    Works with any phone that supports 120fps video capture.
-                    Mount it on a tripod at the finish line and you are ready.
+                    Uses a compatible iPhone camera. Mount it securely at the
+                    configured timing line before arming the session.
                   </p>
                 </div>
                 <div
@@ -687,15 +666,15 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="font-semibold mb-2 text-sm"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    Multi-Device Sync
+                    Multiple Timing Points
                   </div>
                   <p
                     className="text-sm"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    Place one phone at the start and another at the finish.
-                    NTP-style clock synchronization keeps them aligned to within
-                    a few milliseconds.
+                    Place phones at start, split, and finish positions. Confirm
+                    that every phone is connected, armed, stable, and showing the
+                    correct line before the rep.
                   </p>
                 </div>
                 <div
@@ -927,19 +906,19 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                     className="font-medium hover:underline"
                     style={{ color: "#5C8DB8" }}
                   >
-                    How We Achieve ~4ms Timing Accuracy with Your Phone
+                    How TrackSpeed Measures Sprint Times
                   </Link>
                   <span
                     className="text-sm ml-2"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    &mdash; Full technical deep dive into trajectory analysis,
-                    rolling shutter correction, and clock sync
+                    &mdash; Measurement principles, reviewable evidence, setup
+                    factors, and validation boundaries
                   </span>
                 </li>
                 <li>
                   <Link
-                    href="/blog/sprint-timing-systems-compared"
+                    href="/blog/single-beam-vs-dual-beam-timing-gates"
                     className="font-medium hover:underline"
                     style={{ color: "#5C8DB8" }}
                   >
@@ -1002,7 +981,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
               millisecond-resolution timing data.
             </p>
             <div className="flex flex-col items-center gap-4">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -1010,7 +989,7 @@ export default async function WhatIsPhotoFinishTimingPage({params}: {params: Pro
                   height={40}
                   className="h-[40px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <Link
                 href="/blog"
                 className="text-sm hover:underline"

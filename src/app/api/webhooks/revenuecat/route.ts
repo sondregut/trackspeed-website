@@ -37,7 +37,15 @@ async function forwardToPostHog(
   priceCents: number | null,
   planType: SubscriptionPlanType | null,
 ) {
-  const eventNames = POSTHOG_EVENT_NAMES[event.type]
+  const eventNames =
+    event.type === 'RENEWAL' && event.is_trial_conversion
+      ? [
+          'rc_renewal',
+          'subscription_renewed',
+          'trial_converted',
+          'subscription_started',
+        ]
+      : POSTHOG_EVENT_NAMES[event.type]
   if (!eventNames?.length) return
 
   // Prefer the PostHog distinct id the iOS app forwarded as RevenueCat's
@@ -122,6 +130,7 @@ async function forwardToPostHog(
 // RevenueCat webhook event types
 // https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
 type RevenueCatEventType =
+  | 'TEST'
   | 'INITIAL_PURCHASE'
   | 'RENEWAL'
   | 'CANCELLATION'
@@ -133,6 +142,8 @@ type RevenueCatEventType =
   | 'TRIAL_CONVERTED'
   | 'TRIAL_CANCELLED'
   | 'PRODUCT_CHANGE'
+  | 'SUBSCRIPTION_EXTENDED'
+  | 'REFUND_REVERSED'
   | 'TRANSFER'
 
 interface RevenueCatWebhookEvent {
@@ -145,7 +156,7 @@ interface RevenueCatWebhookEvent {
     original_app_user_id: string
     event_timestamp_ms?: number
     product_id: string
-    period_type: 'TRIAL' | 'INTRO' | 'NORMAL'
+    period_type: 'TRIAL' | 'INTRO' | 'NORMAL' | 'PROMOTIONAL' | 'PREPAID'
     purchased_at_ms: number
     expiration_at_ms: number | null
     environment: 'SANDBOX' | 'PRODUCTION'
@@ -154,8 +165,11 @@ interface RevenueCatWebhookEvent {
       | 'APP_STORE'
       | 'MAC_APP_STORE'
       | 'PLAY_STORE'
+      | 'PADDLE'
       | 'RC_BILLING'
+      | 'ROKU'
       | 'STRIPE'
+      | 'TEST_STORE'
       | 'PROMOTIONAL'
     is_trial_conversion?: boolean
     cancel_reason?: string
@@ -198,6 +212,28 @@ const PAYMENT_EVENTS: RevenueCatEventType[] = [
   'TRIAL_CONVERTED',
 ]
 
+const HANDLED_REVENUECAT_EVENT_TYPES = new Set<RevenueCatEventType>([
+  'INITIAL_PURCHASE',
+  'RENEWAL',
+  'CANCELLATION',
+  'UNCANCELLATION',
+  'EXPIRATION',
+  'BILLING_ISSUE',
+  'SUBSCRIBER_ALIAS',
+  'TRIAL_STARTED',
+  'TRIAL_CONVERTED',
+  'TRIAL_CANCELLED',
+  'PRODUCT_CHANGE',
+  'SUBSCRIPTION_EXTENDED',
+  'REFUND_REVERSED',
+])
+
+function isPaidConversionEvent(event: RevenueCatWebhookEvent['event']): boolean {
+  if (event.type === 'TRIAL_CONVERTED') return true
+  if (event.type === 'RENEWAL') return event.is_trial_conversion === true
+  return event.type === 'INITIAL_PURCHASE' && event.period_type !== 'TRIAL'
+}
+
 // Map RevenueCat event types to subscription status
 function getStatusFromEvent(eventType: RevenueCatEventType): string {
   switch (eventType) {
@@ -206,6 +242,8 @@ function getStatusFromEvent(eventType: RevenueCatEventType): string {
     case 'UNCANCELLATION':
     case 'TRIAL_STARTED':
     case 'TRIAL_CONVERTED':
+    case 'SUBSCRIPTION_EXTENDED':
+    case 'REFUND_REVERSED':
       return 'active'
     case 'CANCELLATION':
     case 'TRIAL_CANCELLED':
@@ -362,7 +400,7 @@ async function reserveRevenueCatWebhookEvent(
 
   const { data: existingEvent, error: existingError } = await supabase
     .from('revenuecat_webhook_events')
-    .select('processed_at, failed_at')
+    .select('processed_at, failed_at, processing_started_at')
     .eq('event_id', event.id)
     .maybeSingle()
 
@@ -371,7 +409,18 @@ async function reserveRevenueCatWebhookEvent(
     return 'error'
   }
 
-  if (existingEvent?.failed_at && !existingEvent.processed_at) {
+  const existingProcessingStartedAt = existingEvent?.processing_started_at
+    ? Date.parse(existingEvent.processing_started_at)
+    : Number.NaN
+  const processingLeaseExpired =
+    !existingEvent?.processing_started_at ||
+    Number.isNaN(existingProcessingStartedAt) ||
+    existingProcessingStartedAt < Date.now() - 5 * 60 * 1000
+
+  if (
+    !existingEvent?.processed_at &&
+    (Boolean(existingEvent?.failed_at) || processingLeaseExpired)
+  ) {
     const { error: retryError } = await supabase
       .from('revenuecat_webhook_events')
       .update({
@@ -410,7 +459,7 @@ async function markRevenueCatEventProcessed(
     .eq('event_id', eventId)
 
   if (error) {
-    console.error('Failed to mark RevenueCat event processed:', error)
+    throw new Error(`Failed to mark RevenueCat event processed: ${error.message}`)
   }
 }
 
@@ -442,7 +491,7 @@ export async function POST(request: NextRequest) {
   try {
     // Verify authorization header
     const authHeader = request.headers.get('authorization')
-    const expectedAuthKey = process.env.REVENUECAT_WEBHOOK_AUTH_KEY
+    const expectedAuthKey = process.env.REVENUECAT_WEBHOOK_AUTH_KEY?.trim()
 
     if (!expectedAuthKey) {
       console.error('REVENUECAT_WEBHOOK_AUTH_KEY not configured')
@@ -450,9 +499,9 @@ export async function POST(request: NextRequest) {
     }
 
     // RevenueCat sends the auth key as "Bearer <key>" or just the key
-    const providedKey = authHeader?.startsWith('Bearer ')
+    const providedKey = (authHeader?.startsWith('Bearer ')
       ? authHeader.slice(7)
-      : authHeader
+      : authHeader)?.trim()
 
     if (!providedKey || !timingSafeEqualString(providedKey, expectedAuthKey)) {
       console.error('Invalid webhook authorization')
@@ -460,8 +509,42 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse the webhook payload
-    const payload: RevenueCatWebhookEvent = await request.json()
+    const payload = await request.json() as Partial<RevenueCatWebhookEvent>
     const event = payload.event
+
+    if (
+      !event ||
+      typeof event.type !== 'string' ||
+      typeof event.id !== 'string' ||
+      !event.id
+    ) {
+      return NextResponse.json({ error: 'Invalid webhook payload' }, { status: 400 })
+    }
+
+    // Dashboard TEST events deliberately use purchase-like sample data. They
+    // must prove endpoint/auth reachability without creating a fake subscriber.
+    if (event.type === 'TEST') {
+      console.log(`RevenueCat webhook test received: ${event.id}`)
+      return NextResponse.json({ success: true, test: true })
+    }
+
+    if (!HANDLED_REVENUECAT_EVENT_TYPES.has(event.type)) {
+      // RevenueCat can add event types without changing the webhook API
+      // version. Acknowledge events we do not model instead of treating them
+      // as active subscriptions with incomplete fields.
+      console.log(`RevenueCat webhook ignored: ${event.type} (${event.id})`)
+      return NextResponse.json({ success: true, ignored: true })
+    }
+
+    if (
+      typeof event.app_user_id !== 'string' ||
+      !event.app_user_id ||
+      typeof event.product_id !== 'string' ||
+      !event.product_id ||
+      typeof event.purchased_at_ms !== 'number'
+    ) {
+      return NextResponse.json({ error: 'Incomplete subscription event' }, { status: 400 })
+    }
 
     console.log(`RevenueCat webhook: ${event.type} for user ${event.app_user_id}`)
 
@@ -485,30 +568,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true })
     }
 
-    // Handle product change - might need to update product_id
-    if (event.type === 'PRODUCT_CHANGE' && event.new_product_id) {
-      await supabase
-        .from('subscriptions')
-        .update({
-          product_id: event.new_product_id,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('app_user_id', event.app_user_id)
-
-      await markRevenueCatEventProcessed(supabase, event.id)
-      return NextResponse.json({ success: true })
-    }
-
-    // Handle transfer - update the app_user_id
-    if (event.type === 'TRANSFER') {
-      await supabase
-        .from('subscriptions')
-        .update({
-          app_user_id: event.app_user_id,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('app_user_id', event.original_app_user_id)
-
+    // PRODUCT_CHANGE can describe a deferred downgrade. Do not replace the
+    // active product until a later lifecycle event says the new product is in
+    // effect.
+    if (event.type === 'PRODUCT_CHANGE') {
       await markRevenueCatEventProcessed(supabase, event.id)
       return NextResponse.json({ success: true })
     }
@@ -516,7 +579,9 @@ export async function POST(request: NextRequest) {
     // Determine subscription status and trial state
     const status = getStatusFromEvent(event.type)
     const isTrial = event.period_type === 'TRIAL' || event.type === 'TRIAL_STARTED'
-    const isTrialConverted = event.type === 'TRIAL_CONVERTED'
+    const isTrialConverted =
+      event.type === 'TRIAL_CONVERTED' ||
+      (event.type === 'RENEWAL' && event.is_trial_conversion === true)
     const entitlementId = getEntitlementId(event)
 
     // Detect plan type and price
@@ -574,8 +639,7 @@ export async function POST(request: NextRequest) {
       })
 
     if (error) {
-      console.error('Failed to upsert subscription:', error)
-      return NextResponse.json({ error: 'Database error' }, { status: 500 })
+      throw new Error(`Failed to upsert subscription: ${error.message}`)
     }
 
     let shouldProcessPaymentSideEffects = true
@@ -605,8 +669,7 @@ export async function POST(request: NextRequest) {
           shouldProcessPaymentSideEffects = false
           console.log(`Duplicate subscription payment event skipped: ${event.id}`)
         } else {
-          // Log but don't fail - subscription record is more important
-          console.error('Failed to insert subscription event:', eventError)
+          throw new Error(`Failed to insert subscription payment event: ${eventError.message}`)
         }
       } else {
         console.log(`Payment event recorded: ${event.type} $${(priceCents / 100).toFixed(2)} ${event.currency}`)
@@ -624,7 +687,7 @@ export async function POST(request: NextRequest) {
 
     // Handle influencer commission for yearly conversions
     if (
-      (event.type === 'TRIAL_CONVERTED' || event.type === 'INITIAL_PURCHASE') &&
+      isPaidConversionEvent(event) &&
       planType === 'yearly' &&
       priceCents &&
       shouldProcessPaymentSideEffects
@@ -635,7 +698,7 @@ export async function POST(request: NextRequest) {
     // Handle referral reward - grant 1 free month to referrer when referred user subscribes
     if (
       shouldProcessPaymentSideEffects &&
-      (event.type === 'INITIAL_PURCHASE' || event.type === 'TRIAL_CONVERTED')
+      isPaidConversionEvent(event)
     ) {
       await handleReferralReward(event.app_user_id, supabase)
     }

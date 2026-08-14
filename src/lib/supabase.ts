@@ -4,7 +4,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 export interface PromoCode {
   id: string
   code: string
-  type: 'free' | 'trial' | string
+  type: 'free' | 'trial' | 'discount' | string
   duration_days: number | null  // NULL = forever
   max_uses: number | null       // NULL = unlimited
   current_uses: number

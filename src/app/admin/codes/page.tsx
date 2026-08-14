@@ -5,10 +5,18 @@ import Link from "next/link";
 import PromoCodeTable from "@/components/admin/PromoCodeTable";
 import type { PromoCode } from "@/lib/supabase";
 
+interface CreatedPromoCodeMessage {
+  code: string;
+  message: string;
+}
+
 export default function PromoCodesPage() {
   const [codes, setCodes] = useState<PromoCode[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [createdCode, setCreatedCode] = useState<CreatedPromoCodeMessage | null>(
+    null
+  );
 
   async function fetchCodes() {
     try {
@@ -25,6 +33,20 @@ export default function PromoCodesPage() {
 
   useEffect(() => {
     fetchCodes();
+
+    const storageKey = "trackspeed.createdPromoCode";
+    const savedMessage = sessionStorage.getItem(storageKey);
+    if (!savedMessage) return;
+
+    sessionStorage.removeItem(storageKey);
+    try {
+      const parsed = JSON.parse(savedMessage) as CreatedPromoCodeMessage;
+      if (parsed.code && parsed.message) {
+        setCreatedCode(parsed);
+      }
+    } catch {
+      // A malformed one-time confirmation should not block the code list.
+    }
   }, []);
 
   async function handleToggle(id: string, isActive: boolean) {
@@ -86,6 +108,18 @@ export default function PromoCodesPage() {
       </div>
 
       {/* Content */}
+      {createdCode && (
+        <div
+          role="status"
+          className="mb-4 border-l-2 border-[#22C55E] bg-[#22C55E]/8 px-4 py-3 text-sm text-[#B8D9C1]"
+        >
+          <p className="font-medium text-white">
+            {createdCode.code} is ready to redeem
+          </p>
+          <p className="mt-1">{createdCode.message}</p>
+        </div>
+      )}
+
       {error && (
         <div className="mb-4 p-4 rounded-lg bg-[#FC0726]/10 border border-[#FC0726]/20 text-[#FC0726]">
           {error}

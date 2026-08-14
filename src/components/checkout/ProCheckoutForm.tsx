@@ -5,11 +5,10 @@ import { ArrowRight, Check, LockKeyhole, Mail, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { DownloadLink } from "@/components/DownloadLink"
 
 type Plan = "annual" | "weekly"
 type Mode = "sign-up" | "sign-in"
-
-const APP_STORE_URL = "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
 
 const PLANS: Record<
   Plan,
@@ -151,12 +150,12 @@ export default function ProCheckoutForm({
               Open app paywall
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
-            <a
-              href={APP_STORE_URL}
+            <DownloadLink
+              store="ios"
               className="inline-flex h-12 items-center justify-center rounded-full border border-[#DCE5EE] bg-white px-5 text-sm font-semibold text-[#26303E] transition-colors hover:border-[#BFD2E2] active:scale-[0.99]"
             >
               Download TrackSpeed
-            </a>
+            </DownloadLink>
           </div>
 
           <p className="text-center text-xs leading-5 text-[#697483]">

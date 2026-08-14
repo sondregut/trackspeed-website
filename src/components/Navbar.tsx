@@ -14,8 +14,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-
-const APP_STORE_URL = "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -93,7 +92,7 @@ export default function Navbar() {
           {/* Language switcher + App Store badge */}
           <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
-            <a href={APP_STORE_URL} className="inline-block hover:opacity-80 transition-opacity">
+            <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
               <Image
                 src="/app-store-badge.svg"
                 alt="Download on the App Store"
@@ -102,7 +101,7 @@ export default function Navbar() {
                 sizes="120px"
                 className="h-[34px] w-auto"
               />
-            </a>
+            </DownloadLink>
           </div>
 
           {/* Mobile menu - Sheet */}
@@ -178,8 +177,8 @@ export default function Navbar() {
                       <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#5C7286]">
                         Get TrackSpeed
                       </p>
-                      <a
-                        href={APP_STORE_URL}
+                      <DownloadLink
+                        store="ios"
                         className="inline-flex transition-opacity hover:opacity-80 active:scale-[0.99]"
                         aria-label="Download TrackSpeed on the App Store"
                       >
@@ -191,7 +190,7 @@ export default function Navbar() {
                           sizes="150px"
                           className="h-[46px] w-auto"
                         />
-                      </a>
+                      </DownloadLink>
                     </div>
                   </div>
                 </div>

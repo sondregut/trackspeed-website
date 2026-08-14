@@ -15,7 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const t = await getTranslations({locale, namespace: 'home'});
   return getPageMetadata({
     title: `TrackSpeed: ${t('metadata.title')}`,
-    description: t('metadata.description'),
+    description: `${t('hero.subtitle')}. ${t('features.smartDetection.description')} ${t('features.trackProgress.description')}`,
     path: '',
     locale,
     absoluteTitle: true,
@@ -53,22 +53,21 @@ const softwareApplicationJsonLd = {
     "Athlete profiles and session history",
     "Video export",
   ],
-  offers: [
-    {
-      "@type": "Offer",
-      price: "59.99",
-      priceCurrency: "USD",
-      name: "TrackSpeed Pro Annual",
-      availability: "https://schema.org/InStock",
-    },
-    {
-      "@type": "Offer",
-      price: "7.99",
-      priceCurrency: "USD",
-      name: "TrackSpeed Pro Weekly",
-      availability: "https://schema.org/InStock",
-    },
-  ],
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    category: "Free download with optional in-app purchases",
+    availability: "https://schema.org/InStock",
+    url: "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    ratingCount: "1",
+    bestRating: "5",
+    worstRating: "1",
+  },
 };
 
 export default async function Home({params}: {params: Promise<{locale: string}>}) {

@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mytrackspeed.com"),
   applicationName: "TrackSpeed",
   title: {
-    default: "TrackSpeed - Sprint Timing App for Phone",
+    default: "TrackSpeed - Sprint Speed Tracker & Timing App",
     template: "%s | TrackSpeed",
   },
   description:
-    "Turn your phone into a sprint timing system. ~4ms accuracy, no extra hardware needed. Used by track coaches and athletes. Available on iOS.",
+    "Track sprint times, split times, and average speed with automatic iPhone timing, reviewable finish evidence, and no dedicated timing-gate hardware.",
   keywords: [
     "sprint timing",
     "track and field",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     siteName: "TrackSpeed",
-    title: "TrackSpeed - Sprint Timing App for Phone",
+    title: "TrackSpeed - Sprint Speed Tracker & Timing App",
     description:
-      "Turn your phone into a sprint timing system. ~4ms accuracy, no hardware needed. Used by track coaches and athletes.",
+      "Automatic iPhone sprint timing, split times, speed tracking, and reviewable finish evidence without dedicated timing-gate hardware.",
     type: "website",
     url: "https://mytrackspeed.com",
     images: [
@@ -55,15 +55,15 @@ export const metadata: Metadata = {
         url: "/og-image-2026-06.png",
         width: 1200,
         height: 630,
-        alt: "TrackSpeed sprint timing app — ~4ms accuracy, 120fps detection, no hardware needed",
+        alt: "TrackSpeed automatic sprint timing and speed tracking app on iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TrackSpeed - Sprint Timing App for Phone",
+    title: "TrackSpeed - Sprint Speed Tracker & Timing App",
     description:
-      "Turn your phone into a sprint timing system. ~4ms accuracy, no extra hardware needed. Available on iOS.",
+      "Automatic iPhone sprint timing, split times, speed tracking, and reviewable finish evidence.",
     images: ["/og-image-2026-06.png"],
   },
   icons: {

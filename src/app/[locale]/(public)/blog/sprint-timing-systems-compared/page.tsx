@@ -4,6 +4,7 @@ import {Link} from "@/i18n/navigation";
 import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -431,20 +432,16 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 How It Works
               </h3>
               <p className="text-body mb-6">
-                Camera-based timing uses a phone&apos;s camera running at 30
-                to 120 frames per second to detect when a runner crosses a
-                virtual finish line in the video frame. Unlike laser gates that
-                trigger on the first beam break, camera-based systems like
-                TrackSpeed analyze the motion to identify the athlete&apos;s
-                body mass and track its leading edge. Sub-frame interpolation
-                then calculates the exact crossing moment between frames. For
-                a deeper look at the computer vision and interpolation involved,
-                see{" "}
+                Camera-based timing records an automatic crossing at a configured
+                line in the phone&apos;s view. Unlike a manual stopwatch, the coach&apos;s
+                stop reaction does not define the result. Unlike a number-only
+                timer, the crossing evidence can be reviewed. For the setup and
+                validation factors involved, see{" "}
                 <Link
                   href="/technology"
                   className="text-[#5C8DB8] hover:underline"
                 >
-                  how TrackSpeed achieves ~4ms accuracy
+                  how TrackSpeed measures sprint times
                 </Link>
                 .
               </p>
@@ -453,28 +450,26 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 className="text-lg font-semibold mb-3"
                 style={{ color: "var(--text-primary)" }}
               >
-                Real-World Accuracy
+                Real-World Measurement Quality
               </h3>
               <p className="text-body mb-6">
-                TrackSpeed uses trajectory regression across multiple frames to
-                pinpoint the crossing moment to approximately 4 milliseconds.
-                Because it tracks the body&apos;s center mass rather than
-                triggering on the first thing that enters the frame, the trigger
-                point is consistent regardless of arm position or stride phase.
-                This is the same principle used in{" "}
+                Measurement quality depends on more than sensor resolution. The
+                course, start event, timing line, phone placement, visibility, and
+                conditions must all be controlled. TrackSpeed makes the crossing
+                reviewable, but that evidence still needs to be checked. For the
+                official competition definition, see{" "}
                 <Link
                   href="/blog/what-is-photo-finish-timing"
                   className="text-[#5C8DB8] hover:underline"
                 >
                   official photo finish timing
                 </Link>{" "}
-                -- measure the torso, not the extremities.
+                .
               </p>
               <p className="text-body mb-6">
-                For multi-phone setups (one phone at start, one at finish), an
-                NTP-style clock sync protocol keeps the two devices aligned to
-                within 3 to 5 milliseconds, preserving the sub-frame precision
-                end to end.
+                For multi-phone setups, confirm every start, split, and finish
+                phone is connected, armed, stable, and showing the correct line.
+                The internal coordination method is proprietary.
               </p>
 
               <h3
@@ -520,8 +515,8 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                     style={{ color: "#166534" }}
                   >
                     <li>No extra hardware -- uses your phone</li>
-                    <li>~4ms accuracy with sub-frame interpolation</li>
-                    <li>Consistent body-mass detection</li>
+                    <li>Automatic configured line crossings</li>
+                    <li>Reviewable finish evidence</li>
                     <li>Finish photo thumbnails for review</li>
                     <li>Session history and progress tracking</li>
                   </ul>
@@ -750,7 +745,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                 >
                   TrackSpeed
                 </div>
-                <div style={{ color: "var(--text-muted)" }}>~4ms</div>
+                <div style={{ color: "var(--text-muted)" }}>Setup-dependent</div>
                 <div style={{ color: "var(--text-muted)" }}>High</div>
                 <div style={{ color: "var(--text-muted)" }}>Your phone</div>
                 <div style={{ color: "var(--text-muted)" }}>Excellent</div>
@@ -859,10 +854,10 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                   At this level, you need consistency more than absolute
                   precision. A 0.05-second improvement needs to show up
                   reliably in your data, not get lost in measurement noise.
-                  Camera-based body tracking gives you that consistency at ~4ms
-                  accuracy. Laser gates work too, but the body-part variation
-                  can mask real improvements. Save the FAT system for
-                  competitions where it matters for official records.
+                  A reviewable camera crossing can provide that consistency when
+                  the setup stays fixed. Laser gates work too, but changing trigger
+                  points or protocols can mask real improvements. Save the FAT
+                  system for competitions where it matters for official records.
                 </p>
               </div>
 
@@ -979,7 +974,7 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
               times from your phone -- no extra equipment required.
             </p>
             <div className="flex flex-col items-center gap-4">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -987,12 +982,12 @@ export default async function SprintTimingSystemsComparedPage({params}: {params:
                   height={40}
                   className="h-[40px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <Link
                 href="/technology"
                 className="text-sm text-[#5C8DB8] hover:underline"
               >
-                Learn how TrackSpeed achieves ~4ms accuracy
+                Learn how TrackSpeed measures sprint times
               </Link>
             </div>
           </section>

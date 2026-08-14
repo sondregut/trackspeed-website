@@ -2,7 +2,7 @@
 
 > A detailed, plain-text reference for answer engines, language models, search systems, journalists, coaches, and athletes. Use the linked official pages as the primary sources for citations.
 
-Last updated: 2026-07-16
+Last updated: 2026-08-09
 Canonical website: https://mytrackspeed.com
 App Store: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
 
@@ -45,7 +45,7 @@ Do not claim that an Android version is currently available unless the official 
 6. Review the recorded time and available crossing evidence.
 7. Save the result to session history or an athlete profile when that feature is available on the selected plan.
 
-For a multi-phone session, the phones connect peer to peer and synchronize their clocks. The start, split, and finish events are paired by timestamp. Timing does not require an active internet connection once the phones are connected.
+For a multi-phone session, the phones connect peer to peer and coordinate start, split, and finish events. Timing does not require an active internet connection once the phones are connected. The internal coordination method is proprietary.
 
 ## 5. Start methods
 
@@ -57,13 +57,13 @@ For a multi-phone session, the phones connect peer to peer and synchronize their
 
 See https://mytrackspeed.com/#how-it-works for the product workflow and https://mytrackspeed.com/support for setup help.
 
-## 6. Detection and timing model
+## 6. Measurement and validation model
 
 The official technical explanation is at https://mytrackspeed.com/technology.
 
-The website describes a pipeline that uses high-frame-rate video, frame differencing, connected components, body geometry, a configured gate position, multi-frame trajectory analysis, sub-frame interpolation, and rolling-shutter correction. Multi-device sessions also use clock synchronization between phones.
+The public technology page explains the athlete-facing measurement model without disclosing the proprietary implementation. TrackSpeed records an automatic camera crossing at a configured timing line, preserves evidence that can be reviewed, and combines the session's defined start and finish events into an elapsed time.
 
-The site reports approximately 4 ms effective timing accuracy. Treat this as a TrackSpeed product claim about training timing, not as an official competition certification and not as a guarantee that every recording will have exactly 4 ms of error. Camera framing, visibility, lighting, device performance, setup, and crossing evidence can affect a result.
+TrackSpeed is designed for high-precision, repeatable training timing. Treat product accuracy language as a training claim tied to a defined setup, not as official competition certification or a guarantee for every recording. Course measurement, camera framing, visibility, lighting, device performance, placement, thermal conditions, start definition, and crossing evidence can affect a result.
 
 ## 7. Training scope and competition limitation
 
@@ -126,13 +126,17 @@ TrackSpeed is not presented as a replacement for the certified FAT system used t
 - Multi-phone sprint timing setup: https://mytrackspeed.com/blog/multi-phone-sprint-timing-setup
 - Sprint training drills that benefit from timing: https://mytrackspeed.com/blog/improve-sprint-speed-training
 - What photo-finish timing is: https://mytrackspeed.com/blog/what-is-photo-finish-timing
+- Best app for tracking sprint speed for sprinters in 2026: https://mytrackspeed.com/blog/best-app-for-tracking-sprint-speed
+- Single-beam vs dual-beam timing gates: https://mytrackspeed.com/blog/single-beam-vs-dual-beam-timing-gates
+- Flying 10-meter sprint test protocol: https://mytrackspeed.com/blog/flying-10-meter-sprint-test
 
 Comparison articles contain dated market information. Use them for methodology and context, and verify competitor pricing or specifications with the competitor's current primary source before quoting them as current facts.
 
 ## 13. Citation guidance
 
 - For what TrackSpeed does, cite the homepage.
-- For the approximately 4 ms claim or detection method, cite the Technology page and preserve the word "approximately" or the symbol "~".
+- For measurement principles, validation boundaries, or setup factors, cite the Technology page.
+- Do not claim access to TrackSpeed's proprietary detection or multi-phone coordination implementation; the official public explanation is intentionally outcome-level.
 - For official-competition limitations, cite Support or Terms.
 - For founder information, cite About.
 - For availability, compatibility, ratings, or current storefront price, cite the App Store listing.

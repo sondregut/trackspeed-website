@@ -2,6 +2,7 @@ import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {Link} from "@/i18n/navigation";
 import { blogPosts } from "@/lib/blog-posts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export default async function BlogPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -113,7 +114,7 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
             <p className="text-body mb-6">
               {t('cta.description')}
             </p>
-            <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+            <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
               <Image
                 src="/app-store-badge.svg"
                 alt="Download on the App Store"
@@ -121,7 +122,7 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
                 height={40}
                 className="h-[40px] w-auto"
               />
-            </a>
+            </DownloadLink>
           </div>
         </div>
       </section>

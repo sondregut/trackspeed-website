@@ -35,10 +35,14 @@ export default function MultiDevice() {
                       <div className="mt-1 h-3 w-3 rounded-full bg-[#8FD9B0] shadow-[0_0_0_7px_rgba(143,217,176,0.12)]" />
                       <div>
                         <h3 className="text-lg font-black tracking-[-0.01em] text-white">
-                          {t(`multiDevice.${key}.title`)}
+                          {key === "millisecondSync"
+                            ? "Coordinated timing events"
+                            : t(`multiDevice.${key}.title`)}
                         </h3>
                         <p className="mt-1 leading-7 text-white/62">
-                          {t(`multiDevice.${key}.description`)}
+                          {key === "millisecondSync"
+                            ? "Each phone covers its assigned start, split, or finish point so the complete rep can be reviewed as one session."
+                            : t(`multiDevice.${key}.description`)}
                         </p>
                       </div>
                     </div>

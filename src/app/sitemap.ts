@@ -35,7 +35,7 @@ function localeAlternates(path: string) {
 const localizedPages: SitemapPage[] = [
   {
     path: "",
-    lastModified: "2026-07-16",
+    lastModified: "2026-08-09",
     changeFrequency: "weekly",
     priority: 1,
   },
@@ -46,12 +46,6 @@ const localizedPages: SitemapPage[] = [
     priority: 0.7,
   },
   {
-    path: "/technology",
-    lastModified: "2026-07-16",
-    changeFrequency: "monthly",
-    priority: 0.85,
-  },
-  {
     path: "/support",
     lastModified: "2026-07-16",
     changeFrequency: "monthly",
@@ -59,7 +53,7 @@ const localizedPages: SitemapPage[] = [
   },
   {
     path: "/blog",
-    lastModified: "2026-07-16",
+    lastModified: "2026-08-09",
     changeFrequency: "weekly",
     priority: 0.8,
   },
@@ -79,6 +73,12 @@ const localizedEntries: MetadataRoute.Sitemap = localizedPages.flatMap((page) =>
 );
 
 const englishOnlyPages: SitemapPage[] = [
+  {
+    path: "/technology",
+    lastModified: "2026-08-09",
+    changeFrequency: "monthly",
+    priority: 0.85,
+  },
   {
     path: "/pro",
     lastModified: "2026-07-16",

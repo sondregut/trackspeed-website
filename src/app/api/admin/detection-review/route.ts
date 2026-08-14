@@ -412,7 +412,7 @@ function temporalRelation(
   const anchorMode = String(metadataValue(frame, "anchorMode", "anchor_mode") ?? "")
   const timingModel = String(metadataValue(frame, "timingModel", "timing_model") ?? "")
   const storedRelative = Number(metadataValue(frame, "relativeFrame", "relative_frame"))
-  if (Number.isInteger(storedRelative) && storedRelative >= -2 && storedRelative <= 2) {
+  if (Number.isInteger(storedRelative) && storedRelative >= -4 && storedRelative <= 2) {
     return {
       relation: storedRelative === 0 ? "r0" : `r${storedRelative > 0 ? "+" : ""}${storedRelative}`,
       relativeFrame: storedRelative,
@@ -423,12 +423,12 @@ function temporalRelation(
   const relationMatch = relation.match(/^r([+-]?\d+)$/)
   if (relationMatch) {
     const relativeFrame = Number(relationMatch[1])
-    if (Number.isInteger(relativeFrame) && relativeFrame >= -2 && relativeFrame <= 2) {
+    if (Number.isInteger(relativeFrame) && relativeFrame >= -4 && relativeFrame <= 2) {
       return { relation: relativeFrame === 0 ? "r0" : `r${relativeFrame > 0 ? "+" : ""}${relativeFrame}`, relativeFrame }
     }
   }
 
-  if (!anchorMode.startsWith("temporal_") && timingModel !== "replica_temporal_evidence_v1") {
+  if (!anchorMode.startsWith("temporal_") && !timingModel.startsWith("replica_temporal_evidence_v")) {
     return null
   }
   if (ptsNanos && chosenPtsNanos !== null && ptsNanos === String(chosenPtsNanos)) {

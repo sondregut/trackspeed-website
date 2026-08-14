@@ -2,6 +2,7 @@ import Image from "next/image";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {getPageMetadata} from '@/i18n/metadata';
 import {Link} from "@/i18n/navigation";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -147,7 +148,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
           {t('cta.subtitle')}
         </p>
         <div className="flex flex-col items-center gap-4">
-          <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+          <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
             <Image
               src="/app-store-badge.svg"
               alt="Download on the App Store"
@@ -155,7 +156,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               height={40}
               className="h-[40px] w-auto"
             />
-          </a>
+          </DownloadLink>
           <Link
             href="/technology"
             className="text-sm text-[#5C8DB8] hover:underline"

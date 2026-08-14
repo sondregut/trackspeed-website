@@ -8,12 +8,20 @@ const intlMiddleware = createMiddleware(routing);
 export function proxy(request: NextRequest) {
   const {pathname} = request.nextUrl;
 
-  // Skip i18n for admin, influencer, api, and invite routes
+  if (pathname === '/creator-kit' || pathname === '/creator-kit/') {
+    const response = NextResponse.rewrite(new URL('/creator-kit/index.html', request.url));
+    response.headers.set('Content-Language', 'en');
+    return response;
+  }
+
+  // Skip i18n for admin, influencer, api, invite, and install-handoff routes
   if (
     pathname.startsWith('/admin') ||
     pathname.startsWith('/influencer') ||
     pathname.startsWith('/api') ||
-    pathname.startsWith('/invite')
+    pathname.startsWith('/invite') ||
+    pathname === '/get' ||
+    pathname === '/get/'
   ) {
     // Admin auth check (except /admin/login)
     if (pathname.startsWith('/admin') && pathname !== '/admin/login') {

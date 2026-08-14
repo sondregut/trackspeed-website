@@ -6,6 +6,28 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/creator-kit",
+        destination: "/creator-kit/index.html",
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/blog/sprint-timing-gates-buyers-guide",
+        destination: "/blog/single-beam-vs-dual-beam-timing-gates",
+        permanent: true,
+      },
+      {
+        source: "/blog/sprint-timing-systems-compared",
+        destination: "/blog/single-beam-vs-dual-beam-timing-gates",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

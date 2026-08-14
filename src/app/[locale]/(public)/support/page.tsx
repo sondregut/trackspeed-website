@@ -5,6 +5,7 @@ import {Link} from "@/i18n/navigation";
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'support'});
+
   return getPageMetadata({
     title: t('metadata.title'),
     description: t('metadata.description'),
@@ -34,13 +35,23 @@ export default async function SupportPage({params}: {params: Promise<{locale: st
   setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'support'});
 
+  const faqAnswer = (key: (typeof faqKeys)[number]) => {
+    if (key === 'howItWorks') {
+      return "TrackSpeed uses the phone camera to record an automatic crossing at a configured timing line. The result can include reviewable crossing evidence so you can check the event after the rep.";
+    }
+    if (key === 'accuracy') {
+      return "TrackSpeed is designed for high-precision, repeatable training timing. Result quality depends on measured distance, stable placement, visibility, device conditions, and a consistent start protocol. It is not certified official competition timing.";
+    }
+    return t(`faq.items.${key}.answer`);
+  };
+
   // Build FAQ data for JSON-LD (plain text only)
   const faqJsonLdEntities = faqKeys.map((key) => ({
     "@type": "Question" as const,
     name: t(`faq.items.${key}.question`),
     acceptedAnswer: {
       "@type": "Answer" as const,
-      text: t(`faq.items.${key}.answer`),
+      text: faqAnswer(key),
     },
   }));
 
@@ -83,20 +94,9 @@ export default async function SupportPage({params}: {params: Promise<{locale: st
               <div key={key} className="card-feature rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-2">{t(`faq.items.${key}.question`)}</h3>
                 <p className="text-muted">
-                  {key === 'howItWorks' ? (
-                    <>
-                      {t(`faq.items.${key}.answer`).split('camera-based motion detection')[0]}
-                      <Link href="/technology" className="text-[#5C8DB8] hover:underline">camera-based motion detection</Link>
-                      {t(`faq.items.${key}.answer`).split('camera-based motion detection')[1]}
-                    </>
-                  ) : key === 'accuracy' ? (
-                    <>
-                      {t(`faq.items.${key}.answer`).split('~4ms timing accuracy')[0]}
-                      <Link href="/technology" className="text-[#5C8DB8] hover:underline">~4ms timing accuracy</Link>
-                      {t(`faq.items.${key}.answer`).split('~4ms timing accuracy')[1]}
-                    </>
-                  ) : (
-                    t(`faq.items.${key}.answer`)
+                  {faqAnswer(key)}
+                  {(key === 'howItWorks' || key === 'accuracy') && (
+                    <>{" "}<Link href="/technology" className="text-[#5C8DB8] hover:underline">Read the measurement guide</Link>.</>
                   )}
                 </p>
               </div>

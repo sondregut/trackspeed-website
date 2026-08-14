@@ -11,15 +11,37 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "sprint-timing-gates-buyers-guide",
-    title: "Sprint Timing Systems Buyer's Guide: Gates, Apps, and Stopwatches Compared",
+    slug: "best-app-for-tracking-sprint-speed",
+    title: "Best App for Tracking Sprint Speed for Sprinters (2026)",
     excerpt:
-      "Why spend $2,500 on timing gates when your phone delivers the same training accuracy for free? Complete comparison of laser gates, camera-based timing, and stopwatches.",
-    date: "2026-02-17",
-    lastModified: "2026-02-17",
+      "A fair comparison of sprint timing, photo-finish, reaction, stride, GPS, and technique-analysis apps—with the best choice for each training job.",
+    date: "2026-08-09",
+    lastModified: "2026-08-09",
     category: "Comparisons",
-    readTime: "8 min read",
-    relatedSlugs: ["sprint-timing-systems-compared", "how-to-time-a-40-yard-dash"],
+    readTime: "9 min read",
+    relatedSlugs: ["single-beam-vs-dual-beam-timing-gates", "flying-10-meter-sprint-test"],
+  },
+  {
+    slug: "single-beam-vs-dual-beam-timing-gates",
+    title: "Single-Beam vs Dual-Beam Timing Gates for Sprinting",
+    excerpt:
+      "A research-backed analysis of single-beam, dual-beam, transponder, camera, and FAT timing—and why their sprint results should not be mixed.",
+    date: "2026-08-09",
+    lastModified: "2026-08-09",
+    category: "Technology",
+    readTime: "10 min read",
+    relatedSlugs: ["best-app-for-tracking-sprint-speed", "flying-10-meter-sprint-test"],
+  },
+  {
+    slug: "flying-10-meter-sprint-test",
+    title: "Flying 10-Meter Sprint Test: Setup, Timing, and Protocol",
+    excerpt:
+      "A repeatable flying 10m test protocol for measuring maximum velocity, including runway setup, recovery, phone placement, and result tracking.",
+    date: "2026-08-09",
+    lastModified: "2026-08-09",
+    category: "Guides",
+    readTime: "7 min read",
+    relatedSlugs: ["best-app-for-tracking-sprint-speed", "single-beam-vs-dual-beam-timing-gates"],
   },
   {
     slug: "how-to-time-a-40-yard-dash",
@@ -27,21 +49,10 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Learn how to get reliable, repeatable 40-yard dash times using just your phone — no expensive laser gates or stopwatch errors.",
     date: "2026-02-10",
-    lastModified: "2026-02-10",
+    lastModified: "2026-08-09",
     category: "Guides",
     readTime: "5 min read",
     relatedSlugs: ["multi-phone-sprint-timing-setup", "improve-sprint-speed-training"],
-  },
-  {
-    slug: "sprint-timing-systems-compared",
-    title: "Sprint Timing Systems Compared: Laser Gates vs Camera vs Stopwatch",
-    excerpt:
-      "An objective comparison of the most common sprint timing methods — accuracy, cost, consistency, and which is best for your situation.",
-    date: "2026-02-08",
-    lastModified: "2026-02-08",
-    category: "Comparisons",
-    readTime: "7 min read",
-    relatedSlugs: ["sprint-timing-gates-buyers-guide", "what-is-photo-finish-timing"],
   },
   {
     slug: "multi-phone-sprint-timing-setup",
@@ -49,7 +60,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Step-by-step guide to setting up two phones for split timing at start and finish lines during track practice.",
     date: "2026-02-05",
-    lastModified: "2026-02-05",
+    lastModified: "2026-08-09",
     category: "Guides",
     readTime: "4 min read",
     relatedSlugs: ["how-to-time-a-40-yard-dash", "improve-sprint-speed-training"],
@@ -71,9 +82,9 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A clear explanation of photo finish technology — from Olympic-grade line-scan cameras to modern smartphone-based approaches.",
     date: "2026-02-01",
-    lastModified: "2026-02-01",
+    lastModified: "2026-08-09",
     category: "Technology",
     readTime: "5 min read",
-    relatedSlugs: ["sprint-timing-systems-compared", "sprint-timing-gates-buyers-guide"],
+    relatedSlugs: ["single-beam-vs-dual-beam-timing-gates", "best-app-for-tracking-sprint-speed"],
   },
 ];

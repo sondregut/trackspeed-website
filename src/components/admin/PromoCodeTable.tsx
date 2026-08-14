@@ -25,6 +25,8 @@ function formatType(type: PromoCode["type"]): string {
       return "Free Pro";
     case "trial":
       return "Trial";
+    case "discount":
+      return "Discount paywall";
     default:
       return "Unsupported";
   }
@@ -112,6 +114,13 @@ function MaxUsesCell({
 }
 
 export default function PromoCodeTable({ codes, onToggle, onDelete, onUpdateMaxUses }: PromoCodeTableProps) {
+  const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
+
+  async function handleCopy(code: PromoCode) {
+    await navigator.clipboard.writeText(code.code);
+    setCopiedCodeId(code.id);
+  }
+
   return (
     <div className="card-gunmetal rounded-xl overflow-x-auto">
       <table className="w-full min-w-[700px]">
@@ -166,6 +175,12 @@ export default function PromoCodeTable({ codes, onToggle, onDelete, onUpdateMaxU
               </td>
               <td className="px-4 py-4 text-right">
                 <div className="flex items-center justify-end gap-2">
+                  <button
+                    onClick={() => void handleCopy(code)}
+                    className="px-3 py-1 rounded text-sm text-[#A9C9E5] bg-[#5C8DB8]/10 hover:bg-[#5C8DB8]/20 transition-colors"
+                  >
+                    {copiedCodeId === code.id ? "Copied" : "Copy"}
+                  </button>
                   <button
                     onClick={() => onToggle(code.id, code.is_active)}
                     className="px-3 py-1 rounded text-sm text-white bg-[#2B2E32] hover:bg-[#3D3D3D] transition-colors"

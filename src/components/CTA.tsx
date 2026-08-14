@@ -4,8 +4,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import PhoneMockup from "@/components/PhoneMockup";
 import ScrollReveal from "@/components/ScrollReveal";
+import { DownloadLink } from "@/components/DownloadLink";
 
-const valueProps = ["accuracy", "setup", "noHardware"] as const;
+const valueProps = ["setup", "noHardware"] as const;
 
 export default function CTA() {
   const t = useTranslations("home");
@@ -35,10 +36,13 @@ export default function CTA() {
                   {t(`ctaSection.${key}`)}
                 </span>
               ))}
+              <span className="rounded-full border border-white/10 bg-white/[0.08] px-4 py-2 text-sm font-bold text-white/76 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                Reviewable finish evidence
+              </span>
             </div>
 
             <div className="mt-10">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-flex transition-opacity hover:opacity-80">
+              <DownloadLink store="ios" className="inline-flex transition-opacity hover:opacity-80">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -46,7 +50,7 @@ export default function CTA() {
                   height={64}
                   className="h-[56px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <p className="mt-5 text-sm font-medium text-white/48">
                 {t("ctaSection.freeNote")}
               </p>

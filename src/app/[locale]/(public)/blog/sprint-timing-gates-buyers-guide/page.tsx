@@ -4,6 +4,7 @@ import {Link} from "@/i18n/navigation";
 import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -359,11 +360,11 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
                         className="py-3 pr-4 font-medium"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        Accuracy
+                        Measurement evidence
                       </td>
-                      <td className="py-3 px-4">~4ms</td>
-                      <td className="py-3 px-4">~10ms*</td>
-                      <td className="py-3 pl-4">TrackSpeed (tie)</td>
+                      <td className="py-3 px-4">Reviewable camera crossing</td>
+                      <td className="py-3 px-4">Varies by gate system</td>
+                      <td className="py-3 pl-4">Depends on the test</td>
                     </tr>
                     <tr
                       style={{
@@ -746,8 +747,8 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
             </div>
             <div className="card-feature p-6 md:p-8">
               <p className="text-body mb-6">
-                This is the objection gate vendors lean on. Let us look at the
-                actual numbers:
+                A fair comparison separates electronic resolution from the event
+                that actually triggers the result:
               </p>
 
               <div
@@ -763,13 +764,13 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
                       className="text-3xl font-bold mb-2"
                       style={{ color: "var(--accent-green)" }}
                     >
-                      ~4ms
+                      Reviewable
                     </div>
                     <div
                       className="text-sm font-medium"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      TrackSpeed
+                      TrackSpeed crossing
                     </div>
                   </div>
                   <div>
@@ -981,7 +982,7 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
                         TrackSpeed
                       </td>
                       <td className="py-3 px-4">$0-50/year</td>
-                      <td className="py-3 px-4">~4ms</td>
+                      <td className="py-3 px-4">Setup-dependent training claim</td>
                       <td className="py-3 px-4">30 sec</td>
                       <td className="py-3 pl-4">
                         Everyone (training & daily use)
@@ -1160,11 +1161,10 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
                   2. Do you want consistent training data?
                 </h3>
                 <p className="text-sm" style={{ color: "#166534" }}>
-                  <strong>Yes:</strong> TrackSpeed gives you everything you need
-                  -- ~4ms accuracy, automatic session logging, finish frame
-                  review, multi-phone sync for split timing, and zero setup
-                  hassle. This is the answer for training, whether you are a
-                  casual runner, high school team, D1 program, or research lab.
+                  <strong>Yes:</strong> TrackSpeed provides automatic session
+                  timing, finish evidence for review, and multi-phone split timing
+                  without a dedicated gate kit. It is a strong option for athletes
+                  and coaches who will keep the test protocol consistent.
                 </p>
               </div>
             </div>
@@ -1212,12 +1212,12 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
               Stop overpaying for timing gates
             </h2>
             <p className="text-body mb-8">
-              Download TrackSpeed and get the same training insights as $2,500
-              laser gates -- for free.
+              Download TrackSpeed and collect automatic, reviewable training times
+              without buying a dedicated timing-gate kit.
             </p>
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-col sm:flex-row items-center gap-3">
-                <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+                <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
                   <Image
                     src="/app-store-badge.svg"
                     alt="Download on the App Store"
@@ -1225,14 +1225,14 @@ export default async function SprintTimingGatesBuyersGuidePage({params}: {params
                     height={40}
                     className="h-[40px] w-auto"
                   />
-                </a>
+                </DownloadLink>
               </div>
               <div className="flex items-center gap-4">
                 <Link
                   href="/technology"
                   className="text-sm text-[#5C8DB8] hover:underline"
                 >
-                  How TrackSpeed achieves ~4ms accuracy
+                  How TrackSpeed measures sprint times
                 </Link>
                 <span style={{ color: "var(--text-muted)" }}>•</span>
                 <Link

@@ -14,26 +14,47 @@ interface CreateCodeFormProps {
   loading: boolean;
 }
 
-type PromoCodeType = 'free' | 'trial';
+type PromoCodeType = 'free' | 'trial' | 'discount';
+
+const creatorAccessDefaults = {
+  type: 'free' as const,
+  durationDays: '365',
+  maxUses: '1',
+  note: 'Creator access - 1 year free Pro, no card or auto-renew.',
+};
+
+function minimumExpiryDate() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow.toISOString().slice(0, 10);
+}
 
 export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProps) {
   const [code, setCode] = useState("");
-  const [type, setType] = useState<PromoCodeType>('free');
-  const [durationDays, setDurationDays] = useState<string>("");
-  const [maxUses, setMaxUses] = useState("");
+  const [type, setType] = useState<PromoCodeType>(creatorAccessDefaults.type);
+  const [durationDays, setDurationDays] = useState<string>(creatorAccessDefaults.durationDays);
+  const [maxUses, setMaxUses] = useState(creatorAccessDefaults.maxUses);
   const [expiresAt, setExpiresAt] = useState("");
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(creatorAccessDefaults.note);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit({
       code,
       type,
-      duration_days: durationDays ? parseInt(durationDays) : null,
-      max_uses: maxUses ? parseInt(maxUses) : null,
+      duration_days: type === 'free' && durationDays ? parseInt(durationDays, 10) : null,
+      max_uses: maxUses ? parseInt(maxUses, 10) : null,
       expires_at: expiresAt || null,
       note: note || null,
     });
+  }
+
+  function applyCreatorAccessPreset() {
+    setType(creatorAccessDefaults.type);
+    setDurationDays(creatorAccessDefaults.durationDays);
+    setMaxUses(creatorAccessDefaults.maxUses);
+    setExpiresAt("");
+    setNote(creatorAccessDefaults.note);
   }
 
   function generateCode() {
@@ -47,10 +68,28 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="rounded-lg border border-[#5C8DB8]/40 bg-[#5C8DB8]/10 p-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-medium text-white">Creator access preset</p>
+            <p className="mt-1 text-sm text-[#B8C7D4]">
+              Instant Pro for one athlete, valid for 1 year. No card and no auto-renewal.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={applyCreatorAccessPreset}
+            className="shrink-0 rounded-lg border border-[#5C8DB8] px-3 py-2 text-sm font-medium text-[#A9C9E5] transition-colors hover:bg-[#5C8DB8]/15 hover:text-white"
+          >
+            Use creator preset
+          </button>
+        </div>
+      </div>
+
       {/* Code */}
       <div>
         <label htmlFor="code" className="block text-sm text-[#9B9A97] mb-2">
-          Code
+          Individual code
         </label>
         <div className="flex gap-2">
           <input
@@ -59,7 +98,7 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
             value={code}
             onChange={(e) => setCode(e.target.value.toUpperCase())}
             className="flex-1 px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors font-mono uppercase"
-            placeholder="e.g., SUMMER2024"
+            placeholder="e.g., MAYA2026"
             required
           />
           <button
@@ -70,6 +109,9 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
             Generate
           </button>
         </div>
+        <p className="mt-2 text-xs text-[#787774]">
+          Use only letters and numbers. A name plus year is easy to recognize and share.
+        </p>
       </div>
 
       {/* Type */}
@@ -80,12 +122,30 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
         <select
           id="type"
           value={type}
-          onChange={(e) => setType(e.target.value as PromoCodeType)}
+          onChange={(e) => {
+            const nextType = e.target.value as PromoCodeType;
+            setType(nextType);
+            setDurationDays(
+              nextType === 'free' ? creatorAccessDefaults.durationDays : ""
+            );
+            if (nextType === 'discount') {
+              setMaxUses("1");
+              setNote("Individual discount paywall unlock. One redemption.");
+            }
+          }}
           className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         >
-          <option value="free">Free (Full Pro access)</option>
-          <option value="trial">Trial (Limited time)</option>
+          <option value="free">Free Pro access (instant, no card)</option>
+          <option value="trial">App Store trial offer (does not bypass paywall)</option>
+          <option value="discount">Discounted annual paywall (Apple purchase)</option>
         </select>
+        <p className="mt-2 text-xs text-[#9B9A97]">
+          {type === 'free'
+            ? "Use this for a creator's own access. It activates Pro immediately."
+            : type === 'discount'
+              ? "Unlocks the existing lower-priced annual App Store product. Keep Max Redemptions at 1 so the code cannot be shared."
+              : "Use this only for a separately configured App Store offer or audience-attribution flow."}
+        </p>
       </div>
 
       {/* Duration */}
@@ -97,20 +157,28 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           id="duration"
           value={durationDays}
           onChange={(e) => setDurationDays(e.target.value)}
+          disabled={type !== 'free'}
           className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         >
-          <option value="">Forever</option>
+          <option value="">Forever (permanent grant)</option>
           <option value="30">30 days (1 month)</option>
           <option value="90">90 days (3 months)</option>
           <option value="180">180 days (6 months)</option>
           <option value="365">365 days (1 year)</option>
         </select>
+        {type !== 'free' && (
+          <p className="mt-2 text-xs text-[#9B9A97]">
+            {type === 'trial'
+              ? "Trial duration is controlled by the App Store offer, not this field."
+              : "The discount price is controlled by the App Store product, not this field."}
+          </p>
+        )}
       </div>
 
       {/* Max Uses */}
       <div>
         <label htmlFor="maxUses" className="block text-sm text-[#9B9A97] mb-2">
-          Max Uses (optional)
+          Max Redemptions (optional)
         </label>
         <input
           id="maxUses"
@@ -121,6 +189,9 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
           placeholder="Unlimited"
         />
+        <p className="mt-2 text-xs text-[#787774]">
+          Keep this at 1 for an individual athlete code.
+        </p>
       </div>
 
       {/* Expiry Date */}
@@ -133,8 +204,12 @@ export default function CreateCodeForm({ onSubmit, loading }: CreateCodeFormProp
           type="date"
           value={expiresAt}
           onChange={(e) => setExpiresAt(e.target.value)}
+          min={minimumExpiryDate()}
           className="w-full px-4 py-3 rounded-lg bg-[#2B2E32] border border-[#3D3D3D] text-white placeholder-[#787774] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5C8DB8] focus-visible:ring-offset-1 transition-colors"
         />
+        <p className="mt-2 text-xs text-[#787774]">
+          Leave blank for no redemption deadline. Past dates are rejected.
+        </p>
       </div>
 
       {/* Note */}

@@ -6,9 +6,10 @@ import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/components/u
 import { Badge } from "@/components/ui/badge";
 import PhoneMockup from "@/components/PhoneMockup";
 import ScrollReveal from "@/components/ScrollReveal";
+import { DownloadLink } from "@/components/DownloadLink";
 
 const heroStats = [
-  { value: "~4ms", label: "Timing accuracy" },
+  { value: "5.0", label: "US App Store rating*" },
   { value: "2+ phones", label: "Wireless gates" },
   { value: "0", label: "Extra hardware" },
 ] as const;
@@ -42,14 +43,14 @@ export default function Hero() {
               TrackSpeed
             </p>
             <h1 className="max-w-[10.6ch] text-[2.85rem] font-black leading-[0.9] tracking-[-0.035em] text-white sm:max-w-[12ch] sm:text-[clamp(3.15rem,7.4vw,5.4rem)]">
-              Turn your phone into a sprint timer.
+              {t("hero.title")} — {t("hero.subtitle")}
             </h1>
             <p className="mt-5 max-w-full text-xl leading-8 text-white/68 sm:max-w-[34rem] md:text-[1.35rem] md:leading-8">
-              Set gates, pick a start mode, run the rep, and review photo-finish proof from the phone already in your pocket.
+              {t("features.smartDetection.description")} {t("features.trackProgress.description")}
             </p>
 
             <div className="mt-7 flex w-full max-w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-flex w-fit transition-opacity hover:opacity-80">
+              <DownloadLink store="ios" className="inline-flex w-fit transition-opacity hover:opacity-80">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -58,12 +59,12 @@ export default function Hero() {
                   priority
                   className="h-[54px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <a
                 href="#how-it-works"
                 className="inline-flex h-[54px] w-full items-center justify-center rounded-2xl border border-white/14 bg-white/10 px-6 text-sm font-bold text-white shadow-[0_18px_50px_-34px_rgba(0,0,0,0.65)] backdrop-blur transition-[transform,background-color] hover:bg-white/16 active:translate-y-px sm:w-auto"
               >
-                See how it works
+                {t("hero.secondaryCta")}
               </a>
             </div>
 
@@ -75,6 +76,9 @@ export default function Hero() {
                 </div>
               ))}
             </div>
+            <p className="mt-3 text-xs font-medium text-white/42">
+              *5.0 from 1 US App Store rating, checked August 9, 2026.
+            </p>
           </div>
         </ScrollReveal>
 

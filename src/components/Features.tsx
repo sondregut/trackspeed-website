@@ -7,7 +7,11 @@ import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/Scroll
 export default function Features() {
   const t = useTranslations("home");
 
-  const statKeys = ["accuracy", "sync", "hardware"] as const;
+  const stats = [
+    { value: "Auto", label: "Line crossing" },
+    { value: "2+", label: t("features.stats.sync.label") },
+    { value: "0", label: t("features.stats.hardware.label") },
+  ] as const;
 
   const featureKeys = ["smartDetection", "multiDeviceSync", "instantResults", "trackProgress"] as const;
 
@@ -34,10 +38,10 @@ export default function Features() {
                     TrackSpeed
                   </div>
                   <div className="mt-2 text-2xl font-black leading-none tracking-tight sm:text-3xl">
-                    {t("features.stats.accuracy.value")}
+                    Reviewable
                   </div>
                   <div className="mt-1 text-sm font-semibold text-white/62">
-                    {t("features.stats.accuracy.label")}
+                    Finish evidence
                   </div>
                 </div>
                 <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/8 text-[#8DDCB4] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)]">
@@ -46,13 +50,13 @@ export default function Features() {
               </div>
 
               <div className="grid grid-cols-3 divide-x divide-white/10">
-                {statKeys.map((key) => (
-                  <div key={key} className="px-3 py-5 first:pl-0 last:pr-0 sm:px-5">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="px-3 py-5 first:pl-0 last:pr-0 sm:px-5">
                     <div className="text-2xl font-black tracking-tight sm:text-3xl">
-                      {t(`features.stats.${key}.value`)}
+                      {stat.value}
                     </div>
                     <div className="mt-1 text-[0.7rem] font-bold uppercase leading-snug tracking-[0.12em] text-white/48 sm:text-xs">
-                      {t(`features.stats.${key}.label`)}
+                      {stat.label}
                     </div>
                   </div>
                 ))}

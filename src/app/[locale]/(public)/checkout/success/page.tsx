@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Download, LogIn } from "lucide-react"
 import { setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { getPageMetadata } from "@/i18n/metadata"
+import { DownloadLink } from "@/components/DownloadLink"
 
 export const metadata: Metadata = getPageMetadata({
   title: "TrackSpeed Pro Ready",
@@ -55,8 +56,8 @@ export default async function CheckoutSuccessPage({
                       already installed.
                     </p>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <a
-                        href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
+                      <DownloadLink
+                        store="ios"
                         className="inline-block transition-opacity hover:opacity-80"
                       >
                         <Image
@@ -66,7 +67,7 @@ export default async function CheckoutSuccessPage({
                           height={44}
                           className="h-[44px] w-auto"
                         />
-                      </a>
+                      </DownloadLink>
                       <a
                         href="trackspeed://open"
                         className="inline-flex h-11 items-center gap-2 rounded-full border border-[#DCE5EE] px-4 text-sm font-semibold text-[#26303E] transition-colors hover:border-[#BFD2E2]"

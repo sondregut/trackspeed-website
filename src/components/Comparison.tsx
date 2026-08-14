@@ -1,216 +1,132 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { DownloadLink } from "@/components/DownloadLink";
 import ScrollReveal from "@/components/ScrollReveal";
 
+const methods = [
+  {
+    name: "TrackSpeed",
+    event: "Automatic crossing at a configured camera line",
+    evidence: "Reviewable finish evidence",
+    hardware: "iPhone; more phones for more timing points",
+    scope: "Repeatable training and testing",
+    highlighted: true,
+  },
+  {
+    name: "Manual stopwatch",
+    event: "A person's button press",
+    evidence: "Usually a number only",
+    hardware: "Stopwatch or phone",
+    scope: "Simple group practice",
+    highlighted: false,
+  },
+  {
+    name: "Photocell timing gates",
+    event: "An object breaking one or more beams",
+    evidence: "Varies by system",
+    hardware: "Gates, tripods, controller, and/or transponders",
+    scope: "Dedicated training-gate workflow",
+    highlighted: false,
+  },
+  {
+    name: "Certified photo-finish FAT",
+    event: "Official start signal and finish-plane image",
+    evidence: "Official photo-finish image",
+    hardware: "Specialized certified system",
+    scope: "Official stadium competition",
+    highlighted: false,
+  },
+] as const;
+
 export default function Comparison() {
-  const t = useTranslations("home");
-
-  const featureKeys = ["price", "accuracy", "chestDetection", "setupTime", "hardware", "splitTimes", "photoFinish", "portability"] as const;
-
-  const features = featureKeys.map((key) => {
-    if (key === "splitTimes") {
-      return {
-        name: t(`comparison.features.${key}`),
-        trackspeed: true as string | boolean,
-        freelap: true as string | boolean,
-        brower: true as string | boolean,
-        dashr: true as string | boolean,
-        stopwatch: false as string | boolean,
-        highlight: false,
-      };
-    }
-    if (key === "photoFinish") {
-      return {
-        name: t(`comparison.features.${key}`),
-        trackspeed: true as string | boolean,
-        freelap: false as string | boolean,
-        brower: false as string | boolean,
-        dashr: false as string | boolean,
-        stopwatch: false as string | boolean,
-        highlight: true,
-      };
-    }
-    return {
-      name: t(`comparison.features.${key}`),
-      trackspeed: t(`comparison.trackspeed.${key}`) as string | boolean,
-      freelap: t(`comparison.freelap.${key}`) as string | boolean,
-      brower: t(`comparison.brower.${key}`) as string | boolean,
-      dashr: t(`comparison.dashr.${key}`) as string | boolean,
-      stopwatch: t(`comparison.stopwatch.${key}`) as string | boolean,
-      highlight: ["price", "accuracy", "chestDetection", "setupTime", "hardware", "portability"].includes(key),
-    };
-  });
-
-  const renderValue = (value: string | boolean) => {
-    if (value === true) {
-      return (
-        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#D1FAE5]">
-          <svg className="w-4 h-4 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-          </svg>
-        </span>
-      );
-    }
-    if (value === false) {
-      return (
-        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-border">
-          <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </span>
-      );
-    }
-    return value;
-  };
-
   return (
     <section id="comparison" className="section-padding px-6 bg-mint-wash">
       <div className="max-w-5xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-section mb-4">
-              {t("comparison.title")}
-            </h2>
-            <p className="text-body">
-              {t("comparison.subtitle")}
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-green">
+              Compare the recorded event
+            </p>
+            <h2 className="text-section mb-4">Different timing tools answer different questions</h2>
+            <p className="text-body max-w-3xl mx-auto">
+              A fair comparison starts with what triggers the time, what evidence
+              remains afterward, and whether the result is for training or official competition.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Desktop Table */}
         <ScrollReveal>
-          <div className="hidden lg:block">
-            <Card className="overflow-hidden p-0 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-b-0 bg-bg-mint">
-                    <TableHead className="text-left py-5 px-6 font-medium text-sm uppercase tracking-wider h-auto text-muted border-b border-border">
-                      {t("comparison.feature")}
-                    </TableHead>
-                    <TableHead className="py-5 px-4 text-center h-auto border-b border-border">
-                      <div className="inline-flex flex-col items-center gap-1">
-                        <span className="font-bold text-foreground">TrackSpeed</span>
-                        <Badge className="text-[10px] px-2 py-0.5 bg-[#D1FAE5] border-transparent text-accent-green">
-                          {t("comparison.youAreHere")}
-                        </Badge>
-                      </div>
-                    </TableHead>
-                    <TableHead className="py-5 px-4 text-center font-medium h-auto text-muted border-b border-border">Freelap</TableHead>
-                    <TableHead className="py-5 px-4 text-center font-medium h-auto text-muted border-b border-border">Brower</TableHead>
-                    <TableHead className="py-5 px-4 text-center font-medium h-auto text-muted border-b border-border">DASHR</TableHead>
-                    <TableHead className="py-5 px-4 text-center font-medium h-auto text-muted border-b border-border">Stopwatch</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {features.map((feature, index) => (
-                    <TableRow
-                      key={index}
-                      className={`border-b-0 border-t border-border ${feature.highlight ? 'bg-[var(--bg-sky)]' : 'bg-white'}`}
-                    >
-                      <TableCell className="py-4 px-6 font-medium text-foreground">{feature.name}</TableCell>
-                      <TableCell className="py-4 px-4 text-center">
-                        <span className="font-semibold text-foreground">
-                          {renderValue(feature.trackspeed)}
-                        </span>
-                      </TableCell>
-                      <TableCell className="py-4 px-4 text-center text-muted">
-                        {renderValue(feature.freelap)}
-                      </TableCell>
-                      <TableCell className="py-4 px-4 text-center text-muted">
-                        {renderValue(feature.brower)}
-                      </TableCell>
-                      <TableCell className="py-4 px-4 text-center text-muted">
-                        {renderValue(feature.dashr)}
-                      </TableCell>
-                      <TableCell className="py-4 px-4 text-center text-muted">
-                        {renderValue(feature.stopwatch)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
+          <div className="card-feature overflow-x-auto rounded-3xl">
+            <table className="w-full min-w-[820px] text-left text-sm">
+              <thead>
+                <tr style={{ borderBottom: "1px solid var(--border-light)" }}>
+                  <th className="p-5 font-semibold">Method</th>
+                  <th className="p-5 font-semibold">What records the event</th>
+                  <th className="p-5 font-semibold">Evidence</th>
+                  <th className="p-5 font-semibold">Equipment</th>
+                  <th className="p-5 font-semibold">Intended scope</th>
+                </tr>
+              </thead>
+              <tbody style={{ color: "var(--text-muted)" }}>
+                {methods.map((method) => (
+                  <tr
+                    key={method.name}
+                    style={{
+                      borderBottom: "1px solid var(--border-light)",
+                      background: method.highlighted ? "var(--bg-sky)" : "transparent",
+                    }}
+                  >
+                    <td className="p-5 font-semibold" style={{ color: method.highlighted ? "var(--accent-green)" : "var(--text-primary)" }}>
+                      {method.name}
+                    </td>
+                    <td className="p-5">{method.event}</td>
+                    <td className="p-5">{method.evidence}</td>
+                    <td className="p-5">{method.hardware}</td>
+                    <td className="p-5">{method.scope}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </ScrollReveal>
 
-        {/* Mobile View */}
         <ScrollReveal>
-          <div className="lg:hidden">
-            <Card className="p-6 mb-4 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-              <CardHeader className="p-0 pb-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-lg text-foreground">TrackSpeed</span>
-                  <Badge className="text-[10px] px-2 py-1 bg-[#D1FAE5] border-transparent text-accent-green">
-                    {t("comparison.youAreHere")}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="space-y-3">
-                  {features.map((feature, index) => (
-                    <div key={index} className={`flex justify-between items-center py-2 ${index < features.length - 1 ? 'border-b border-border' : ''}`}>
-                      <span className="text-muted">{feature.name}</span>
-                      <span className="font-medium text-foreground">{renderValue(feature.trackspeed)}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 gap-3">
-              {["Freelap", "Brower", "DASHR", "Stopwatch"].map((competitor) => (
-                <Card key={competitor} className="p-4 border-[var(--border-light)] rounded-3xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-                  <CardContent className="p-0">
-                    <h4 className="font-medium text-sm mb-3 text-muted">{competitor}</h4>
-                    <div className="space-y-2 text-sm">
-                      {features.slice(0, 4).map((feature, index) => (
-                        <div key={index} className="flex justify-between">
-                          <span className="text-muted">{feature.name}</span>
-                          <span className="text-text-secondary">
-                            {renderValue(feature[competitor.toLowerCase() as keyof typeof feature] as string | boolean)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+          <div className="mt-8 text-center">
+            <p className="text-body max-w-3xl mx-auto">
+              TrackSpeed does not replace certified FAT for official results. For
+              training, keep the distance, start method, line position, placement,
+              and conditions consistent, then compare like with like.
+            </p>
+            <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/blog/single-beam-vs-dual-beam-timing-gates"
+                className="font-semibold text-[#5C8DB8] hover:underline"
+              >
+                Read the timing-gate evidence
+              </Link>
+              <span className="hidden text-muted sm:inline" aria-hidden="true">·</span>
+              <Link
+                href="/blog/best-app-for-tracking-sprint-speed"
+                className="font-semibold text-[#5C8DB8] hover:underline"
+              >
+                Compare sprint speed apps
+              </Link>
+            </div>
+            <div className="mt-8 flex justify-center">
+              <DownloadLink store="ios" className="inline-block transition-opacity hover:opacity-80">
+                <Image
+                  src="/app-store-badge.svg"
+                  alt="Download TrackSpeed on the App Store"
+                  width={120}
+                  height={40}
+                  className="h-[40px] w-auto"
+                />
+              </DownloadLink>
             </div>
           </div>
         </ScrollReveal>
-
-        <div className="text-center text-xs mt-8 space-y-1 text-muted">
-          <p>{t("comparison.footnotes.pricing")}</p>
-          <p>{t.rich("comparison.footnotes.browerStudy", {
-            link: (chunks) => <a key="brower-link" href="https://www.researchgate.net/publication/266796025" className="underline hover:no-underline text-text-secondary" target="_blank" rel="noopener">{chunks}</a>,
-          })}</p>
-          <p>{t("comparison.footnotes.beamNote")}</p>
-        </div>
-
-        <div className="text-center mt-10 flex justify-center">
-          <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
-            <Image
-              src="/app-store-badge.svg"
-              alt="Download on the App Store"
-              width={120}
-              height={40}
-              sizes="120px"
-              className="h-[40px] w-auto"
-            />
-          </a>
-        </div>
       </div>
     </section>
   );

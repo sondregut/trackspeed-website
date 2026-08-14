@@ -1,9 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { CopyButton } from './CopyButton'
-
-// App Store URL for TrackSpeed
-const APP_STORE_URL = 'https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163'
+import { DownloadLink } from '@/components/DownloadLink'
 
 type Props = {
   params: Promise<{ code: string }>
@@ -62,7 +60,7 @@ export default async function InvitePage({ params }: Props) {
 
         {/* Download Button */}
         <div className="flex justify-center">
-          <a href={APP_STORE_URL} className="inline-block hover:opacity-80 transition-opacity">
+          <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
             <Image
               src="/app-store-badge.svg"
               alt="Download on the App Store"
@@ -70,7 +68,7 @@ export default async function InvitePage({ params }: Props) {
               height={40}
               className="h-[40px] w-auto"
             />
-          </a>
+          </DownloadLink>
         </div>
 
         {/* Referral Code */}

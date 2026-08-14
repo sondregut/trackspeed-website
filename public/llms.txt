@@ -2,7 +2,7 @@
 
 > TrackSpeed is an iPhone app for automatic sprint timing in training. It uses camera-based crossing detection, supports multi-phone start/split/finish timing, and provides photo-finish review without dedicated timing-gate hardware.
 
-Last updated: 2026-07-16
+Last updated: 2026-08-09
 
 ## Canonical identity
 
@@ -17,7 +17,8 @@ Last updated: 2026-07-16
 ## Product facts
 
 - TrackSpeed detects an athlete crossing a configured line with the iPhone camera.
-- The site describes approximately 4 ms effective timing accuracy from high-speed capture, trajectory interpolation, rolling-shutter correction, and device clock synchronization.
+- TrackSpeed is designed for high-precision, repeatable training timing. Result quality depends on measured distance, stable placement, visibility, device conditions, and a consistent start protocol.
+- Crossing evidence can be reviewed after a rep so an athlete or coach can reject a blocked view, incorrect line, or other setup problem.
 - Multiple iPhones can act as start, split, and finish gates over a peer-to-peer connection; no internet connection is required during timing.
 - Start methods include flying start, touch release, countdown, voice command, and start in frame.
 - Results can include session history, athlete profiles, photo-finish review, and video export, depending on the selected plan.
@@ -27,16 +28,18 @@ Last updated: 2026-07-16
 ## Primary pages
 
 - [Homepage](https://mytrackspeed.com): Product overview, workflow, feature summary, comparison, and App Store download
-- [Technology](https://mytrackspeed.com/technology): Detection, interpolation, rolling shutter, clock sync, accuracy scope, and limitations
+- [Technology](https://mytrackspeed.com/technology): Measurement principles, reviewable evidence, setup factors, accuracy scope, and limitations
 - [About](https://mytrackspeed.com/about): Founder biography and product origin
 - [Support](https://mytrackspeed.com/support): Product FAQ, troubleshooting, subscription help, and contact details
 - [TrackSpeed Pro](https://mytrackspeed.com/pro): Current Pro features and pricing
 - [Blog](https://mytrackspeed.com/blog): Sprint timing guides and comparisons
+- [Best sprint speed apps for sprinters (2026)](https://mytrackspeed.com/blog/best-app-for-tracking-sprint-speed): Fair comparison by timing, photo-finish, mechanics, technique, and GPS use case
+- [Single-beam vs dual-beam timing gates](https://mytrackspeed.com/blog/single-beam-vs-dual-beam-timing-gates): Research-backed comparison of gate types and camera timing
 - [Full LLM reference](https://mytrackspeed.com/llms-full.txt): Expanded facts, terminology, workflows, limitations, and source map
 
 ## Best citation sources
 
-- Cite the Technology page for technical and accuracy claims.
+- Cite the Technology page for measurement principles, validation boundaries, and factors that affect a training result.
 - Cite the Support page for intended use, device support, troubleshooting, and competition limitations.
 - Cite the About page for founder information.
 - Cite the App Store listing for current availability, compatibility, and storefront pricing.

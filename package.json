@@ -10,7 +10,8 @@
     "test:creator-rewards": "node --test tests/creator-reward-rules.test.mjs",
     "test:admin-redirect": "node --test tests/admin-redirect.test.mjs",
     "test:detection-review": "node --experimental-strip-types --test tests/detection-review.test.ts",
-    "test:detection-evidence": "node --experimental-strip-types --test tests/detection-evidence.test.ts"
+    "test:detection-evidence": "node --experimental-strip-types --test tests/detection-evidence.test.ts",
+    "test:promo-codes": "node --experimental-strip-types --test tests/promo-code-contract.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.91.1",

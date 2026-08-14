@@ -4,6 +4,7 @@ import {Link} from "@/i18n/navigation";
 import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
+import { DownloadLink } from "@/components/DownloadLink";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -42,7 +43,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
       logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-02-10",
-    dateModified: "2026-02-10",
+    dateModified: "2026-08-09",
     mainEntityOfPage:
       "https://mytrackspeed.com/blog/how-to-time-a-40-yard-dash",
     keywords: [
@@ -208,7 +209,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 tell whether a 0.05-second improvement is real progress or just
                 noise in the measurement. You need a{" "}
                 <Link
-                  href="/blog/sprint-timing-systems-compared"
+                  href="/blog/single-beam-vs-dual-beam-timing-gates"
                   className="text-[#5C8DB8] hover:underline"
                 >
                   more consistent timing method
@@ -403,7 +404,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                   href="/technology"
                   className="text-[#5C8DB8] hover:underline"
                 >
-                  detection algorithm
+                  measurement guide
                 </Link>{" "}
                 a clear view of the runner crossing the finish plane.
               </p>
@@ -415,14 +416,11 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 Set Your Frame Rate
               </h3>
               <p className="text-body mb-6">
-                For outdoor 40-yard dashes, 60fps is the recommended setting. It
-                provides strong accuracy while keeping your phone running cool
-                during multiple reps. At 60fps, TrackSpeed captures a frame
-                every 16.7 milliseconds and uses sub-frame interpolation to
-                calculate the exact crossing moment between frames. If you want
-                the highest precision for a small number of reps, 120fps gives
-                you the tightest thumbnail accuracy, but generates more heat
-                during sustained use.
+                Use the app&apos;s recommended capture setting for the device and
+                conditions. Higher capture settings can increase heat during a
+                long session, so watch the on-screen device guidance and allow the
+                phone to cool if it warns you. Whatever setting you choose, keep
+                it consistent when comparing results across sessions.
               </p>
 
               <h3
@@ -506,8 +504,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                   <li>One phone at the start line, one at the finish line</li>
                   <li>Both detect crossings automatically via computer vision</li>
                   <li>
-                    Devices sync clocks over peer-to-peer with sub-millisecond
-                    precision
+                    Devices coordinate the session over a peer-to-peer connection
                   </li>
                   <li>Zero human reaction time in the measurement</li>
                   <li>
@@ -517,17 +514,17 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
               </div>
 
               <p className="text-body mb-4">
-                The two devices use an{" "}
+                The two devices use a{" "}
                 <Link
                   href="/technology"
                   className="text-[#5C8DB8] hover:underline"
                 >
-                  NTP-style clock synchronization protocol
+                  coordinated multi-phone timing workflow
                 </Link>{" "}
-                to align their internal clocks to within a few milliseconds of
-                each other. This means the time you see is pure running time —
-                from the moment the athlete crosses the start gate to the
-                moment they cross the finish gate.
+                so the configured start and finish events produce the elapsed
+                training time. The exact coordination method is proprietary;
+                confirm both devices are connected, armed, stable, and on the
+                correct lines before running.
               </p>
 
               <p className="text-body">
@@ -835,7 +832,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
               expensive equipment.
             </p>
             <div className="flex flex-col items-center gap-4">
-              <a href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163" className="inline-block hover:opacity-80 transition-opacity">
+              <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/app-store-badge.svg"
                   alt="Download on the App Store"
@@ -843,9 +840,9 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                   height={40}
                   className="h-[40px] w-auto"
                 />
-              </a>
+              </DownloadLink>
               <Link
-                href="/blog/sprint-timing-systems-compared"
+                href="/blog/single-beam-vs-dual-beam-timing-gates"
                 className="text-sm text-[#5C8DB8] hover:underline"
               >
                 Compare TrackSpeed to laser gates and stopwatch timing

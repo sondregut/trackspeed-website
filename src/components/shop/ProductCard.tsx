@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { useCart } from "./CartProvider";
 import { useTranslations } from "next-intl";
+import { DownloadLink } from "@/components/DownloadLink";
 
 type Product = {
   id: string;
@@ -94,15 +95,15 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Action button */}
       <div className="px-5 pb-5">
         {product.isDigital ? (
-          <a
-            href="https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163"
+          <DownloadLink
+            store="ios"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Button className="bg-[#5C8DB8] hover:bg-[#4a7da8] text-white rounded-full px-5 w-full">
               {t("cart.getInApp")}
             </Button>
-          </a>
+          </DownloadLink>
         ) : (
           <Button
             onClick={() => addItem({ id: product.id, name, price })}
