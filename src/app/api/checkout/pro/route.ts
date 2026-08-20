@@ -6,26 +6,13 @@ import {
   getRevenueCatWebCheckoutConfigIssues,
   normalizeProCheckoutPlan,
 } from "@/lib/revenuecat-web"
-import { getSupabaseAdmin } from "@/lib/supabase"
-
-type CheckoutMode = "sign-up" | "sign-in"
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-function normalizeEmail(value: unknown): string | null {
-  if (typeof value !== "string") return null
-  const email = value.trim().toLowerCase()
-  return EMAIL_REGEX.test(email) ? email : null
-}
-
-function normalizePassword(value: unknown): string | null {
-  if (typeof value !== "string") return null
-  return value.length >= 6 ? value : null
-}
-
-function normalizeMode(value: unknown): CheckoutMode {
-  return value === "sign-in" ? "sign-in" : "sign-up"
-}
+import {
+  checkoutEmailRedirectUrl,
+  normalizeCheckoutEmail,
+  normalizeCheckoutMode,
+  normalizeCheckoutPassword,
+  type CheckoutMode,
+} from "@/lib/checkout-security"
 
 function createAuthClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -42,15 +29,6 @@ function createAuthClient() {
       detectSessionInUrl: false,
     },
   })
-}
-
-function userExistsMessage(message: string): boolean {
-  const lower = message.toLowerCase()
-  return (
-    lower.includes("already") ||
-    lower.includes("registered") ||
-    lower.includes("exists")
-  )
 }
 
 async function resolveAppUserId({
@@ -81,25 +59,17 @@ async function resolveAppUserId({
     return { appUserId: data.user.id }
   }
 
-  const { data, error } = await getSupabaseAdmin().auth.admin.createUser({
+  const supabase = createAuthClient()
+  const { error } = await supabase.auth.signUp({
     email,
     password,
-    email_confirm: true,
-    user_metadata: {
-      source: "web_checkout",
+    options: {
+      emailRedirectTo: checkoutEmailRedirectUrl(),
+      data: { source: "web_checkout" },
     },
   })
 
-  if (error || !data.user) {
-    if (error && userExistsMessage(error.message)) {
-      return {
-        response: NextResponse.json(
-          { error: "An account already exists for that email. Switch to sign in." },
-          { status: 409 }
-        ),
-      }
-    }
-
+  if (error) {
     console.error("Failed to create checkout account:", error)
     return {
       response: NextResponse.json(
@@ -109,7 +79,15 @@ async function resolveAppUserId({
     }
   }
 
-  return { appUserId: data.user.id }
+  // Never generate a purchase URL from a just-submitted email address. The
+  // athlete must prove mailbox control and then sign in before checkout can be
+  // tied to the stable Supabase/RevenueCat app user ID.
+  return {
+    response: NextResponse.json({
+      verificationRequired: true,
+      message: "Check your email, confirm the account, then return and sign in to continue.",
+    }),
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -121,9 +99,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 })
   }
 
-  const email = normalizeEmail(body.email)
-  const password = normalizePassword(body.password)
-  const mode = normalizeMode(body.mode)
+  const email = normalizeCheckoutEmail(body.email)
+  const password = normalizeCheckoutPassword(body.password)
+  const mode = normalizeCheckoutMode(body.mode)
   const plan = normalizeProCheckoutPlan(body.plan)
 
   if (!email) {
@@ -132,7 +110,7 @@ export async function POST(request: NextRequest) {
 
   if (!password) {
     return NextResponse.json(
-      { error: "Enter a password with at least 6 characters." },
+      { error: "Enter a password between 8 and 128 characters." },
       { status: 400 }
     )
   }

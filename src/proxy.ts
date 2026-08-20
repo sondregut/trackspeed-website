@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import {NextResponse} from 'next/server';
 import type {NextRequest} from 'next/server';
 import {routing} from './i18n/routing';
+import {timingSafeEqualString} from './lib/server-secrets';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -35,7 +36,7 @@ export function proxy(request: NextRequest) {
 
       const expectedToken = process.env.ADMIN_SESSION_TOKEN;
 
-      if (!expectedToken || sessionToken !== expectedToken) {
+      if (!expectedToken || !timingSafeEqualString(sessionToken, expectedToken)) {
         const loginUrl = new URL('/admin/login', request.url);
         return NextResponse.redirect(loginUrl);
       }

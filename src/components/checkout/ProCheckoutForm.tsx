@@ -61,6 +61,7 @@ export default function ProCheckoutForm({
   const [confirmEmail, setConfirmEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const selectedPlan = useMemo(() => PLANS[plan], [plan])
@@ -73,6 +74,7 @@ export default function ProCheckoutForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
+    setNotice(null)
 
     if (!hasAnyAvailablePlan) {
       setError("Open TrackSpeed and upgrade through the app paywall for now.")
@@ -101,7 +103,19 @@ export default function ProCheckoutForm({
         }),
       })
 
-      const data = (await response.json()) as { url?: string; error?: string }
+      const data = (await response.json()) as {
+        url?: string
+        error?: string
+        message?: string
+        verificationRequired?: boolean
+      }
+
+      if (response.ok && data.verificationRequired) {
+        setNotice(data.message || "Check your email, confirm the account, then sign in to continue.")
+        setMode("sign-in")
+        setPassword("")
+        return
+      }
 
       if (!response.ok || !data.url) {
         setError(data.error || "Could not start checkout.")
@@ -275,7 +289,8 @@ export default function ProCheckoutForm({
               onChange={(event) => setPassword(event.target.value)}
               autoComplete={mode === "sign-up" ? "new-password" : "current-password"}
               className="h-11 rounded-xl bg-white pl-9"
-              minLength={6}
+              minLength={8}
+              maxLength={128}
               required
             />
           </div>
@@ -284,6 +299,12 @@ export default function ProCheckoutForm({
         {error && (
           <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
+          </p>
+        )}
+
+        {notice && (
+          <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+            {notice}
           </p>
         )}
 

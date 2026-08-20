@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { enforceRateLimit } from '@/lib/rate-limit'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -35,12 +36,37 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const rateLimitResponse = await enforceRateLimit(request, {
+      scope: 'public_feedback_create',
+      limit: 10,
+      windowSeconds: 60 * 60,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
     const body = await request.json()
     const { title, description, category, author_name } = body
 
-    if (!title || !title.trim()) {
+    if (typeof title !== 'string' || !title.trim() || title.trim().length > 160) {
       return NextResponse.json(
-        { error: 'Title is required' },
+        { error: 'Title must be between 1 and 160 characters' },
+        { status: 400 }
+      )
+    }
+
+    if (description !== undefined && description !== null && (
+      typeof description !== 'string' || description.trim().length > 5_000
+    )) {
+      return NextResponse.json(
+        { error: 'Description must be 5,000 characters or fewer' },
+        { status: 400 }
+      )
+    }
+
+    if (author_name !== undefined && author_name !== null && (
+      typeof author_name !== 'string' || author_name.trim().length > 80
+    )) {
+      return NextResponse.json(
+        { error: 'Name must be 80 characters or fewer' },
         { status: 400 }
       )
     }
@@ -57,9 +83,9 @@ export async function POST(request: Request) {
       .from('feedback_posts')
       .insert({
         title: title.trim(),
-        description: description?.trim() || null,
+        description: typeof description === 'string' ? description.trim() || null : null,
         category: category || 'feature',
-        author_name: author_name?.trim() || null,
+        author_name: typeof author_name === 'string' ? author_name.trim() || null : null,
       })
       .select()
       .single()
