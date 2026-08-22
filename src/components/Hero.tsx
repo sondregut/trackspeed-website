@@ -9,7 +9,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { DownloadLink } from "@/components/DownloadLink";
 
 const heroStats = [
-  { value: "5.0", label: "US App Store rating*" },
+  { value: "5.0", label: "US App Store rating" },
   { value: "2+ phones", label: "Wireless gates" },
   { value: "0", label: "Extra hardware" },
 ] as const;
@@ -76,9 +76,6 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-xs font-medium text-white/42">
-              *5.0 from 1 US App Store rating, checked August 9, 2026.
-            </p>
           </div>
         </ScrollReveal>
 
