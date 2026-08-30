@@ -8,6 +8,7 @@ import {
   adminReviewKey,
   currentDetectionReviewSince,
   detectionReviewDraftValidationError,
+  detectionReviewEvidenceProvenance,
   detectionReviewMode,
   detectionReviewIdentityKey,
   detectionReviewSessionIdentifiers,
@@ -38,6 +39,8 @@ interface CaptureRow {
   gate_label: string
   device_id: string
   app_version: string | null
+  app_build: string | null
+  evidence_consent_version: number
   device_model: string | null
   detector_trigger_frame_pts_nanos: number | string | null
   detector_chosen_frame_pts_nanos: number | string | null
@@ -93,6 +96,11 @@ interface ReviewMarkRow {
   detection_distance: string | null
   iso: number | null
   raw_message: string | null
+  source_capture_id: string | null
+  source_app_build: string | null
+  owner_confirmed: boolean
+  evidence_provenance: string | null
+  evidence_consent_version: number
 }
 
 interface SessionContextRow {
@@ -109,6 +117,8 @@ interface SessionContextRow {
   local_role: string | null
   gate_index: number | null
   app_version: string | null
+  app_build: string | null
+  evidence_consent_version: number
   device_model: string | null
   created_at: string
   updated_at: string
@@ -150,6 +160,8 @@ const captureSelect = [
   "gate_label",
   "device_id",
   "app_version",
+  "app_build",
+  "evidence_consent_version",
   "device_model",
   "detector_trigger_frame_pts_nanos",
   "detector_chosen_frame_pts_nanos",
@@ -205,6 +217,11 @@ const markSelect = [
   "detection_distance",
   "iso",
   "raw_message",
+  "source_capture_id",
+  "source_app_build",
+  "owner_confirmed",
+  "evidence_provenance",
+  "evidence_consent_version",
 ].join(",")
 
 const sessionContextSelect = [
@@ -221,6 +238,8 @@ const sessionContextSelect = [
   "local_role",
   "gate_index",
   "app_version",
+  "app_build",
+  "evidence_consent_version",
   "device_model",
   "created_at",
   "updated_at",
@@ -296,6 +315,9 @@ function publicReview(mark: ReviewMarkRow | null) {
     sceneMotionCauses,
     hasReviewImage: Boolean(mark.thumbnail_storage_path),
     source: mark.device_id === ADMIN_REVIEW_DEVICE_ID ? "admin" : "app",
+    ownerConfirmed: mark.owner_confirmed,
+    evidenceProvenance: mark.evidence_provenance,
+    sourceAppBuild: mark.source_app_build,
   }
 }
 
@@ -614,21 +636,23 @@ function adminSessionContextId(sessionId: string): string {
 function sourceContextForCapture(
   capture: CaptureRow,
   contexts: SessionContextRow[],
+  includeAdminContext = false,
 ): SessionContextRow | null {
   if (!capture.session_id) return null
   const sessionId = capture.session_id
   const matches = contexts.filter((context) =>
-    context.device_id !== ADMIN_REVIEW_DEVICE_ID
-    && [
+    [
       context.session_id,
       context.cloud_session_id,
       context.local_race_session_id,
       context.evidence_correlation_id,
       context.realtime_session_id,
-    ].includes(sessionId),
+    ].includes(sessionId)
+    && (includeAdminContext || context.device_id !== ADMIN_REVIEW_DEVICE_ID),
   )
   return matches.find((context) => context.device_id === capture.device_id)
-    || matches[0]
+    || matches.find((context) => context.device_id !== ADMIN_REVIEW_DEVICE_ID)
+    || (includeAdminContext ? matches[0] : null)
     || null
 }
 
@@ -641,7 +665,6 @@ async function loadSourceContextForCapture(
   const { data, error } = await supabase
     .from("session_test_context")
     .select(sessionContextSelect)
-    .neq("device_id", ADMIN_REVIEW_DEVICE_ID)
     .or([
       `session_id.eq.${sessionId}`,
       `cloud_session_id.eq.${sessionId}`,
@@ -653,7 +676,11 @@ async function loadSourceContextForCapture(
     .limit(20)
 
   if (error) throw new Error(error.message)
-  return sourceContextForCapture(capture, (data || []) as unknown as SessionContextRow[])
+  return sourceContextForCapture(
+    capture,
+    (data || []) as unknown as SessionContextRow[],
+    true,
+  )
 }
 
 async function loadSourceCameraMarkForCapture(
@@ -792,7 +819,8 @@ export async function GET(request: Request) {
     const captureIdentityKeys = new Set<string>()
     const captureRows = captures.map((capture) => {
       const target = normalizeReviewTarget(capture.gate_label)
-      const sourceContext = sourceContextForCapture(capture, sessionContexts)
+      const sourceContext = sourceContextForCapture(capture, sessionContexts, true)
+      const evidenceProvenance = detectionReviewEvidenceProvenance(sourceContext?.device_id)
       const sourceCameraMark = sourceCameraMarkForCapture(capture, appMarks)
       const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
       const directionResolution = resolveDetectionReviewDisplayDirection({
@@ -801,12 +829,10 @@ export async function GET(request: Request) {
         temporalEvidence: capture.temporal_evidence,
       })
       const detectorY = detectorYForCapture(capture)
-      const editable = Boolean(sourceContext) && detectorCoordinate.resolution.verified
-      const editBlockReason = !sourceContext
-        ? "This capture has no source session context, so a desktop mark cannot be linked safely to optimizer evidence."
-        : detectorCoordinate.resolution.verified
-          ? null
-          : "This legacy capture has no verified camera/display transform. Re-capture it with the current app before using it as optimizer ground truth."
+      const editable = detectorCoordinate.resolution.verified
+      const editBlockReason = detectorCoordinate.resolution.verified
+        ? null
+        : "This legacy capture has no verified camera/display transform. Re-capture it with the current app before using it as optimizer ground truth."
       const identity = detectionReviewIdentityKey(
         capture.session_id,
         capture.run_number,
@@ -851,6 +877,9 @@ export async function GET(request: Request) {
           target,
         ),
         appVersion: capture.app_version,
+        appBuild: capture.app_build,
+        evidenceConsentVersion: capture.evidence_consent_version,
+        evidenceProvenance,
         deviceModel: capture.device_model,
         isFrontCamera: detectorCoordinate.isFrontCamera,
         createdAt: capture.created_at,
@@ -900,6 +929,9 @@ export async function GET(request: Request) {
               target,
               mode: mark.mode || (target === "crossing" || target === "lap" ? "solo" : "multi"),
               appVersion: mark.app_version,
+              appBuild: mark.source_app_build,
+              evidenceConsentVersion: mark.evidence_consent_version,
+              evidenceProvenance: mark.evidence_provenance || "app_review",
               deviceModel: mark.device_model,
               isFrontCamera: mark.is_front_camera,
               createdAt: mark.created_at,
@@ -1014,7 +1046,7 @@ export async function POST(request: Request) {
       const supabase = getSupabaseAdmin()
       const { data: linkedCapture, error: linkedCaptureError } = await supabase
         .from("crossing_debug_captures")
-        .select("session_id,app_version,device_model")
+        .select("session_id,app_version,app_build,evidence_consent_version,device_model")
         .eq("session_id", body.sessionId)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -1023,11 +1055,16 @@ export async function POST(request: Request) {
       if (linkedCaptureError) {
         return NextResponse.json({ error: linkedCaptureError.message }, { status: 500 })
       }
-      let linkedEvidence: { app_version: string | null; device_model: string | null } | null = linkedCapture
+      let linkedEvidence: {
+        app_version: string | null
+        app_build: string | null
+        evidence_consent_version: number
+        device_model: string | null
+      } | null = linkedCapture
       if (!linkedEvidence) {
         const { data: linkedMark, error: linkedMarkError } = await supabase
           .from("crossing_review_marks")
-          .select("app_version,device_model")
+          .select("app_version,source_app_build,evidence_consent_version,device_model")
           .eq("session_id", body.sessionId)
           .neq("device_id", ADMIN_REVIEW_DEVICE_ID)
           .order("created_at", { ascending: false })
@@ -1037,7 +1074,12 @@ export async function POST(request: Request) {
         if (linkedMarkError) {
           return NextResponse.json({ error: linkedMarkError.message }, { status: 500 })
         }
-        linkedEvidence = linkedMark
+        linkedEvidence = linkedMark ? {
+          app_version: linkedMark.app_version,
+          app_build: linkedMark.source_app_build,
+          evidence_consent_version: linkedMark.evidence_consent_version,
+          device_model: linkedMark.device_model,
+        } : null
       }
       if (!linkedEvidence) {
         return NextResponse.json({ error: "Detection session was not found" }, { status: 404 })
@@ -1051,6 +1093,8 @@ export async function POST(request: Request) {
         evidence_correlation_id: body.sessionId,
         device_id: ADMIN_REVIEW_DEVICE_ID,
         app_version: linkedEvidence.app_version,
+        app_build: linkedEvidence.app_build,
+        evidence_consent_version: linkedEvidence.evidence_consent_version,
         device_model: linkedEvidence.device_model,
         environment,
         lighting,
@@ -1263,18 +1307,10 @@ export async function POST(request: Request) {
       loadSourceContextForCapture(supabase, capture),
       loadSourceCameraMarkForCapture(supabase, capture),
     ])
-    if (!sourceContext) {
-      return NextResponse.json(
-        {
-          error:
-            "The source session context is missing, so this mark cannot be linked safely to optimizer evidence.",
-        },
-        { status: 409 },
-      )
-    }
+    const evidenceProvenance = detectionReviewEvidenceProvenance(sourceContext?.device_id)
     const mode = detectionReviewMode(
-      sourceContext.timing_mode,
-      sourceContext.number_of_phones,
+      sourceContext?.timing_mode,
+      sourceContext?.number_of_phones,
       target,
     )
     const detectorCoordinate = detectorResolutionForCapture(capture, sourceCameraMark)
@@ -1360,6 +1396,10 @@ export async function POST(request: Request) {
       `detectorSavedFramePts=${capture.saved_thumbnail_frame_pts_nanos ?? "nil"}`,
       `reviewImageSha256=${reviewImageSha256}`,
       `sourceContextId=${sourceContext?.id ?? "nil"}`,
+      `evidenceProvenance=${evidenceProvenance}`,
+      "ownerConfirmed=true",
+      `sourceAppBuild=${capture.app_build ?? "nil"}`,
+      `evidenceConsentVersion=${capture.evidence_consent_version}`,
       `evidenceCorrelationId=${sourceContext?.evidence_correlation_id ?? "nil"}`,
       `localRaceSessionId=${sourceContext?.local_race_session_id ?? "nil"}`,
       `cloudSessionId=${sourceContext?.cloud_session_id ?? "nil"}`,
@@ -1375,6 +1415,11 @@ export async function POST(request: Request) {
       device_id: ADMIN_REVIEW_DEVICE_ID,
       device_model: capture.device_model,
       app_version: capture.app_version,
+      source_capture_id: capture.id,
+      source_app_build: capture.app_build,
+      owner_confirmed: true,
+      evidence_provenance: evidenceProvenance,
+      evidence_consent_version: capture.evidence_consent_version,
       session_id: capture.session_id,
       evidence_correlation_id: sourceContext?.evidence_correlation_id || capture.session_id,
       local_race_session_id: sourceContext?.local_race_session_id || null,

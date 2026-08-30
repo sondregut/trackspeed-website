@@ -19,7 +19,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: June 25, 2026</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: August 30, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
@@ -43,15 +43,16 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>Information about how you use the App, including timing sessions, features used, and app performance data</li>
             <li>Device type, operating system version, and unique device identifiers</li>
-            <li>Anonymized data about app usage patterns to improve our services</li>
+            <li>Anonymous production diagnostics such as app version and build, subsystem, operation outcome, redacted error details, and a stable issue fingerprint; these diagnostics do not include camera images</li>
           </ul>
 
           <h3 className="text-lg font-semibold mb-2 mt-4">2.3 Camera Data</h3>
           <p className="text-[#9B9A97] mb-2">The App requires camera access to function. Important notes about camera usage:</p>
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>Video is processed in real-time on your device for crossing detection</li>
-            <li>We do not upload, store, or transmit video footage to our servers</li>
-            <li>Video frames are immediately discarded after processing</li>
+            <li>Full video footage is not uploaded to our servers for crossing detection</li>
+            <li>If you explicitly enable <strong>Share Crossing Evidence</strong> in Settings, the App uploads a bounded set of low-resolution still frames around a detected crossing, together with a correlated diagnostic log, detector metadata, and app build information, so authorized TrackSpeed staff can privately review and mark detection accuracy</li>
+            <li>If Share Crossing Evidence is off, diagnostic still-frame bundles are not uploaded; temporary processing frames are discarded by the detection pipeline</li>
             <li>Optional session recordings are stored locally on your device only</li>
           </ul>
         </section>
@@ -64,6 +65,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
             <li>Sync your timing data across devices (if you enable this feature)</li>
             <li>Respond to your support requests and inquiries</li>
             <li>Improve the App through anonymized analytics</li>
+            <li>Detect production regressions and review owner-confirmed crossing evidence when you opt in</li>
             <li>Send important transactional updates about the App, your account, or your purchase</li>
           </ul>
         </section>
@@ -85,6 +87,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
             <li>RevenueCat for subscription management, subject to RevenueCat&apos;s Privacy Policy</li>
             <li>Stripe for web payment processing, subject to Stripe&apos;s Privacy Policy</li>
             <li>Supabase for data storage and authentication, subject to Supabase&apos;s Privacy Policy</li>
+            <li>PostHog for anonymized product analytics, crash reports, and structured production diagnostics, subject to PostHog&apos;s Privacy Policy</li>
           </ul>
         </section>
 
@@ -98,7 +101,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">7. Data Retention</h2>
           <p className="text-[#9B9A97]">
-            We retain your personal data only for as long as necessary. Account data is retained while your account is active. Timing session data is retained until you delete it or your account. You may request deletion of your account and associated data at any time.
+            We retain your personal data only for as long as necessary. Account data is retained while your account is active. Timing session data is retained until you delete it or your account. Opt-in crossing evidence and associated review marks are retained only as needed to investigate and improve detection accuracy. You may request deletion of your account and associated data at any time.
           </p>
         </section>
 

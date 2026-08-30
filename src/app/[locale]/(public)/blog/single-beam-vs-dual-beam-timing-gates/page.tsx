@@ -7,7 +7,7 @@ import RelatedPosts from "@/components/RelatedPosts";
 import { DownloadLink } from "@/components/DownloadLink";
 
 const slug = "single-beam-vs-dual-beam-timing-gates";
-const title = "Single-Beam vs Dual-Beam Timing Gates for Sprinting";
+const title = "Single-Beam vs Dual-Beam Timing Gates: Accuracy Compared";
 const description =
   "Compare single-beam, dual-beam, transponder, camera, and official timing—and see why TrackSpeed is a precise, reviewable option for repeatable sprint training.";
 
@@ -88,7 +88,7 @@ export default async function TimingGateAnalysisPage({
       logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
     },
     datePublished: "2026-08-09",
-    dateModified: "2026-08-09",
+    dateModified: "2026-08-24",
     mainEntityOfPage: "https://mytrackspeed.com/blog/" + slug,
     keywords: [
       "single beam vs dual beam timing gates",

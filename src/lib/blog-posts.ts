@@ -23,11 +23,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "single-beam-vs-dual-beam-timing-gates",
-    title: "Single-Beam vs Dual-Beam Timing Gates for Sprinting",
+    title: "Single-Beam vs Dual-Beam Timing Gates: Accuracy Compared",
     excerpt:
       "A research-backed analysis of single-beam, dual-beam, transponder, camera, and FAT timing—and why their sprint results should not be mixed.",
     date: "2026-08-09",
-    lastModified: "2026-08-09",
+    lastModified: "2026-08-24",
     category: "Technology",
     readTime: "10 min read",
     relatedSlugs: ["best-app-for-tracking-sprint-speed", "flying-10-meter-sprint-test"],

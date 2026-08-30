@@ -6,6 +6,7 @@ import {
   DetectionReviewBlockingError,
   detectionReviewCrossingTiming,
   detectionReviewDirectionLabel,
+  detectionReviewEvidenceProvenance,
   detectionReviewDraftValidationError,
   detectionReviewImageRequestUrl,
   detectionReviewBatchKey,
@@ -36,6 +37,18 @@ import {
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
+
+test("preserves owner-mark provenance for production captures with or without session context", () => {
+  assert.equal(detectionReviewEvidenceProvenance(null), "admin_capture_only")
+  assert.equal(
+    detectionReviewEvidenceProvenance("production-phone-id"),
+    "admin_device_context",
+  )
+  assert.equal(
+    detectionReviewEvidenceProvenance("admin-dashboard"),
+    "admin_session_context",
+  )
+})
 
 test("archives all captures before the clean post-fix dataset boundary", () => {
   assert.equal(

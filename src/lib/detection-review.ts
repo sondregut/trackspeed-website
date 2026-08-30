@@ -1,4 +1,18 @@
 export const ADMIN_REVIEW_DEVICE_ID = "admin-dashboard"
+
+export type DetectionReviewEvidenceProvenance =
+  | "admin_capture_only"
+  | "admin_device_context"
+  | "admin_session_context"
+
+export function detectionReviewEvidenceProvenance(
+  contextDeviceId: string | null | undefined,
+): DetectionReviewEvidenceProvenance {
+  if (!contextDeviceId) return "admin_capture_only"
+  return contextDeviceId === ADMIN_REVIEW_DEVICE_ID
+    ? "admin_session_context"
+    : "admin_device_context"
+}
 export const ADMIN_REVIEW_SCHEMA = 8
 
 /**

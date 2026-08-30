@@ -48,6 +48,9 @@ interface ReviewMark {
   sceneMotionCauses: SceneMotionCause[]
   hasReviewImage: boolean
   source: "app" | "admin"
+  ownerConfirmed?: boolean
+  evidenceProvenance?: string | null
+  sourceAppBuild?: string | null
 }
 
 interface TemporalFrame {
@@ -71,6 +74,9 @@ interface DetectionCapture {
   target: string
   mode: string
   appVersion: string | null
+  appBuild: string | null
+  evidenceConsentVersion: number
+  evidenceProvenance: string
   deviceModel: string | null
   isFrontCamera: boolean | null
   createdAt: string
@@ -484,6 +490,7 @@ export default function DetectionReviewDashboard({
         capture.runId,
         capture.deviceModel,
         capture.appVersion,
+        capture.appBuild,
         capture.direction,
         String(capture.runNumber),
       ].some((value) => value?.toLowerCase().includes(query))
@@ -1701,7 +1708,7 @@ export default function DetectionReviewDashboard({
                     Session {shortId(selected.sessionId)} · Run {selected.runNumber}
                   </div>
                   <div className="mt-0.5 font-mono text-[11px] text-[#777B80]">
-                    {formatDate(selected.createdAt)} · {selected.appVersion ? `v${selected.appVersion}` : "version n/a"} · {selected.deviceModel || "device n/a"}
+                    {formatDate(selected.createdAt)} · {selected.appVersion ? `v${selected.appVersion}` : "version n/a"}{selected.appBuild ? ` (${selected.appBuild})` : ""} · {selected.deviceModel || "device n/a"}
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center justify-end gap-3 font-mono text-[11px]">
@@ -1715,6 +1722,11 @@ export default function DetectionReviewDashboard({
                   {selected.review?.source === "app" && (
                     <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FC8A3]">
                       Marked in app
+                    </span>
+                  )}
+                  {selected.evidenceConsentVersion > 0 && (
+                    <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FC8A3]">
+                      Production evidence · consent v{selected.evidenceConsentVersion}
                     </span>
                   )}
                   <span className="text-[#F06C68]">Red: detector line</span>

@@ -54,6 +54,9 @@ export interface DetectionGridCapture {
   deviceId: string
   deviceModel: string | null
   appVersion: string | null
+  appBuild: string | null
+  evidenceConsentVersion: number
+  evidenceProvenance: string
   isFrontCamera: boolean | null
   direction: string | null
   directionEvidence: DetectionReviewDirectionEvidence
@@ -927,7 +930,7 @@ export function DetectionReviewGrid({
                       {capture.deviceModel || "Unknown iPhone"} · {cameraSetupLabel(batch.captures)}
                     </h3>
                     <p className="mt-1 font-mono text-[10px] leading-4 text-[#7F929F]">
-                      Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "build not recorded"} · {formatSetupDate(capture.createdAt)}
+                      Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "version not recorded"}{capture.appBuild ? ` (${capture.appBuild})` : ""} · {capture.evidenceConsentVersion > 0 ? `production consent v${capture.evidenceConsentVersion}` : capture.evidenceProvenance.replaceAll("_", " ")} · {formatSetupDate(capture.createdAt)}
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-x-5 gap-y-1 font-mono text-right text-[10px]">
