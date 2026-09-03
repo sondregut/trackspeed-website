@@ -5,6 +5,7 @@ import {
   ADMIN_REVIEW_DEVICE_ID,
   ADMIN_REVIEW_SCHEMA,
   CURRENT_DETECTION_REVIEW_DATASET,
+  adminDirectionReviewKey,
   adminReviewKey,
   currentDetectionReviewSince,
   detectionReviewDraftValidationError,
@@ -19,6 +20,7 @@ import {
   isUuid,
   normalizedCoordinate,
   normalizeReviewTarget,
+  parseDetectionReviewSet,
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
@@ -27,6 +29,7 @@ import {
   validateReviewPixelAudit,
 } from "@/lib/detection-review"
 import { jpegDimensions } from "@/lib/jpeg-dimensions"
+import { directionReviewCohort } from "@/lib/direction-review-cohorts"
 import { getSupabaseAdmin } from "@/lib/supabase"
 
 export const runtime = "nodejs"
@@ -321,6 +324,25 @@ function publicReview(mark: ReviewMarkRow | null) {
   }
 }
 
+function publicDirectionReview(mark: ReviewMarkRow | null) {
+  if (!mark) return null
+  const status = mark.issue === "ignore_crossing"
+    ? "ignore"
+    : mark.raw_message?.includes("directionReviewStatus=unsure")
+      ? "unsure"
+      : mark.crossing_direction === "L->R" || mark.crossing_direction === "R->L"
+        ? "confirmed"
+        : null
+  if (!status) return null
+  return {
+    id: mark.id,
+    createdAt: mark.created_at,
+    status,
+    direction: status === "confirmed" ? mark.crossing_direction : null,
+    ownerConfirmed: mark.owner_confirmed,
+  }
+}
+
 function metadataValue(frame: Record<string, unknown>, camel: string, snake: string) {
   return frame[camel] ?? frame[snake]
 }
@@ -357,13 +379,16 @@ function sourceCameraMarkForCapture(
     && mark.device_id === capture.device_id
     && typeof mark.is_front_camera === "boolean",
   )
-  const orientations = new Set(matches.map((mark) => mark.is_front_camera))
-  if (orientations.size !== 1) return null
   const target = normalizeReviewTarget(capture.gate_label)
-  return matches.find((mark) =>
+  const exact = matches.find((mark) =>
     mark.run_number === capture.run_number
     && normalizeReviewTarget(mark.target || mark.gate_label) === target
-  ) || matches[0] || null
+  )
+  if (exact) return exact
+
+  const orientations = new Set(matches.map((mark) => mark.is_front_camera))
+  if (orientations.size !== 1) return null
+  return matches[0] || null
 }
 
 function detectorResolutionForCapture(
@@ -381,11 +406,18 @@ function detectorResolutionForCapture(
     "is_front_camera",
   )
   const isFrontCamera = capturedIsFrontCamera ?? sourceCameraMark?.is_front_camera ?? null
+  const target = normalizeReviewTarget(capture.gate_label)
+  const exactSourceReview = sourceCameraMark
+    && sourceCameraMark.run_number === capture.run_number
+    && normalizeReviewTarget(sourceCameraMark.target || sourceCameraMark.gate_label) === target
+    ? normalizedCoordinate(sourceCameraMark.detector_x)
+    : null
 
   return {
     isFrontCamera,
     resolution: resolveDetectorDisplayPosition({
       captured_display_position: capturedDisplayPosition,
+      app_review_display_position: typeof exactSourceReview === "number" ? exactSourceReview : null,
       interpolated_display_position: capture.interpolated_display_position,
       projected_display_position: capture.projected_display_position,
       detector_position: capture.detector_position,
@@ -715,14 +747,26 @@ export async function GET(request: Request) {
     const days = boundedInteger(url.searchParams.get("days"), 30, 1, 365)
     const limit = boundedInteger(url.searchParams.get("limit"), 160, 1, 300)
     const offset = boundedInteger(url.searchParams.get("offset"), 0, 0, 100_000)
+    const requestedDirectionCohort = directionReviewCohort(url.searchParams.get("cohort"))
+    const requestedReviewSet = parseDetectionReviewSet(url.searchParams.get("review"))
+    const focusedCaptureIds = (
+      requestedDirectionCohort
+        ? requestedDirectionCohort.items.map((item) => item.captureId)
+        : requestedReviewSet.selectors.flatMap((selector) =>
+            selector.kind === "capture" ? [selector.captureId] : [],
+          )
+    ).slice(0, 100)
     const since = currentDetectionReviewSince(days)
     const supabase = getSupabaseAdmin()
 
-    const { data: captureData, error: captureError, count: captureCount } = await supabase
+    let captureQuery = supabase
       .from("crossing_debug_captures")
       .select(captureSelect, { count: "exact" })
       .not("thumbnail_storage_path", "is", null)
-      .gte("created_at", since)
+    captureQuery = focusedCaptureIds.length > 0
+      ? captureQuery.in("id", focusedCaptureIds)
+      : captureQuery.gte("created_at", since)
+    const { data: captureData, error: captureError, count: captureCount } = await captureQuery
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1)
 
@@ -731,7 +775,10 @@ export async function GET(request: Request) {
     }
 
     const captures = (captureData || []) as unknown as CaptureRow[]
-    const reviewKeys = captures.map((capture) => adminReviewKey(capture.id))
+    const reviewKeys = captures.flatMap((capture) => [
+      adminReviewKey(capture.id),
+      adminDirectionReviewKey(capture.id),
+    ])
     const [markResult, appMarks, sessionContexts, deviceLogUploads] = await Promise.all([
       reviewKeys.length > 0
         ? supabase
@@ -844,6 +891,7 @@ export async function GET(request: Request) {
         adminMarksByKey.get(adminReviewKey(capture.id)) ||
         (identity ? latestAppMarksByIdentity.get(identity) : null) ||
         null
+      const directionReview = adminMarksByKey.get(adminDirectionReviewKey(capture.id)) || null
       const temporalFrames = (capture.frames_metadata || [])
         .map((frame, index) => {
           const ptsNanos = framePts(frame)
@@ -899,10 +947,11 @@ export async function GET(request: Request) {
           ? capture.temporal_evidence.frames.length
           : 0,
         review: publicReview(review),
+        directionReview: publicDirectionReview(directionReview),
       }
     })
 
-    const appOnlyRows = offset === 0
+    const appOnlyRows = offset === 0 && focusedCaptureIds.length === 0
       ? [...latestAppMarksByIdentity.entries()]
           .filter(([, mark]) => Boolean(mark.thumbnail_storage_path))
           .filter(([, mark]) => Boolean(
@@ -1122,6 +1171,96 @@ export async function POST(request: Request) {
 
       return NextResponse.json({
         sessionContext: publicSessionContext(contextData as unknown as SessionContextRow),
+      })
+    }
+
+    if (body.action === "save-direction-review") {
+      if (!isUuid(body.captureId)) {
+        return NextResponse.json({ error: "A valid captureId is required" }, { status: 400 })
+      }
+      const status = body.status
+      if (status !== "confirmed" && status !== "unsure" && status !== "ignore") {
+        return NextResponse.json({ error: "Choose a direction, Unsure, or Exclude" }, { status: 400 })
+      }
+      const ownerDirection = body.direction === "L->R" || body.direction === "R->L"
+        ? body.direction
+        : null
+      if ((status === "confirmed") !== Boolean(ownerDirection)) {
+        return NextResponse.json(
+          { error: "A confirmed direction must be Left to Right or Right to Left" },
+          { status: 400 },
+        )
+      }
+
+      const supabase = getSupabaseAdmin()
+      const { data: captureData, error: captureError } = await supabase
+        .from("crossing_debug_captures")
+        .select(captureSelect)
+        .eq("id", body.captureId)
+        .single()
+      if (captureError || !captureData) {
+        return NextResponse.json({ error: "Detection capture was not found" }, { status: 404 })
+      }
+
+      const capture = captureData as unknown as CaptureRow
+      const target = normalizeReviewTarget(capture.gate_label)
+      const sourceCameraMark = await loadSourceCameraMarkForCapture(supabase, capture)
+      const isFrontCamera = sourceCameraMark?.is_front_camera
+        ?? captureMetadataBoolean(capture, "isFrontCamera", "is_front_camera")
+      const createdAt = new Date().toISOString()
+      const rawMessage = [
+        "[DIRECTION-REVIEW]",
+        "source=admin-dashboard",
+        `capture=${capture.id}`,
+        `session=${capture.session_id || "nil"}`,
+        `run=${capture.run_number}`,
+        `target=${target}`,
+        `detectorDirection=${capture.algo_crossing_direction || "nil"}`,
+        `ownerDirection=${ownerDirection || "nil"}`,
+        `directionReviewStatus=${status}`,
+        "directionCoordinateSpace=displayed_image",
+        `isFrontCamera=${isFrontCamera ?? "nil"}`,
+        "ownerConfirmed=true",
+        `reviewSchema=${ADMIN_REVIEW_SCHEMA}`,
+      ].join(" ")
+      const mark = {
+        created_at: createdAt,
+        device_id: ADMIN_REVIEW_DEVICE_ID,
+        device_model: capture.device_model,
+        app_version: capture.app_version,
+        source_capture_id: capture.id,
+        source_app_build: capture.app_build,
+        owner_confirmed: true,
+        evidence_provenance: "admin_capture_only",
+        evidence_consent_version: capture.evidence_consent_version,
+        session_id: capture.session_id,
+        evidence_correlation_id: capture.session_id,
+        cloud_session_id: capture.session_id,
+        review_key: adminDirectionReviewKey(capture.id),
+        run_number: capture.run_number,
+        gate_label: capture.gate_label,
+        target,
+        mode: detectionReviewMode(null, null, target),
+        crossing_direction: ownerDirection,
+        issue: status === "ignore" ? "ignore_crossing" : "unlabeled",
+        is_front_camera: isFrontCamera,
+        note: status === "unsure" ? "Owner unsure of crossing direction" : null,
+        raw_message: rawMessage,
+        review_schema: ADMIN_REVIEW_SCHEMA,
+      }
+      const { data: markData, error: markError } = await supabase
+        .from("crossing_review_marks")
+        .upsert(mark, { onConflict: "device_id,review_key" })
+        .select(markSelect)
+        .single()
+      if (markError || !markData) {
+        return NextResponse.json(
+          { error: markError?.message || "Failed to save direction review" },
+          { status: 500 },
+        )
+      }
+      return NextResponse.json({
+        directionReview: publicDirectionReview(markData as unknown as ReviewMarkRow),
       })
     }
 

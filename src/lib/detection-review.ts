@@ -151,6 +151,7 @@ export interface DetectorDisplayResolution {
   verified: boolean
   source:
     | "captured_display_coordinate"
+    | "app_review_coordinate"
     | "interpolated_coordinate"
     | "shifted_crossing_coordinate"
     | "projected_coordinate"
@@ -224,6 +225,14 @@ export function isUuid(value: unknown): value is string {
 
 export function adminReviewKey(captureId: string): string {
   return `admin:capture:${captureId.toLowerCase()}`
+}
+
+/**
+ * Direction truth is stored separately from the torso/frame review so an
+ * owner direction decision never overwrites an existing spatial mark.
+ */
+export function adminDirectionReviewKey(captureId: string): string {
+  return `admin:direction:${captureId.toLowerCase()}`
 }
 
 export function detectionReviewIdentityKey(
@@ -895,6 +904,7 @@ function transformedDisplayCoordinate(value: number, flipX: boolean) {
  */
 export function resolveDetectorDisplayPosition(capture: {
   captured_display_position?: number | null
+  app_review_display_position?: number | null
   interpolated_display_position?: number | null
   projected_display_position?: number | null
   detector_position?: number | null
@@ -913,6 +923,19 @@ export function resolveDetectorDisplayPosition(capture: {
       x: capturedDisplayPosition,
       verified: true,
       source: "captured_display_coordinate",
+    }
+  }
+
+  // An in-app review mark stores detector_x in the already rendered,
+  // image-normalized coordinate space. When it belongs to this exact
+  // session/run/target/device it is safe edit provenance even if the older
+  // debug frames did not persist their camera transform metadata.
+  const appReviewDisplayPosition = finiteCoordinate(capture.app_review_display_position)
+  if (appReviewDisplayPosition !== null) {
+    return {
+      x: appReviewDisplayPosition,
+      verified: true,
+      source: "app_review_coordinate",
     }
   }
 

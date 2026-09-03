@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 import {
+  adminDirectionReviewKey,
   CURRENT_DETECTION_REVIEW_DATASET,
   currentDetectionReviewSince,
   DetectionReviewBlockingError,
@@ -37,6 +38,7 @@ import {
   validateReviewPixelAudit,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
+import { directionReviewCohort } from "../src/lib/direction-review-cohorts.ts"
 
 test("preserves owner-mark provenance for production captures with or without session context", () => {
   assert.equal(detectionReviewEvidenceProvenance(null), "admin_capture_only")
@@ -48,6 +50,22 @@ test("preserves owner-mark provenance for production captures with or without se
     detectionReviewEvidenceProvenance("admin-dashboard"),
     "admin_session_context",
   )
+})
+
+test("keeps owner direction truth separate from spatial review marks", () => {
+  assert.equal(
+    adminDirectionReviewKey("AEB3E7AF-1234-5678-9ABC-DEF012345678"),
+    "admin:direction:aeb3e7af-1234-5678-9abc-def012345678",
+  )
+})
+
+test("loads the complete recorded-direction owner review cohort", () => {
+  const cohort = directionReviewCohort("recorded-direction-audit-2026-09-02")
+  assert.ok(cohort)
+  assert.equal(cohort.items.length, 68)
+  assert.equal(new Set(cohort.items.map((item) => item.captureId)).size, 68)
+  assert.equal(cohort.items.filter((item) => item.agentFlag === "likely_reversed").length, 64)
+  assert.equal(cohort.items.filter((item) => item.agentFlag === "unsure").length, 4)
 })
 
 test("archives all captures before the clean post-fix dataset boundary", () => {
@@ -596,6 +614,29 @@ test("fails closed without a captured display coordinate or known camera transfo
     x: 0.42,
     verified: false,
     source: "configured_gate_fallback",
+  })
+})
+
+test("allows an exact in-app review coordinate to unlock legacy frame editing", () => {
+  const appReview = resolveDetectorDisplayPosition({
+    app_review_display_position: 0.63,
+    configured_gate_position: 0.42,
+    detector_position: 0.55,
+  }, null)
+  assert.deepEqual(appReview, {
+    x: 0.63,
+    verified: true,
+    source: "app_review_coordinate",
+  })
+
+  const capturedWins = resolveDetectorDisplayPosition({
+    captured_display_position: 0.37,
+    app_review_display_position: 0.63,
+  }, null)
+  assert.deepEqual(capturedWins, {
+    x: 0.37,
+    verified: true,
+    source: "captured_display_coordinate",
   })
 })
 

@@ -7,7 +7,7 @@ import {timingSafeEqualString} from './lib/server-secrets';
 const intlMiddleware = createMiddleware(routing);
 
 export function proxy(request: NextRequest) {
-  const {pathname} = request.nextUrl;
+  const {pathname, search} = request.nextUrl;
 
   if (pathname === '/creator-kit' || pathname === '/creator-kit/') {
     const response = NextResponse.rewrite(new URL('/creator-kit/index.html', request.url));
@@ -30,7 +30,7 @@ export function proxy(request: NextRequest) {
 
       if (!sessionToken) {
         const loginUrl = new URL('/admin/login', request.url);
-        loginUrl.searchParams.set('redirect', pathname);
+        loginUrl.searchParams.set('redirect', `${pathname}${search}`);
         return NextResponse.redirect(loginUrl);
       }
 
@@ -38,6 +38,7 @@ export function proxy(request: NextRequest) {
 
       if (!expectedToken || !timingSafeEqualString(sessionToken, expectedToken)) {
         const loginUrl = new URL('/admin/login', request.url);
+        loginUrl.searchParams.set('redirect', `${pathname}${search}`);
         return NextResponse.redirect(loginUrl);
       }
     }
