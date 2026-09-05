@@ -19,7 +19,7 @@ export default async function TermsPage({params}: {params: Promise<{locale: stri
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms & Conditions</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: June 25, 2026</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: September 5, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Agreement to Terms</h2>
@@ -67,11 +67,14 @@ export default async function TermsPage({params}: {params: Promise<{locale: stri
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">6. Acceptable Use</h2>
-          <p className="text-[#9B9A97] mb-3">You agree not to:</p>
+          <p className="text-[#9B9A97] mb-3">
+            Except where applicable law or applicable open-source licenses expressly permit an activity despite these restrictions, you agree not to, and not to enable or assist anyone else to:
+          </p>
           <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
             <li>Use the App for any unlawful purpose</li>
             <li>Record or photograph individuals without their consent</li>
-            <li>Attempt to reverse engineer, decompile, or disassemble the App</li>
+            <li>Copy, modify, translate, adapt, create derivative works from, decompile, disassemble, reverse engineer, decrypt, or otherwise attempt to derive the source code or non-public technical components of the App</li>
+            <li>Access or use the App, or information obtained from the App, for competitive analysis or to develop, train, test, improve, market, or provide any product or service that copies, replicates, or competes with TrackSpeed or any material feature of the App</li>
             <li>Remove or alter any proprietary notices in the App</li>
             <li>Use the App in any way that could damage or impair its functionality</li>
             <li>Use the App to harass, abuse, or harm others</li>
