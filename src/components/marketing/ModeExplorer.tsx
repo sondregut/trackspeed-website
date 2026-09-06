@@ -27,12 +27,13 @@ export default function ModeExplorer({copy: c}: {copy: typeof copy.modes}) {
     tabs.current[next]?.focus();
   }
   return <div className="mode-explorer">
-    <div role="tablist" aria-label={c.title} className="setup-tabs">
-      {modes.map((id, index) => <button key={id} ref={el => {tabs.current[index] = el;}} id={"mode-tab-" + id} role="tab" type="button" aria-selected={active === id} aria-controls="mode-panel" tabIndex={active === id ? 0 : -1} onKeyDown={event => move(event, index)} onClick={() => setActive(id)}>{c[id].tab}</button>)}
-    </div>
-    <div role="tabpanel" id="mode-panel" aria-labelledby={"mode-tab-" + active} tabIndex={0}>
-      <div className="setup-story">
-        <div className="setup-copy">
+    <div className="setup-story">
+      <div className="setup-content">
+        <div className="setup-intro"><h2>{c.title}</h2><p>{c.description}</p></div>
+        <div role="tablist" aria-label={c.title} className="setup-tabs">
+          {modes.map((id, index) => <button key={id} ref={el => {tabs.current[index] = el;}} id={"mode-tab-" + id} role="tab" type="button" aria-selected={active === id} aria-controls="mode-panel" tabIndex={active === id ? 0 : -1} onKeyDown={event => move(event, index)} onClick={() => setActive(id)}>{c[id].tab}</button>)}
+        </div>
+        <div role="tabpanel" id="mode-panel" aria-labelledby={"mode-tab-" + active} tabIndex={0} className="setup-copy">
           <h3>{item.title}</h3>
           <p>{item.body}</p>
           <p className="setup-requirement">{item.requirement}</p>
@@ -42,12 +43,12 @@ export default function ModeExplorer({copy: c}: {copy: typeof copy.modes}) {
             <span>{active === "solo" ? "↺" : c.finish}</span>
           </div>
         </div>
-        <div className={"setup-art " + (active === "solo" ? "setup-art-solo" : "")} aria-hidden="true">
-          <ProductPhone src="/product/training-home.png" className="setup-home"/>
-          {active === "gates" && <Image src="/product/sprint-football-transparent.png" alt="" width={873} height={1802} sizes="(max-width: 640px) 210px, 260px" className="setup-finish"/>}
-        </div>
       </div>
-      <ol className="setup-steps">{item.steps.map((step, index) => <li key={step}><span>{index + 1}</span><p>{step}</p></li>)}</ol>
+      <div className={"setup-art " + (active === "solo" ? "setup-art-solo" : "")} aria-hidden="true">
+        <ProductPhone src="/product/training-home.png" className="setup-home"/>
+        {active === "gates" && <Image src="/product/sprint-football-transparent.png" alt="" width={873} height={1802} sizes="(max-width: 767px) 44vw, 224px" className="setup-finish"/>}
+      </div>
     </div>
+    <ol className="setup-steps" aria-labelledby={"mode-tab-" + active}>{item.steps.map((step, index) => <li key={step}><span>{index + 1}</span><p>{step}</p></li>)}</ol>
   </div>;
 }

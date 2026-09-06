@@ -1,0 +1,742 @@
+{
+  "date": "2026-09-06T22:21:22.342Z",
+  "results": [
+    {
+      "locale": "en",
+      "width": 1440,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 202.765625,
+        "width": 1440,
+        "height": 694.453125,
+        "bottom": 897.21875
+      },
+      "tabs": {
+        "x": 100,
+        "y": 453.296875,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 507.296875
+      },
+      "copy": {
+        "x": 100,
+        "y": 535.296875,
+        "width": 596,
+        "height": 185.078125,
+        "bottom": 720.375
+      },
+      "art": {
+        "x": 744,
+        "y": 266.765625,
+        "width": 596,
+        "height": 462.578125,
+        "bottom": 729.34375
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 186
+        },
+        {
+          "naturalWidth": 224,
+          "width": 224
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 202.765625,
+        "width": 1440,
+        "height": 689.03125,
+        "bottom": 891.796875
+      },
+      "tabs": {
+        "x": 100,
+        "y": 444.328125,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 498.328125
+      },
+      "copy": {
+        "x": 100,
+        "y": 526.328125,
+        "width": 596,
+        "height": 211.46875,
+        "bottom": 737.796875
+      },
+      "art": {
+        "x": 744,
+        "y": 271.3125,
+        "width": 596,
+        "height": 461.9375,
+        "bottom": 733.25
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 206
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 227.921875,
+        "width": 1024,
+        "height": 644.890625,
+        "bottom": 872.8125
+      },
+      "tabs": {
+        "x": 32,
+        "y": 417.578125,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 471.578125
+      },
+      "copy": {
+        "x": 32,
+        "y": 499.578125,
+        "width": 464,
+        "height": 185.078125,
+        "bottom": 684.65625
+      },
+      "art": {
+        "x": 528,
+        "y": 291.921875,
+        "width": 464,
+        "height": 413.015625,
+        "bottom": 704.9375
+      },
+      "scrollWidth": 1024,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 166
+        },
+        {
+          "naturalWidth": 224,
+          "width": 200
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 227.921875,
+        "width": 1024,
+        "height": 693.8125,
+        "bottom": 921.734375
+      },
+      "tabs": {
+        "x": 32,
+        "y": 428.84375,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 482.84375
+      },
+      "copy": {
+        "x": 32,
+        "y": 510.84375,
+        "width": 464,
+        "height": 211.46875,
+        "bottom": 722.3125
+      },
+      "art": {
+        "x": 528,
+        "y": 291.921875,
+        "width": 464,
+        "height": 461.9375,
+        "bottom": 753.859375
+      },
+      "scrollWidth": 1024,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 206
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 820,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 226.703125,
+        "width": 820,
+        "height": 646.921875,
+        "bottom": 873.625
+      },
+      "tabs": {
+        "x": 32,
+        "y": 390.84375,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 444.84375
+      },
+      "copy": {
+        "x": 32,
+        "y": 472.84375,
+        "width": 362,
+        "height": 211.46875,
+        "bottom": 684.3125
+      },
+      "art": {
+        "x": 426,
+        "y": 308.109375,
+        "width": 362,
+        "height": 358.796875,
+        "bottom": 666.90625
+      },
+      "scrollWidth": 820,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 145.265625
+        },
+        {
+          "naturalWidth": 224,
+          "width": 173.75
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 820,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 226.703125,
+        "width": 820,
+        "height": 687.6875,
+        "bottom": 914.390625
+      },
+      "tabs": {
+        "x": 32,
+        "y": 421.9375,
+        "width": 261.90625,
+        "height": 54,
+        "bottom": 475.9375
+      },
+      "copy": {
+        "x": 32,
+        "y": 503.9375,
+        "width": 362,
+        "height": 211.46875,
+        "bottom": 715.40625
+      },
+      "art": {
+        "x": 426,
+        "y": 290.703125,
+        "width": 362,
+        "height": 455.8125,
+        "bottom": 746.515625
+      },
+      "scrollWidth": 820,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 203.1875
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 26.0625,
+        "width": 390,
+        "height": 1048.078125,
+        "bottom": 1074.140625
+      },
+      "tabs": {
+        "x": 24,
+        "y": 166.609375,
+        "width": 233.609375,
+        "height": 54,
+        "bottom": 220.609375
+      },
+      "copy": {
+        "x": 24,
+        "y": 244.609375,
+        "width": 342,
+        "height": 198.796875,
+        "bottom": 443.40625
+      },
+      "art": {
+        "x": 24,
+        "y": 471.40625,
+        "width": 342,
+        "height": 338.984375,
+        "bottom": 810.390625
+      },
+      "scrollWidth": 390,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 138.46875
+        },
+        {
+          "naturalWidth": 171,
+          "width": 164.15625
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 26.0625,
+        "width": 390,
+        "height": 1050.171875,
+        "bottom": 1076.234375
+      },
+      "tabs": {
+        "x": 24,
+        "y": 166.609375,
+        "width": 233.609375,
+        "height": 54,
+        "bottom": 220.609375
+      },
+      "copy": {
+        "x": 24,
+        "y": 244.609375,
+        "width": 342,
+        "height": 198.796875,
+        "bottom": 443.40625
+      },
+      "art": {
+        "x": 24,
+        "y": 471.40625,
+        "width": 342,
+        "height": 368.828125,
+        "bottom": 840.234375
+      },
+      "scrollWidth": 390,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 164
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 36.46875,
+        "width": 320,
+        "height": 1027.09375,
+        "bottom": 1063.5625
+      },
+      "tabs": {
+        "x": 24,
+        "y": 211.5625,
+        "width": 233.609375,
+        "height": 54,
+        "bottom": 265.5625
+      },
+      "copy": {
+        "x": 24,
+        "y": 289.5625,
+        "width": 272,
+        "height": 198.796875,
+        "bottom": 488.359375
+      },
+      "art": {
+        "x": 24,
+        "y": 516.359375,
+        "width": 272,
+        "height": 269.578125,
+        "bottom": 785.9375
+      },
+      "scrollWidth": 320,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 107.671875
+        },
+        {
+          "naturalWidth": 140,
+          "width": 130.546875
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 36.46875,
+        "width": 320,
+        "height": 1123.203125,
+        "bottom": 1159.671875
+      },
+      "tabs": {
+        "x": 24,
+        "y": 211.5625,
+        "width": 233.609375,
+        "height": 54,
+        "bottom": 265.5625
+      },
+      "copy": {
+        "x": 24,
+        "y": 289.5625,
+        "width": 272,
+        "height": 223.546875,
+        "bottom": 513.109375
+      },
+      "art": {
+        "x": 24,
+        "y": 541.109375,
+        "width": 272,
+        "height": 340.9375,
+        "bottom": 882.046875
+      },
+      "scrollWidth": 320,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 151.1875
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "width": 390,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 49.828125,
+        "width": 390,
+        "height": 1001.03125,
+        "bottom": 1050.859375
+      },
+      "tabs": {
+        "x": 159.15625,
+        "y": 195.828125,
+        "width": 206.84375,
+        "height": 54,
+        "bottom": 249.828125
+      },
+      "copy": {
+        "x": 24,
+        "y": 273.828125,
+        "width": 342,
+        "height": 174.046875,
+        "bottom": 447.875
+      },
+      "art": {
+        "x": 24,
+        "y": 475.875,
+        "width": 342,
+        "height": 338.984375,
+        "bottom": 814.859375
+      },
+      "scrollWidth": 390,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 138.46875
+        },
+        {
+          "naturalWidth": 171,
+          "width": 164.15625
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "width": 390,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 49.828125,
+        "width": 390,
+        "height": 1030.875,
+        "bottom": 1080.703125
+      },
+      "tabs": {
+        "x": 159.15625,
+        "y": 195.828125,
+        "width": 206.84375,
+        "height": 54,
+        "bottom": 249.828125
+      },
+      "copy": {
+        "x": 24,
+        "y": 273.828125,
+        "width": 342,
+        "height": 174.046875,
+        "bottom": 447.875
+      },
+      "art": {
+        "x": 24,
+        "y": 475.875,
+        "width": 342,
+        "height": 368.828125,
+        "bottom": 844.703125
+      },
+      "scrollWidth": 390,
+      "images": [
+        {
+          "naturalWidth": 220,
+          "width": 164
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 24,
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "width": 1440,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 209.578125,
+        "width": 1440,
+        "height": 680.578125,
+        "bottom": 890.15625
+      },
+      "tabs": {
+        "x": 1107.078125,
+        "y": 436.515625,
+        "width": 232.921875,
+        "height": 54,
+        "bottom": 490.515625
+      },
+      "copy": {
+        "x": 744,
+        "y": 518.515625,
+        "width": 596,
+        "height": 185.078125,
+        "bottom": 703.59375
+      },
+      "art": {
+        "x": 100,
+        "y": 273.578125,
+        "width": 596,
+        "height": 462.578125,
+        "bottom": 736.15625
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 186
+        },
+        {
+          "naturalWidth": 224,
+          "width": 224
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "width": 1440,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 209.578125,
+        "width": 1440,
+        "height": 679.9375,
+        "bottom": 889.515625
+      },
+      "tabs": {
+        "x": 1107.078125,
+        "y": 436.203125,
+        "width": 232.921875,
+        "height": 54,
+        "bottom": 490.203125
+      },
+      "copy": {
+        "x": 744,
+        "y": 518.203125,
+        "width": 596,
+        "height": 185.078125,
+        "bottom": 703.28125
+      },
+      "art": {
+        "x": 100,
+        "y": 273.578125,
+        "width": 596,
+        "height": 461.9375,
+        "bottom": 735.515625
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 206
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "de",
+      "width": 1440,
+      "mode": "gates",
+      "section": {
+        "x": 0,
+        "y": 198.765625,
+        "width": 1440,
+        "height": 702.90625,
+        "bottom": 901.671875
+      },
+      "tabs": {
+        "x": 100,
+        "y": 440.328125,
+        "width": 333.609375,
+        "height": 54,
+        "bottom": 494.328125
+      },
+      "copy": {
+        "x": 100,
+        "y": 522.328125,
+        "width": 596,
+        "height": 211.46875,
+        "bottom": 733.796875
+      },
+      "art": {
+        "x": 744,
+        "y": 266.984375,
+        "width": 596,
+        "height": 462.578125,
+        "bottom": 729.5625
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 186
+        },
+        {
+          "naturalWidth": 224,
+          "width": 224
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    },
+    {
+      "locale": "de",
+      "width": 1440,
+      "mode": "solo",
+      "section": {
+        "x": 0,
+        "y": 198.765625,
+        "width": 1440,
+        "height": 702.90625,
+        "bottom": 901.671875
+      },
+      "tabs": {
+        "x": 100,
+        "y": 440.328125,
+        "width": 333.609375,
+        "height": 54,
+        "bottom": 494.328125
+      },
+      "copy": {
+        "x": 100,
+        "y": 522.328125,
+        "width": 596,
+        "height": 211.46875,
+        "bottom": 733.796875
+      },
+      "art": {
+        "x": 744,
+        "y": 267.3125,
+        "width": 596,
+        "height": 461.9375,
+        "bottom": 729.25
+      },
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "naturalWidth": 340,
+          "width": 206
+        }
+      ],
+      "stepCount": 3,
+      "overflow": [],
+      "tabToCopyGap": 28,
+      "pass": true
+    }
+  ],
+  "errors": []
+}

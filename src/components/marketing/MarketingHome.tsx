@@ -47,9 +47,8 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       </div>
     </section>
 
-    <section id="how-it-works" className="editorial-section">
+    <section id="how-it-works" className="editorial-section setup-section">
       <div className="marketing-container">
-        <div className="section-intro"><h2>{c.modes.title}</h2><p>{c.modes.description}</p></div>
         <ModeExplorer copy={c.modes}/>
       </div>
     </section>
