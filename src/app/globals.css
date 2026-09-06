@@ -522,16 +522,14 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .section-intro > p { max-width: 330px; font-size: 16px; line-height: 1.6; color: var(--text-muted); }
 .setup-section { padding-block: 64px; }
 .setup-intro h2 { max-width: 440px; }
-.setup-intro > p { margin-top: 16px; font-size: 16px; line-height: 1.6; color: var(--text-muted); }
-.mode-explorer .setup-tabs { margin-top: 24px; }
-.setup-tabs, .scene-picker { display: inline-flex; flex-wrap: wrap; gap: 4px; border: 1px solid #e3e6e9; border-radius: 28px; padding: 4px; background: #f5f7f8; }
-.setup-tabs button, .scene-picker button { min-height: 44px; padding: 10px 22px; border-radius: 24px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: background-color 140ms ease; }
-.setup-tabs button[aria-selected="true"], .scene-picker button[aria-pressed="true"] { color: var(--ink); background: white; box-shadow: 0 1px 6px #10172012; }
-.setup-tabs button:hover, .scene-picker button:hover { color: var(--ink); }
+.setup-eyebrow { margin-bottom: 16px; font-size: 12px; font-weight: 500; color: var(--brand); }
+.scene-picker { display: inline-flex; flex-wrap: wrap; gap: 4px; border: 1px solid #e3e6e9; border-radius: 28px; padding: 4px; background: #f5f7f8; }
+.scene-picker button { min-height: 44px; padding: 10px 22px; border-radius: 24px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: background-color 140ms ease; }
+.scene-picker button[aria-pressed="true"] { color: var(--ink); background: white; box-shadow: 0 1px 6px #10172012; }
+.scene-picker button:hover { color: var(--ink); }
 .setup-story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding-bottom: 32px; }
 .setup-content { min-width: 0; }
 .setup-copy { margin-top: 28px; }
-.setup-copy h3 { font-size: 30px; font-weight: 500; line-height: 1.15; letter-spacing: -.04em; }
 .setup-copy > p { margin-top: 16px; max-width: 410px; font-size: 16px; line-height: 1.65; color: var(--text-muted); }
 .setup-copy .setup-requirement { font-size: 12px; margin-top: 18px; }
 .setup-course { display: flex; align-items: center; gap: 16px; color: var(--brand); font-size: 12px; margin-top: 26px; max-width: 370px; }
@@ -542,7 +540,6 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .setup-home { width: 44%; max-width: 200px; flex-shrink: 0; border-radius: 36px; padding: 5px; }
 .setup-home img { border-radius: 28px; }
 .setup-finish { width: 48%; max-width: 224px; height: auto; }
-.setup-art-solo .setup-home { width: 60%; max-width: 220px; }
 .setup-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid var(--border-light); padding-top: 28px; }
 .setup-steps li { display: flex; gap: 18px; }
 .setup-steps li > span { display: flex; align-items: center; justify-content: center; flex-shrink: 0; height: 29px; width: 29px; border: 1px solid #89a9c7; border-radius: 50%; color: var(--brand); font-size: 12px; }
@@ -662,20 +659,15 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .section-intro h2 { max-width: 350px; }
   .section-intro > p { margin-top: 22px; font-size: 15px; }
   .setup-section { padding-block: 48px; }
-  .setup-intro > p { margin-top: 14px; font-size: 15px; }
-  .mode-explorer .setup-tabs { margin-top: 20px; }
-  .setup-tabs button { padding-inline: 18px; font-size: 12px; }
   .setup-story { display: flex; flex-direction: column; gap: 28px; padding-bottom: 28px; }
   .setup-content { width: 100%; }
   .setup-copy { width: 100%; margin-top: 24px; }
-  .setup-copy h3 { font-size: 25px; }
   .setup-copy > p { margin-top: 14px; font-size: 15px; }
   .setup-course { margin-top: 26px; }
   .setup-art { width: 100%; gap: 12px; }
   .setup-home { max-width: 160px; border-radius: 29px; padding: 4px; }
   .setup-home img { border-radius: 22px; }
   .setup-finish { max-width: 176px; }
-  .setup-art-solo .setup-home { max-width: 176px; }
   .setup-steps { grid-template-columns: 1fr; gap: 22px; }
   .setup-steps p { max-width: 100%; }
   .evidence-layout { display: flex; flex-direction: column-reverse; gap: 35px; }

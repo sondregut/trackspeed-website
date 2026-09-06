@@ -3,7 +3,7 @@ import {ArrowRightIcon, CameraIcon, CheckIcon, ClockIcon, DownloadIcon, PersonIc
 import {DownloadLink} from "@/components/DownloadLink";
 import {Link} from "@/i18n/navigation";
 import {TextLink} from "./Primitives";
-import ModeExplorer from "./ModeExplorer";
+import ConnectedGates from "./ConnectedGates";
 import ProductPhone from "./ProductPhone";
 import SprintPreview from "./SprintPreview";
 import type copy from "../../../messages/en/marketing.json";
@@ -47,9 +47,9 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       </div>
     </section>
 
-    <section id="how-it-works" className="editorial-section setup-section">
+    <section id="how-it-works" className="editorial-section setup-section" aria-labelledby="connected-gates-title">
       <div className="marketing-container">
-        <ModeExplorer copy={c.modes}/>
+        <ConnectedGates copy={c.modes}/>
       </div>
     </section>
 
