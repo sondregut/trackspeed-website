@@ -13,6 +13,14 @@
   },
   "teamHeading": "創設者",
   "teamNote": "Sondreが、アスリートのために作りました。",
+  "portfolio": {
+    "kicker": "アスリートのために開発",
+    "title": "Sondreが開発したその他のアスリート向けツール",
+    "description": "TrackSpeedはアスリート向け製品群の一つです。メンタル準備にはAthlete Mindset、棒高跳びの練習や跳躍の記録にはVaultを利用できます。",
+    "athleteMindset": "Athlete Mindsetのメンタルトレーニング",
+    "vault": "Vaultの棒高跳びトレーニング",
+    "allApps": "Sondreのすべてのアプリを見る"
+  },
   "cta": {
     "title": "トレーニングの計時を始めませんか？",
     "subtitle": "TrackSpeedをダウンロードして、phoneだけでミリ秒精度を体験しましょう。",

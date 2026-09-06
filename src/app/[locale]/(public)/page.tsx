@@ -1,21 +1,15 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {getPageMetadata} from '@/i18n/metadata';
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import TimingTechnology from "@/components/TimingTechnology";
-import StartTypes from "@/components/StartTypes";
-import MultiDevice from "@/components/MultiDevice";
-import HowItWorks from "@/components/HowItWorks";
-import Comparison from "@/components/Comparison";
-import Testimonials from "@/components/Testimonials";
-import CTA from "@/components/CTA";
+import {getMessages} from 'next-intl/server';
+import MarketingHome from '@/components/marketing/MarketingHome';
+import type marketingCopy from '../../../../messages/en/marketing.json';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
-  const t = await getTranslations({locale, namespace: 'home'});
+  const t = await getTranslations({locale, namespace: 'marketing'});
   return getPageMetadata({
-    title: `TrackSpeed: ${t('metadata.title')}`,
-    description: `${t('hero.subtitle')}. ${t('features.smartDetection.description')} ${t('features.trackProgress.description')}`,
+    title: `TrackSpeed: ${t('meta.title')}`,
+    description: t('meta.description'),
     path: '',
     locale,
     absoluteTitle: true,
@@ -51,7 +45,9 @@ const softwareApplicationJsonLd = {
     "Photo-finish review",
     "Flying, touch-release, countdown, voice, and in-frame starts",
     "Athlete profiles and session history",
-    "Video export",
+    "Video timing overlays and CSV export",
+    "One-phone solo laps",
+    "Custom distances, sprint templates and repeat sessions",
   ],
   offers: {
     "@type": "Offer",
@@ -61,18 +57,13 @@ const softwareApplicationJsonLd = {
     availability: "https://schema.org/InStock",
     url: "https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    ratingCount: "1",
-    bestRating: "5",
-    worstRating: "1",
-  },
 };
 
 export default async function Home({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   setRequestLocale(locale);
+  const messages = await getMessages({locale});
+  const copy = messages.marketing as typeof marketingCopy;
 
   return (
     <>
@@ -82,15 +73,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
           __html: JSON.stringify(softwareApplicationJsonLd),
         }}
       />
-      <Hero />
-      <HowItWorks />
-      <StartTypes />
-      <MultiDevice />
-      <Features />
-      <Comparison />
-      <TimingTechnology />
-      <Testimonials />
-      <CTA />
+      <MarketingHome copy={copy} />
     </>
   );
 }

@@ -1,327 +1,66 @@
 import Image from "next/image";
+import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons";
 import { setRequestLocale } from "next-intl/server";
 import { getPageMetadata } from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
 import { DownloadLink } from "@/components/DownloadLink";
+import { Eyebrow, TextLink } from "@/components/marketing/Primitives";
 
 const title = "How TrackSpeed Measures Sprint Times";
-const description =
-  "A transparent, non-proprietary guide to TrackSpeed's camera timing workflow, reviewable evidence, setup factors, and limits for sprint training.";
-
-const faqItems = [
-  {
-    question: "How does TrackSpeed time a sprint?",
-    answer:
-      "You configure a timing line in the phone's camera view. TrackSpeed records an automatic crossing event at that line and uses the start and finish events to calculate elapsed time. With a measured distance, it can also show average speed.",
-  },
-  {
-    question: "Why is reviewable crossing evidence useful?",
-    answer:
-      "It lets an athlete or coach check whether the view was blocked, the line was misplaced, or the detected event did not match the intended test. A visible event is easier to audit than an unexplained number.",
-  },
-  {
-    question: "Does TrackSpeed work with more than one phone?",
-    answer:
-      "Yes. Multiple iPhones can cover start, split, and finish positions in one session. Keep every phone stable, correctly positioned, and on the same documented protocol.",
-  },
-  {
-    question: "Is TrackSpeed official race timing?",
-    answer:
-      "No. TrackSpeed is designed for training, testing, and unofficial timing. Official results must use the timing system required by the relevant governing body and event rules.",
-  },
+const description = "Understand camera crossings, start methods, synchronized phones and photo review. A practical guide to repeatable sprint testing with TrackSpeed.";
+const protocol = [
+  ["Measure the course", "Mark the start, split and finish positions. Keep the distance, surface and start method the same when comparing results."],
+  ["Set the camera line", "Use stable mounts. Align each on-screen line with the intended crossing location, keep the runner visible and leave room to run through."],
+  ["Wait for every gate", "Join the same session and check connection, clock and camera readiness before starting. Recheck after a phone moves or reconnects."],
+  ["Review, then repeat", "Inspect unusual results and crossing photos. Record the athlete, setup and recovery, so the next repetition answers the same question."],
+];
+const starts = [
+  ["Flying", "Crossing the start camera line", "Speed through a measured zone after a run-in"],
+  ["Touch release", "Lifting the finger from the start screen", "A repeatable release-based start"],
+  ["Countdown", "The audible start cue", "A start that includes the athlete’s response"],
+  ["Voice command", "The GO cue in the spoken sequence", "A command-led start, including response"],
+  ["In-frame", "Crossing the front camera’s configured line", "A camera-based start near the start phone"],
 ];
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  return getPageMetadata({
-    title,
-    description,
-    path: "/technology",
-    type: "article",
-    localized: false,
-    robots: locale === "en" ? undefined : { index: false, follow: true },
-  });
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
+  return getPageMetadata({title, description, path: "/technology", type: "article", localized: false, robots: locale === "en" ? undefined : {index: false, follow: true}});
 }
 
-export default async function TechnologyPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function TechnologyPage({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
   setRequestLocale(locale);
-
-  const techArticleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    headline: title,
-    description,
-    image: "https://mytrackspeed.com/og-image-2026-06.png",
-    author: {
-      "@type": "Person",
-      name: "Sondre Guttormsen",
-      url: "https://mytrackspeed.com/about",
-      jobTitle: "Founder, TrackSpeed",
-      description: "Two-time Olympian and NCAA champion pole vaulter",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "TrackSpeed",
-      url: "https://mytrackspeed.com",
-      logo: "https://mytrackspeed.com/trackspeed-icon-1d43ec40.png",
-    },
-    datePublished: "2026-02-01",
-    dateModified: "2026-08-09",
-    mainEntityOfPage: "https://mytrackspeed.com/technology",
-    inLanguage: "en",
+  const article = {
+    "@context": "https://schema.org", "@type": "TechArticle", headline: title, description,
+    image: "https://mytrackspeed.com/photofinish_edit.webp",
+    author: {"@type": "Person", name: "Sondre Guttormsen", url: "https://mytrackspeed.com/about"},
+    publisher: {"@type": "Organization", name: "TrackSpeed", url: "https://mytrackspeed.com"},
+    datePublished: "2026-02-01", dateModified: "2026-09-06", mainEntityOfPage: "https://mytrackspeed.com/technology", inLanguage: "en",
   };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://mytrackspeed.com" },
-      { "@type": "ListItem", position: 2, name: title, item: "https://mytrackspeed.com/technology" },
-    ],
-  };
-
-  return (
-    <div className="bg-hero min-h-screen">
-      {[techArticleJsonLd, breadcrumbJsonLd].map((data, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
-
-      <section className="pt-32 pb-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm mb-6 hover:opacity-70 transition-opacity"
-            style={{ color: "var(--text-muted)" }}
-          >
-            <span aria-hidden="true">←</span> Back to TrackSpeed
-          </Link>
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-accent-green">
-            Measurement and validation
-          </p>
-          <h1
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
-          >
-            {title}
-          </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto" style={{ color: "var(--text-muted)" }}>
-            The useful question is not how many decimal places a timer displays.
-            It is whether the start and finish events are automatic, clearly
-            defined, reviewable, and collected with a repeatable setup.
-          </p>
-        </div>
-      </section>
-
-      <article className="pb-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          {locale !== "en" && (
-            <div
-              className="mb-6 p-3 rounded-lg text-sm"
-              style={{
-                background: "var(--bg-mint)",
-                border: "1px solid var(--border-light)",
-                color: "var(--text-muted)",
-              }}
-            >
-              This technical guide is currently available in English. This
-              localized duplicate is excluded from indexing; the English page is canonical.
-            </div>
-          )}
-
-          <section className="mb-14">
-            <div className="card-feature p-6 md:p-8">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-                What TrackSpeed records
-              </h2>
-              <p className="text-body mb-5">
-                TrackSpeed turns an iPhone camera into an automatic timing point
-                for sprint training. The athlete or coach places a visible timing
-                line in the camera view. When the configured crossing occurs, the
-                app records the event and uses it with the session&apos;s start event
-                to calculate elapsed time.
-              </p>
-              <p className="text-body">
-                A measured distance and elapsed time can also produce average speed.
-                That number is only as trustworthy as the course measurement and the
-                start and finish definitions, so TrackSpeed treats setup as part of
-                the test—not as a detail to ignore.
-              </p>
-            </div>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-5" style={{ color: "var(--text-primary)" }}>
-              Four parts of a trustworthy training time
-            </h2>
-            <div className="grid md:grid-cols-2 gap-5">
-              {[
-                ["1. A defined event", "The timing line and start mode say exactly what starts and stops the clock. A flying split and a movement start are different tests and should be labeled differently."],
-                ["2. Automatic recording", "The app records the configured crossing without a coach pressing a stopwatch at the finish, removing that manual stop reaction from the workflow."],
-                ["3. Reviewable evidence", "The finish evidence can be inspected after the rep. If the camera moved, the view was blocked, or the line was wrong, the result should be rejected rather than explained away."],
-                ["4. A repeatable protocol", "Distance, start position, line placement, phone side and height, surface, footwear, recovery, and environmental conditions should remain documented and consistent."],
-              ].map(([heading, copy]) => (
-                <div key={heading} className="card-feature p-6">
-                  <h3 className="text-xl font-semibold mb-3" style={{ color: "var(--text-primary)" }}>{heading}</h3>
-                  <p className="text-body">{copy}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              One phone or several timing points
-            </h2>
-            <div className="card-feature p-6 md:p-8">
-              <p className="text-body mb-5">
-                A single-phone session supports solo training workflows. When a test
-                needs separate start, split, and finish locations, additional iPhones
-                can join the session and record events at those positions.
-              </p>
-              <p className="text-body">
-                This is useful for acceleration splits and flying-speed zones because
-                the test can preserve clearly marked locations instead of estimating
-                the boundaries from a general running trace. The internal coordination
-                method is proprietary; the athlete-facing rule is simple: confirm that
-                every phone is connected, armed, stable, and showing the correct line
-                before the rep.
-              </p>
-            </div>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              Precision, accuracy, and validity are different
-            </h2>
-            <div className="card-feature p-6 md:p-8">
-              <p className="text-body mb-5">
-                <strong>Precision</strong> describes how finely a system can place an
-                event in time. <strong>Accuracy</strong> asks how close that event is to
-                the intended reference. <strong>Validity</strong> asks whether the event
-                actually represents the performance question being tested.
-              </p>
-              <p className="text-body mb-5">
-                A sensor can have excellent internal resolution and still record the
-                wrong body part, the wrong start event, or an incorrectly measured
-                course. This is why TrackSpeed emphasizes automatic crossings,
-                reviewable evidence, and a repeatable protocol together.
-              </p>
-              <p className="text-body">
-                Device model, frame visibility, lighting, stable placement, thermal
-                conditions, course measurement, and the athlete&apos;s path can all affect
-                a training result. Treat any product accuracy figure as a claim tied
-                to a defined test setup—not a guarantee for every recording.
-              </p>
-            </div>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              How the main timing categories differ
-            </h2>
-            <div className="card-feature overflow-x-auto">
-              <table className="w-full min-w-[700px] text-left text-sm">
-                <thead>
-                  <tr style={{ borderBottom: "1px solid var(--border-light)" }}>
-                    <th className="p-4 font-semibold">Method</th>
-                    <th className="p-4 font-semibold">Recorded event</th>
-                    <th className="p-4 font-semibold">Best use</th>
-                    <th className="p-4 font-semibold">Main caution</th>
-                  </tr>
-                </thead>
-                <tbody style={{ color: "var(--text-muted)" }}>
-                  {[
-                    ["Manual stopwatch", "A person's button press", "Simple group practice", "Start and stop reaction become part of the time"],
-                    ["Photocell gate", "An object breaking one or more beams", "Dedicated training-gate workflow", "Gate height, limb triggers, alignment, and start method matter"],
-                    ["Camera training timer", "A crossing visible at a configured line", "Reviewable automatic training times", "Framing, visibility, placement, and protocol matter"],
-                    ["Photo-finish FAT", "Official start signal and finish-plane image", "Official stadium competition", "Specialized certified workflow and event rules"],
-                  ].map(([method, event, use, caution]) => (
-                    <tr key={method} style={{ borderBottom: "1px solid var(--border-light)" }}>
-                      <td className="p-4 font-semibold" style={{ color: "var(--text-primary)" }}>{method}</td>
-                      <td className="p-4">{event}</td>
-                      <td className="p-4">{use}</td>
-                      <td className="p-4">{caution}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="text-body mt-5">
-              See the research-backed comparison in our{" "}
-              <Link href="/blog/single-beam-vs-dual-beam-timing-gates" className="text-[#5C8DB8] hover:underline">
-                single-beam vs dual-beam timing-gate guide
-              </Link>
-              .
-            </p>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              Validation boundary
-            </h2>
-            <div className="rounded-3xl border border-[#F2D79B] bg-[#FFF8E8] p-6 md:p-8">
-              <p className="text-body mb-5">
-                TrackSpeed is a training and testing tool. It is not certified Fully
-                Automatic Timing equipment and does not replace the system required
-                for an official meet result, record, qualifying mark, or ranking.
-              </p>
-              <p className="text-body">
-                For training decisions, compare like with like: the same app version,
-                device class where practical, distance, start mode, line positions,
-                placement, surface, and recovery. If the method changes, start a new
-                comparison series instead of mixing the datasets.
-              </p>
-            </div>
-          </section>
-
-          <section className="mb-14">
-            <h2 className="text-2xl md:text-3xl font-bold mb-5" style={{ color: "var(--text-primary)" }}>
-              TrackSpeed technology FAQ
-            </h2>
-            <div className="space-y-4">
-              {faqItems.map((item) => (
-                <div key={item.question} className="card-feature p-6">
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
-                    {item.question}
-                  </h3>
-                  <p className="text-body">{item.answer}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mb-16">
-            <div className="card-feature p-8 md:p-10 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: "var(--text-primary)" }}>
-                See the timing evidence on your own sprint
-              </h2>
-              <p className="text-body mb-6 max-w-xl mx-auto">
-                Download TrackSpeed on iPhone, mark a measured course, keep the
-                protocol fixed, and review every result that looks unusual.
-              </p>
-              <DownloadLink store="ios" className="inline-block hover:opacity-80 transition-opacity">
-                <Image
-                  src="/app-store-badge.svg"
-                  alt="Download TrackSpeed on the App Store"
-                  width={120}
-                  height={40}
-                  className="h-[40px] w-auto"
-                />
-              </DownloadLink>
-              <div className="mt-6">
-                <Link href="/blog/best-app-for-tracking-sprint-speed" className="text-[#5C8DB8] hover:underline">
-                  Compare the best sprint speed apps for each training job
-                </Link>
-              </div>
-            </div>
-          </section>
-        </div>
-      </article>
-    </div>
-  );
+  return <div lang="en" dir="ltr">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(article)}}/>
+    <section className="bg-[var(--bg-warm)] px-5 pb-16 pt-32 sm:px-8 lg:pb-24 lg:pt-40">
+      <div className="marketing-container grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-24">
+        <div><Eyebrow>Behind the time</Eyebrow><h1 className="marketing-page-title">A clear start.<br/>A visible finish.</h1></div>
+        <div><p className="text-lg leading-8 text-muted">A useful training time begins with a defined event. TrackSpeed records camera crossings, connects your timing points and gives you photos to review after the run.</p>{locale !== "en" && <p className="mt-5 text-xs text-muted">This guide is currently available in English.</p>}<div className="mt-6"><TextLink href="/features">Explore the features</TextLink></div></div>
+      </div>
+    </section>
+    <section className="marketing-section"><div className="marketing-container grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <figure className="overflow-hidden rounded-2xl bg-[var(--bg-dark)] px-10 pt-10"><Image src="/photofinish_edit.webp" alt="Start and finish crossing photos in TrackSpeed" width={388} height={800} sizes="(max-width: 640px) 230px, 280px" className="mx-auto h-auto w-[230px] sm:w-[280px]"/><figcaption className="py-5 text-center text-xs text-white/70">An example of reviewable crossing evidence.</figcaption></figure>
+      <div><Eyebrow>From a crossing to a result</Eyebrow><h2 className="marketing-heading">The event defines the time.</h2><div className="mt-8 space-y-7">{[
+        ["Detect the crossing", "A camera watches the configured timing line. An automatic crossing event supplies a timestamp and the associated image evidence."],
+        ["Connect the timing points", "Nearby phones share events within a session. Their clocks are synchronized so timestamps can be compared. Message delivery time is separate from the event time."],
+        ["Calculate the effort", "The start and finish events define elapsed time. Split gates add segment times. A measured distance also lets the app calculate average speed."],
+      ].map(([heading,body],i)=><div key={heading} className="flex gap-5"><span className="pt-1 font-mono text-xs text-[var(--brand)]">0{i+1}</span><div><h3 className="text-lg font-medium tracking-tight">{heading}</h3><p className="mt-2 text-sm leading-7 text-muted">{body}</p></div></div>)}</div></div>
+    </div></section>
+    <section className="marketing-section border-y border-[var(--border-light)] bg-[var(--bg-warm)]"><div className="marketing-container"><Eyebrow>Choose a consistent test</Eyebrow><h2 className="marketing-heading max-w-2xl">Five starts. Different questions.</h2><p className="mt-5 max-w-2xl text-base leading-7 text-muted">A flying split and a cue-based start measure different efforts. Keep the start method with the result and compare like with like.</p><div className="mt-10 overflow-x-auto rounded-xl border border-[var(--border-light)] bg-white" role="region" aria-label="Start methods comparison" tabIndex={0}><table className="w-full min-w-[620px] text-left text-sm"><caption className="sr-only">The event that starts each TrackSpeed timing method</caption><thead><tr className="border-b border-[var(--border-light)]"><th className="p-5 font-semibold" scope="col">Start method</th><th className="p-5 font-semibold" scope="col">Timer begins at</th><th className="p-5 font-semibold" scope="col">Training use</th></tr></thead><tbody>{starts.map(([name,event,use])=><tr key={name} className="border-b border-[var(--border-light)] last:border-0"><th scope="row" className="p-5 font-medium">{name}</th><td className="p-5 leading-6 text-muted">{event}</td><td className="p-5 leading-6 text-muted">{use}</td></tr>)}</tbody></table></div></div></section>
+    <section className="marketing-section"><div className="marketing-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24"><div><Eyebrow>On the track</Eyebrow><h2 className="marketing-heading">Good timing starts with good setup.</h2></div><ol>{protocol.map(([heading,body],i)=><li key={heading} className="flex gap-5 border-t border-[var(--border-light)] py-7"><span className="font-mono text-xs text-[var(--brand)]">0{i+1}</span><div><h3 className="text-xl font-medium tracking-tight">{heading}</h3><p className="mt-3 text-sm leading-7 text-muted">{body}</p></div></li>)}</ol></div></section>
+    <section className="marketing-section bg-[var(--bg-dark)] text-white"><div className="marketing-container grid gap-10 lg:grid-cols-2 lg:gap-24"><div><Eyebrow light>Read the result in context</Eyebrow><h2 className="marketing-heading">Decimal places don’t tell the whole story.</h2></div><div className="space-y-5 text-base leading-8 text-white/75"><p>Camera frame rate, lighting, visibility, stable placement, device temperature and clock synchronization can affect a result. Course measurement and the chosen start event matter too.</p><p>Reviewable photos help you check what happened. They do not turn every setup into the same measurement. TrackSpeed is for training and unofficial testing; official competition results require the event’s approved timing system.</p></div></div></section>
+    <section className="marketing-section"><div className="marketing-container grid gap-10 lg:grid-cols-2 lg:gap-24"><div><Eyebrow>Your devices, working together</Eyebrow><h2 className="marketing-heading">Local timing. Results to keep.</h2><p className="mt-6 text-base leading-8 text-muted">Supported local connections can time without internet. Wi-Fi Aware needs compatible hardware and software; Bluetooth is another connection option. Cloud synchronization needs internet and supports the session data available in the app.</p></div><div className="space-y-6">{[
+      ["One camera line", "Solo Laps measures repeated crossings at the same line. Separate start and finish positions use connected phones."],
+      ["Watch and agility previews", "Watch starts, running dynamics and landscape one-camera drills are in development. Watch starts use the paired host/start iPhone to reach the other gates. For 5-10-5, both outer-line touches need video review."],
+      ["Further reading", "Explore setup and timing-method comparisons in the training journal."],
+    ].map(([heading,body])=><div key={heading} className="border-t border-[var(--border-light)] pt-6"><h3 className="flex items-center gap-3 text-lg font-medium"><CheckIcon className="size-4 shrink-0 text-[var(--brand)]" aria-hidden="true"/>{heading}</h3><p className="mt-3 text-sm leading-7 text-muted">{body}</p></div>)}<Link href="/blog/single-beam-vs-dual-beam-timing-gates" className="inline-block text-sm underline underline-offset-4">Read the timing-gate comparison</Link></div></div></section>
+    <section className="bg-[var(--bg-warm)] px-5 py-16 sm:px-8"><div className="marketing-container flex flex-col justify-between gap-8 md:flex-row md:items-center"><div><h2 className="text-3xl font-medium tracking-tight">Bring the method to your next session.</h2><p className="mt-4 text-sm text-muted">Measure the course. Keep the setup consistent. Review your runs.</p></div><DownloadLink store="ios" className="marketing-button shrink-0">Get TrackSpeed<ArrowRightIcon className="size-4" aria-hidden="true"/></DownloadLink></div></section>
+  </div>;
 }

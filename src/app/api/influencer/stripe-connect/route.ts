@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
-import { verifyInfluencerToken } from '../auth/route'
+import { verifyInfluencerToken } from '@/lib/influencer-auth'
 
 const STRIPE_ACCOUNT_MODEL_V2 = 'v2_core'
 const STRIPE_ACCOUNT_MODEL_V1 = 'v1_connect'

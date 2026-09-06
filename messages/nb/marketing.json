@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "Sprinttidtaking. Rett fra lomma.",
+    "description": "Automatisk sprinttidtaking, trådløse porter, solorunder, bildeanalyse, utøverprofiler og økthistorikk. Se også forhåndsvisning av Apple Watch og agility."
+  },
+  "nav": {
+    "guide": "Alle funksjoner",
+    "download": "Last ned TrackSpeed",
+    "close": "Lukk meny",
+    "more": "Utforsk",
+    "guideLanguage": "Funksjonsguiden er på engelsk"
+  },
+  "hero": {
+    "kicker": "For arbeidet mellom konkurransene",
+    "title": "Sprinttidtaking.",
+    "accent": "Rett fra lomma.",
+    "description": "Fang start, mellomtider og målgang. Få mer ut av hver økt.",
+    "secondary": "Finn ditt oppsett",
+    "availability": "For iPhone og iPad · Gratis nedlasting, kjøp i appen",
+    "proof": "Utviklet av OL-utøver Sondre Guttormsen",
+    "imageAlt": "TrackSpeed viser en flyvende sprint med start- og målbilder",
+    "example": "Inne i TrackSpeed",
+    "imageCaption": "En tid du kan gå tilbake og kontrollere.",
+    "sports": "Sprinttrening / Flyvende sprint / Tilløp / Lagtesting"
+  },
+  "facts": [
+    {
+      "value": "1",
+      "label": "telefon for solorunder"
+    },
+    {
+      "value": "2+",
+      "label": "telefoner for tilkoblede porter"
+    },
+    {
+      "value": "5",
+      "label": "måter å starte en sprint på"
+    }
+  ],
+  "modes": {
+    "kicker": "Din økt. Ditt oppsett.",
+    "title": "Din trening. Ditt oppsett.",
+    "description": "Tren alene eller koble sammen telefonene.",
+    "diagramLabel": "Illustrasjon av banen, ikke i målestokk",
+    "start": "Start",
+    "split": "Mellomtid",
+    "finish": "Mål",
+    "phone": "Telefon",
+    "watch": {
+      "tab": "Apple Watch",
+      "title": "Ha økten på håndleddet.",
+      "body": "Vi utvikler klokkestart, resultatvisning og løpsdynamikk. Den sammenkoblede iPhonen kobler klokken til tidtakingsøkten.",
+      "steps": [
+        "Koble klokken til vertens start-iPhone for klokkestart.",
+        "Bruk andre telefoner til mål og eventuelle mellomtider.",
+        "Se tiden, og utforsk tilgjengelige bevegelsesdata."
+      ],
+      "requirement": "Utviklingsversjon · Ikke i den offentlige appen ennå"
+    },
+    "turn": "Vending",
+    "centre": "Midten",
+    "lap": "Rundelinje",
+    "beta": "Under utvikling",
+    "available": "Tilgjengelig på iOS",
+    "gates": {
+      "tab": "Tilkoblede porter",
+      "title": "Én økt. Alle mellomtidene.",
+      "body": "Plasser telefoner ved start og mål. Legg til en telefon for mellomtid for å se hvordan farten endrer seg.",
+      "steps": [
+        "Mål opp banen og plasser telefonene.",
+        "Opprett eller bli med i samme økt, og vent til alle portene er klare.",
+        "Løp gjennom. Se tiden og passeringsbildene sammen."
+      ],
+      "requirement": "2+ telefoner · Oppmålt bane · Stabile stativer"
+    },
+    "solo": {
+      "tab": "Solorunder",
+      "title": "Bare deg. Én telefon.",
+      "body": "Plasser kameraet ved en linje du passerer flere ganger. Første passering starter økten, og de neste gir rundetid og bilde.",
+      "steps": [
+        "Fest telefonen ved en tydelig markert linje.",
+        "Velg Solo Laps og kontroller kamerabildet.",
+        "Kryss samme linje for hver runde eller retur."
+      ],
+      "requirement": "1 telefon · Gjentatte passeringer av samme linje"
+    },
+    "agility": {
+      "tab": "Agility og solosprint",
+      "title": "Ett kamera. Hele øvelsen.",
+      "body": "Liggende kameratidtaking utvikles for stående og flyvende sprint, 5-10-5 og løp frem og tilbake. Hele banen må være synlig.",
+      "steps": [
+        "For 5-10-5: marker tre linjer med 5 yards mellom hver.",
+        "Start i midten, berør begge ytterlinjene og returner til midten.",
+        "Første retur gjennom midten er en mellomtid. Kontroller begge berøringene på video."
+      ],
+      "requirement": "Utviklingsversjon · Stativ og videokontroll av vendinger"
+    },
+    "watchLabel": "Klokke"
+  },
+  "evidence": {
+    "kicker": "Mer enn et tall",
+    "title": "Se hva som stoppet klokken.",
+    "body": "Automatiske kamerapasseringer gir hvert løp en tydelig start og slutt. Åpne bildene, kontroller linjen og behold resultatet i økten.",
+    "items": [
+      "Automatisk passeringsdeteksjon",
+      "Dokumentasjon av start, mellomtid og mål",
+      "Bildekontroll og tidsjustering"
+    ],
+    "link": "Slik fungerer tidtakingen",
+    "caption": "Appbilde med eksempeldata fra en økt"
+  },
+  "starts": {
+    "kicker": "Start på dine premisser",
+    "title": "Fem måter å komme i gang på.",
+    "description": "Velg startmetoden som passer testen. Sammenlign resultater med samme startmetode.",
+    "items": [
+      {
+        "title": "Flyvende start",
+        "body": "Bygg fart før første port. Passering av startlinjen begynner den målte sonen."
+      },
+      {
+        "title": "Slipp skjermen",
+        "body": "Hold fingeren på starttelefonen. Tiden starter når du løfter den."
+      },
+      {
+        "title": "Nedtelling",
+        "body": "En nedtelling avsluttes med et lydsignal. Tiden starter på signalet og inkluderer reaksjonen din."
+      },
+      {
+        "title": "Talekommando",
+        "body": "Følg de talte startkommandoene. Tiden starter på GO."
+      },
+      {
+        "title": "Start i bildet",
+        "body": "Stå ved starttelefonens frontkameraport. Kryss linjen på skjermen for å starte."
+      }
+    ]
+  },
+  "workflow": {
+    "kicker": "Fra første repetisjon til neste økt",
+    "title": "Treningen din, samlet.",
+    "guide": "Utforsk alle funksjonene",
+    "items": [
+      {
+        "title": "Mellomtider og snittfart",
+        "body": "Mål hele løpet og delstrekningene. Se snittfarten for den oppmålte distansen."
+      },
+      {
+        "title": "Utøvere og lag",
+        "body": "Knytt løp til utøverprofiler og hold orden på gruppetreningen."
+      },
+      {
+        "title": "Historikk og personlige rekorder",
+        "body": "Finn tidligere økter, sammenlign like tester og følg fremgangen."
+      },
+      {
+        "title": "Maler og gjentatte økter",
+        "body": "Velg en sprintmal eller egen distanse. Gjenbruk et lagret oppsett."
+      },
+      {
+        "title": "CSV, kort og video",
+        "body": "Eksporter øktdata, del et resultatkort eller lag video med tidtakingsoverlegg."
+      },
+      {
+        "title": "Trådløs og frakoblet tidtaking",
+        "body": "Koble nærliggende telefoner via støttede lokale forbindelser. Lagre resultatene og synkroniser støttede øktdata når du er på nett."
+      }
+    ]
+  },
+  "beta": {
+    "kicker": "Under utvikling",
+    "title": "Neste kapittel i treningen din.",
+    "body": "Start med Apple Watch og løpsdynamikk. Solosprint med liggende telefon. Agility for fotball, inkludert 5-10-5 og løp frem og tilbake.",
+    "note": "Funksjonene testes fysisk og er ikke i den offentlige appen ennå. Ingen lanseringsdato er lovet.",
+    "link": "Se utviklingsforhåndsvisningen",
+    "illustration": "Illustrert forhåndsvisning",
+    "landscapeAlt": "Illustrasjon av TrackSpeed som filmer en sprint gjennom tre porter på en blå løpebane",
+    "watchAlt": "TrackSpeed på iPhone og Apple Watch med et eksempel på sprintresultat"
+  },
+  "founder": {
+    "kicker": "Skapt på friidrettsbanen",
+    "title": "Bygget av en utøver som bruker det.",
+    "body": "Sondre Guttormsen er olympisk stavhopper og grunnlegger og utvikler av TrackSpeed. Målet er praktisk: gjøre gjentakbar sprinttesting enklere i den daglige treningen.",
+    "link": "Møt grunnleggeren",
+    "imageAlt": "Sondre Guttormsen konkurrerer i stavsprang"
+  },
+  "faq": {
+    "title": "Før ditt første løp.",
+    "items": [
+      {
+        "question": "Kan jeg bruke bare én telefon?",
+        "answer": "Ja. Solo Laps registrerer gjentatte passeringer av én kameralinje. Separate start- og målsteder bruker tilkoblede telefoner. Liggende solosprint og agility er under utvikling."
+      },
+      {
+        "question": "Trenger jeg Wi-Fi eller internett?",
+        "answer": "Støttede lokale forbindelser kan ta tiden uten internett. Wi-Fi Aware krever kompatibel maskinvare og programvare; Bluetooth er et annet alternativ. Skyfunksjoner krever nett."
+      },
+      {
+        "question": "Hvor nøyaktig er det?",
+        "answer": "Resultatene avhenger av bildefrekvens, lys, plassering, startmetode og klokkesynkronisering. Antall desimaler er ingen nøyaktighetsgaranti. Bruk et stabilt oppsett og kontroller passeringsbildene. TrackSpeed er for trening, ikke offisiell konkurransetidtaking."
+      },
+      {
+        "question": "Fungerer det med Apple Watch eller Android?",
+        "answer": "Den offentlige opplevelsen beskrevet her er for iPhone og iPad. Klokkefunksjoner, liggende agility og Android er under utvikling. Vi lover ikke identiske funksjoner på alle plattformer."
+      },
+      {
+        "question": "Hva koster TrackSpeed?",
+        "answer": "Appen er gratis å laste ned, med kjøp i appen. Se appen for abonnementer, priser, prøvevilkår og funksjoner i din region."
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Ta det med på neste økt",
+    "title": "Sett linjen. Løp ditt beste.",
+    "body": "Neste treningsøkt er et godt sted å begynne.",
+    "note": "iPhone og iPad · Kjøp i appen"
+  },
+  "footer": {
+    "tagline": "Sprinttidtaking for arbeidet du legger ned.",
+    "moreApps": "Mer fra utvikleren",
+    "availability": "Apple Watch og liggende agility: under utvikling."
+  },
+  "editorial": {
+    "sceneLabel": "Velg et miljø",
+    "scenes": [
+      "Friidrettsbane",
+      "Fotball",
+      "Innendørs"
+    ],
+    "illustration": "Illustrert appvisning · Eksempelresultater",
+    "evidenceBody": "Åpne bildene. Sjekk linjen. Se gjennom hvert løp.",
+    "landscapeTitle": "Flere måter å trene på.",
+    "landscapeBody": "Solosprinter. Agilityøvelser. Ett kamera.",
+    "standingFlying": "Stående og flygende start",
+    "agilityDrills": "5–10–5 og frem og tilbake",
+    "watchTitle": "Neste drag. På håndleddet.",
+    "watchBody": "Start fra Apple Watch. Få resultatet via den parede iPhonen.",
+    "historyBody": "Finn igjen øktene. Gjenta oppsettet. Del fremgangen.",
+    "featureDescriptions": [
+      "Tren alene eller sammen.",
+      "Kom raskt i gang. Tilpass når du vil.",
+      "Del resultater, klipp og øktdata.",
+      "Ta tiden lokalt. Synkroniser støttede data på nett."
+    ]
+  }
+}

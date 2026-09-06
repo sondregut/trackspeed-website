@@ -4,7 +4,7 @@
     "description": "TrackSpeed ile yardım al. Sprint zamanlama kurulumu, çoklu cihaz senkronizasyonu, geçiş algılama ve abonelik yönetimi hakkında SSS."
   },
   "title": "Destek",
-  "lastUpdated": "Son güncelleme: 14 Şubat 2026",
+  "lastUpdated": "Son güncelleme: 6 Eylül 2026",
   "contact": {
     "title": "Bize Ulaş",
     "description": "TrackSpeed ile ilgili yardıma ihtiyacın varsa veya herhangi bir sorun varsa, yardım etmek için buradayız.",
@@ -16,11 +16,11 @@
     "items": {
       "howItWorks": {
         "question": "TrackSpeed nasıl çalışır?",
-        "answer": "TrackSpeed, bir sporcunun zamanlama kapısını ne zaman geçtiğini algılamak için phone kamerasını kullanır. Uygulama, sporcunun gövdesinin zamanlama kapısını ne zaman geçtiğini belirlemek için kamera tabanlı hareket algılama kullanarak milisaniye hassasiyetinde zamanlama sağlar."
+        "answer": "Otomatik kamera geçişleri başlangıç ve bitişi kaydeder. Fotoğrafları açın, çizgiyi kontrol edin ve sonucu seansla birlikte saklayın."
       },
       "equipment": {
         "question": "Özel ekipmana ihtiyacım var mı?",
-        "answer": "Hayır! TrackSpeed sadece phone'unla çalışır. Ara süre ölçümü veya başlangıç/bitiş kapıları için kablosuz olarak senkronize olan iki phone kullanabilirsin."
+        "answer": "Evet. Solo Laps aynı kamera çizgisinden tekrarlanan geçişleri kaydeder. Ayrı başlangıç ve bitiş noktaları bağlı telefonlar kullanır. Yatay tek kamera sprint ve çeviklik modları geliştiriliyor."
       },
       "models": {
         "question": "Hangi phone modelleri destekleniyor?",
@@ -28,7 +28,7 @@
       },
       "accuracy": {
         "question": "Zamanlama ne kadar doğru?",
-        "answer": "TrackSpeed, kare altı interpolasyon ve yuvarlanan panjur düzeltmesi kullanarak ~4ms zamanlama doğruluğu elde eder. İki cihaz kullanırken, saat senkronizasyonumuz her iki kapının doğru ara süreler için hizalanmasını sağlar."
+        "answer": "Kare hızı, ışık, konum, başlangıç yöntemi ve saat eşitlemesine bağlıdır. Ondalık basamak sayısı doğruluk garantisi değildir. Sabit kurulum kullanın ve geçiş fotoğraflarını inceleyin. TrackSpeed antrenman içindir, resmî yarış zamanlaması için değildir."
       },
       "competitions": {
         "question": "TrackSpeed'i resmi yarışmalarda kullanabilir miyim?",
@@ -36,7 +36,7 @@
       },
       "connecting": {
         "question": "İki telefonu nasıl bağlarım?",
-        "answer": "Her iki cihazda da TrackSpeed yüklü olmalı. Bir cihaz 'ev sahibi' olarak oturum oluşturur, diğeri katılır. Cihazlar eşler arası ağ üzerinden otomatik olarak bağlanır — internet bağlantısı gerekmez."
+        "answer": "Aynı seansa katılın ve tüm kapılar hazır olana kadar bekleyin. Desteklenen yerel bağlantılar internetsiz ölçüm yapabilir. Wi-Fi Aware uyumlu donanım ve yazılım gerektirir; Bluetooth da bir seçenektir. Bulut özellikleri bağlantı gerektirir."
       },
       "cancel": {
         "question": "Aboneliğimi nasıl iptal ederim?",
@@ -60,7 +60,7 @@
         "issue": "İki cihaz bağlanmıyor",
         "solutions": [
           "Her iki cihazda da WiFi ve Bluetooth'un açık olduğundan emin ol",
-          "Her iki cihaz birbirinden 10 metre mesafede olmalı",
+          "İlk bağlantıda telefonları yaklaştırın, ardından kapı konumlarında hazır olduklarını doğrulayın.",
           "Her iki cihazda da uygulamayı kapatıp yeniden açmayı dene",
           "Her iki cihazın da TrackSpeed'in en son sürümünü çalıştırdığından emin ol"
         ]

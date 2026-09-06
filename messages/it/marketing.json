@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "Cronometra gli sprint. Nella tua tasca.",
+    "description": "Cronometraggio automatico, porte wireless, giri in solitaria, foto, profili e cronologia. Scopri anche le anteprime Watch e agilità."
+  },
+  "nav": {
+    "guide": "Tutte le funzioni",
+    "download": "Scarica TrackSpeed",
+    "close": "Chiudi menu",
+    "more": "Esplora",
+    "guideLanguage": "Guida alle funzioni in inglese"
+  },
+  "hero": {
+    "kicker": "Per il lavoro tra una gara e l’altra",
+    "title": "Cronometra gli sprint.",
+    "accent": "Nella tua tasca.",
+    "description": "Registra partenze, intermedi e arrivi. Dai valore a ogni sessione.",
+    "secondary": "Trova la configurazione",
+    "availability": "iPhone e iPad · Download gratuito, acquisti in-app",
+    "proof": "Creato dall’atleta olimpico Sondre Guttormsen",
+    "imageAlt": "TrackSpeed mostra uno sprint lanciato con foto di partenza e arrivo",
+    "example": "Dentro TrackSpeed",
+    "imageCaption": "Un tempo che puoi ricontrollare.",
+    "sports": "Allenamento sprint / Sprint lanciati / Rincorse / Test di squadra"
+  },
+  "facts": [
+    {
+      "value": "1",
+      "label": "telefono per i giri in solitaria"
+    },
+    {
+      "value": "2+",
+      "label": "telefoni per le porte collegate"
+    },
+    {
+      "value": "5",
+      "label": "modi per iniziare uno sprint"
+    }
+  ],
+  "modes": {
+    "kicker": "La tua sessione. Il tuo setup.",
+    "title": "Il tuo allenamento. La tua configurazione.",
+    "description": "Allenati da solo o collega i tuoi telefoni.",
+    "diagramLabel": "Schema illustrativo del percorso, non in scala",
+    "start": "Partenza",
+    "split": "Intermedio",
+    "finish": "Arrivo",
+    "phone": "Telefono",
+    "watch": {
+      "tab": "Apple Watch",
+      "title": "La sessione al polso.",
+      "body": "Stiamo sviluppando partenze Watch, risultati e dinamica di corsa. L’iPhone abbinato collega l’orologio alla sessione.",
+      "steps": [
+        "Per le partenze Watch, abbinalo all’iPhone host di partenza.",
+        "Usa altri telefoni per arrivo e intermedi.",
+        "Controlla il tempo e le metriche di movimento disponibili."
+      ],
+      "requirement": "Anteprima in sviluppo · Non ancora nell’app pubblica"
+    },
+    "turn": "Inversione",
+    "centre": "Centro",
+    "lap": "Linea del giro",
+    "beta": "In sviluppo",
+    "available": "Disponibile su iOS",
+    "gates": {
+      "tab": "Porte collegate",
+      "title": "Una sessione. Tutti gli intermedi.",
+      "body": "Metti i telefoni alla partenza e all’arrivo. Aggiungine uno per misurare la velocità nei diversi tratti.",
+      "steps": [
+        "Misura il percorso e posiziona i telefoni.",
+        "Entra nella stessa sessione e attendi che tutte le porte siano pronte.",
+        "Corri e controlla insieme tempo e foto."
+      ],
+      "requirement": "2+ telefoni · Percorso misurato · Supporti stabili"
+    },
+    "solo": {
+      "tab": "Giri in solitaria",
+      "title": "Solo tu. Un telefono.",
+      "body": "Posiziona una fotocamera su una linea che attraversi più volte. Il primo passaggio avvia la sessione; i successivi registrano un giro e una foto.",
+      "steps": [
+        "Fissa il telefono accanto a una linea ben segnata.",
+        "Scegli Solo Laps e controlla l’inquadratura.",
+        "Attraversa la stessa linea a ogni giro o ritorno."
+      ],
+      "requirement": "1 telefono · Passaggi ripetuti sulla stessa linea"
+    },
+    "agility": {
+      "tab": "Agilità e sprint solo",
+      "title": "Una fotocamera. Tutto l’esercizio.",
+      "body": "Il cronometraggio orizzontale è in sviluppo per partenze da fermo e lanciate, 5-10-5 e navette. Mantieni visibile tutto il percorso.",
+      "steps": [
+        "Per il 5-10-5, segna tre linee distanti 5 yard.",
+        "Parti dal centro, tocca le due linee esterne e torna al centro.",
+        "Il primo ritorno attraverso il centro è un intermedio. Controlla entrambi i tocchi nel video."
+      ],
+      "requirement": "Anteprima in sviluppo · Treppiede e controllo video delle inversioni"
+    },
+    "watchLabel": "Orologio"
+  },
+  "evidence": {
+    "kicker": "Più di un numero",
+    "title": "Guarda cosa ha fermato il tempo.",
+    "body": "I passaggi automatici della fotocamera definiscono partenza e arrivo. Apri le foto, controlla la linea e conserva il risultato nella sessione.",
+    "items": [
+      "Rilevamento automatico del passaggio",
+      "Immagini di partenza, intermedi e arrivo",
+      "Controllo delle foto e regolazione del tempo"
+    ],
+    "link": "Come funziona il cronometraggio",
+    "caption": "Schermata dell’app con dati di esempio"
+  },
+  "starts": {
+    "kicker": "Scegli come partire",
+    "title": "Cinque modi per iniziare.",
+    "description": "Scegli l’inizio adatto al test. Confronta risultati con lo stesso metodo di partenza.",
+    "items": [
+      {
+        "title": "Partenza lanciata",
+        "body": "Accelera prima della prima porta. Attraversare la linea di partenza avvia il tratto cronometrato."
+      },
+      {
+        "title": "Rilascio del tocco",
+        "body": "Tieni il dito sullo schermo del telefono di partenza. Sollevarlo avvia il tempo."
+      },
+      {
+        "title": "Conto alla rovescia",
+        "body": "Il conto termina con un segnale acustico. Il tempo inizia al segnale e include la tua reazione."
+      },
+      {
+        "title": "Comando vocale",
+        "body": "Segui i comandi di partenza. Il cronometro parte al GO."
+      },
+      {
+        "title": "Partenza nell’inquadratura",
+        "body": "Posizionati sulla linea della fotocamera frontale del telefono di partenza. Attraversala per iniziare."
+      }
+    ]
+  },
+  "workflow": {
+    "kicker": "Dalla prima ripetuta alla prossima sessione",
+    "title": "Il tuo allenamento, organizzato.",
+    "guide": "Esplora tutte le funzioni",
+    "items": [
+      {
+        "title": "Intermedi e velocità media",
+        "body": "Misura la corsa completa e i segmenti. Consulta la velocità media sulla distanza misurata."
+      },
+      {
+        "title": "Atleti e squadre",
+        "body": "Assegna le prove ai profili e organizza le sessioni di gruppo."
+      },
+      {
+        "title": "Cronologia e record personali",
+        "body": "Ritrova le sessioni, confronta test uguali e segui i progressi."
+      },
+      {
+        "title": "Modelli e sessioni ripetute",
+        "body": "Scegli un modello di sprint o una distanza personale. Riutilizza un setup salvato."
+      },
+      {
+        "title": "CSV, schede e video",
+        "body": "Esporta dati, condividi una scheda risultato o crea video con il tempo in sovrimpressione."
+      },
+      {
+        "title": "Wireless e offline",
+        "body": "Collega i telefoni vicini con connessioni locali supportate. Salva i risultati e sincronizza i dati compatibili quando sei online."
+      }
+    ]
+  },
+  "beta": {
+    "kicker": "In sviluppo",
+    "title": "Il prossimo capitolo del tuo allenamento.",
+    "body": "Partenze Apple Watch e dinamica di corsa. Sprint solo con telefono orizzontale. Agilità per il calcio, con 5-10-5 e navette.",
+    "note": "Queste funzioni sono in fase di test sul campo e non sono ancora nell’app pubblica. Non è promessa una data di uscita.",
+    "link": "Scopri l’anteprima in sviluppo",
+    "illustration": "Anteprima illustrata",
+    "landscapeAlt": "TrackSpeed riprende uno sprint attraverso tre varchi su una pista blu",
+    "watchAlt": "TrackSpeed su iPhone e Apple Watch con un risultato di sprint di esempio"
+  },
+  "founder": {
+    "kicker": "Nato in pista",
+    "title": "Creato da un atleta che lo usa.",
+    "body": "Sondre Guttormsen è un astista olimpico, fondatore e sviluppatore di TrackSpeed. L’obiettivo: rendere più semplici i test di sprint ripetibili nell’allenamento quotidiano.",
+    "link": "Conosci il fondatore",
+    "imageAlt": "Sondre Guttormsen in gara nel salto con l’asta"
+  },
+  "faq": {
+    "title": "Prima della prima corsa.",
+    "items": [
+      {
+        "question": "Basta un telefono?",
+        "answer": "Sì. Solo Laps registra passaggi ripetuti sulla stessa linea. Partenza e arrivo separati richiedono telefoni collegati. Sprint e agilità con fotocamera orizzontale sono in sviluppo."
+      },
+      {
+        "question": "Servono Wi-Fi o internet?",
+        "answer": "Le connessioni locali compatibili possono cronometrare senza internet. Wi-Fi Aware richiede hardware e software compatibili; Bluetooth è un’altra opzione. Il cloud richiede una connessione."
+      },
+      {
+        "question": "Quanto è preciso?",
+        "answer": "Dipende da frequenza dei fotogrammi, luce, posizione, partenza e sincronizzazione. Le cifre decimali non garantiscono precisione. Usa un setup stabile e controlla le foto. TrackSpeed è per l’allenamento, non per il cronometraggio ufficiale."
+      },
+      {
+        "question": "Funziona con Apple Watch o Android?",
+        "answer": "L’esperienza pubblica descritta è per iPhone e iPad. Watch, agilità orizzontale e Android sono in sviluppo. Non promettiamo funzioni identiche su tutte le piattaforme."
+      },
+      {
+        "question": "Quanto costa TrackSpeed?",
+        "answer": "Il download è gratuito, con acquisti in-app. Consulta nell’app piani, prezzi, condizioni di prova e funzioni disponibili nella tua regione."
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Portalo al prossimo allenamento",
+    "title": "Segna la linea. Dai il massimo.",
+    "body": "La prossima sessione è un buon punto di partenza.",
+    "note": "iPhone e iPad · Acquisti in-app"
+  },
+  "footer": {
+    "tagline": "Cronometraggio sprint per il tuo impegno quotidiano.",
+    "moreApps": "Altro dallo sviluppatore",
+    "availability": "Watch e agilità orizzontale: in sviluppo."
+  },
+  "editorial": {
+    "sceneLabel": "Scegli un ambiente",
+    "scenes": [
+      "Pista",
+      "Calcio",
+      "Al coperto"
+    ],
+    "illustration": "Vista illustrativa dell’app · Risultati di esempio",
+    "evidenceBody": "Apri le foto. Controlla la linea. Rivedi ogni ripetizione.",
+    "landscapeTitle": "Più modi di allenarti.",
+    "landscapeBody": "Sprint in solitaria. Agilità. Una videocamera.",
+    "standingFlying": "Partenze da fermo e lanciate",
+    "agilityDrills": "5–10–5 e andata e ritorno",
+    "watchTitle": "La prossima ripetizione. Al polso.",
+    "watchBody": "Parti dal Watch. Ricevi il risultato tramite l’iPhone abbinato.",
+    "historyBody": "Ritrova le sessioni. Ripeti la configurazione. Condividi i progressi.",
+    "featureDescriptions": [
+      "Allenati da solo o in gruppo.",
+      "Inizia subito. Personalizza quando vuoi.",
+      "Condividi risultati, video e dati delle sessioni.",
+      "Cronometra in locale. Sincronizza i dati supportati online."
+    ]
+  }
+}

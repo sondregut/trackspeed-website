@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "Sprint timing. In your pocket.",
+    "description": "Automatic sprint timing, wireless gates, solo laps, photo review, athlete profiles and session history. Explore TrackSpeed, plus previews of Watch and agility training."
+  },
+  "nav": {
+    "guide": "All features",
+    "download": "Get TrackSpeed",
+    "close": "Close menu",
+    "more": "Explore",
+    "guideLanguage": "Feature guide in English"
+  },
+  "hero": {
+    "kicker": "For the work between competitions",
+    "title": "Sprint timing.",
+    "accent": "In your pocket.",
+    "description": "Capture your starts, splits and finishes. Make every session count.",
+    "secondary": "Find your setup",
+    "availability": "For iPhone & iPad · Free download, in-app purchases",
+    "proof": "Created by Olympian Sondre Guttormsen",
+    "imageAlt": "TrackSpeed showing a flying sprint with start and finish photos",
+    "example": "Inside TrackSpeed",
+    "imageCaption": "A time you can go back and review.",
+    "sports": "Sprint training / Flying sprints / Run-ups / Team testing"
+  },
+  "facts": [
+    {
+      "value": "1",
+      "label": "phone for solo laps"
+    },
+    {
+      "value": "2+",
+      "label": "phones for connected gates"
+    },
+    {
+      "value": "5",
+      "label": "ways to start a sprint"
+    }
+  ],
+  "modes": {
+    "kicker": "Your session. Your setup.",
+    "title": "Your training. Your setup.",
+    "description": "Train solo or connect your phones.",
+    "diagramLabel": "Illustrative course setup, not to scale",
+    "start": "Start",
+    "split": "Split",
+    "finish": "Finish",
+    "phone": "Phone",
+    "watch": {
+      "tab": "Apple Watch",
+      "title": "Keep the session on your wrist.",
+      "body": "We’re developing Watch starts, delivered results and running dynamics. Your paired iPhone connects the Watch to the timing session.",
+      "steps": [
+        "Pair the Watch to the host/start iPhone for Watch starts.",
+        "Use other phones for your finish and optional splits.",
+        "Review the time, then explore available movement metrics."
+      ],
+      "requirement": "Development preview · Not in the public app yet"
+    },
+    "turn": "Turn",
+    "centre": "Centre",
+    "lap": "Lap line",
+    "beta": "In development",
+    "available": "Available on iOS",
+    "gates": {
+      "tab": "Connected gates",
+      "title": "One session. Every split.",
+      "body": "Put phones at the start and finish. Add another at a split to see how your speed changes across the run.",
+      "steps": [
+        "Measure the course and position each phone.",
+        "Create or join the same session and wait for every gate to be ready.",
+        "Run through. Review the time and crossing photos together."
+      ],
+      "requirement": "2+ phones · Measured course · Stable mounts"
+    },
+    "solo": {
+      "tab": "Solo laps",
+      "title": "Just you. One phone.",
+      "body": "Set one camera at a line you pass repeatedly. The first crossing starts the session; each later crossing records a lap and photo.",
+      "steps": [
+        "Fix the phone beside a clearly marked line.",
+        "Choose Solo Laps and check the camera view.",
+        "Cross the same line for each lap or return."
+      ],
+      "requirement": "1 phone · Repeated crossings of the same line"
+    },
+    "agility": {
+      "tab": "Agility & solo sprints",
+      "title": "One camera. The whole drill.",
+      "body": "Landscape timing in development for standing and flying sprints, 5-10-5 and out-and-back drills. Keep the measured course in view.",
+      "steps": [
+        "For 5-10-5, mark three lines 5 yards apart.",
+        "Start at centre, touch both outside lines, return to centre.",
+        "The first centre return is a split. Review both touches on video."
+      ],
+      "requirement": "Development preview · Tripod and video turn review"
+    },
+    "watchLabel": "Watch"
+  },
+  "evidence": {
+    "kicker": "More than a number",
+    "title": "See what stopped the clock.",
+    "body": "Automatic camera crossings give each effort a clear start and finish. Open the photos, check the line, and keep the result with the session.",
+    "items": [
+      "Automatic crossing detection",
+      "Start, split and finish evidence",
+      "Photo review and timing adjustment"
+    ],
+    "link": "How timing works",
+    "caption": "App screenshot with sample session data"
+  },
+  "starts": {
+    "kicker": "Start on your terms",
+    "title": "Five ways to get going.",
+    "description": "Choose the timing anchor that matches your test. Compare results recorded with the same start method.",
+    "items": [
+      {
+        "title": "Flying start",
+        "body": "Build speed before the first gate. Crossing the start line begins the timed zone."
+      },
+      {
+        "title": "Touch release",
+        "body": "Hold the start phone’s screen. Lifting your finger starts the timer."
+      },
+      {
+        "title": "Countdown",
+        "body": "A countdown leads into an audible signal. Timing begins on the cue and includes your response."
+      },
+      {
+        "title": "Voice command",
+        "body": "Follow spoken start commands. The timer begins on GO."
+      },
+      {
+        "title": "In-frame start",
+        "body": "Stand at the start phone’s front-camera gate. Cross the on-screen line to begin."
+      }
+    ]
+  },
+  "workflow": {
+    "kicker": "From the first rep to the next session",
+    "title": "Your training, kept together.",
+    "guide": "Explore every feature",
+    "items": [
+      {
+        "title": "Splits & average speed",
+        "body": "Measure the whole run and its segments. See average speed for your measured distance."
+      },
+      {
+        "title": "Athletes & teams",
+        "body": "Assign efforts to athlete profiles and keep a group session organized."
+      },
+      {
+        "title": "History & personal bests",
+        "body": "Find previous sessions, compare matching tests and follow progress over time."
+      },
+      {
+        "title": "Templates & repeat sessions",
+        "body": "Start with a sprint template or set your own distance. Reuse a saved setup."
+      },
+      {
+        "title": "CSV, cards & video",
+        "body": "Export session data, share a result card or create a video with a timing overlay."
+      },
+      {
+        "title": "Wireless & offline timing",
+        "body": "Connect nearby phones on supported local routes. Save results and sync supported session data when online."
+      }
+    ]
+  },
+  "beta": {
+    "kicker": "In development",
+    "title": "The next chapter of your training.",
+    "body": "Apple Watch starts and running dynamics. Landscape solo sprints. Football agility tests, including 5-10-5 and out-and-back drills.",
+    "note": "These features are in physical testing and are not included in the public app yet. No release date is promised.",
+    "link": "Explore the development preview",
+    "illustration": "Illustrated development preview",
+    "landscapeAlt": "Illustration of TrackSpeed filming a sprint through three gates on a blue track",
+    "watchAlt": "TrackSpeed on iPhone and Apple Watch with a sample sprint result"
+  },
+  "founder": {
+    "kicker": "Made on the track",
+    "title": "Built by an athlete who uses it.",
+    "body": "Sondre Guttormsen is an Olympic pole vaulter and the founder and developer of TrackSpeed. The goal is practical: make repeatable sprint testing easier to bring to everyday training.",
+    "link": "Meet the founder",
+    "imageAlt": "Sondre Guttormsen competing in pole vault"
+  },
+  "faq": {
+    "title": "Before your first run.",
+    "items": [
+      {
+        "question": "Can I use just one phone?",
+        "answer": "Yes. Solo Laps records repeated crossings at one camera line. Separate start and finish positions use connected phones. The landscape one-camera sprint and agility modes are still in development."
+      },
+      {
+        "question": "Do I need Wi-Fi or internet?",
+        "answer": "Supported nearby connections can time locally without internet. Wi-Fi Aware requires compatible hardware and software; Bluetooth is another supported connection option. Cloud features need connectivity."
+      },
+      {
+        "question": "How accurate is it?",
+        "answer": "Results depend on camera frame rate, lighting, positioning, the start method and clock synchronization. The number of decimal places is not an accuracy guarantee. Use a stable setup and review the crossing photos. TrackSpeed is for training, not official competition timing."
+      },
+      {
+        "question": "Does it work with Apple Watch or Android?",
+        "answer": "The public experience described here is for iPhone and iPad. Watch features and landscape agility modes are in development. Android is also being developed; this site does not promise feature parity across platforms."
+      },
+      {
+        "question": "What does TrackSpeed cost?",
+        "answer": "The app is free to download with in-app purchases. Check the app for the plans, price, trial eligibility and features available in your region."
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Bring it to your next session",
+    "title": "Set the line. Run your best.",
+    "body": "Your next training session is a good place to start.",
+    "note": "iPhone & iPad · In-app purchases"
+  },
+  "footer": {
+    "tagline": "Sprint timing for the work you put in.",
+    "moreApps": "More from the Developer",
+    "availability": "Watch and landscape agility: in development."
+  },
+  "editorial": {
+    "sceneLabel": "Choose a setting",
+    "scenes": [
+      "Track",
+      "Football",
+      "Indoor"
+    ],
+    "illustration": "Illustrative app view · Sample results",
+    "evidenceBody": "Open the photos. Check the line. Review every rep.",
+    "landscapeTitle": "More ways to train.",
+    "landscapeBody": "Solo sprints. Agility drills. One camera.",
+    "standingFlying": "Standing & flying starts",
+    "agilityDrills": "5–10–5 & out-and-back",
+    "watchTitle": "Your next rep. On your wrist.",
+    "watchBody": "Start from your Watch. Get the result through your paired iPhone.",
+    "historyBody": "Revisit your sessions. Repeat your setup. Share your progress.",
+    "featureDescriptions": [
+      "Train solo or as a group.",
+      "Start fast. Customize anytime.",
+      "Share results, clips and session data.",
+      "Time locally. Sync supported data when online."
+    ]
+  }
+}

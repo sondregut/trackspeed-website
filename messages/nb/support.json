@@ -4,7 +4,7 @@
     "description": "Få hjelp med TrackSpeed. FAQ om oppsett av sprinttidtaking, flerenhetssynkronisering, kryssingsdeteksjon og abonnementshåndtering."
   },
   "title": "Hjelp",
-  "lastUpdated": "Sist oppdatert: 14. februar 2026",
+  "lastUpdated": "Sist oppdatert: 6. september 2026",
   "contact": {
     "title": "Kontakt oss",
     "description": "Hvis du trenger hjelp med TrackSpeed eller har spørsmål, er vi her for å hjelpe deg.",
@@ -16,11 +16,11 @@
     "items": {
       "howItWorks": {
         "question": "Hvordan fungerer TrackSpeed?",
-        "answer": "TrackSpeed bruker kameraet på phonen din for å oppdage når en utøver krysser tidtakingsporten. Appen bruker kamerabasert bevegelsesdeteksjon for å identifisere når utøverens overkropp krysser porten, og gir millisekundnøyaktig tidtaking."
+        "answer": "Automatiske kamerapasseringer gir hvert løp en tydelig start og slutt. Åpne bildene, kontroller linjen og behold resultatet i økten."
       },
       "equipment": {
         "question": "Trenger jeg spesielt utstyr?",
-        "answer": "Nei! TrackSpeed fungerer med bare phonen din. For mellomtider eller start-/målporter kan du bruke to phoner som synkroniserer seg trådløst."
+        "answer": "Ja. Solo Laps registrerer gjentatte passeringer av én kameralinje. Separate start- og målsteder bruker tilkoblede telefoner. Liggende solosprint og agility er under utvikling."
       },
       "models": {
         "question": "Hvilke phone-modeller støttes?",
@@ -28,7 +28,7 @@
       },
       "accuracy": {
         "question": "Hvor nøyaktig er tidtakingen?",
-        "answer": "TrackSpeed oppnår ~4ms tidtakingsnøyaktighet ved hjelp av sub-frame-interpolasjon og rolling shutter-korreksjon. Ved bruk av to enheter sikrer vår klokkesynkronisering at begge portene er justert for nøyaktige mellomtider."
+        "answer": "Resultatene avhenger av bildefrekvens, lys, plassering, startmetode og klokkesynkronisering. Antall desimaler er ingen nøyaktighetsgaranti. Bruk et stabilt oppsett og kontroller passeringsbildene. TrackSpeed er for trening, ikke offisiell konkurransetidtaking."
       },
       "competitions": {
         "question": "Kan jeg bruke TrackSpeed i offisielle konkurranser?",
@@ -36,7 +36,7 @@
       },
       "connecting": {
         "question": "Hvordan kobler jeg to telefoner sammen?",
-        "answer": "Begge enhetene må ha TrackSpeed installert. Én enhet oppretter en økt som «vert», og den andre blir med. Enhetene kobler seg automatisk via peer-to-peer-nettverk – ingen internettforbindelse nødvendig."
+        "answer": "Opprett eller bli med i samme økt, og vent til alle portene er klare. Støttede lokale forbindelser kan ta tiden uten internett. Wi-Fi Aware krever kompatibel maskinvare og programvare; Bluetooth er et annet alternativ. Skyfunksjoner krever nett."
       },
       "cancel": {
         "question": "Hvordan kansellerer jeg abonnementet mitt?",
@@ -60,7 +60,7 @@
         "issue": "To enheter kobler seg ikke til",
         "solutions": [
           "Sørg for at begge enhetene har WiFi og Bluetooth aktivert",
-          "Begge enhetene bør være innenfor ca. 10 meter fra hverandre",
+          "Sett telefonene nær hverandre ved tilkobling, og kontroller at de er klare på de planlagte portplasseringene.",
           "Prøv å lukke og åpne appen på begge enhetene",
           "Sørg for at begge enhetene kjører nyeste versjon av TrackSpeed"
         ]

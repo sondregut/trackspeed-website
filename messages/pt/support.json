@@ -4,7 +4,7 @@
     "description": "Obtenha ajuda com o TrackSpeed. Perguntas frequentes sobre configuração de cronometragem, sincronização multidispositivo, detecção de cruzamento e gerenciamento de assinaturas."
   },
   "title": "Suporte",
-  "lastUpdated": "Ultima atualizacao: 14 de fevereiro de 2026",
+  "lastUpdated": "Última atualização: 6 de setembro de 2026",
   "contact": {
     "title": "Entre em contato",
     "description": "Se voce precisa de ajuda com o TrackSpeed ou tem alguma duvida, estamos aqui para ajudar.",
@@ -16,11 +16,11 @@
     "items": {
       "howItWorks": {
         "question": "Como o TrackSpeed funciona?",
-        "answer": "O TrackSpeed usa a camera do seu phone para detectar quando um atleta cruza o portão de cronometragem. O app utiliza detecção de movimento por camera para identificar quando o torso do atleta cruza o portão, fornecendo cronometragem com precisão de milissegundos."
+        "answer": "As passagens automáticas pela câmera definem largada e chegada. Abra as fotos, confira a linha e guarde o resultado com a sessão."
       },
       "equipment": {
         "question": "Preciso de equipamento especial?",
-        "answer": "Nao! O TrackSpeed funciona apenas com seu phone. Para parciais ou portoes de largada/chegada, voce pode usar dois phones que sincronizam automaticamente sem fio."
+        "answer": "Sim. Solo Laps registra passagens repetidas pela mesma linha. Largada e chegada em locais separados usam celulares conectados. Sprints e agilidade com câmera horizontal estão em desenvolvimento."
       },
       "models": {
         "question": "Quais modelos de phone sao compativeis?",
@@ -28,7 +28,7 @@
       },
       "accuracy": {
         "question": "Qual e a precisão da cronometragem?",
-        "answer": "O TrackSpeed alcanca precisão de ~4ms usando interpolacao sub-frame e correcao de rolling shutter. Ao usar dois dispositivos, nossa sincronização de relogio garante que ambos os portoes estejam alinhados para parciais precisos."
+        "answer": "Depende da taxa de quadros, luz, posição, largada e sincronização dos relógios. Casas decimais não garantem precisão. Use uma configuração estável e confira as fotos. TrackSpeed é para treino, não para cronometragem oficial."
       },
       "competitions": {
         "question": "Posso usar o TrackSpeed em competicoes oficiais?",
@@ -36,11 +36,11 @@
       },
       "connecting": {
         "question": "Como conecto dois telefones?",
-        "answer": "Ambos os dispositivos precisam ter o TrackSpeed instalado. Um dispositivo cria uma sessao como 'host' e o outro se junta. Os dispositivos se conectam automaticamente via rede ponto a ponto \u2014 nao e necessaria conexão com a internet."
+        "answer": "Entre na mesma sessão e aguarde todos os pontos ficarem prontos. Conexões locais compatíveis podem cronometrar sem internet. Wi-Fi Aware exige hardware e software compatíveis; Bluetooth é outra opção. Funções na nuvem precisam de conexão."
       },
       "cancel": {
         "question": "Como cancelo minha assinatura?",
-        "answer": "As assinaturas sao gerenciadas pelo seu Apple ID. Va em Ajustes \u2192 [Seu nome] \u2192 Assinaturas \u2192 TrackSpeed \u2192 Cancelar assinatura."
+        "answer": "As assinaturas sao gerenciadas pelo seu Apple ID. Va em Ajustes → [Seu nome] → Assinaturas → TrackSpeed → Cancelar assinatura."
       }
     }
   },
@@ -50,7 +50,7 @@
       "noDetection": {
         "issue": "O app nao esta detectando cruzamentos",
         "solutions": [
-          "Garanta boa iluminacao \u2014 a camera precisa ver o atleta claramente",
+          "Garanta boa iluminacao — a camera precisa ver o atleta claramente",
           "Posicione o telefone para que o atleta passe perpendicularmente a vista da camera",
           "Certifique-se de que o torso do atleta esteja visivel no quadro",
           "Tente usar uma configuração de FPS mais alta (60 ou 120fps) nas configuracoes"
@@ -60,7 +60,7 @@
         "issue": "Os dois dispositivos nao se conectam",
         "solutions": [
           "Certifique-se de que ambos os dispositivos estejam com WiFi e Bluetooth ativados",
-          "Ambos os dispositivos devem estar a menos de 10 metros um do outro",
+          "Aproxime os celulares para conectar e depois confira se estão prontos nas posições de cronometragem.",
           "Tente fechar e reabrir o app em ambos os dispositivos",
           "Certifique-se de que ambos os dispositivos estejam com a versao mais recente do TrackSpeed"
         ]

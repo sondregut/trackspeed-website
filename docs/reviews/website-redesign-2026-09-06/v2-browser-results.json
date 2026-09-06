@@ -1,0 +1,109 @@
+{
+  "date": "2026-09-06T20:09:28.530Z",
+  "results": [
+    {
+      "check": "desktop controls, scenes, start types and 37-feature guide",
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "height": 1000,
+      "viewport": 1440,
+      "body": 1440,
+      "document": 1440,
+      "h1": "Sprint timing.\nIn your pocket.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 820,
+      "height": 1180,
+      "viewport": 820,
+      "body": 820,
+      "document": 820,
+      "h1": "Sprint timing.\nIn your pocket.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "Sprint timing.\nIn your pocket.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "height": 800,
+      "viewport": 320,
+      "body": 320,
+      "document": 320,
+      "h1": "Sprint timing.\nIn your pocket.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "nb",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "Sprinttidtaking.\nRett fra lomma.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "de",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "Sprintzeiten.\nFür deine Hosentasche.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "توقيت العدو.\nفي جيبك.",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "ja",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "スプリント計測。\nポケットから。",
+      "broken": [],
+      "pass": true
+    },
+    {
+      "locale": "hi",
+      "width": 390,
+      "height": 844,
+      "viewport": 390,
+      "body": 390,
+      "document": 390,
+      "h1": "स्प्रिंट टाइमिंग।\nआपकी जेब में।",
+      "broken": [],
+      "pass": true
+    }
+  ],
+  "errors": []
+}

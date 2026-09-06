@@ -13,6 +13,14 @@
   },
   "teamHeading": "المؤسس",
   "teamNote": "بناه Sondre للرياضيين.",
+  "portfolio": {
+    "kicker": "صُمم للرياضيين",
+    "title": "المزيد من أدوات الرياضيين من Sondre",
+    "description": "TrackSpeed جزء من مجموعة مركزة من منتجات الرياضيين. استخدم Athlete Mindset للإعداد الذهني وVault لتسجيل تدريبات ومحاولات القفز بالزانة.",
+    "athleteMindset": "التدريب الذهني مع Athlete Mindset",
+    "vault": "تدريب القفز بالزانة مع Vault",
+    "allApps": "شاهد جميع تطبيقات Sondre"
+  },
   "cta": {
     "title": "مستعد لقياس تدريبك؟",
     "subtitle": "حمّل TrackSpeed واختبر دقة الميلي ثانية بـ phone فقط.",

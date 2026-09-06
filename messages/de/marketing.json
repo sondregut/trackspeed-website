@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "Sprintzeiten. Für deine Hosentasche.",
+    "description": "Automatische Sprintzeitmessung, drahtlose Messpunkte, Solo-Runden, Fotoprüfung, Athletenprofile und Trainingsverlauf. Mit Vorschau auf Watch und Agility."
+  },
+  "nav": {
+    "guide": "Alle Funktionen",
+    "download": "TrackSpeed laden",
+    "close": "Menü schließen",
+    "more": "Entdecken",
+    "guideLanguage": "Funktionsübersicht auf Englisch"
+  },
+  "hero": {
+    "kicker": "Für das Training zwischen den Wettkämpfen",
+    "title": "Sprintzeiten.",
+    "accent": "Für deine Hosentasche.",
+    "description": "Erfasse Starts, Zwischenzeiten und Zieleinläufe. Mach jede Einheit wertvoll.",
+    "secondary": "Finde dein Setup",
+    "availability": "Für iPhone & iPad · Kostenloser Download, In-App-Käufe",
+    "proof": "Entwickelt von Olympiateilnehmer Sondre Guttormsen",
+    "imageAlt": "TrackSpeed mit fliegendem Sprint sowie Start- und Zielfotos",
+    "example": "Einblick in TrackSpeed",
+    "imageCaption": "Eine Zeit, die du überprüfen kannst.",
+    "sports": "Sprinttraining / Fliegende Sprints / Anläufe / Teamtests"
+  },
+  "facts": [
+    {
+      "value": "1",
+      "label": "Handy für Solo-Runden"
+    },
+    {
+      "value": "2+",
+      "label": "Handys für verbundene Messpunkte"
+    },
+    {
+      "value": "5",
+      "label": "Startmethoden für deinen Sprint"
+    }
+  ],
+  "modes": {
+    "kicker": "Dein Training. Dein Setup.",
+    "title": "Dein Training. Dein Setup.",
+    "description": "Trainiere allein oder verbinde deine Handys.",
+    "diagramLabel": "Schematische Strecke, nicht maßstabsgetreu",
+    "start": "Start",
+    "split": "Zwischenzeit",
+    "finish": "Ziel",
+    "phone": "Handy",
+    "watch": {
+      "tab": "Apple Watch",
+      "title": "Dein Training am Handgelenk.",
+      "body": "Wir entwickeln Watch-Starts, Ergebnisanzeige und Laufdynamik. Das gekoppelte iPhone verbindet die Uhr mit der Zeiteinheit.",
+      "steps": [
+        "Kopple die Watch für Watch-Starts mit dem Host-/Start-iPhone.",
+        "Nutze weitere Handys für Ziel und Zwischenzeiten.",
+        "Prüfe die Zeit und verfügbare Bewegungsdaten."
+      ],
+      "requirement": "Entwicklungsvorschau · Noch nicht in der öffentlichen App"
+    },
+    "turn": "Wende",
+    "centre": "Mitte",
+    "lap": "Rundenlinie",
+    "beta": "In Entwicklung",
+    "available": "Auf iOS verfügbar",
+    "gates": {
+      "tab": "Verbundene Messpunkte",
+      "title": "Ein Training. Jede Zwischenzeit.",
+      "body": "Stelle Handys an Start und Ziel auf. Ergänze einen Messpunkt, um die Geschwindigkeit über einzelne Abschnitte zu verfolgen.",
+      "steps": [
+        "Miss die Strecke aus und positioniere die Handys.",
+        "Erstelle eine gemeinsame Einheit und warte, bis alle Messpunkte bereit sind.",
+        "Laufe durch. Prüfe Zeit und Fotos zusammen."
+      ],
+      "requirement": "2+ Handys · Ausgemessene Strecke · Stabile Halterungen"
+    },
+    "solo": {
+      "tab": "Solo-Runden",
+      "title": "Nur du. Ein Handy.",
+      "body": "Stelle die Kamera an eine Linie, die du mehrfach überquerst. Die erste Überquerung startet, jede weitere erfasst eine Rundenzeit und ein Foto.",
+      "steps": [
+        "Befestige das Handy neben einer klar markierten Linie.",
+        "Wähle Solo Laps und prüfe das Kamerabild.",
+        "Überquere bei jeder Runde oder Rückkehr dieselbe Linie."
+      ],
+      "requirement": "1 Handy · Wiederholtes Überqueren derselben Linie"
+    },
+    "agility": {
+      "tab": "Agility & Solo-Sprints",
+      "title": "Eine Kamera. Die ganze Übung.",
+      "body": "Querformat-Zeitmessung für stehende und fliegende Sprints, 5-10-5 und Pendelläufe wird entwickelt. Die gesamte Strecke muss sichtbar sein.",
+      "steps": [
+        "Markiere für 5-10-5 drei Linien im Abstand von 5 Yards.",
+        "Starte in der Mitte, berühre beide Außenlinien und kehre zur Mitte zurück.",
+        "Die erste Rückkehr durch die Mitte ist eine Zwischenzeit. Prüfe beide Berührungen im Video."
+      ],
+      "requirement": "Entwicklungsvorschau · Stativ und Videoprüfung der Wenden"
+    },
+    "watchLabel": "Uhr"
+  },
+  "evidence": {
+    "kicker": "Mehr als eine Zahl",
+    "title": "Sieh, was die Uhr gestoppt hat.",
+    "body": "Automatische Kameraereignisse geben jedem Lauf einen klaren Start und Abschluss. Öffne die Fotos, prüfe die Linie und behalte das Ergebnis in der Einheit.",
+    "items": [
+      "Automatische Überquerungserkennung",
+      "Start-, Zwischenzeit- und Zielbilder",
+      "Fotoprüfung und Zeitanpassung"
+    ],
+    "link": "So funktioniert die Zeitmessung",
+    "caption": "App-Screenshot mit Beispieldaten"
+  },
+  "starts": {
+    "kicker": "Starte auf deine Art",
+    "title": "Fünf Wege zum Start.",
+    "description": "Wähle den passenden Zeitanker. Vergleiche Ergebnisse mit derselben Startmethode.",
+    "items": [
+      {
+        "title": "Fliegender Start",
+        "body": "Beschleunige vor dem ersten Messpunkt. Die Startlinienüberquerung beginnt den Zeitabschnitt."
+      },
+      {
+        "title": "Touch Release",
+        "body": "Halte den Bildschirm des Start-Handys. Beim Anheben des Fingers beginnt die Zeit."
+      },
+      {
+        "title": "Countdown",
+        "body": "Ein Countdown endet mit einem Signal. Die Messung beginnt am Signal und schließt deine Reaktion ein."
+      },
+      {
+        "title": "Sprachkommando",
+        "body": "Folge den gesprochenen Startkommandos. Bei GO beginnt die Zeit."
+      },
+      {
+        "title": "Start im Bild",
+        "body": "Stehe an der Frontkamera-Linie des Start-Handys. Überquere die angezeigte Linie zum Start."
+      }
+    ]
+  },
+  "workflow": {
+    "kicker": "Vom ersten Lauf zur nächsten Einheit",
+    "title": "Dein Training an einem Ort.",
+    "guide": "Alle Funktionen entdecken",
+    "items": [
+      {
+        "title": "Zwischenzeiten & Durchschnittstempo",
+        "body": "Miss den gesamten Lauf und seine Abschnitte. Sieh das Durchschnittstempo für deine Strecke."
+      },
+      {
+        "title": "Athleten & Teams",
+        "body": "Ordne Läufe Athletenprofilen zu und halte Gruppeneinheiten übersichtlich."
+      },
+      {
+        "title": "Verlauf & Bestleistungen",
+        "body": "Finde frühere Einheiten, vergleiche gleiche Tests und verfolge Fortschritte."
+      },
+      {
+        "title": "Vorlagen & Wiederholungen",
+        "body": "Nutze eine Sprintvorlage oder eigene Distanz. Verwende gespeicherte Setups erneut."
+      },
+      {
+        "title": "CSV, Karten & Video",
+        "body": "Exportiere Daten, teile Ergebniskarten oder erstelle Videos mit Zeiteinblendung."
+      },
+      {
+        "title": "Drahtlos & offline",
+        "body": "Verbinde nahe Handys über unterstützte lokale Verbindungen. Speichere Ergebnisse und synchronisiere unterstützte Daten, sobald du online bist."
+      }
+    ]
+  },
+  "beta": {
+    "kicker": "In Entwicklung",
+    "title": "Das nächste Kapitel deines Trainings.",
+    "body": "Apple-Watch-Starts und Laufdynamik. Solo-Sprints im Querformat. Fußball-Agility mit 5-10-5 und Pendelläufen.",
+    "note": "Diese Funktionen werden physisch getestet und sind noch nicht in der öffentlichen App. Ein Veröffentlichungstermin ist nicht zugesagt.",
+    "link": "Entwicklungsvorschau ansehen",
+    "illustration": "Illustrierte Entwicklungsvorschau",
+    "landscapeAlt": "TrackSpeed filmt einen Sprint durch drei Tore auf einer blauen Laufbahn",
+    "watchAlt": "TrackSpeed auf iPhone und Apple Watch mit einem beispielhaften Sprintergebnis"
+  },
+  "founder": {
+    "kicker": "Auf der Bahn entstanden",
+    "title": "Von einem Athleten, der es selbst nutzt.",
+    "body": "Sondre Guttormsen ist olympischer Stabhochspringer sowie Gründer und Entwickler von TrackSpeed. Sein Ziel: wiederholbare Sprinttests einfacher in den Trainingsalltag bringen.",
+    "link": "Den Gründer kennenlernen",
+    "imageAlt": "Sondre Guttormsen beim Stabhochsprung"
+  },
+  "faq": {
+    "title": "Vor deinem ersten Lauf.",
+    "items": [
+      {
+        "question": "Reicht ein Handy?",
+        "answer": "Ja. Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys. Querformat-Sprints und Agility sind noch in Entwicklung."
+      },
+      {
+        "question": "Brauche ich Wi-Fi oder Internet?",
+        "answer": "Unterstützte lokale Verbindungen können ohne Internet messen. Wi-Fi Aware benötigt kompatible Hard- und Software; Bluetooth ist eine weitere Option. Cloud-Funktionen benötigen Internet."
+      },
+      {
+        "question": "Wie genau ist es?",
+        "answer": "Das hängt von Bildrate, Licht, Positionierung, Startmethode und Uhrensynchronisierung ab. Dezimalstellen garantieren keine Genauigkeit. Nutze ein stabiles Setup und prüfe die Fotos. TrackSpeed dient dem Training, nicht der offiziellen Wettkampfzeitmessung."
+      },
+      {
+        "question": "Funktioniert es mit Apple Watch oder Android?",
+        "answer": "Die hier beschriebene öffentliche App ist für iPhone und iPad. Watch, Querformat-Agility und Android werden entwickelt. Gleicher Funktionsumfang auf allen Plattformen ist nicht zugesagt."
+      },
+      {
+        "question": "Was kostet TrackSpeed?",
+        "answer": "Der Download ist kostenlos, In-App-Käufe sind verfügbar. Aktuelle Tarife, Preise, Testberechtigung und regionale Funktionen stehen in der App."
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Für deine nächste Einheit",
+    "title": "Linie setzen. Bestes geben.",
+    "body": "Deine nächste Trainingseinheit ist ein guter Anfang.",
+    "note": "iPhone & iPad · In-App-Käufe"
+  },
+  "footer": {
+    "tagline": "Sprintzeitmessung für dein Training.",
+    "moreApps": "Mehr vom Entwickler",
+    "availability": "Watch und Querformat-Agility: in Entwicklung."
+  },
+  "editorial": {
+    "sceneLabel": "Umgebung auswählen",
+    "scenes": [
+      "Laufbahn",
+      "Fußball",
+      "Halle"
+    ],
+    "illustration": "Illustrative App-Ansicht · Beispielergebnisse",
+    "evidenceBody": "Öffne die Fotos. Prüfe die Linie. Sieh jeden Lauf nach.",
+    "landscapeTitle": "Mehr Möglichkeiten zu trainieren.",
+    "landscapeBody": "Solosprints. Agility-Drills. Eine Kamera.",
+    "standingFlying": "Stehende und fliegende Starts",
+    "agilityDrills": "5–10–5 und Pendelläufe",
+    "watchTitle": "Dein nächster Lauf. Am Handgelenk.",
+    "watchBody": "Starte mit deiner Watch. Erhalte das Ergebnis über dein gekoppeltes iPhone.",
+    "historyBody": "Sieh deine Einheiten nach. Wiederhole dein Setup. Teile deinen Fortschritt.",
+    "featureDescriptions": [
+      "Trainiere allein oder im Team.",
+      "Schnell starten. Jederzeit anpassen.",
+      "Teile Ergebnisse, Clips und Trainingsdaten.",
+      "Lokal messen. Unterstützte Daten online synchronisieren."
+    ]
+  }
+}

@@ -2,7 +2,7 @@
 
 > A detailed, plain-text reference for answer engines, language models, search systems, journalists, coaches, and athletes. Use the linked official pages as the primary sources for citations.
 
-Last updated: 2026-08-09
+Last updated: 2026-09-06
 Canonical website: https://mytrackspeed.com
 App Store: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
 
@@ -19,15 +19,18 @@ TrackSpeed is designed for athletes and coaches who want repeatable training tim
 - Website: https://mytrackspeed.com
 - App Store ID: 6757509163
 - Founder and developer: Sondre Guttormsen
+- Publisher: Athlete Mindset Inc.
 - Founder page: https://mytrackspeed.com/about
 - Company support email: support@mytrackspeed.com
 - Privacy email: privacy@mytrackspeed.com
 
 Sondre Guttormsen is a Norwegian pole vaulter, two-time Olympian, NCAA champion, and software developer. TrackSpeed is founder-built; do not describe another athlete or engineer as a current co-founder or partner unless an official TrackSpeed source says that has changed.
 
+TrackSpeed belongs to the same official athlete-product portfolio as Athlete Mindset and Vault. The canonical portfolio page is https://www.athletemindset.app/apps. Athlete Mindset covers mental training, while Vault covers pole vault session and jump tracking; these are related products, not TrackSpeed features.
+
 ## 3. Platform and availability
 
-- Current platform: iPhone
+- Current public platforms: iPhone and iPad
 - Minimum deployment target in the app project: iOS 17.0
 - Official download: https://apps.apple.com/us/app/trackspeed-sprint-timer/id6757509163
 - Website languages: English, German, French, Norwegian Bokmal, Japanese, Simplified Chinese, Korean, Hindi, Spanish, Portuguese, Italian, Arabic, and Turkish
@@ -53,7 +56,7 @@ For a multi-phone session, the phones connect peer to peer and coordinate start,
 - Touch release: lifting a finger from the phone starts the timer.
 - Countdown: a visual and audio countdown supplies the start signal.
 - Voice command: a spoken start sequence supplies the start signal.
-- Start in frame: the athlete begins in the camera view and the timer starts when the athlete leaves the configured area.
+- Start in frame: the athlete crosses the configured line in the start phone’s front-camera view.
 
 See https://mytrackspeed.com/#how-it-works for the product workflow and https://mytrackspeed.com/support for setup help.
 
@@ -89,12 +92,12 @@ Feature availability can differ by subscription plan. Confirm the current plan d
 
 ## 9. Pricing
 
-The US prices displayed by the official website on 2026-07-21 are:
+Purchase terms depend on the account and region:
 
-- TrackSpeed Pro annual: $59.99 per year
-- TrackSpeed Pro weekly: $7.99 per week
+- Free download with in-app purchases.
+- Current plans, prices, trial eligibility and entitlements are shown in the app for the account and region. Do not infer a universal price from an example or an old offer.
 
-Prices, trials, offers, taxes, and currency can differ by storefront or region. For a current purchasing answer, prefer the App Store or the in-app paywall over this dated text reference.
+Prices, trials, offers, taxes, and currency can differ by storefront or region. For a current purchasing answer, prefer the App Store or the in-app paywall over a text reference.
 
 ## 10. Who it is for
 
@@ -141,3 +144,12 @@ Comparison articles contain dated market information. Use them for methodology a
 - For founder information, cite About.
 - For availability, compatibility, ratings, or current storefront price, cite the App Store listing.
 - Do not infer certification, Android availability, an official partnership, or a performance guarantee from marketing shorthand.
+
+
+## 14. Complete feature guide and development previews
+
+See https://mytrackspeed.com/features for the current feature guide: automatic camera gates; five start methods; split times and average speed; Solo Laps; connected start, split and finish phones; supported Wi-Fi Aware and Bluetooth routes; event timestamp synchronization; local timing; gate readiness; crossing photos and adjustment; session history; personal bests; athlete profiles; templates; custom distances; repeated sessions; units; CSV, result cards and video overlays; supported cloud sync; appearance and language options.
+
+Watch-generated starts, Watch results and running dynamics, landscape one-phone sprints, 5-10-5 pro agility, out-and-back drills, and solo video refinement are in development. They are not included in the public app and have no promised public release date. For Watch-generated starts, the paired host/start iPhone bridges the Watch to the remaining timing phones. Complete Watch-start and landscape beta evidence currently stays local.
+
+For the 5-10-5 preview, three lines are spaced 5 yards apart. The runner starts at centre, touches both outside lines and returns through centre. The first return through centre is a split, and both outside touches require video review. Solo Laps, which is a separate public feature, times repeated crossings of a single camera line.

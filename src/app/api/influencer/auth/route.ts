@@ -3,12 +3,8 @@ import { getSupabaseAdmin } from '@/lib/supabase'
 import bcrypt from 'bcryptjs'
 import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
-import { requireServerEnv } from '@/lib/server-secrets'
+import { getInfluencerJwtSecret } from '@/lib/influencer-auth'
 import { enforceRateLimit } from '@/lib/rate-limit'
-
-function getJwtSecret(): Uint8Array {
-  return new TextEncoder().encode(requireServerEnv('INFLUENCER_JWT_SECRET'))
-}
 
 // POST /api/influencer/auth - Login
 export async function POST(request: NextRequest) {
@@ -72,7 +68,7 @@ export async function POST(request: NextRequest) {
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
       .setExpirationTime('7d')
-      .sign(getJwtSecret())
+      .sign(getInfluencerJwtSecret())
 
     // Set HTTP-only cookie
     const cookieStore = await cookies()
@@ -116,7 +112,7 @@ export async function GET() {
       return NextResponse.json({ authenticated: false }, { status: 401 })
     }
 
-    const { payload } = await jwtVerify(token, getJwtSecret())
+    const { payload } = await jwtVerify(token, getInfluencerJwtSecret())
 
     return NextResponse.json({
       authenticated: true,
@@ -128,22 +124,5 @@ export async function GET() {
     })
   } catch {
     return NextResponse.json({ authenticated: false }, { status: 401 })
-  }
-}
-
-// Helper to verify influencer token and get influencer ID
-export async function verifyInfluencerToken(): Promise<string | null> {
-  try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get('influencer_token')?.value
-
-    if (!token) {
-      return null
-    }
-
-    const { payload } = await jwtVerify(token, getJwtSecret())
-    return payload.influencerId as string
-  } catch {
-    return null
   }
 }

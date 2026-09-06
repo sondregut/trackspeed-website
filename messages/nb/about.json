@@ -13,6 +13,14 @@
   },
   "teamHeading": "Grunnlegger",
   "teamNote": "Bygget av Sondre, for utøvere.",
+  "portfolio": {
+    "kicker": "Bygget for utøvere",
+    "title": "Flere utøververktøy fra Sondre",
+    "description": "TrackSpeed er en del av en fokusert samling produkter for utøvere. Bruk Athlete Mindset til mental forberedelse og Vault til å registrere stavøkter og hopp.",
+    "athleteMindset": "Mental trening med Athlete Mindset",
+    "vault": "Stavtrening med Vault",
+    "allApps": "Se alle appene til Sondre"
+  },
   "cta": {
     "title": "Klar for å ta tiden på treningen?",
     "subtitle": "Last ned TrackSpeed og opplev millisekundpresisjon med bare din phone.",

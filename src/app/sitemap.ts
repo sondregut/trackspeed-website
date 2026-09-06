@@ -35,7 +35,7 @@ function localeAlternates(path: string) {
 const localizedPages: SitemapPage[] = [
   {
     path: "",
-    lastModified: "2026-08-09",
+    lastModified: "2026-09-06",
     changeFrequency: "weekly",
     priority: 1,
   },
@@ -73,6 +73,7 @@ const localizedEntries: MetadataRoute.Sitemap = localizedPages.flatMap((page) =>
 );
 
 const englishOnlyPages: SitemapPage[] = [
+  { path: "/features", lastModified: "2026-09-06", changeFrequency: "monthly", priority: 0.8 },
   {
     path: "/technology",
     lastModified: "2026-08-09",

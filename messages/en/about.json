@@ -13,6 +13,14 @@
   },
   "teamHeading": "Founder",
   "teamNote": "Built by Sondre, for athletes.",
+  "portfolio": {
+    "kicker": "Built for athletes",
+    "title": "More athlete tools by Sondre",
+    "description": "TrackSpeed is part of a focused set of athlete products. Use Athlete Mindset for mental preparation and Vault for pole vault session and jump tracking.",
+    "athleteMindset": "Athlete Mindset mental training",
+    "vault": "Vault pole vault training",
+    "allApps": "See all apps by Sondre"
+  },
   "cta": {
     "title": "Ready to time your training?",
     "subtitle": "Download TrackSpeed and experience millisecond precision with just your phone.",

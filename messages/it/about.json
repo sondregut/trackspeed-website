@@ -13,6 +13,14 @@
   },
   "teamHeading": "Fondatore",
   "teamNote": "Creato da Sondre, per gli atleti.",
+  "portfolio": {
+    "kicker": "Creato per gli atleti",
+    "title": "Altri strumenti per atleti di Sondre",
+    "description": "TrackSpeed fa parte di una raccolta mirata di prodotti per atleti. Usa Athlete Mindset per la preparazione mentale e Vault per registrare allenamenti e salti con l'asta.",
+    "athleteMindset": "Allenamento mentale con Athlete Mindset",
+    "vault": "Allenamento con l'asta con Vault",
+    "allApps": "Scopri tutte le app di Sondre"
+  },
   "cta": {
     "title": "Pronto a cronometrare il tuo allenamento?",
     "subtitle": "Scarica TrackSpeed e scopri la precisione al millisecondo solo con il tuo phone.",

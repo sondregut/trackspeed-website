@@ -4,7 +4,7 @@
     "description": "Obtiens de l'aide avec TrackSpeed. FAQ sur la configuration du chronométrage de sprint, la synchronisation multi-appareils, la détection de franchissement et la gestion des abonnements."
   },
   "title": "Aide",
-  "lastUpdated": "Dernière mise à jour : 14 février 2026",
+  "lastUpdated": "Dernière mise à jour : 6 septembre 2026",
   "contact": {
     "title": "Nous contacter",
     "description": "Si tu as besoin d'aide avec TrackSpeed ou si tu as des questions, nous sommes là pour t'aider.",
@@ -16,11 +16,11 @@
     "items": {
       "howItWorks": {
         "question": "Comment fonctionne TrackSpeed ?",
-        "answer": "TrackSpeed utilise la caméra de ton phone pour détecter quand un athlète franchit la porte de chronométrage. L'app utilise la détection de mouvement par caméra pour identifier quand le torse de l'athlète franchit la porte, offrant un chronométrage précis à la milliseconde."
+        "answer": "Les passages caméra définissent le départ et l’arrivée. Ouvrez les photos, vérifiez la ligne et conservez le résultat avec la séance."
       },
       "equipment": {
         "question": "Ai-je besoin d'un équipement spécial ?",
-        "answer": "Non ! TrackSpeed fonctionne avec juste ton phone. Pour les temps intermédiaires ou les portes départ/arrivée, tu peux utiliser deux phones qui se synchronisent sans fil."
+        "answer": "Oui. Solo Laps mesure les passages répétés d’une même ligne. Des positions de départ et d’arrivée distinctes utilisent des téléphones connectés. Les sprints et l’agilité en paysage sont en développement."
       },
       "models": {
         "question": "Quels modèles d'phone sont compatibles ?",
@@ -28,7 +28,7 @@
       },
       "accuracy": {
         "question": "Quelle est la précision du chronométrage ?",
-        "answer": "TrackSpeed atteint ~4ms de précision grâce à l'interpolation sub-frame et la correction du rolling shutter. Avec deux appareils, notre synchronisation d'horloge assure l'alignement des deux portes pour des temps intermédiaires précis."
+        "answer": "Elle dépend de la fréquence d’image, de la lumière, du placement, du départ et de la synchronisation. Les décimales ne garantissent pas la précision. Stabilisez l’installation et vérifiez les photos. TrackSpeed sert à l’entraînement, pas au chronométrage officiel."
       },
       "competitions": {
         "question": "Puis-je utiliser TrackSpeed en compétition officielle ?",
@@ -36,7 +36,7 @@
       },
       "connecting": {
         "question": "Comment connecter deux téléphones ensemble ?",
-        "answer": "Les deux appareils doivent avoir TrackSpeed installé. Un appareil crée une session en tant qu'« hôte » et l'autre la rejoint. Les appareils se connectent automatiquement via le réseau peer-to-peer — aucune connexion internet requise."
+        "answer": "Rejoignez la même séance et attendez que toutes les portes soient prêtes. Les liaisons locales compatibles peuvent fonctionner sans Internet. Wi-Fi Aware exige du matériel et un logiciel compatibles ; Bluetooth est une autre option. Le cloud nécessite une connexion."
       },
       "cancel": {
         "question": "Comment annuler mon abonnement ?",
@@ -60,7 +60,7 @@
         "issue": "Deux appareils ne se connectent pas",
         "solutions": [
           "Vérifie que le WiFi et le Bluetooth sont activés sur les deux appareils",
-          "Les deux appareils doivent être à moins de 10 mètres l'un de l'autre",
+          "Rapprochez les téléphones pour la connexion, puis vérifiez leur disponibilité à chaque porte.",
           "Essaie de fermer et rouvrir l'app sur les deux appareils",
           "Vérifie que les deux appareils utilisent la dernière version de TrackSpeed"
         ]

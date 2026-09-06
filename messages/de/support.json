@@ -4,7 +4,7 @@
     "description": "Hilfe zu TrackSpeed. FAQ zur Einrichtung der Sprintzeitmessung, Multi-Geräte-Synchronisation, Überquerungserkennung und Abo-Verwaltung."
   },
   "title": "Hilfe",
-  "lastUpdated": "Zuletzt aktualisiert: 14. Februar 2026",
+  "lastUpdated": "Zuletzt aktualisiert: 6. September 2026",
   "contact": {
     "title": "Kontakt",
     "description": "Wenn du Hilfe mit TrackSpeed brauchst oder Fragen hast, sind wir für dich da.",
@@ -16,11 +16,11 @@
     "items": {
       "howItWorks": {
         "question": "Wie funktioniert TrackSpeed?",
-        "answer": "TrackSpeed nutzt die Kamera deines phones, um zu erkennen, wann ein Athlet den Messpunkt überquert. Die App verwendet kamerabasierte Bewegungserkennung, um zu identifizieren, wann der Oberkörper des Athleten den Messpunkt passiert, und liefert millisekundengenaue Zeitmessung."
+        "answer": "Automatische Kameraereignisse geben jedem Lauf einen klaren Start und Abschluss. Öffne die Fotos, prüfe die Linie und behalte das Ergebnis in der Einheit."
       },
       "equipment": {
         "question": "Brauche ich spezielle Ausrüstung?",
-        "answer": "Nein! TrackSpeed funktioniert nur mit deinem phone. Für Zwischenzeiten oder Start-/Ziel-Messpunkte kannst du zwei phones verwenden, die sich kabellos synchronisieren."
+        "answer": "Ja. Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys. Querformat-Sprints und Agility sind noch in Entwicklung."
       },
       "models": {
         "question": "Welche phone-Modelle werden unterstützt?",
@@ -28,7 +28,7 @@
       },
       "accuracy": {
         "question": "Wie genau ist die Zeitmessung?",
-        "answer": "TrackSpeed erreicht ~4ms Messgenauigkeit durch Sub-Frame-Interpolation und Rolling-Shutter-Korrektur. Bei zwei Geräten sorgt unsere Uhren-Synchronisation dafür, dass beide Messpunkte für genaue Zwischenzeiten abgeglichen sind."
+        "answer": "Das hängt von Bildrate, Licht, Positionierung, Startmethode und Uhrensynchronisierung ab. Dezimalstellen garantieren keine Genauigkeit. Nutze ein stabiles Setup und prüfe die Fotos. TrackSpeed dient dem Training, nicht der offiziellen Wettkampfzeitmessung."
       },
       "competitions": {
         "question": "Kann ich TrackSpeed bei offiziellen Wettkämpfen verwenden?",
@@ -36,7 +36,7 @@
       },
       "connecting": {
         "question": "Wie verbinde ich zwei Handys miteinander?",
-        "answer": "Beide Geräte müssen TrackSpeed installiert haben. Ein Gerät erstellt als \u201EHost\u201C eine Session und das andere tritt bei. Die Geräte verbinden sich automatisch über Peer-to-Peer-Netzwerk – keine Internetverbindung nötig."
+        "answer": "Erstelle eine gemeinsame Einheit und warte, bis alle Messpunkte bereit sind. Unterstützte lokale Verbindungen können ohne Internet messen. Wi-Fi Aware benötigt kompatible Hard- und Software; Bluetooth ist eine weitere Option. Cloud-Funktionen benötigen Internet."
       },
       "cancel": {
         "question": "Wie kündige ich mein Abo?",
@@ -60,7 +60,7 @@
         "issue": "Zwei Geräte verbinden sich nicht",
         "solutions": [
           "Stelle sicher, dass beide Geräte WiFi und Bluetooth aktiviert haben",
-          "Beide Geräte sollten nicht weiter als ca. 10 Meter voneinander entfernt sein",
+          "Bringe die Handys zum Verbinden näher zusammen und prüfe anschließend die Bereitschaft an den Messpunkten.",
           "Versuche die App auf beiden Geräten zu schließen und neu zu öffnen",
           "Stelle sicher, dass beide Geräte die neueste Version von TrackSpeed verwenden"
         ]

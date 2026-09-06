@@ -13,6 +13,14 @@
   },
   "teamHeading": "Gründer",
   "teamNote": "Von Sondre gebaut, für Athleten.",
+  "portfolio": {
+    "kicker": "Für Athleten entwickelt",
+    "title": "Weitere Athleten-Tools von Sondre",
+    "description": "TrackSpeed gehört zu einer fokussierten App-Sammlung für Athleten. Athlete Mindset unterstützt die mentale Vorbereitung, Vault protokolliert Stabhochsprung-Training und Sprünge.",
+    "athleteMindset": "Mentaltraining mit Athlete Mindset",
+    "vault": "Stabhochsprung-Training mit Vault",
+    "allApps": "Alle Apps von Sondre ansehen"
+  },
   "cta": {
     "title": "Bereit, dein Training zu messen?",
     "subtitle": "Lade TrackSpeed herunter und erlebe Millisekunden-Präzision nur mit deinem phone.",

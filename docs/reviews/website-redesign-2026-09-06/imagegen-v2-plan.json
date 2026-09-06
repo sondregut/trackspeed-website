@@ -1,0 +1,98 @@
+{
+  "created": "2026-09-06",
+  "tool": "built-in image_gen",
+  "backgroundRemovalApproval": "Owner explicitly approved local background removal in this task.",
+  "variants": [
+    {
+      "slug": "blue-track-sunrise",
+      "prompt": "Use case: product-mockup / identity-preserve of product UI.\nCreate an exceptionally high-quality, photorealistic TrackSpeed app marketing image, using the attached CLEAN TrackSpeed phone as the product and layout reference. A single straight-on portrait iPhone, complete hardware frame, occupying 90% of the image height, isolated on ACTUAL TRANSPARENT ALPHA outside the phone. No backdrop, no studio floor, no outer text. Never draw checkerboard squares to represent transparency.\nInside the phone screen: completely remake the low-resolution sports photograph as a razor-sharp editorial sports image. An adult Black female sprinter with tied-back natural hair, athletic navy racing singlet and shorts, sprinting left-to-right across a beautiful blue athletics track in early morning sunshine. Natural powerful sprint mechanics, accurate hands/limbs, crisp fabric, detailed skin, subtly blurred quiet stadium in the distance. Side-on camera, waist-height, athlete clearly crossing the thin straight red timing line near the middle of the screen. Warm golden rim light balanced by clean daylight, realistic exposure and polished but natural color grading. The track must be INSIDE the phone only.\nPreserve the reference's actual app composition: black dynamic island, full-bleed camera photo, one thin red vertical line, and ONE dark rounded result panel in the lower third. Panel header EXACT TEXT: 'Flying 10m' at left, '1.12s' and '8.93 m/s' at right. Two tidy rows with small thumbnails of THE SAME ATHLETE and clear labels 'START' with '0.00' and 'FINISH' with '1.12'. White readable crisp text, subtle red velocity accent, subtle green finish-row border. Keep proportions and app interface faithful to the reference. No new app name inside screenshot, no health rings, no graphs, no other UI, no brands on clothes. Sharp realistic metal frame, not toy-like, no exaggerated 3D tilt, no cut-off hardware. This is an illustrative example, not evidence of measured athletic performance. High-resolution premium Apple-style product presentation.",
+      "output_hint": "Generated images are saved to /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3 as /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-f170c81c-638e-4528-831e-b067bdab133f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "slug": "football-daylight",
+      "prompt": "Use case: product-mockup / preserve product UI, change athlete and environment.\nGenerate a premium high-resolution TrackSpeed promotional product image matching the supplied CLEAN TrackSpeed portrait iPhone reference. ONE full straight-on portrait graphite iPhone, realistic glass and slim refined metal edges, entire phone visible. Output actual transparent alpha outside the device. No backdrop or floor or cast shadow, absolutely no checkerboard pattern, no text outside the phone.\nOn the phone screen remake the sports scene as an outstanding sharp sports photograph of an adult male football athlete with medium tan skin and short dark hair, in a cream-white training jersey, navy shorts, white socks and football boots, sprinting left to right on a beautifully maintained green training pitch. Side-on view catches a powerful stride as his torso crosses a single fine red vertical timing line. A small orange cone and a softly out-of-focus football goal appear in the background, calm modern training ground, lovely late afternoon side lighting with realistic light on face and textures, no blown highlights, rich healthy grass color, no theatrical fog. Accurate sprint biomechanics and anatomy, fully photographic rather than illustration.\nKeep the exact app layout language and device composition from the reference: black dynamic island; photograph filling the display; thin red vertical line; ONE dark rounded result panel in the lower third with two thumbnail rows. EXACT header text: 'Flying 10m', '1.28s', '7.81 m/s'. Exact row labels: 'START' and '0.00', 'FINISH' and '1.28'. Both thumbnails show this same football athlete and environment. Legible carefully typeset white text, red velocity accent and subtle green finish outline. No additional screens, menus, fake health metrics, brand logos or decorative graphics. Product edges must be crisp and intact. Illustrative timing data.",
+      "output_hint": "Generated images are saved to /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3 as /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-78297203-12aa-4c2e-bdcb-11eaeb5352d9.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "slug": "indoor-diffused",
+      "prompt": "Use case: product-mockup / preserve product UI, remake imagery.\nMake an ultra-polished high-resolution original TrackSpeed app product image using the supplied clean phone image as the hardware and UI composition reference. One portrait iPhone viewed straight on, full device uncropped, subtle silver metal edges and realistic screen glass. Actual transparent alpha outside the phone, no background, no floor, no shadow outside hardware, no checkerboard, no presentation text.\nThe screen is a crisp professional side-on sports photograph in a bright architectural indoor athletics centre. An adult East Asian female sprinter with hair in a ponytail, deep burgundy fitted racing top, charcoal shorts and white sprint shoes, runs left-to-right across a muted terracotta indoor sprint lane. Natural precise athletic anatomy, strong stride, torso at the fine red vertical timing line. Daylight diffused by high skylights produces bright soft flattering light with gentle directional shape, clean neutral whites, sharp clothing detail, out-of-focus timber roof structure and empty track behind, premium European sports editorial style, no noisy crowd, no CGI appearance. Keep the camera content fully INSIDE the phone.\nMatch the existing TrackSpeed timing screen: dynamic island, full-bleed camera scene, ONE thin red vertical timing line, ONE dark rounded result panel occupying the lower third. Header text EXACTLY 'Flying 10m' at left and '1.18s' '8.47 m/s' at right. Two smaller rows with photos of the same athlete: 'START' / '0.00' and 'FINISH' / '1.18'. Clean white UI text, restrained red speed accent, thin green outline on finish row. Preserve hierarchy and proportions of original; no added graphs, rings, unrelated labels, logos or buttons. Exceptionally clean typography and photographic lighting. Illustrative sample result.",
+      "output_hint": "Generated images are saved to /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3 as /Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-be77cc04-faf5-4fc4-8901-0b697764ce84.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    }
+  ],
+  "designComps": [
+    {
+      "path": "design-v2-top.png",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-fe3954f6-1d6b-4798-9752-e02dff9d36e0.png"
+    },
+    {
+      "path": "design-v2-stories.png",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-9d62f815-0512-404d-bed0-a64990da171d.png"
+    }
+  ],
+  "indoorMagentaPrompt": "Use case: background extraction preparation. Edit ONLY the exterior background of this TrackSpeed product image. Place the entire existing portrait iPhone on a perfectly uniform flat chroma-key MAGENTA background, RGB 255,0,255 (#FF00FF), with a small clear margin on every side. No gradient, no vignette, no shadow, no checkerboard, and NO magenta light or reflections cast on the phone. Preserve every pixel of the device interior as closely as possible: the same East Asian female sprinter on the indoor track, the phone metal frame, the red vertical timing line and the dark result card. Exact UI stays 'Flying 10m', '1.18s', '8.47 m/s', 'START', '0.00', 'FINISH', '1.18'. Do not repaint the person, change lighting inside the phone, alter typography, replace the scene, distort or crop hardware. The magenta exterior will be removed locally to make a clean transparent PNG. This is a technical keying preparation, not a redesign.",
+  "status": "generated_and_integrated",
+  "finalAssets": [
+    {
+      "path": "public/product/sprint-blue-track-transparent.png",
+      "width": 872,
+      "height": 1802,
+      "channels": 4,
+      "transparentPixels": 277252,
+      "totalPixels": 1571344,
+      "sha256": "60bfee7b6f6ea038c6baf687437f1f8c2168cc4bbd82e42b1b5c03d176353ba8",
+      "inspection": "PASS: transparent exterior; opaque screen preserved"
+    },
+    {
+      "path": "public/product/sprint-football-transparent.png",
+      "width": 873,
+      "height": 1802,
+      "channels": 4,
+      "transparentPixels": 87814,
+      "totalPixels": 1573146,
+      "sha256": "f13185b0a3da0cf40a3c31102cb878acbd78da11d9f0b42bee442a943b4deec1",
+      "inspection": "PASS: transparent exterior; opaque screen preserved"
+    },
+    {
+      "path": "public/product/sprint-indoor-transparent.png",
+      "width": 852,
+      "height": 1846,
+      "channels": 4,
+      "transparentPixels": 524659,
+      "totalPixels": 1572792,
+      "sha256": "a40a363fbf665716e8acd3df4e9fdd5764e829ffbd2b8b1f4e01defc0f601c3b",
+      "inspection": "PASS: transparent exterior; opaque screen preserved"
+    },
+    {
+      "path": "public/product/landscape-practice-transparent.png",
+      "width": 1672,
+      "height": 941,
+      "channels": 4,
+      "transparentPixels": 500233,
+      "totalPixels": 1573352,
+      "sha256": "08c2ba329d939b067c6861c64aa32b6a4f2fd27c4e6c60b0f34f747fa535af56",
+      "inspection": "PASS: transparent exterior; opaque screen preserved"
+    },
+    {
+      "path": "public/product/watch-and-phone-transparent.png",
+      "width": 1448,
+      "height": 1086,
+      "channels": 4,
+      "transparentPixels": 972998,
+      "totalPixels": 1572528,
+      "sha256": "2216d6f2d9a31a6582ee5da22f05a5577e0bd4acc28c6b26f1ea6c9b03949c5d",
+      "inspection": "PASS: transparent exterior; opaque screen preserved"
+    }
+  ],
+  "designAnalysis": "design-v2-analysis.md",
+  "indoorMagentaSource": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-2f279f1b-aa80-4ffc-a1c5-824205494342.png",
+  "designPrompts": [
+    {
+      "slug": "homepage-top",
+      "prompt": "Use case: ui-mockup. Create a premium high-fidelity DESKTOP WEBSITE DESIGN COMP for TrackSpeed, as a tall 1440-by-2400-style page slice showing the top THREE sections. This image is a design plan to be implemented in code, not one flat image that will replace the actual site. Build an original TrackSpeed design informed by the serene consumer-app clarity of Bevel Health and the athletic product demonstrations of Metric Sprint. Do NOT reproduce either competitor's logo, imagery or copy.\nReferences: image 1 is our TrackSpeed timing phone with a Black female sprinter; image 2 is our actual clean home screen; image 3 is our landscape sprint product illustration. Use these exact TrackSpeed visual assets prominently, cleanly cut out their exterior backgrounds. No checkerboard texture. The page must look authored and expensive, a beautifully photographed native sports app, not a SaaS dashboard template.\nVisual system: near-white, pale ice-blue daylight at the top fading naturally into white, ink-black clean Swiss/Geist sans-serif text, TrackSpeed's quiet steel-blue accent, generous whitespace. No purple, no neon lime, no mock ratings or downloads, no glows or ornamental icons, no fake graph. Minimal navigation with small TrackSpeed wordmark at left, Features / How it works / About in the middle, compact black pill Get TrackSpeed on right. Keep all text very brief and readable.\nSECTION 1 occupies top half: calm centred hero. Large two-line title EXACTLY 'Sprint timing.\\nIn your pocket.' Supporting sentence 'Capture your starts, splits and finishes. Make every session count.' One black pill CTA 'Get TrackSpeed' and understated link 'Find your setup'. Beneath the text, an OVERSIZED unboxed product composition: our crisp sprinter-timing phone in front, the real home-screen phone slightly angled behind it, elegant realistic hardware, much larger than surrounding labels. Phones float visually as product cutouts over the pale daylight background without cards or boxed media containers. Small line beneath 'For iPhone & iPad'. No Apple Watch in this public-app hero.\nSECTION 2: generous white gallery-style band. Heading left 'Your training. Your setup.' Short supportive text right 'Train solo or connect your phones.' Two beautifully designed quiet select tabs 'Solo laps' and 'Connected gates' above a large product-led presentation of the selected connected-gates setup, using phones and the real sprint screen. Show '2+ phones' as a small explanatory label. A tasteful three-step horizontal caption: 'Set your lines' / 'Connect your phones' / 'Run through'. Do not use generic diagrams as the main image, do not repeat small cards everywhere.\nSECTION 3: editorial split with very large timing phone image left, short heading right 'See what stopped the clock.' Three concise lines 'Automatic crossings' / 'Start and finish photos' / 'Review every rep'. One quiet text link 'How timing works'. Pale sky image area blends with white page with no obvious image background rectangle. Vary scale and spacing so this feels like a premium consumer app page rather than repeated boxes. Render top to bottom in a coherent realistic website composition, intentional responsive-ready clean grid, ample margins, no browser chrome."
+    },
+    {
+      "slug": "homepage-stories",
+      "prompt": "Use case: ui-mockup. Create a high-fidelity DESKTOP TrackSpeed website design comp as a tall 1440-by-2400-style continuation slice. Match a premium calm native consumer fitness app: near-white/very pale sky, Geist-like clean Swiss sans serif, ink-black headings, restrained steel-blue accents, small black pill buttons. Inspired by the clarity and large product art of Bevel Health and Metric Sprint, but entirely original TrackSpeed assets and branding. No competitor logo, no ratings, no fake metrics, no checkerboard.\nReferences: image 1 is our original landscape iPhone sprint scene, image 2 is our own clean TrackSpeed iPhone and Watch SE composition, image 3 is our actual session-history screen. USE these specific product assets prominently and preserve the interface, removing the exterior backdrop visually for this comp. No generic vector replacement. This comp is a plan for a real coded site with accessible text, not an image-only website.\nTop: a full-width, pale powder-blue story with very short heading 'More ways to train.' and small badge 'In development'. Small subcopy 'Solo sprints. Agility drills. Apple Watch.' Our LANDSCAPE PHONE visual spans most of the width, very large and completely uncropped, showing our female sprinter on the blue track and timing lines. Beneath it, restrained labels 'Standing & flying starts' and '5–10–5 & out-and-back'. Keep ample whitespace, do not wrap the product in a second obvious card or heavy border. Below this story use an asymmetric editorial composition with a SHORT heading left 'Your next rep.\\nOn your wrist.' and ONE sentence 'Start from your Watch. See your result.' Our beautiful phone-and-Watch cutout occupies right two-thirds, almost at life-sized visual scale. A small 'Development preview' label makes availability honest.\nMiddle: white section with generous layout. Heading 'Your training, kept together.' A very large crisp real TrackSpeed history phone screenshot layered with an elegantly displayed result-sharing phone, one supporting line 'Revisit your sessions. Repeat your setup. Share your progress.' Quiet blue 'Explore every feature' text link. No invented analytics graphs or floating stats. Use varied scale, controlled cropping and gallery-like whitespace.\nBottom: minimal four feature groups in an airy 2x2 icon-free text grid, headings 'Athletes & teams', 'Templates', 'Exports & sharing', 'Wireless timing' with just ONE line each. Then a generous almost-white blue final CTA band: 'Set the line.\\nRun your best.' and one dark pill 'Get TrackSpeed'. Subtle simple TrackSpeed footer, no long legal boilerplate inside the main design. The whole page must feel polished, consumer-friendly, visual first, brief copy, no dense paragraphs, no generic SaaS bento grid. Maintain consistent spacing and alignment while varying composition."
+    }
+  ]
+}

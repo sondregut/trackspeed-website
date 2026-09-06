@@ -13,6 +13,14 @@
   },
   "teamHeading": "创始人",
   "teamNote": "由 Sondre 打造，为运动员服务。",
+  "portfolio": {
+    "kicker": "为运动员打造",
+    "title": "Sondre 打造的更多运动员工具",
+    "description": "TrackSpeed 是专注于运动员的一组产品之一。使用 Athlete Mindset 进行心理准备，使用 Vault 记录撑杆跳训练和试跳。",
+    "athleteMindset": "Athlete Mindset 心理训练",
+    "vault": "Vault 撑杆跳训练",
+    "allApps": "查看 Sondre 的全部应用"
+  },
   "cta": {
     "title": "准备好计时训练了吗？",
     "subtitle": "下载TrackSpeed，用phone体验毫秒级精度。",

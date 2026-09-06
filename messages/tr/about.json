@@ -13,6 +13,14 @@
   },
   "teamHeading": "Kurucu",
   "teamNote": "Sondre tarafından, sporcular için yapıldı.",
+  "portfolio": {
+    "kicker": "Sporcular için geliştirildi",
+    "title": "Sondre'den diğer sporcu araçları",
+    "description": "TrackSpeed, sporcular için geliştirilmiş odaklı bir ürün grubunun parçasıdır. Zihinsel hazırlık için Athlete Mindset'i, sırıkla atlama antrenmanı ve atlayış kaydı için Vault'u kullanın.",
+    "athleteMindset": "Athlete Mindset ile zihinsel antrenman",
+    "vault": "Vault ile sırıkla atlama antrenmanı",
+    "allApps": "Sondre'nin tüm uygulamalarını görün"
+  },
   "cta": {
     "title": "Antrenmanını zamanlamaya hazır mısın?",
     "subtitle": "TrackSpeed'i indir ve sadece phone'unla milisaniye hassasiyetini deneyimle.",

@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { requireServerEnv, timingSafeEqualString } from "@/lib/server-secrets";
 
 // Generate a token for an email address
-export function generateUnsubscribeToken(email: string): string {
+function generateUnsubscribeToken(email: string): string {
   return createHmac("sha256", requireServerEnv("UNSUBSCRIBE_SECRET"))
     .update(email.toLowerCase())
     .digest("hex");

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
-import { verifyInfluencerToken } from '../auth/route'
+import { verifyInfluencerToken } from '@/lib/influencer-auth'
 
 // GET /api/influencer/stats - Get influencer dashboard stats
 export async function GET() {

@@ -15,11 +15,13 @@
     "test:checkout-security": "node --experimental-strip-types --test tests/checkout-security.test.mjs"
   },
   "dependencies": {
+    "@radix-ui/react-icons": "^1.3.2",
     "@supabase/supabase-js": "^2.91.1",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.33.0",
+    "geist": "^1.7.2",
     "jose": "^6.1.3",
     "lucide-react": "^0.563.0",
     "next": "^16.3.1",

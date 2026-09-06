@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { getLocale } from "next-intl/server";
 import CookieConsent from "@/components/CookieConsent";
+import DocumentLanguage from "@/components/DocumentLanguage";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mytrackspeed.com"),
@@ -167,8 +158,9 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${inter.variable} ${bricolage.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
+        <DocumentLanguage />
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:text-[#5C8DB8] focus:ring-2 focus:ring-[#5C8DB8]">Skip to main content</a>
         {children}
         <CookieConsent />

@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "Sprint zamanlaması. Cebinizde.",
+    "description": "Otomatik sprint ölçümü, kablosuz kapılar, solo turlar, fotoğraf inceleme, sporcu profilleri ve seans geçmişi. Watch ve çeviklik geliştirmelerini de keşfedin."
+  },
+  "nav": {
+    "guide": "Tüm özellikler",
+    "download": "TrackSpeed’i indir",
+    "close": "Menüyü kapat",
+    "more": "Keşfet",
+    "guideLanguage": "Özellik rehberi İngilizcedir"
+  },
+  "hero": {
+    "kicker": "Yarışmalar arasındaki emek için",
+    "title": "Sprint zamanlaması.",
+    "accent": "Cebinizde.",
+    "description": "Başlangıçları, ara dereceleri ve bitişleri kaydedin. Her antrenmanı değerlendirin.",
+    "secondary": "Kurulumunu seç",
+    "availability": "iPhone ve iPad · Ücretsiz indirme, uygulama içi satın alma",
+    "proof": "Olimpiyat sporcusu Sondre Guttormsen tarafından geliştirildi",
+    "imageAlt": "TrackSpeed’de uçuş başlangıçlı sprint ve başlangıç-bitiş fotoğrafları",
+    "example": "TrackSpeed’den bir görünüm",
+    "imageCaption": "Dönüp kontrol edebileceğiniz bir süre.",
+    "sports": "Sprint antrenmanı / Uçuş başlangıcı / Yaklaşma koşuları / Takım testleri"
+  },
+  "facts": [
+    {
+      "value": "1",
+      "label": "telefonla solo turlar"
+    },
+    {
+      "value": "2+",
+      "label": "telefonla bağlı kapılar"
+    },
+    {
+      "value": "5",
+      "label": "farklı sprint başlangıcı"
+    }
+  ],
+  "modes": {
+    "kicker": "Seansınız. Kurulumunuz.",
+    "title": "Sizin antrenmanınız. Sizin düzeniniz.",
+    "description": "Tek başınıza çalışın veya telefonlarınızı bağlayın.",
+    "diagramLabel": "Örnek parkur çizimi, ölçekli değildir",
+    "start": "Başlangıç",
+    "split": "Ara derece",
+    "finish": "Bitiş",
+    "phone": "Telefon",
+    "watch": {
+      "tab": "Apple Watch",
+      "title": "Seansınız bileğinizde.",
+      "body": "Watch başlangıçları, sonuç gösterimi ve koşu dinamikleri geliştiriyoruz. Eşlenmiş iPhone, saati zamanlama seansına bağlar.",
+      "steps": [
+        "Watch başlangıçları için saati ana/başlangıç iPhone’una eşleyin.",
+        "Bitiş ve isteğe bağlı ara noktalar için diğer telefonları kullanın.",
+        "Süreyi ve mevcut hareket ölçümlerini inceleyin."
+      ],
+      "requirement": "Geliştirme önizlemesi · Genel uygulamada henüz yok"
+    },
+    "turn": "Dönüş",
+    "centre": "Orta",
+    "lap": "Tur çizgisi",
+    "beta": "Geliştiriliyor",
+    "available": "iOS’ta mevcut",
+    "gates": {
+      "tab": "Bağlı kapılar",
+      "title": "Tek seans. Her ara derece.",
+      "body": "Başlangıç ve bitişe telefon yerleştirin. Hızın parkur boyunca değişimini görmek için ara noktaya bir telefon ekleyin.",
+      "steps": [
+        "Parkuru ölçün ve telefonları sabitleyin.",
+        "Aynı seansa katılın ve tüm kapılar hazır olana kadar bekleyin.",
+        "Koşun, ardından süreyi ve geçiş fotoğraflarını birlikte inceleyin."
+      ],
+      "requirement": "2+ telefon · Ölçülmüş parkur · Sabit tutucular"
+    },
+    "solo": {
+      "tab": "Solo turlar",
+      "title": "Siz ve tek telefon.",
+      "body": "Kamerayı tekrar tekrar geçeceğiniz çizgiye yerleştirin. İlk geçiş seansı başlatır; sonraki geçişler tur ve fotoğraf kaydeder.",
+      "steps": [
+        "Telefonu belirgin bir çizginin yanına sabitleyin.",
+        "Solo Laps’i seçip kamera görüntüsünü kontrol edin.",
+        "Her turda veya dönüşte aynı çizgiyi geçin."
+      ],
+      "requirement": "1 telefon · Aynı çizgiden tekrarlanan geçişler"
+    },
+    "agility": {
+      "tab": "Çeviklik ve solo sprint",
+      "title": "Tek kamera. Bütün çalışma.",
+      "body": "Yatay ölçüm; sabit ve uçuş başlangıçları, 5-10-5 ve gidiş-dönüş koşuları için geliştiriliyor. Ölçülen parkurun tamamı görünmeli.",
+      "steps": [
+        "5-10-5 için aralarında 5 yard olan üç çizgi işaretleyin.",
+        "Ortadan başlayın, iki dış çizgiye dokunun ve ortaya dönün.",
+        "Ortadan ilk dönüş geçişi ara derecedir. İki çizgi temasını da videodan kontrol edin."
+      ],
+      "requirement": "Geliştirme önizlemesi · Tripod ve dönüşlerin video incelemesi"
+    },
+    "watchLabel": "Saat"
+  },
+  "evidence": {
+    "kicker": "Bir sayıdan fazlası",
+    "title": "Saati neyin durdurduğunu görün.",
+    "body": "Otomatik kamera geçişleri başlangıç ve bitişi kaydeder. Fotoğrafları açın, çizgiyi kontrol edin ve sonucu seansla birlikte saklayın.",
+    "items": [
+      "Otomatik çizgi geçiş algılama",
+      "Başlangıç, ara nokta ve bitiş görüntüleri",
+      "Fotoğraf inceleme ve süre düzeltme"
+    ],
+    "link": "Zamanlama nasıl çalışır?",
+    "caption": "Örnek seans verileriyle uygulama görüntüsü"
+  },
+  "starts": {
+    "kicker": "Başlangıcınızı seçin",
+    "title": "Başlamak için beş yol.",
+    "description": "Testinize uygun başlangıç anını seçin. Aynı başlangıç yöntemiyle kaydedilen sonuçları karşılaştırın.",
+    "items": [
+      {
+        "title": "Uçuş başlangıcı",
+        "body": "İlk kapıdan önce hızlanın. Başlangıç çizgisini geçince ölçülen bölge başlar."
+      },
+      {
+        "title": "Dokunmayı bırakma",
+        "body": "Başlangıç telefonunun ekranına basılı tutun. Parmağı kaldırmak süreyi başlatır."
+      },
+      {
+        "title": "Geri sayım",
+        "body": "Geri sayım sesli işaretle biter. Süre işaretle başlar ve tepkinizi içerir."
+      },
+      {
+        "title": "Sesli komut",
+        "body": "Sesli başlangıç komutlarını izleyin. Süre GO ile başlar."
+      },
+      {
+        "title": "Kamera içi başlangıç",
+        "body": "Başlangıç telefonunun ön kamera çizgisinde durun. Ekrandaki çizgiyi geçerek başlayın."
+      }
+    ]
+  },
+  "workflow": {
+    "kicker": "İlk tekrardan sonraki seansa",
+    "title": "Antrenmanınız bir arada.",
+    "guide": "Tüm özellikleri keşfet",
+    "items": [
+      {
+        "title": "Ara dereceler ve ortalama hız",
+        "body": "Tüm koşuyu ve bölümlerini ölçün. Ölçülen mesafedeki ortalama hızı görün."
+      },
+      {
+        "title": "Sporcular ve takımlar",
+        "body": "Koşuları sporcu profillerine atayın, grup seanslarını düzenli tutun."
+      },
+      {
+        "title": "Geçmiş ve kişisel rekorlar",
+        "body": "Eski seansları bulun, eşleşen testleri karşılaştırın ve gelişimi izleyin."
+      },
+      {
+        "title": "Şablonlar ve tekrar seansları",
+        "body": "Sprint şablonu veya kendi mesafenizi seçin. Kaydedilen kurulumu yeniden kullanın."
+      },
+      {
+        "title": "CSV, kartlar ve video",
+        "body": "Verileri dışa aktarın, sonuç kartı paylaşın veya zaman katmanlı video oluşturun."
+      },
+      {
+        "title": "Kablosuz ve çevrimdışı ölçüm",
+        "body": "Yakındaki telefonları desteklenen yerel bağlantılarla birleştirin. Sonuçları kaydedip uygun verileri çevrimiçi olduğunuzda eşitleyin."
+      }
+    ]
+  },
+  "beta": {
+    "kicker": "Geliştiriliyor",
+    "title": "Antrenmanınızın sonraki bölümü.",
+    "body": "Apple Watch başlangıçları ve koşu dinamikleri. Yatay solo sprint. 5-10-5 ve gidiş-dönüş koşuları dahil futbol için çeviklik testleri.",
+    "note": "Bu özellikler fiziksel olarak test ediliyor ve genel uygulamada henüz bulunmuyor. Çıkış tarihi sözü verilmiyor.",
+    "link": "Geliştirme önizlemesini incele",
+    "illustration": "Geliştirme aşamasından temsili görünüm",
+    "landscapeAlt": "Mavi pistte üç kapıdan geçen bir sprinti kaydeden TrackSpeed görseli",
+    "watchAlt": "iPhone ve Apple Watch üzerinde örnek sprint sonucu gösteren TrackSpeed"
+  },
+  "founder": {
+    "kicker": "Pistte doğdu",
+    "title": "Onu kullanan bir sporcu yaptı.",
+    "body": "Sondre Guttormsen, Olimpik sırıkla atlama sporcusu ve TrackSpeed’in kurucusu ve geliştiricisidir. Amacı, tekrarlanabilir sprint testlerini günlük antrenmana daha kolay taşımaktır.",
+    "link": "Kurucuyla tanışın",
+    "imageAlt": "Sırıkla atlamada yarışan Sondre Guttormsen"
+  },
+  "faq": {
+    "title": "İlk koşunuzdan önce.",
+    "items": [
+      {
+        "question": "Tek telefon kullanabilir miyim?",
+        "answer": "Evet. Solo Laps aynı kamera çizgisinden tekrarlanan geçişleri kaydeder. Ayrı başlangıç ve bitiş noktaları bağlı telefonlar kullanır. Yatay tek kamera sprint ve çeviklik modları geliştiriliyor."
+      },
+      {
+        "question": "Wi-Fi veya internet gerekli mi?",
+        "answer": "Desteklenen yerel bağlantılar internetsiz ölçüm yapabilir. Wi-Fi Aware uyumlu donanım ve yazılım gerektirir; Bluetooth da bir seçenektir. Bulut özellikleri bağlantı gerektirir."
+      },
+      {
+        "question": "Ne kadar doğru?",
+        "answer": "Kare hızı, ışık, konum, başlangıç yöntemi ve saat eşitlemesine bağlıdır. Ondalık basamak sayısı doğruluk garantisi değildir. Sabit kurulum kullanın ve geçiş fotoğraflarını inceleyin. TrackSpeed antrenman içindir, resmî yarış zamanlaması için değildir."
+      },
+      {
+        "question": "Apple Watch veya Android ile çalışır mı?",
+        "answer": "Burada anlatılan genel uygulama iPhone ve iPad içindir. Watch özellikleri, yatay çeviklik ve Android geliştiriliyor. Platformlar arasında aynı özellikler vaat edilmiyor."
+      },
+      {
+        "question": "TrackSpeed’in ücreti nedir?",
+        "answer": "Uygulama ücretsiz indirilir, uygulama içi satın alma vardır. Bölgenizdeki planları, fiyatları, deneme uygunluğunu ve özellikleri uygulamadan kontrol edin."
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Sonraki seansa götürün",
+    "title": "Çizgiyi belirle. Elinden geleni yap.",
+    "body": "Sonraki antrenmanınız başlamak için iyi bir yer.",
+    "note": "iPhone ve iPad · Uygulama içi satın alma"
+  },
+  "footer": {
+    "tagline": "Verdiğiniz emek için sprint zamanlaması.",
+    "moreApps": "Geliştiriciden daha fazlası",
+    "availability": "Watch ve yatay çeviklik: geliştiriliyor."
+  },
+  "editorial": {
+    "sceneLabel": "Ortam seçin",
+    "scenes": [
+      "Pist",
+      "Futbol",
+      "Salon"
+    ],
+    "illustration": "Temsili uygulama görünümü · Örnek sonuçlar",
+    "evidenceBody": "Fotoğrafları açın. Çizgiyi kontrol edin. Her tekrarı inceleyin.",
+    "landscapeTitle": "Antrenman için daha fazla seçenek.",
+    "landscapeBody": "Tek başına sprint. Çeviklik. Tek kamera.",
+    "standingFlying": "Durarak ve uçan başlangıçlar",
+    "agilityDrills": "5–10–5 ve git-gel",
+    "watchTitle": "Sıradaki tekrar. Bileğinizde.",
+    "watchBody": "Watch’tan başlayın. Sonucu eşlenmiş iPhone’unuz üzerinden alın.",
+    "historyBody": "Seanslarınıza dönün. Düzeninizi tekrarlayın. İlerlemenizi paylaşın.",
+    "featureDescriptions": [
+      "Tek başınıza veya grupla çalışın.",
+      "Hızlı başlayın. İstediğiniz zaman özelleştirin.",
+      "Sonuçları, videoları ve seans verilerini paylaşın.",
+      "Yerel zamanlama. Desteklenen verileri çevrimiçi eşitleyin."
+    ]
+  }
+}
