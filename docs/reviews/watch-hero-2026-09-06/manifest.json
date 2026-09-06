@@ -1,0 +1,22 @@
+{
+  "created": "2026-09-06",
+  "tool": "built-in image_gen",
+  "request": "Replace only the Home-screen phone in the website hero with an Apple Watch image. Keep the athlete/timing phone.",
+  "reference": "public/product/watch-and-phone-transparent.png",
+  "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-1ead8df9-e53a-4b8e-bc64-56eacb5967ad.png",
+  "asset": "public/product/watch-hero-transparent.png",
+  "prompt": "Use case: precise-object-edit\nAsset type: transparent product cutout for the TrackSpeed website hero.\nInput image 1 is the edit target and exact visual reference for the Apple Watch on its right.\nPrimary request: Remove the iPhone entirely. Produce ONE standalone complete Apple Watch SE with the same dark graphite rounded case, navy sport band, realistic crown and TrackSpeed Watch Solo screen. Preserve the reference Watch's three-quarter angle and screen layout, but render the Watch larger with crisp high-resolution studio detail. Show the entire closed loop of the band, case and crown with a small even margin all around.\nScreen text, faithfully preserve: \"1:54\", \"Watch Solo\", \"RUN 3\", \"4.284s\", \"0.184\", \"reaction time\", \"252\", \"spm\", \"Next rep\", \"Timing ready\". Main result is vivid green, Next rep button cyan, black screen, white labels. No additional branding or claims.\nLighting: premium soft daylight studio illumination, natural graphite and silicone materials, crisp controlled highlights, readable screen, no flare.\nBackground: uniform flat saturated chroma-key magenta #FF00FF covering ALL exterior empty space, including the empty opening inside the band, for subsequent local removal into a truly transparent asset. Do not put magenta on the Watch or display. No shadow on the background, no gradients, no checkerboard.\nConstraints: Watch only; no phone, no hands, no floating panels, no floor, no pedestal, no extra text outside the screen, no cropping. Keep the original TrackSpeed UI style and exact content.",
+  "backgroundRemoval": "Owner explicitly approved local background removal and requested a magenta/green chroma-key background. extract-watch.cjs removes all magenta regions including enclosed strap holes.",
+  "availability": "Existing localized In development label retained beside the Watch in the hero.",
+  "verification": {
+    "asset": "1086 x 1448 RGBA. Exterior and strap holes are transparent; screen is opaque. Edges visually checked against dark and light surfaces.",
+    "browser": "Six cases passed: English at 1440, 1100, 820, 390 and 320 CSS pixels; Arabic at 390. No horizontal overflow or broken hero images. Complete Watch visible; timing phone retained.",
+    "captureCorrection": "The first mobile capture omitted a rotated phone layer below the viewport. Fresh pages with the complete hero inside the capture viewport render both devices correctly; no runtime change was needed.",
+    "lint": "npx eslint src/components/marketing/MarketingHome.tsx passed.",
+    "build": "npm run build passed.",
+    "diff": "git diff --check passed.",
+    "details": "verification.json",
+    "preview": "http://localhost:3210/",
+    "deployment": "Local preview only; not pushed or deployed."
+  }
+}

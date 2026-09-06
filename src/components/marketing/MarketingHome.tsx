@@ -24,8 +24,11 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
           <p className="hero-availability">{c.hero.availability}</p>
         </div>
         <figure className="hero-product">
-          <ProductPhone src="/product/training-home.png" className="hero-home-phone"/>
-          <Image src="/product/sprint-blue-track-transparent.png" alt={c.hero.imageAlt} width={872} height={1802} preload sizes="(max-width: 640px) 270px, (max-width: 1024px) 340px, 390px" className="hero-timing-phone"/>
+          <Image src="/product/sprint-blue-track-transparent.png" alt={c.hero.imageAlt} width={872} height={1802} preload sizes="(max-width: 374px) 190px, (max-width: 767px) 230px, (max-width: 1100px) 295px, 352px" className="hero-timing-phone"/>
+          <div className="hero-watch">
+            <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.beta.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
+            <span className="development-label">{c.beta.kicker}</span>
+          </div>
           <figcaption className="sr-only">{c.editorial.illustration}</figcaption>
         </figure>
       </div>

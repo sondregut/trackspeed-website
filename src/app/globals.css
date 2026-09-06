@@ -513,8 +513,10 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .product-phone { background: #171b1e; padding: 7px; border: 2px solid #a5a7a7; border-radius: 46px; overflow: hidden; box-shadow: inset 0 0 0 1px #e4e4e4, 8px 6px 0 -3px #b1b3b3, 0 24px 45px -28px #18243255; }
 .product-phone img { display: block; width: 100%; border-radius: 36px; }
 .hero-product { position: relative; height: 700px; direction: ltr; }
-.hero-home-phone { position: absolute; width: 290px; right: -5px; top: 105px; rotate: 7deg; }
 .hero-timing-phone { position: absolute; width: 352px; left: 18px; top: 5px; rotate: -4deg; filter: drop-shadow(0 20px 18px #1321321a); }
+.hero-watch { position: absolute; z-index: 1; width: 322px; right: 16px; top: 240px; }
+.hero-watch img { display: block; width: 100%; filter: drop-shadow(0 18px 16px #1321321c); }
+.hero-watch .development-label { display: block; margin: 8px auto 0; text-align: center; }
 .section-intro { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
 .section-intro h2 { max-width: 470px; }
 .section-intro > p { max-width: 330px; font-size: 16px; line-height: 1.6; color: var(--text-muted); }
@@ -604,8 +606,8 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .hero-layout { grid-template-columns: .9fr 1.1fr; }
   .hero-copy h1 { font-size: 52px; }
   .hero-product { height: 610px; }
-  .hero-timing-phone { width: 295px; left: 0; }
-  .hero-home-phone { width: 230px; top: 100px; right: 28px; }
+  .hero-timing-phone { width: clamp(245px, 27vw, 295px); left: 0; }
+  .hero-watch { width: 220px; top: 230px; right: -24px; }
   .setup-story, .evidence-layout, .starts-layout, .history-layout, .founder-layout { gap: 55px; }
   .setup-art { gap: 10px; }
   .setup-home { width: 180px; }
@@ -624,10 +626,10 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .hero-actions { justify-content: center; gap: 18px; margin-top: 25px; }
   .hero-actions .marketing-button { min-height: 48px; padding: 12px 20px; }
   .hero-availability { margin-top: 16px; font-size: 10px; }
-  .hero-product { height: 520px; width: 420px; max-width: 100%; }
-  .hero-timing-phone { width: 250px; left: -4px; top: 0; }
-  .hero-home-phone { width: 195px; top: 75px; right: 12px; border-radius: 34px; padding: 5px; }
-  .hero-home-phone img { border-radius: 26px; }
+  .hero-product { height: 495px; width: 360px; max-width: 100%; }
+  .hero-timing-phone { width: 230px; left: -4px; top: 0; }
+  .hero-watch { width: 168px; top: 185px; right: -12px; }
+  .hero-watch .development-label { font-size: 10px; }
   .section-intro { display: block; }
   .section-intro h2 { max-width: 350px; }
   .section-intro > p { margin-top: 22px; font-size: 15px; }
@@ -675,9 +677,9 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 }
 @media (max-width: 374px) {
   .hero-copy h1 { font-size: 40px; }
-  .hero-product { height: 455px; }
-  .hero-timing-phone { width: 215px; }
-  .hero-home-phone { width: 173px; }
+  .hero-product { height: 420px; }
+  .hero-timing-phone { width: 190px; }
+  .hero-watch { width: 140px; top: 170px; right: -20px; }
   .hero-actions { gap: 10px; }
   .hero-actions .quiet-link { font-size: 12px; }
   .setup-home { width: 138px; }
