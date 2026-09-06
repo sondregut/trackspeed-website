@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Necesito equipo especial?",
-        "answer": "Sí. Solo Laps registra cruces repetidos de una misma línea. Para salida y meta separadas se conectan varios teléfonos. Los sprints y la agilidad con cámara horizontal están en desarrollo."
+        "answer": "Solo Laps registra cruces repetidos de una misma línea. Para salida y meta separadas se conectan varios teléfonos."
       },
       "models": {
         "question": "Que modelos de phone son compatibles?",

@@ -27,8 +27,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
         <figure className="hero-product">
           <Image src="/product/sprint-blue-track-transparent.png" alt={c.hero.imageAlt} width={872} height={1802} preload sizes="(max-width: 374px) 190px, (max-width: 767px) 230px, (max-width: 1100px) 295px, 352px" className="hero-timing-phone"/>
           <div className="hero-watch">
-            <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.beta.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
-            <span className="development-label">{c.beta.kicker}</span>
+            <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.editorial.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
           </div>
           <figcaption className="sr-only">{c.editorial.illustration}</figcaption>
         </figure>
@@ -37,11 +36,11 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
 
     <section id="preview" className="editorial-section landscape-section">
       <div className="marketing-container">
-        <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2><span className="development-label">{c.beta.kicker}</span></div>
+        <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2></div>
         <p className="section-description">{c.editorial.landscapeBody}</p>
         <figure className="landscape-product">
           <Image src="/product/landscape-practice-transparent.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
-          <figcaption>{c.beta.illustration}</figcaption>
+          <figcaption>{c.editorial.illustration}</figcaption>
         </figure>
         <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
       </div>
@@ -87,10 +86,9 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
 
     <section className="editorial-section watch-section">
       <div className="marketing-container watch-layout">
-        <div className="story-copy"><span className="development-label">{c.beta.kicker}</span><h2>{c.editorial.watchTitle}</h2><p>{c.editorial.watchBody}</p><TextLink href="/features#watch-start">{c.beta.link}</TextLink></div>
-        <figure><Image src="/product/watch-and-phone-transparent.png" alt={c.beta.watchAlt} width={1448} height={1086} sizes="(max-width: 1024px) 95vw, 760px"/><figcaption>{c.beta.illustration}</figcaption></figure>
+        <div className="story-copy"><h2>{c.editorial.watchTitle}</h2><p>{c.editorial.watchBody}</p><TextLink href="/features#watch-start">{c.workflow.guide}</TextLink></div>
+        <figure><Image src="/product/watch-and-phone-transparent.png" alt={c.beta.watchAlt} width={1448} height={1086} sizes="(max-width: 1024px) 95vw, 760px"/><figcaption>{c.editorial.illustration}</figcaption></figure>
       </div>
-      <p className="development-note marketing-container">{c.beta.note}</p>
     </section>
 
     <section id="features" className="editorial-section history-section">

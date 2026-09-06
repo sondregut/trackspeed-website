@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Cronometre seu sprint. No seu bolso.",
-    "description": "Cronometragem automática, pontos sem fio, voltas solo, fotos, perfis e histórico. Conheça também os projetos Watch e agilidade."
+    "description": "Cronometragem automática, pontos sem fio, voltas solo, fotos, perfis e histórico."
   },
   "nav": {
     "guide": "Todas as funções",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Seu treino no pulso.",
-      "body": "Estamos desenvolvendo largadas pelo Watch, resultados e dinâmica de corrida. O iPhone pareado conecta o relógio à sessão.",
+      "body": "Largue pelo Watch. Receba o resultado pelo iPhone emparelhado.",
       "steps": [
         "Para largadas pelo Watch, pareie com o iPhone anfitrião da largada.",
         "Use outros celulares na chegada e nas parciais.",
         "Confira o tempo e as métricas de movimento disponíveis."
-      ],
-      "requirement": "Prévia em desenvolvimento · Ainda fora do app público"
+      ]
     },
     "turn": "Retorno",
     "centre": "Centro",
     "lap": "Linha da volta",
-    "beta": "Em desenvolvimento",
     "available": "Disponível no iOS",
     "gates": {
       "tab": "Pontos conectados",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agilidade e sprints solo",
       "title": "Uma câmera. O exercício inteiro.",
-      "body": "O modo horizontal está em desenvolvimento para largadas paradas e lançadas, 5-10-5 e corridas de ida e volta. Mantenha o percurso visível.",
+      "body": "Sprints solo. Agilidade. Uma câmera.",
       "steps": [
         "Para o 5-10-5, marque três linhas separadas por 5 jardas.",
         "Saia do centro, toque as duas linhas externas e retorne ao centro.",
         "A primeira passagem de volta pelo centro é uma parcial. Confira os dois toques no vídeo."
       ],
-      "requirement": "Prévia em desenvolvimento · Tripé e revisão das viradas em vídeo"
+      "requirement": "Tripé e revisão das viradas em vídeo"
     },
     "watchLabel": "Relógio"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "Em desenvolvimento",
     "title": "O próximo capítulo do seu treino.",
     "body": "Largadas com Apple Watch e dinâmica de corrida. Sprints solo com celular horizontal. Agilidade para futebol, incluindo 5-10-5 e ida e volta.",
-    "note": "Essas funções passam por testes físicos e ainda não estão no app público. Não há data de lançamento prometida.",
-    "link": "Ver a prévia em desenvolvimento",
-    "illustration": "Prévia ilustrada em desenvolvimento",
     "landscapeAlt": "TrackSpeed filma um sprint através de três pontos de cronometragem numa pista azul",
     "watchAlt": "TrackSpeed no iPhone e Apple Watch com um exemplo de resultado de sprint"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Posso usar apenas um celular?",
-        "answer": "Sim. Solo Laps registra passagens repetidas pela mesma linha. Largada e chegada em locais separados usam celulares conectados. Sprints e agilidade com câmera horizontal estão em desenvolvimento."
+        "answer": "Sim. Solo Laps registra passagens repetidas pela mesma linha. Largada e chegada em locais separados usam celulares conectados."
       },
       {
         "question": "Preciso de Wi-Fi ou internet?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Funciona com Apple Watch ou Android?",
-        "answer": "A experiência pública descrita aqui é para iPhone e iPad. Watch, agilidade horizontal e Android estão em desenvolvimento. Não prometemos os mesmos recursos em todas as plataformas."
+        "answer": "O TrackSpeed funciona no iPhone e no iPad. O Apple Watch se conecta pelo iPhone pareado. Consulte a página da loja para ver as plataformas compatíveis e os recursos disponíveis."
       },
       {
         "question": "Quanto custa o TrackSpeed?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Cronometragem de sprints para o seu esforço diário.",
-    "moreApps": "Mais do desenvolvedor",
-    "availability": "Watch e agilidade horizontal: em desenvolvimento."
+    "moreApps": "Mais do desenvolvedor"
   },
   "editorial": {
     "sceneLabel": "Escolha um ambiente",

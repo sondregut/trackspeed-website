@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sprinttidtaking. Rett fra lomma.",
-    "description": "Automatisk sprinttidtaking, trådløse porter, solorunder, bildeanalyse, utøverprofiler og økthistorikk. Se også forhåndsvisning av Apple Watch og agility."
+    "description": "Automatisk sprinttidtaking, trådløse porter, solorunder, bildeanalyse, utøverprofiler og økthistorikk."
   },
   "nav": {
     "guide": "Alle funksjoner",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Ha økten på håndleddet.",
-      "body": "Vi utvikler klokkestart, resultatvisning og løpsdynamikk. Den sammenkoblede iPhonen kobler klokken til tidtakingsøkten.",
+      "body": "Start fra Apple Watch. Få resultatet via den parede iPhonen.",
       "steps": [
         "Koble klokken til vertens start-iPhone for klokkestart.",
         "Bruk andre telefoner til mål og eventuelle mellomtider.",
         "Se tiden, og utforsk tilgjengelige bevegelsesdata."
-      ],
-      "requirement": "Utviklingsversjon · Ikke i den offentlige appen ennå"
+      ]
     },
     "turn": "Vending",
     "centre": "Midten",
     "lap": "Rundelinje",
-    "beta": "Under utvikling",
     "available": "Tilgjengelig på iOS",
     "gates": {
       "tab": "Tilkoblede porter",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agility og solosprint",
       "title": "Ett kamera. Hele øvelsen.",
-      "body": "Liggende kameratidtaking utvikles for stående og flyvende sprint, 5-10-5 og løp frem og tilbake. Hele banen må være synlig.",
+      "body": "Solosprinter. Agilityøvelser. Ett kamera.",
       "steps": [
         "For 5-10-5: marker tre linjer med 5 yards mellom hver.",
         "Start i midten, berør begge ytterlinjene og returner til midten.",
         "Første retur gjennom midten er en mellomtid. Kontroller begge berøringene på video."
       ],
-      "requirement": "Utviklingsversjon · Stativ og videokontroll av vendinger"
+      "requirement": "Stativ og videokontroll av vendinger"
     },
     "watchLabel": "Klokke"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "Under utvikling",
     "title": "Neste kapittel i treningen din.",
     "body": "Start med Apple Watch og løpsdynamikk. Solosprint med liggende telefon. Agility for fotball, inkludert 5-10-5 og løp frem og tilbake.",
-    "note": "Funksjonene testes fysisk og er ikke i den offentlige appen ennå. Ingen lanseringsdato er lovet.",
-    "link": "Se utviklingsforhåndsvisningen",
-    "illustration": "Illustrert forhåndsvisning",
     "landscapeAlt": "Illustrasjon av TrackSpeed som filmer en sprint gjennom tre porter på en blå løpebane",
     "watchAlt": "TrackSpeed på iPhone og Apple Watch med et eksempel på sprintresultat"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Kan jeg bruke bare én telefon?",
-        "answer": "Ja. Solo Laps registrerer gjentatte passeringer av én kameralinje. Separate start- og målsteder bruker tilkoblede telefoner. Liggende solosprint og agility er under utvikling."
+        "answer": "Ja. Solo Laps registrerer gjentatte passeringer av én kameralinje. Separate start- og målsteder bruker tilkoblede telefoner."
       },
       {
         "question": "Trenger jeg Wi-Fi eller internett?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Fungerer det med Apple Watch eller Android?",
-        "answer": "Den offentlige opplevelsen beskrevet her er for iPhone og iPad. Klokkefunksjoner, liggende agility og Android er under utvikling. Vi lover ikke identiske funksjoner på alle plattformer."
+        "answer": "TrackSpeed kjører på iPhone og iPad. Apple Watch kobles til via den parede iPhonen. Se butikkoppføringen for støttede plattformer og tilgjengelige funksjoner."
       },
       {
         "question": "Hva koster TrackSpeed?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Sprinttidtaking for arbeidet du legger ned.",
-    "moreApps": "Mer fra utvikleren",
-    "availability": "Apple Watch og liggende agility: under utvikling."
+    "moreApps": "Mer fra utvikleren"
   },
   "editorial": {
     "sceneLabel": "Velg et miljø",

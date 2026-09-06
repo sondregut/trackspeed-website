@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "冲刺计时。 尽在口袋。",
-    "description": "自动冲刺计时、无线计时门、单人圈速、照片复核、运动员档案与训练历史。了解Watch与敏捷训练开发预览。"
+    "description": "自动冲刺计时、无线计时门、单人圈速、照片复核、运动员档案与训练历史。"
   },
   "nav": {
     "guide": "全部功能",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "在手腕上掌握训练。",
-      "body": "正在开发Watch起跑、成绩显示和跑步动态。已配对的iPhone把手表连接到计时训练。",
+      "body": "通过Watch起跑，经配对的iPhone接收成绩。",
       "steps": [
         "使用Watch起跑时，将其与主机/起跑iPhone配对。",
         "其他手机负责终点和可选的分段。",
         "查看成绩及可用的运动指标。"
-      ],
-      "requirement": "开发预览 · 尚未包含在公开版App中"
+      ]
     },
     "turn": "折返",
     "centre": "中点",
     "lap": "圈速线",
-    "beta": "开发中",
     "available": "iOS已提供",
     "gates": {
       "tab": "互联计时门",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "敏捷与单人冲刺",
       "title": "一部相机，覆盖整个练习。",
-      "body": "横屏计时正在开发，支持静止与行进间起跑、5-10-5及往返跑。测量后的整条路线需在画面内。",
+      "body": "单人冲刺。敏捷训练。一部相机。",
       "steps": [
         "5-10-5需要标出三条线，相邻间距5码。",
         "从中点出发，触碰两侧外线，再回到中点。",
         "第一次返回并穿过中点记录分段。两次外线触碰都需通过视频复核。"
       ],
-      "requirement": "开发预览 · 需三脚架与折返视频复核"
+      "requirement": "需三脚架与折返视频复核"
     },
     "watchLabel": "手表"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "开发中",
     "title": "训练的下一篇章。",
     "body": "Apple Watch起跑与跑步动态。横屏单人冲刺。面向足球的敏捷测试，包括5-10-5和往返跑。",
-    "note": "这些功能正在进行实地测试，尚未包含在公开版App中。目前不承诺发布日期。",
-    "link": "查看开发预览",
-    "illustration": "开发功能示意图",
     "landscapeAlt": "TrackSpeed 拍摄运动员在蓝色跑道上通过三个计时门的冲刺示意图",
     "watchAlt": "iPhone 和 Apple Watch 上的 TrackSpeed 冲刺成绩示例"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "只用一部手机可以吗？",
-        "answer": "可以。Solo Laps记录反复通过同一相机计时线的过程。起点与终点分开时需要连接多部手机。单相机横屏冲刺与敏捷模式仍在开发中。"
+        "answer": "可以。Solo Laps记录反复通过同一相机计时线的过程。起点与终点分开时需要连接多部手机。"
       },
       {
         "question": "需要Wi-Fi或互联网吗？",
@@ -201,7 +195,7 @@
       },
       {
         "question": "支持Apple Watch或Android吗？",
-        "answer": "此处介绍的公开版适用于iPhone与iPad。Watch功能、横屏敏捷及Android都在开发中，不承诺各平台功能完全一致。"
+        "answer": "TrackSpeed可在iPhone和iPad上运行。Apple Watch通过配对的iPhone连接。请查看应用商店页面，了解支持的平台和可用功能。"
       },
       {
         "question": "TrackSpeed多少钱？",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "为每一天的努力记录冲刺成绩。",
-    "moreApps": "开发者的更多应用",
-    "availability": "Watch与横屏敏捷：开发中。"
+    "moreApps": "开发者的更多应用"
   },
   "editorial": {
     "sceneLabel": "选择场景",

@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Ho bisogno di attrezzatura speciale?",
-        "answer": "Sì. Solo Laps registra passaggi ripetuti sulla stessa linea. Partenza e arrivo separati richiedono telefoni collegati. Sprint e agilità con fotocamera orizzontale sono in sviluppo."
+        "answer": "Solo Laps registra passaggi ripetuti sulla stessa linea. Partenza e arrivo separati richiedono telefoni collegati."
       },
       "models": {
         "question": "Quali modelli di phone sono supportati?",

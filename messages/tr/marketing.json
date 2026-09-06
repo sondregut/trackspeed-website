@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sprint zamanlaması. Cebinizde.",
-    "description": "Otomatik sprint ölçümü, kablosuz kapılar, solo turlar, fotoğraf inceleme, sporcu profilleri ve seans geçmişi. Watch ve çeviklik geliştirmelerini de keşfedin."
+    "description": "Otomatik sprint ölçümü, kablosuz kapılar, solo turlar, fotoğraf inceleme, sporcu profilleri ve seans geçmişi."
   },
   "nav": {
     "guide": "Tüm özellikler",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Seansınız bileğinizde.",
-      "body": "Watch başlangıçları, sonuç gösterimi ve koşu dinamikleri geliştiriyoruz. Eşlenmiş iPhone, saati zamanlama seansına bağlar.",
+      "body": "Watch’tan başlayın. Sonucu eşlenmiş iPhone’unuz üzerinden alın.",
       "steps": [
         "Watch başlangıçları için saati ana/başlangıç iPhone’una eşleyin.",
         "Bitiş ve isteğe bağlı ara noktalar için diğer telefonları kullanın.",
         "Süreyi ve mevcut hareket ölçümlerini inceleyin."
-      ],
-      "requirement": "Geliştirme önizlemesi · Genel uygulamada henüz yok"
+      ]
     },
     "turn": "Dönüş",
     "centre": "Orta",
     "lap": "Tur çizgisi",
-    "beta": "Geliştiriliyor",
     "available": "iOS’ta mevcut",
     "gates": {
       "tab": "Bağlı kapılar",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Çeviklik ve solo sprint",
       "title": "Tek kamera. Bütün çalışma.",
-      "body": "Yatay ölçüm; sabit ve uçuş başlangıçları, 5-10-5 ve gidiş-dönüş koşuları için geliştiriliyor. Ölçülen parkurun tamamı görünmeli.",
+      "body": "Tek başına sprint. Çeviklik. Tek kamera.",
       "steps": [
         "5-10-5 için aralarında 5 yard olan üç çizgi işaretleyin.",
         "Ortadan başlayın, iki dış çizgiye dokunun ve ortaya dönün.",
         "Ortadan ilk dönüş geçişi ara derecedir. İki çizgi temasını da videodan kontrol edin."
       ],
-      "requirement": "Geliştirme önizlemesi · Tripod ve dönüşlerin video incelemesi"
+      "requirement": "Tripod ve dönüşlerin video incelemesi"
     },
     "watchLabel": "Saat"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "Geliştiriliyor",
     "title": "Antrenmanınızın sonraki bölümü.",
     "body": "Apple Watch başlangıçları ve koşu dinamikleri. Yatay solo sprint. 5-10-5 ve gidiş-dönüş koşuları dahil futbol için çeviklik testleri.",
-    "note": "Bu özellikler fiziksel olarak test ediliyor ve genel uygulamada henüz bulunmuyor. Çıkış tarihi sözü verilmiyor.",
-    "link": "Geliştirme önizlemesini incele",
-    "illustration": "Geliştirme aşamasından temsili görünüm",
     "landscapeAlt": "Mavi pistte üç kapıdan geçen bir sprinti kaydeden TrackSpeed görseli",
     "watchAlt": "iPhone ve Apple Watch üzerinde örnek sprint sonucu gösteren TrackSpeed"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Tek telefon kullanabilir miyim?",
-        "answer": "Evet. Solo Laps aynı kamera çizgisinden tekrarlanan geçişleri kaydeder. Ayrı başlangıç ve bitiş noktaları bağlı telefonlar kullanır. Yatay tek kamera sprint ve çeviklik modları geliştiriliyor."
+        "answer": "Evet. Solo Laps aynı kamera çizgisinden tekrarlanan geçişleri kaydeder. Ayrı başlangıç ve bitiş noktaları bağlı telefonlar kullanır."
       },
       {
         "question": "Wi-Fi veya internet gerekli mi?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Apple Watch veya Android ile çalışır mı?",
-        "answer": "Burada anlatılan genel uygulama iPhone ve iPad içindir. Watch özellikleri, yatay çeviklik ve Android geliştiriliyor. Platformlar arasında aynı özellikler vaat edilmiyor."
+        "answer": "TrackSpeed, iPhone ve iPad üzerinde çalışır. Apple Watch, eşlenmiş iPhone üzerinden bağlanır. Desteklenen platformlar ve kullanılabilir özellikler için mağaza sayfasını kontrol edin."
       },
       {
         "question": "TrackSpeed’in ücreti nedir?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Verdiğiniz emek için sprint zamanlaması.",
-    "moreApps": "Geliştiriciden daha fazlası",
-    "availability": "Watch ve yatay çeviklik: geliştiriliyor."
+    "moreApps": "Geliştiriciden daha fazlası"
   },
   "editorial": {
     "sceneLabel": "Ortam seçin",

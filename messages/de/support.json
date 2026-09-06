@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Brauche ich spezielle Ausrüstung?",
-        "answer": "Ja. Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys. Querformat-Sprints und Agility sind noch in Entwicklung."
+        "answer": "Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys."
       },
       "models": {
         "question": "Welche phone-Modelle werden unterstützt?",

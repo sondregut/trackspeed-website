@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sprintzeiten. Für deine Hosentasche.",
-    "description": "Automatische Sprintzeitmessung, drahtlose Messpunkte, Solo-Runden, Fotoprüfung, Athletenprofile und Trainingsverlauf. Mit Vorschau auf Watch und Agility."
+    "description": "Automatische Sprintzeitmessung, drahtlose Messpunkte, Solo-Runden, Fotoprüfung, Athletenprofile und Trainingsverlauf."
   },
   "nav": {
     "guide": "Alle Funktionen",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Dein Training am Handgelenk.",
-      "body": "Wir entwickeln Watch-Starts, Ergebnisanzeige und Laufdynamik. Das gekoppelte iPhone verbindet die Uhr mit der Zeiteinheit.",
+      "body": "Starte mit deiner Watch. Erhalte das Ergebnis über dein gekoppeltes iPhone.",
       "steps": [
         "Kopple die Watch für Watch-Starts mit dem Host-/Start-iPhone.",
         "Nutze weitere Handys für Ziel und Zwischenzeiten.",
         "Prüfe die Zeit und verfügbare Bewegungsdaten."
-      ],
-      "requirement": "Entwicklungsvorschau · Noch nicht in der öffentlichen App"
+      ]
     },
     "turn": "Wende",
     "centre": "Mitte",
     "lap": "Rundenlinie",
-    "beta": "In Entwicklung",
     "available": "Auf iOS verfügbar",
     "gates": {
       "tab": "Verbundene Messpunkte",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agility & Solo-Sprints",
       "title": "Eine Kamera. Die ganze Übung.",
-      "body": "Querformat-Zeitmessung für stehende und fliegende Sprints, 5-10-5 und Pendelläufe wird entwickelt. Die gesamte Strecke muss sichtbar sein.",
+      "body": "Solosprints. Agility-Drills. Eine Kamera.",
       "steps": [
         "Markiere für 5-10-5 drei Linien im Abstand von 5 Yards.",
         "Starte in der Mitte, berühre beide Außenlinien und kehre zur Mitte zurück.",
         "Die erste Rückkehr durch die Mitte ist eine Zwischenzeit. Prüfe beide Berührungen im Video."
       ],
-      "requirement": "Entwicklungsvorschau · Stativ und Videoprüfung der Wenden"
+      "requirement": "Stativ und Videoprüfung der Wenden"
     },
     "watchLabel": "Uhr"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "In Entwicklung",
     "title": "Das nächste Kapitel deines Trainings.",
     "body": "Apple-Watch-Starts und Laufdynamik. Solo-Sprints im Querformat. Fußball-Agility mit 5-10-5 und Pendelläufen.",
-    "note": "Diese Funktionen werden physisch getestet und sind noch nicht in der öffentlichen App. Ein Veröffentlichungstermin ist nicht zugesagt.",
-    "link": "Entwicklungsvorschau ansehen",
-    "illustration": "Illustrierte Entwicklungsvorschau",
     "landscapeAlt": "TrackSpeed filmt einen Sprint durch drei Tore auf einer blauen Laufbahn",
     "watchAlt": "TrackSpeed auf iPhone und Apple Watch mit einem beispielhaften Sprintergebnis"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Reicht ein Handy?",
-        "answer": "Ja. Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys. Querformat-Sprints und Agility sind noch in Entwicklung."
+        "answer": "Ja. Solo Laps erfasst wiederholte Überquerungen einer Kameralinie. Getrennte Start- und Zielpositionen nutzen verbundene Handys."
       },
       {
         "question": "Brauche ich Wi-Fi oder Internet?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Funktioniert es mit Apple Watch oder Android?",
-        "answer": "Die hier beschriebene öffentliche App ist für iPhone und iPad. Watch, Querformat-Agility und Android werden entwickelt. Gleicher Funktionsumfang auf allen Plattformen ist nicht zugesagt."
+        "answer": "TrackSpeed läuft auf iPhone und iPad. Die Apple Watch verbindet sich über das gekoppelte iPhone. Unterstützte Plattformen und verfügbare Funktionen findest du im jeweiligen Store."
       },
       {
         "question": "Was kostet TrackSpeed?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Sprintzeitmessung für dein Training.",
-    "moreApps": "Mehr vom Entwickler",
-    "availability": "Watch und Querformat-Agility: in Entwicklung."
+    "moreApps": "Mehr vom Entwickler"
   },
   "editorial": {
     "sceneLabel": "Umgebung auswählen",

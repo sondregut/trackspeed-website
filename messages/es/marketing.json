@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Cronometra tu sprint. En tu bolsillo.",
-    "description": "Cronometraje automático, puertas inalámbricas, vueltas en solitario, revisión de fotos, perfiles e historial. Descubre también los proyectos Watch y agilidad."
+    "description": "Cronometraje automático, puertas inalámbricas, vueltas en solitario, revisión de fotos, perfiles e historial."
   },
   "nav": {
     "guide": "Todas las funciones",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Tu sesión en la muñeca.",
-      "body": "Desarrollamos salidas desde el Watch, resultados y dinámica de carrera. El iPhone enlazado conecta el reloj con la sesión.",
+      "body": "Sal desde el Watch. Recibe el resultado a través del iPhone enlazado.",
       "steps": [
         "Para salidas desde el Watch, enlázalo al iPhone anfitrión de salida.",
         "Usa otros teléfonos para la meta y los parciales.",
         "Revisa el tiempo y las métricas de movimiento disponibles."
-      ],
-      "requirement": "Versión en desarrollo · Aún no está en la app pública"
+      ]
     },
     "turn": "Giro",
     "centre": "Centro",
     "lap": "Línea de vuelta",
-    "beta": "En desarrollo",
     "available": "Disponible en iOS",
     "gates": {
       "tab": "Puertas conectadas",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agilidad y sprints solo",
       "title": "Una cámara. Todo el ejercicio.",
-      "body": "Desarrollamos el modo horizontal para salidas paradas y lanzadas, 5-10-5 e idas y vueltas. Mantén todo el recorrido visible.",
+      "body": "Sprints en solitario. Agilidad. Una cámara.",
       "steps": [
         "Para el 5-10-5, marca tres líneas separadas por 5 yardas.",
         "Sal del centro, toca ambas líneas exteriores y vuelve al centro.",
         "El primer regreso por el centro es un parcial. Revisa ambos toques en vídeo."
       ],
-      "requirement": "Versión en desarrollo · Trípode y revisión de los giros en vídeo"
+      "requirement": "Trípode y revisión de los giros en vídeo"
     },
     "watchLabel": "Reloj"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "En desarrollo",
     "title": "El siguiente capítulo de tu entrenamiento.",
     "body": "Salidas con Apple Watch y dinámica de carrera. Sprints en solitario con el teléfono horizontal. Agilidad para fútbol, con 5-10-5 e idas y vueltas.",
-    "note": "Estas funciones están en pruebas físicas y aún no forman parte de la app pública. No hay una fecha de lanzamiento prometida.",
-    "link": "Ver las funciones en desarrollo",
-    "illustration": "Vista previa ilustrada",
     "landscapeAlt": "TrackSpeed graba un sprint a través de tres puertas en una pista azul",
     "watchAlt": "TrackSpeed en iPhone y Apple Watch con un resultado de sprint de ejemplo"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "¿Puedo usar un solo teléfono?",
-        "answer": "Sí. Solo Laps registra cruces repetidos de una misma línea. Para salida y meta separadas se conectan varios teléfonos. Los sprints y la agilidad con cámara horizontal están en desarrollo."
+        "answer": "Sí. Solo Laps registra cruces repetidos de una misma línea. Para salida y meta separadas se conectan varios teléfonos."
       },
       {
         "question": "¿Necesito Wi-Fi o internet?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "¿Funciona con Apple Watch o Android?",
-        "answer": "La experiencia pública descrita es para iPhone y iPad. Las funciones Watch, la agilidad horizontal y Android están en desarrollo. No se promete igualdad de funciones entre plataformas."
+        "answer": "TrackSpeed funciona en iPhone y iPad. El Apple Watch se conecta a través del iPhone enlazado. Consulta la ficha de la tienda para ver las plataformas compatibles y las funciones disponibles."
       },
       {
         "question": "¿Cuánto cuesta TrackSpeed?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Cronometraje de sprints para tu esfuerzo diario.",
-    "moreApps": "Más del desarrollador",
-    "availability": "Watch y agilidad horizontal: en desarrollo."
+    "moreApps": "Más del desarrollador"
   },
   "editorial": {
     "sceneLabel": "Elige un entorno",

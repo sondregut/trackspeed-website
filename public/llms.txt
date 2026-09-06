@@ -25,13 +25,13 @@ Last updated: 2026-09-06
 - Results can include session history, athlete profiles, photo-finish review, and video export, depending on the selected plan.
 - The website is available in 13 languages. Long-form blog articles are currently English-only.
 - Free download with in-app purchases. Plans, prices, trial eligibility and entitlements must be checked in the app for the account and region.
-- Solo Laps uses one phone for repeated crossings at one line. Watch starts, running dynamics and landscape sprint/agility modes are development previews, not public app features.
-- Android is in development; platform feature parity is not promised.
+- Solo Laps uses one phone for repeated crossings at one line. The feature guide also covers Watch starts, running dynamics and landscape sprint/agility modes.
+- Check the relevant store listing for platform support and available features.
 
 ## Primary pages
 
 - [Homepage](https://mytrackspeed.com): Product overview, interactive setup guide, feature summary, and App Store download
-- [All features](https://mytrackspeed.com/features): Searchable guide to timing, connections, review, training, sharing and development previews
+- [All features](https://mytrackspeed.com/features): Searchable guide to timing, connections, review, training, sharing, Apple Watch and agility
 - [Technology](https://mytrackspeed.com/technology): Measurement principles, reviewable evidence, setup factors, accuracy scope, and limitations
 - [About](https://mytrackspeed.com/about): Founder biography and product origin
 - [Apps by Sondre Guttormsen](https://www.athletemindset.app/apps): Official portfolio connecting TrackSpeed, Athlete Mindset, and Vault

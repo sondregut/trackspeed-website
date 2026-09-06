@@ -7,7 +7,7 @@ export const featureGroups: {id: FeatureGroupId; title: string; description: str
   {id: "review", title: "Evidence & results", description: "Understand the result and keep the context."},
   {id: "training", title: "Athletes & training", description: "Keep every athlete, repetition and session organized."},
   {id: "sharing", title: "Sharing & everyday use", description: "Take the session with you."},
-  {id: "beta", title: "In development", description: "A preview of work undergoing physical testing. These features are not in the public app yet."},
+  {id: "beta", title: "Apple Watch & agility", description: "Watch starts, running dynamics and landscape sprint and agility timing."},
 ];
 export const productFeatures: ProductFeature[] = [
   {id:"automatic",group:"timing",status:"ios",title:"Automatic camera gates",description:"Position a camera at a measured line. A detected crossing records the event used to time your run."},

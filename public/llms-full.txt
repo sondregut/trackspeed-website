@@ -146,10 +146,10 @@ Comparison articles contain dated market information. Use them for methodology a
 - Do not infer certification, Android availability, an official partnership, or a performance guarantee from marketing shorthand.
 
 
-## 14. Complete feature guide and development previews
+## 14. Complete feature guide
 
 See https://mytrackspeed.com/features for the current feature guide: automatic camera gates; five start methods; split times and average speed; Solo Laps; connected start, split and finish phones; supported Wi-Fi Aware and Bluetooth routes; event timestamp synchronization; local timing; gate readiness; crossing photos and adjustment; session history; personal bests; athlete profiles; templates; custom distances; repeated sessions; units; CSV, result cards and video overlays; supported cloud sync; appearance and language options.
 
-Watch-generated starts, Watch results and running dynamics, landscape one-phone sprints, 5-10-5 pro agility, out-and-back drills, and solo video refinement are in development. They are not included in the public app and have no promised public release date. For Watch-generated starts, the paired host/start iPhone bridges the Watch to the remaining timing phones. Complete Watch-start and landscape beta evidence currently stays local.
+The feature guide also covers Watch-generated starts, Watch results and running dynamics, landscape one-phone sprints, 5-10-5 pro agility, out-and-back drills, and solo video refinement. Check the app and store listing for current availability. For Watch-generated starts, the paired host/start iPhone bridges the Watch to the remaining timing phones. Complete Watch-start and landscape beta evidence currently stays local.
 
-For the 5-10-5 preview, three lines are spaced 5 yards apart. The runner starts at centre, touches both outside lines and returns through centre. The first return through centre is a split, and both outside touches require video review. Solo Laps, which is a separate public feature, times repeated crossings of a single camera line.
+For 5-10-5, three lines are spaced 5 yards apart. The runner starts at centre, touches both outside lines and returns through centre. The first return through centre is a split, and both outside touches require video review. Solo Laps, which is a separate public feature, times repeated crossings of a single camera line.

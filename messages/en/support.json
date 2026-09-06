@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Do I need special equipment?",
-        "answer": "Yes. Solo Laps records repeated crossings at one camera line. Separate start and finish positions use connected phones. The landscape one-camera sprint and agility modes are still in development."
+        "answer": "Solo Laps records repeated crossings at one camera line. Separate start and finish positions use connected phones."
       },
       "models": {
         "question": "What phone models are supported?",

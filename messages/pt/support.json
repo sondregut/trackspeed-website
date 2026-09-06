@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Preciso de equipamento especial?",
-        "answer": "Sim. Solo Laps registra passagens repetidas pela mesma linha. Largada e chegada em locais separados usam celulares conectados. Sprints e agilidade com câmera horizontal estão em desenvolvimento."
+        "answer": "Solo Laps registra passagens repetidas pela mesma linha. Largada e chegada em locais separados usam celulares conectados."
       },
       "models": {
         "question": "Quais modelos de phone sao compativeis?",

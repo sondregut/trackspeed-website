@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Le chrono sprint. Dans votre poche.",
-    "description": "Chronométrage automatique, portes sans fil, tours solo, photos, profils et historique. Découvrez aussi les projets Watch et agilité."
+    "description": "Chronométrage automatique, portes sans fil, tours solo, photos, profils et historique."
   },
   "nav": {
     "guide": "Toutes les fonctions",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "La séance à votre poignet.",
-      "body": "Nous développons les départs Watch, les résultats et la dynamique de course. L’iPhone jumelé relie la montre à la séance.",
+      "body": "Partez depuis votre Watch. Recevez le résultat via votre iPhone jumelé.",
       "steps": [
         "Jumelez la Watch à l’iPhone hôte de départ pour les départs Watch.",
         "Utilisez d’autres téléphones à l’arrivée et aux intermédiaires.",
         "Consultez le temps et les mesures de mouvement disponibles."
-      ],
-      "requirement": "Aperçu en développement · Pas encore dans l’app publique"
+      ]
     },
     "turn": "Demi-tour",
     "centre": "Centre",
     "lap": "Ligne de tour",
-    "beta": "En développement",
     "available": "Disponible sur iOS",
     "gates": {
       "tab": "Portes connectées",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agilité et sprints solo",
       "title": "Une caméra. Tout l’exercice.",
-      "body": "Le mode paysage est en développement pour les départs arrêtés et lancés, le 5-10-5 et les allers-retours. Gardez tout le parcours visible.",
+      "body": "Sprints en solo. Agilité. Une caméra.",
       "steps": [
         "Pour le 5-10-5, tracez trois lignes espacées de 5 yards.",
         "Partez du centre, touchez les deux lignes extérieures, revenez au centre.",
         "Le premier retour au centre est un intermédiaire. Vérifiez les deux touches en vidéo."
       ],
-      "requirement": "Aperçu en développement · Trépied et contrôle vidéo des touches"
+      "requirement": "Trépied et contrôle vidéo des touches"
     },
     "watchLabel": "Montre"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "En développement",
     "title": "La suite de votre entraînement.",
     "body": "Départs Apple Watch et dynamique de course. Sprints solo en paysage. Agilité football avec 5-10-5 et allers-retours.",
-    "note": "Ces fonctions sont testées sur le terrain et ne sont pas encore dans l’app publique. Aucune date de sortie n’est promise.",
-    "link": "Voir l’aperçu en développement",
-    "illustration": "Aperçu illustré du développement",
     "landscapeAlt": "TrackSpeed filme un sprint à travers trois portes sur une piste bleue",
     "watchAlt": "TrackSpeed sur iPhone et Apple Watch avec un exemple de résultat de sprint"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Un seul téléphone suffit-il ?",
-        "answer": "Oui. Solo Laps mesure les passages répétés d’une même ligne. Des positions de départ et d’arrivée distinctes utilisent des téléphones connectés. Les sprints et l’agilité en paysage sont en développement."
+        "answer": "Oui. Solo Laps mesure les passages répétés d’une même ligne. Des positions de départ et d’arrivée distinctes utilisent des téléphones connectés."
       },
       {
         "question": "Faut-il du Wi-Fi ou Internet ?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Apple Watch et Android sont-ils compatibles ?",
-        "answer": "L’expérience publique décrite ici concerne iPhone et iPad. Les fonctions Watch, l’agilité en paysage et Android sont en développement. La parité entre plateformes n’est pas promise."
+        "answer": "TrackSpeed fonctionne sur iPhone et iPad. L’Apple Watch se connecte via l’iPhone jumelé. Consultez la fiche de la boutique pour les plateformes prises en charge et les fonctions disponibles."
       },
       {
         "question": "Combien coûte TrackSpeed ?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Le chrono sprint au service de votre travail.",
-    "moreApps": "Du même développeur",
-    "availability": "Watch et agilité en paysage : en développement."
+    "moreApps": "Du même développeur"
   },
   "editorial": {
     "sceneLabel": "Choisir un environnement",

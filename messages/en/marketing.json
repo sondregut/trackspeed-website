@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sprint timing. In your pocket.",
-    "description": "Automatic sprint timing, wireless gates, solo laps, photo review, athlete profiles and session history. Explore TrackSpeed, plus previews of Watch and agility training."
+    "description": "Automatic sprint timing, wireless gates, solo laps, photo review, athlete profiles and session history."
   },
   "nav": {
     "guide": "All features",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "Keep the session on your wrist.",
-      "body": "We’re developing Watch starts, delivered results and running dynamics. Your paired iPhone connects the Watch to the timing session.",
+      "body": "Start from your Watch. Get the result through your paired iPhone.",
       "steps": [
         "Pair the Watch to the host/start iPhone for Watch starts.",
         "Use other phones for your finish and optional splits.",
         "Review the time, then explore available movement metrics."
-      ],
-      "requirement": "Development preview · Not in the public app yet"
+      ]
     },
     "turn": "Turn",
     "centre": "Centre",
     "lap": "Lap line",
-    "beta": "In development",
     "available": "Available on iOS",
     "gates": {
       "tab": "Connected gates",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agility & solo sprints",
       "title": "One camera. The whole drill.",
-      "body": "Landscape timing in development for standing and flying sprints, 5-10-5 and out-and-back drills. Keep the measured course in view.",
+      "body": "Solo sprints. Agility drills. One camera.",
       "steps": [
         "For 5-10-5, mark three lines 5 yards apart.",
         "Start at centre, touch both outside lines, return to centre.",
         "The first centre return is a split. Review both touches on video."
       ],
-      "requirement": "Development preview · Tripod and video turn review"
+      "requirement": "Tripod and video turn review"
     },
     "watchLabel": "Watch"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "In development",
     "title": "The next chapter of your training.",
     "body": "Apple Watch starts and running dynamics. Landscape solo sprints. Football agility tests, including 5-10-5 and out-and-back drills.",
-    "note": "These features are in physical testing and are not included in the public app yet. No release date is promised.",
-    "link": "Explore the development preview",
-    "illustration": "Illustrated development preview",
     "landscapeAlt": "Illustration of TrackSpeed filming a sprint through three gates on a blue track",
     "watchAlt": "TrackSpeed on iPhone and Apple Watch with a sample sprint result"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Can I use just one phone?",
-        "answer": "Yes. Solo Laps records repeated crossings at one camera line. Separate start and finish positions use connected phones. The landscape one-camera sprint and agility modes are still in development."
+        "answer": "Yes. Solo Laps records repeated crossings at one camera line. Separate start and finish positions use connected phones."
       },
       {
         "question": "Do I need Wi-Fi or internet?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Does it work with Apple Watch or Android?",
-        "answer": "The public experience described here is for iPhone and iPad. Watch features and landscape agility modes are in development. Android is also being developed; this site does not promise feature parity across platforms."
+        "answer": "TrackSpeed runs on iPhone and iPad. Apple Watch connects through its paired iPhone. Check the store listing for platform support and available features."
       },
       {
         "question": "What does TrackSpeed cost?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Sprint timing for the work you put in.",
-    "moreApps": "More from the Developer",
-    "availability": "Watch and landscape agility: in development."
+    "moreApps": "More from the Developer"
   },
   "editorial": {
     "sceneLabel": "Choose a setting",

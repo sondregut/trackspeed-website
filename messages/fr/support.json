@@ -20,7 +20,7 @@
       },
       "equipment": {
         "question": "Ai-je besoin d'un équipement spécial ?",
-        "answer": "Oui. Solo Laps mesure les passages répétés d’une même ligne. Des positions de départ et d’arrivée distinctes utilisent des téléphones connectés. Les sprints et l’agilité en paysage sont en développement."
+        "answer": "Solo Laps mesure les passages répétés d’une même ligne. Des positions de départ et d’arrivée distinctes utilisent des téléphones connectés."
       },
       "models": {
         "question": "Quels modèles d'phone sont compatibles ?",

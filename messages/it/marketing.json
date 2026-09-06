@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Cronometra gli sprint. Nella tua tasca.",
-    "description": "Cronometraggio automatico, porte wireless, giri in solitaria, foto, profili e cronologia. Scopri anche le anteprime Watch e agilità."
+    "description": "Cronometraggio automatico, porte wireless, giri in solitaria, foto, profili e cronologia."
   },
   "nav": {
     "guide": "Tutte le funzioni",
@@ -49,18 +49,16 @@
     "watch": {
       "tab": "Apple Watch",
       "title": "La sessione al polso.",
-      "body": "Stiamo sviluppando partenze Watch, risultati e dinamica di corsa. L’iPhone abbinato collega l’orologio alla sessione.",
+      "body": "Parti dal Watch. Ricevi il risultato tramite l’iPhone abbinato.",
       "steps": [
         "Per le partenze Watch, abbinalo all’iPhone host di partenza.",
         "Usa altri telefoni per arrivo e intermedi.",
         "Controlla il tempo e le metriche di movimento disponibili."
-      ],
-      "requirement": "Anteprima in sviluppo · Non ancora nell’app pubblica"
+      ]
     },
     "turn": "Inversione",
     "centre": "Centro",
     "lap": "Linea del giro",
-    "beta": "In sviluppo",
     "available": "Disponibile su iOS",
     "gates": {
       "tab": "Porte collegate",
@@ -87,13 +85,13 @@
     "agility": {
       "tab": "Agilità e sprint solo",
       "title": "Una fotocamera. Tutto l’esercizio.",
-      "body": "Il cronometraggio orizzontale è in sviluppo per partenze da fermo e lanciate, 5-10-5 e navette. Mantieni visibile tutto il percorso.",
+      "body": "Sprint in solitaria. Agilità. Una videocamera.",
       "steps": [
         "Per il 5-10-5, segna tre linee distanti 5 yard.",
         "Parti dal centro, tocca le due linee esterne e torna al centro.",
         "Il primo ritorno attraverso il centro è un intermedio. Controlla entrambi i tocchi nel video."
       ],
-      "requirement": "Anteprima in sviluppo · Treppiede e controllo video delle inversioni"
+      "requirement": "Treppiede e controllo video delle inversioni"
     },
     "watchLabel": "Orologio"
   },
@@ -168,12 +166,8 @@
     ]
   },
   "beta": {
-    "kicker": "In sviluppo",
     "title": "Il prossimo capitolo del tuo allenamento.",
     "body": "Partenze Apple Watch e dinamica di corsa. Sprint solo con telefono orizzontale. Agilità per il calcio, con 5-10-5 e navette.",
-    "note": "Queste funzioni sono in fase di test sul campo e non sono ancora nell’app pubblica. Non è promessa una data di uscita.",
-    "link": "Scopri l’anteprima in sviluppo",
-    "illustration": "Anteprima illustrata",
     "landscapeAlt": "TrackSpeed riprende uno sprint attraverso tre varchi su una pista blu",
     "watchAlt": "TrackSpeed su iPhone e Apple Watch con un risultato di sprint di esempio"
   },
@@ -189,7 +183,7 @@
     "items": [
       {
         "question": "Basta un telefono?",
-        "answer": "Sì. Solo Laps registra passaggi ripetuti sulla stessa linea. Partenza e arrivo separati richiedono telefoni collegati. Sprint e agilità con fotocamera orizzontale sono in sviluppo."
+        "answer": "Sì. Solo Laps registra passaggi ripetuti sulla stessa linea. Partenza e arrivo separati richiedono telefoni collegati."
       },
       {
         "question": "Servono Wi-Fi o internet?",
@@ -201,7 +195,7 @@
       },
       {
         "question": "Funziona con Apple Watch o Android?",
-        "answer": "L’esperienza pubblica descritta è per iPhone e iPad. Watch, agilità orizzontale e Android sono in sviluppo. Non promettiamo funzioni identiche su tutte le piattaforme."
+        "answer": "TrackSpeed funziona su iPhone e iPad. Apple Watch si collega tramite l’iPhone abbinato. Consulta la scheda nello store per le piattaforme supportate e le funzioni disponibili."
       },
       {
         "question": "Quanto costa TrackSpeed?",
@@ -217,8 +211,7 @@
   },
   "footer": {
     "tagline": "Cronometraggio sprint per il tuo impegno quotidiano.",
-    "moreApps": "Altro dallo sviluppatore",
-    "availability": "Watch e agilità orizzontale: in sviluppo."
+    "moreApps": "Altro dallo sviluppatore"
   },
   "editorial": {
     "sceneLabel": "Scegli un ambiente",
