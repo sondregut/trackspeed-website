@@ -9,6 +9,7 @@ import SprintPreview from "./SprintPreview";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
+const startArtwork = ["flying", "touch", "countdown", "voice", "in-frame"];
 
 export default function MarketingHome({copy: c}: {copy: typeof copy}) {
   return <div className="marketing-home editorial-home">
@@ -34,6 +35,18 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       </div>
     </section>
 
+    <section id="preview" className="editorial-section landscape-section">
+      <div className="marketing-container">
+        <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2><span className="development-label">{c.beta.kicker}</span></div>
+        <p className="section-description">{c.editorial.landscapeBody}</p>
+        <figure className="landscape-product">
+          <Image src="/product/landscape-practice-transparent.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
+          <figcaption>{c.beta.illustration}</figcaption>
+        </figure>
+        <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
+      </div>
+    </section>
+
     <section id="how-it-works" className="editorial-section">
       <div className="marketing-container">
         <div className="section-intro"><h2>{c.modes.title}</h2><p>{c.modes.description}</p></div>
@@ -54,21 +67,22 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
     </section>
 
     <section id="start-types" className="editorial-section starts-section">
-      <div className="marketing-container starts-layout">
-        <div className="story-copy"><h2>{c.starts.title}</h2><p>{c.starts.description}</p></div>
-        <div className="editorial-accordion">{c.starts.items.map((item, index) => <details key={item.title} open={index === 0}><summary><span className="list-number">0{index + 1}</span><h3>{item.title}</h3><PlusIcon aria-hidden="true"/></summary><p>{item.body}</p></details>)}</div>
-      </div>
-    </section>
-
-    <section id="preview" className="editorial-section landscape-section">
       <div className="marketing-container">
-        <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2><span className="development-label">{c.beta.kicker}</span></div>
-        <p className="section-description">{c.editorial.landscapeBody}</p>
-        <figure className="landscape-product">
-          <Image src="/product/landscape-practice-transparent.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
-          <figcaption>{c.beta.illustration}</figcaption>
-        </figure>
-        <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
+        <div className="section-intro start-method-intro"><h2>{c.starts.title}</h2><p>{c.starts.description}</p></div>
+        <ol className="start-method-grid">
+          {c.starts.items.map((item, index) => <li key={startArtwork[index]} className={`start-method-card start-method-${startArtwork[index]}`}>
+            <div className="start-method-copy">
+              <span className="list-number" aria-hidden="true">0{index + 1}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+            <div className="start-method-art">
+              <Image src={`/product/start-${startArtwork[index]}-athlete.png`} alt="" width={1254} height={1254} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
+              {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
+              {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
+            </div>
+          </li>)}
+        </ol>
       </div>
     </section>
 

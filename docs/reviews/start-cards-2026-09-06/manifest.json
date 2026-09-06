@@ -1,0 +1,84 @@
+{
+  "created": "2026-09-06",
+  "tool": "built-in image_gen",
+  "intent": "Original athlete cutouts for five website start-method cards and the actual iPhone start selection and ready screens.",
+  "reference": "User's card-layout reference is design inspiration only. No competitor image or app screenshot was used to generate these athletes.",
+  "backgroundRemovalApproval": "Owner explicitly approved local background removal and requested magenta/green key backgrounds. Preserve native alpha where present; remove magenta from the touch and voice images.",
+  "assets": [
+    {
+      "slug": "flying",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: original premium sports photography cutout for a TrackSpeed website feature card.\nCreate ONE photorealistic adult athlete, with impeccable natural anatomy and authentic sprint technique. The finished image will be cut out and placed over a pale blue editorial card, so no typography or graphical UI should be drawn. Premium commercial sports photography, realistic skin texture, detailed technical fabric, crisp fast-shutter action, warm soft directional daylight with clean neutral fill. Full body, both shoes and every hand completely in frame with generous 10 percent clear margins; centered composition, roughly square image. No visible clothing logos, no watermarks, no ornamental objects, no duplicated limbs.\nBackground: flat saturated chroma-key magenta #FF00FF everywhere outside the subject and any explicitly specified phone. Include magenta between limbs and fingers. No floor, no track patch, no scenery, no cast shadow, no gradient, no magenta light spill. This background will be removed locally into true alpha. Preserve natural neutral highlights and make the silhouette easy to separate.\nSubject and action: A powerful Black woman sprinter in her late twenties, natural hair tied into a compact ponytail, wearing a deep navy sleeveless sprint singlet and fitted navy running shorts, clean white sprint spikes. Side profile facing right, captured upright at full speed in a natural mid-flight sprint stride: front knee driven high, opposite arm forward, rear leg following through. Relaxed hands, focused eyes looking ahead, excellent athletic posture. This is a flying start already at speed, not a crouching start. Athlete only, no phone.",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-0e35b5b3-65e5-4b59-8266-6683c4b4740d.png",
+      "websiteAsset": "public/product/start-flying-athlete.png",
+      "appAsset": "SprintTimer/SprintTimer/Assets.xcassets/start_flying.imageset/start-flying-athlete.png",
+      "verification": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparentPixels": 1232417,
+        "sha256": "eb51926d1d44e5e3217a04b0eb5c92ae500e7519e4eaf970cbc5c5e90299a596",
+        "nativeSHA256": "25a825a630978be3af084fed196686ce75a33a797325011b92eca4f731dec6cb"
+      }
+    },
+    {
+      "slug": "touch",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: original premium sports photography cutout for a TrackSpeed website feature card.\nCreate ONE photorealistic adult athlete, with impeccable natural anatomy and authentic sprint technique. The finished image will be cut out and placed over a pale blue editorial card, so no typography or graphical UI should be drawn. Premium commercial sports photography, realistic skin texture, detailed technical fabric, crisp fast-shutter action, warm soft directional daylight with clean neutral fill. Full body, both shoes and every hand completely in frame with generous 10 percent clear margins; centered composition, roughly square image. No visible clothing logos, no watermarks, no ornamental objects, no duplicated limbs.\nBackground: flat saturated chroma-key magenta #FF00FF everywhere outside the subject and any explicitly specified phone. Include magenta between limbs and fingers. No floor, no track patch, no scenery, no cast shadow, no gradient, no magenta light spill. This background will be removed locally into true alpha. Preserve natural neutral highlights and make the silhouette easy to separate.\nSubject and action: A lean athletic tan-skinned man in his late twenties with short dark curly hair, charcoal short-sleeve technical top, dark navy short running shorts and white running shoes. Side three-quarter view facing right, in a low stable three-point sprint start position. One foot forward with bent knee, the other foot back, free arm ready behind him. His right index fingertip is visibly resting on the screen of ONE actual-size modern black smartphone lying screen-up on the invisible ground just in front of his right hand. The hand should be naturally close to the ground, five correct fingers with only index fingertip on glass. Frame the entire athlete and this small phone; the phone is a believable 15-centimetre object, not oversized. Show the instant before he lifts the finger and accelerates. Screen is dark with one subtle blue glow, no text.",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-f82ee456-0328-4e11-bdac-1f6d54a7c2bf.png",
+      "websiteAsset": "public/product/start-touch-athlete.png",
+      "appAsset": "SprintTimer/SprintTimer/Assets.xcassets/start_touch.imageset/start-touch-athlete.png",
+      "verification": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparentPixels": 1204817,
+        "sha256": "3e945475745e06524ad671e741eb617494e8fc6dd9c3895a012df31869b0e8a8",
+        "nativeSHA256": "4ab461abc0a3c4a4223a9ae8b3454222ef8a003096f1ad79c40458f9eea0eba7"
+      }
+    },
+    {
+      "slug": "countdown",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: original premium sports photography cutout for a TrackSpeed website feature card.\nCreate ONE photorealistic adult athlete, with impeccable natural anatomy and authentic sprint technique. The finished image will be cut out and placed over a pale blue editorial card, so no typography or graphical UI should be drawn. Premium commercial sports photography, realistic skin texture, detailed technical fabric, crisp fast-shutter action, warm soft directional daylight with clean neutral fill. Full body, both shoes and every hand completely in frame with generous 10 percent clear margins; centered composition, roughly square image. No visible clothing logos, no watermarks, no ornamental objects, no duplicated limbs.\nBackground: flat saturated chroma-key magenta #FF00FF everywhere outside the subject and any explicitly specified phone. Include magenta between limbs and fingers. No floor, no track patch, no scenery, no cast shadow, no gradient, no magenta light spill. This background will be removed locally into true alpha. Preserve natural neutral highlights and make the silhouette easy to separate.\nSubject and action: A lean East Asian woman sprinter in her late twenties, straight dark hair in a high ponytail, pale ice-blue fitted short-sleeve technical running top, deep navy running shorts and clean white sprint shoes. Side three-quarter view facing right in a ready-to-go two-point standing sprint stance, front knee bent and weight forward, rear heel raised, both arms naturally prepared to drive, chin neutral and eyes focused ahead, waiting attentively for an audible countdown cue. Athlete only, no phone, no coach, no headphones, no watch interaction. This is the still poised instant before acceleration, visibly different from an upright mid-flight flying sprint.",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-328ac859-0569-48cf-b4dd-47398f0b9b3d.png",
+      "websiteAsset": "public/product/start-countdown-athlete.png",
+      "appAsset": "SprintTimer/SprintTimer/Assets.xcassets/start_countdown.imageset/start-countdown-athlete.png",
+      "verification": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparentPixels": 1140248,
+        "sha256": "07f449f72457f3f894045531173e942d4848493992ea02df39bdc378a0ee71d9",
+        "nativeSHA256": "a6e1c5d9f763190fc032d5e2ecbc76c3bca1b0ddeabce20c298a482797035029"
+      }
+    },
+    {
+      "slug": "voice",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: original premium sports photography cutout for a TrackSpeed website feature card.\nCreate ONE photorealistic adult athlete, with impeccable natural anatomy and authentic sprint technique. The finished image will be cut out and placed over a pale blue editorial card, so no typography or graphical UI should be drawn. Premium commercial sports photography, realistic skin texture, detailed technical fabric, crisp fast-shutter action, warm soft directional daylight with clean neutral fill. Full body, both shoes and every hand completely in frame with generous 10 percent clear margins; centered composition, roughly square image. No visible clothing logos, no watermarks, no ornamental objects, no duplicated limbs.\nBackground: flat saturated chroma-key magenta #FF00FF everywhere outside the subject and any explicitly specified phone. Include magenta between limbs and fingers. No floor, no track patch, no scenery, no cast shadow, no gradient, no magenta light spill. This background will be removed locally into true alpha. Preserve natural neutral highlights and make the silhouette easy to separate.\nSubject and action: A muscular light-skinned male sprinter in his late twenties with short light brown hair, wearing a dark forest-green technical running shirt, graphite running shorts and white sprint shoes. Three-quarter side view facing right. He is still in a poised set position with staggered feet, bent front knee, torso leaning forward, arms naturally ready to accelerate, listening attentively to a spoken start sequence coming from a small black smartphone resting screen-up on the invisible ground beside the start position. Mouth closed, eyes focused down the track. The phone is a believable small 15-centimetre device and its screen has no readable text. Show the complete athlete, both shoes and the small phone. No coach, no one holding a phone, no speech bubbles, no headphones. This depicts an athlete listening to an automated spoken start cue, not speaking a command.",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-25ae1eb1-2254-4200-a360-5c02c7e43e6f.png",
+      "websiteAsset": "public/product/start-voice-athlete.png",
+      "appAsset": "SprintTimer/SprintTimer/Assets.xcassets/start_voice.imageset/start-voice-athlete.png",
+      "verification": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparentPixels": 1191037,
+        "sha256": "cfc32cfc51124cab3a9283e5810e9efc0dbb65c626da34318c9a39c2baa8133d",
+        "nativeSHA256": "2510185585d97c36a049b4a67a5bb4be3fa17059d2a4f451fca816c3e782f04f"
+      }
+    },
+    {
+      "slug": "in-frame",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: original premium sports photography cutout for a TrackSpeed website feature card.\nCreate ONE photorealistic adult athlete, with impeccable natural anatomy and authentic sprint technique. The finished image will be cut out and placed over a pale blue editorial card, so no typography or graphical UI should be drawn. Premium commercial sports photography, realistic skin texture, detailed technical fabric, crisp fast-shutter action, warm soft directional daylight with clean neutral fill. Full body, both shoes and every hand completely in frame with generous 10 percent clear margins; centered composition, roughly square image. No visible clothing logos, no watermarks, no ornamental objects, no duplicated limbs.\nBackground: flat saturated chroma-key magenta #FF00FF everywhere outside the subject and any explicitly specified phone. Include magenta between limbs and fingers. No floor, no track patch, no scenery, no cast shadow, no gradient, no magenta light spill. This background will be removed locally into true alpha. Preserve natural neutral highlights and make the silhouette easy to separate.\nSubject and action: A fit adult woman sprinter with medium brown skin and dark braided hair tied back, wearing a light neutral grey fitted technical shirt, charcoal short running shorts and white running shoes. Full-body side three-quarter view facing right, taking her first powerful accelerating step from a standing start: body leans forward, front knee just driving up, rear foot pushes off, arms bent naturally. To her left and slightly nearer the viewer is ONE realistic small modern black smartphone mounted vertically on a simple slim three-legged camera tripod at approximately her waist height. The phone's front glass points toward the athlete to indicate the selfie camera watches the start position, phone about 15 centimetres tall. Frame the complete athlete and entire tripod in a cohesive roughly square composition with a little separation. No lines or holograms, no timing gates, no studio floor, no extra devices or logos. The athlete is the dominant subject.",
+      "source": "/Users/sondre/.codex/generated_images/01a07601-8184-7202-87d8-2d85ad61f8f3/exec-5b5d5806-8eca-4526-ba79-28ff669f9808.png",
+      "websiteAsset": "public/product/start-in-frame-athlete.png",
+      "appAsset": "SprintTimer/SprintTimer/Assets.xcassets/start_in_frame.imageset/start-in-frame-athlete.png",
+      "verification": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparentPixels": 1191860,
+        "sha256": "9ffddf46e43ae93ce003e3326b46f69e0091cd818ec17d3fc4936cedbb786d58",
+        "nativeSHA256": "44d22c7b1611191d2b8b1415dbbf1964de85435e9717c6dce9a078a831fd5d52"
+      }
+    }
+  ]
+}
