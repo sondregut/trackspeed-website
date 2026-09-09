@@ -9,6 +9,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     description: t('privacy.description'),
     path: '/privacy',
     localized: false,
+    locale,
   });
 }
 

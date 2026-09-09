@@ -9,6 +9,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     description: t('terms.description'),
     path: '/terms',
     localized: false,
+    locale,
   });
 }
 

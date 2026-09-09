@@ -15,6 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     path: '/blog/sprint-timing-gates-buyers-guide',
     type: 'article',
     localized: false,
+    locale,
   });
 }
 

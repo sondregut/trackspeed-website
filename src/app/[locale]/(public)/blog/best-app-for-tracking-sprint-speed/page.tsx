@@ -72,13 +72,15 @@ const faqItems = [
   },
 ];
 
-export async function generateMetadata() {
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
   return getPageMetadata({
     title,
     description,
     path: `/blog/${slug}`,
     type: "article",
     localized: false,
+    locale,
   });
 }
 
