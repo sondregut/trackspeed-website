@@ -1,0 +1,11 @@
+
+> website@0.1.0 lint
+> eslint
+
+
+/Users/sondre/Documents/App/speed-swift/website/src/components/admin/DetectionReviewDashboard.tsx
+  368:15  warning  Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination  @next/next/no-location-assign-relative-destination
+  704:9   warning  Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination  @next/next/no-location-assign-relative-destination
+
+✖ 2 problems (0 errors, 2 warnings)
+

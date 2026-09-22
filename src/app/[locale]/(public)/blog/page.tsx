@@ -1,6 +1,6 @@
 import Image from "next/image";
+import NextLink from "next/link";
 import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {Link} from "@/i18n/navigation";
 import { blogPosts } from "@/lib/blog-posts";
 import { DownloadLink } from "@/components/DownloadLink";
 
@@ -56,7 +56,7 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             {blogPosts.map((post) => (
-              <Link
+              <NextLink
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="card-feature rounded-xl p-6 transition-shadow hover:shadow-md"
@@ -95,7 +95,7 @@ export default async function BlogPage({params}: {params: Promise<{locale: strin
                     day: "numeric",
                   })}
                 </time>
-              </Link>
+              </NextLink>
             ))}
           </div>
         </div>

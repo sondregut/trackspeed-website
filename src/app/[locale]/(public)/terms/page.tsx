@@ -75,6 +75,7 @@ export default async function TermsPage({params}: {params: Promise<{locale: stri
             <li>Record or photograph individuals without their consent</li>
             <li>Copy, modify, translate, adapt, create derivative works from, decompile, disassemble, reverse engineer, decrypt, or otherwise attempt to derive the source code or non-public technical components of the App</li>
             <li>Access or use the App, or information obtained from the App, for competitive analysis or to develop, train, test, improve, market, or provide any product or service that copies, replicates, or competes with TrackSpeed or any material feature of the App</li>
+            <li>Sell, rent, lease, sublicense, redistribute, provide paid access to, or otherwise commercially exploit the App or access to it, including by charging anyone specifically for access to or use of the App or offering the App on a hosted, managed, white-label, service-bureau, or similar basis, without TrackSpeed&apos;s prior written permission</li>
             <li>Remove or alter any proprietary notices in the App</li>
             <li>Use the App in any way that could damage or impair its functionality</li>
             <li>Use the App to harass, abuse, or harm others</li>

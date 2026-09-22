@@ -1,0 +1,109 @@
+
+> website@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.3.1 (webpack)
+- Environments: .env.local
+✓ Running next.config.ts took 98ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.3s
+  Running TypeScript ...
+  Finished TypeScript in 3.3s ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/415) ...
+  Generating static pages using 9 workers (103/415) 
+  Generating static pages using 9 workers (207/415) 
+  Generating static pages using 9 workers (311/415) 
+✓ Generating static pages using 9 workers (415/415) in 925ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ƒ /_not-found
+├ ƒ /[locale]
+├ ƒ /[locale]/about
+├ ƒ /[locale]/blog
+├ ƒ /[locale]/blog/best-app-for-tracking-sprint-speed
+├ ƒ /[locale]/blog/flying-10-meter-sprint-test
+├ ƒ /[locale]/blog/how-to-time-a-40-yard-dash
+├ ƒ /[locale]/blog/improve-sprint-speed-training
+├ ƒ /[locale]/blog/multi-phone-sprint-timing-setup
+├ ƒ /[locale]/blog/single-beam-vs-dual-beam-timing-gates
+├ ƒ /[locale]/blog/sprint-timing-gates-buyers-guide
+├ ƒ /[locale]/blog/sprint-timing-systems-compared
+├ ƒ /[locale]/blog/what-is-photo-finish-timing
+├ ƒ /[locale]/checkout/pro
+├ ƒ /[locale]/checkout/success
+├ ƒ /[locale]/creator-reward
+├ ƒ /[locale]/delete-account
+├ ƒ /[locale]/features
+├ ƒ /[locale]/feedback
+├ ƒ /[locale]/pitch
+├ ƒ /[locale]/privacy
+├ ƒ /[locale]/pro
+├ ƒ /[locale]/shop
+├ ƒ /[locale]/shop/[productId]
+├ ƒ /[locale]/support
+├ ƒ /[locale]/technology
+├ ƒ /[locale]/terms
+├ ƒ /admin
+├ ƒ /admin/codes
+├ ƒ /admin/codes/new
+├ ƒ /admin/creator-rewards
+├ ƒ /admin/detection-review
+├ ƒ /admin/detection-review/directions
+├ ƒ /admin/detection-review/misses
+├ ƒ /admin/emails
+├ ƒ /admin/influencers
+├ ƒ /admin/login
+├ ƒ /admin/notifications
+├ ƒ /admin/redemptions
+├ ƒ /admin/sms
+├ ƒ /api/admin/analytics
+├ ƒ /api/admin/analytics/revenuecat
+├ ƒ /api/admin/auth
+├ ƒ /api/admin/codes
+├ ƒ /api/admin/codes/[id]
+├ ƒ /api/admin/creator-rewards
+├ ƒ /api/admin/creator-rewards/[id]
+├ ƒ /api/admin/detection-evidence
+├ ƒ /api/admin/detection-review
+├ ƒ /api/admin/detection-review/image
+├ ƒ /api/admin/emails
+├ ƒ /api/admin/emails/preview
+├ ƒ /api/admin/emails/send-test
+├ ƒ /api/admin/influencers
+├ ƒ /api/admin/notifications
+├ ƒ /api/admin/redemptions
+├ ƒ /api/admin/redemptions/notify
+├ ƒ /api/admin/sms
+├ ƒ /api/admin/sms/send-test
+├ ƒ /api/analytics/posthog
+├ ƒ /api/checkout/pro
+├ ƒ /api/creator-rewards/status
+├ ƒ /api/creator-rewards/submit
+├ ƒ /api/feedback
+├ ƒ /api/feedback/[id]/comments
+├ ƒ /api/feedback/[id]/vote
+├ ƒ /api/influencer/apply
+├ ƒ /api/influencer/auth
+├ ƒ /api/influencer/stats
+├ ƒ /api/influencer/stripe-connect
+├ ƒ /api/revenuecat/webhook
+├ ƒ /api/unsubscribe
+├ ƒ /api/webhooks/revenuecat
+├ ƒ /get
+├ ƒ /influencer/apply
+├ ƒ /influencer/connect
+├ ƒ /influencer/dashboard
+├ ƒ /influencer/login
+├ ƒ /invite/[code]
+└ ○ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

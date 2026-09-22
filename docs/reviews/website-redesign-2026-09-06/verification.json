@@ -1,0 +1,74 @@
+{
+  "updated_at": "2026-09-06T16:09:51.485801+00:00",
+  "website": "implemented_and_verified_locally",
+  "deployed": false,
+  "committed": false,
+  "pushed": false,
+  "build": "webpack_pass",
+  "lint_errors": 0,
+  "preexisting_lint_warnings": 2,
+  "existing_test_count_passed": 51,
+  "test_execution_note": "Earlier in this work session; later changes were visual and document-language updates verified in browser.",
+  "http_passed": true,
+  "http_page_count": 117,
+  "unauthenticated_api_checks": [
+    {
+      "route": "/api/influencer/auth",
+      "status": 401,
+      "expected": 401,
+      "pass": true
+    },
+    {
+      "route": "/api/influencer/stats",
+      "status": 401,
+      "expected": 401,
+      "pass": true
+    },
+    {
+      "route": "/api/unsubscribe",
+      "status": 400,
+      "expected": 400,
+      "pass": true
+    }
+  ],
+  "npm_audit_vulnerabilities": 0,
+  "scoped_file_count": 59,
+  "asset_source_hash_match": {
+    "public/product/training-home.png": true,
+    "public/product/session-history.png": true,
+    "public/product/share-result.png": true
+  },
+  "browser": {
+    "desktop_width": 1280,
+    "feature_search_wifi": 1,
+    "development_filter": 8,
+    "reset_feature_count": 37,
+    "tabs_home_end_arrow_navigation": "pass",
+    "tab_panel_targets": "pass",
+    "faq_expansion": "pass",
+    "english_arabic_document_language_and_direction": "pass",
+    "english_inside_arabic_alignment": "pass",
+    "console_errors": 0,
+    "responsive": "CSS fixture review only; actual viewport override ineffective",
+    "reviewed_fixture_widths": [
+      360,
+      390,
+      768
+    ],
+    "mobile_safari_acceptance": "pending"
+  },
+  "watch": "blocked_before_installation_pending_device_connection_and_pairing_confirmation",
+  "android": "paused",
+  "remaining": [
+    "Physical iPhone Safari acceptance",
+    "Watch developer connection and installation verification"
+  ],
+  "report": "README.md",
+  "cleanup": {
+    "checked_at": "2026-09-06T16:11:53.218421+00:00",
+    "servers_3210_3211_stopped": true,
+    "temporary_browser_viewport_reset": true,
+    "temporary_source_backup_removed": true,
+    "responsive_generated_copies_removed": true
+  }
+}

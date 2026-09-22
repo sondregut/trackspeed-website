@@ -82,18 +82,29 @@ const siteJsonLd = {
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://mytrackspeed.com/#founder",
+      "@id": "https://www.athletemindset.app/#founder",
       name: "Sondre Guttormsen",
-      url: "https://mytrackspeed.com/about",
-      jobTitle: "Founder and developer of TrackSpeed",
+      url: "https://www.athletemindset.app/about",
+      jobTitle: "Founder, athlete, and app developer",
       sameAs: [
+        "https://worldathletics.org/athletes/norway/sondre-mogens-guttormsen-14681630",
         "https://www.linkedin.com/in/sondre-guttormsen-803b8619b",
         "https://instagram.com/sondre_pv",
+        "https://stavhopp.no/about",
+        "https://mytrackspeed.com/about",
       ],
     },
     {
       "@type": "Organization",
-      "@id": "https://mytrackspeed.com/#organization",
+      "@id": "https://www.athletemindset.app/#organization",
+      name: "Athlete Mindset Inc.",
+      url: "https://www.athletemindset.app",
+      founder: { "@id": "https://www.athletemindset.app/#founder" },
+      brand: { "@id": "https://mytrackspeed.com/#brand" },
+    },
+    {
+      "@type": ["Organization", "Brand"],
+      "@id": "https://mytrackspeed.com/#brand",
       name: "TrackSpeed",
       url: "https://mytrackspeed.com",
       logo: {
@@ -105,7 +116,7 @@ const siteJsonLd = {
       description:
         "Automatic sprint timing for training using iPhone cameras and multi-device synchronization.",
       foundingDate: "2025",
-      founder: { "@id": "https://mytrackspeed.com/#founder" },
+      parentOrganization: { "@id": "https://www.athletemindset.app/#organization" },
       contactPoint: {
         "@type": "ContactPoint",
         email: "support@mytrackspeed.com",
@@ -124,7 +135,8 @@ const siteJsonLd = {
       name: "TrackSpeed",
       alternateName: "TrackSpeed Sprint Timer",
       url: "https://mytrackspeed.com",
-      publisher: { "@id": "https://mytrackspeed.com/#organization" },
+      publisher: { "@id": "https://www.athletemindset.app/#organization" },
+      about: { "@id": "https://mytrackspeed.com/#brand" },
       inLanguage: [
         "en",
         "de",

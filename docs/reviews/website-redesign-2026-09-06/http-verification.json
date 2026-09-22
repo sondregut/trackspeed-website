@@ -1,0 +1,1197 @@
+{
+  "checked_at": "2026-09-06T16:07:14.307968+00:00",
+  "base": "http://localhost:3210",
+  "pages": [
+    {
+      "route": "/",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/de",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/de",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/de/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/de/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/de/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/de/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/de/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/de/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/de/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/de/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/de/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/de/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/de/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/fr",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/fr",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/fr/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/fr/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/fr/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/fr/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/fr/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/fr/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/fr/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/fr/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/fr/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/fr/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/fr/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/nb",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/nb",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/nb/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/nb/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/nb/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/nb/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/nb/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/nb/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/nb/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/nb/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/nb/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/nb/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/nb/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ja",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ja",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ja/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ja/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ja/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ja/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ja/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ja/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ja/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ja/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ja/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ja/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ja/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/zh-Hans",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/zh-Hans/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/zh-Hans/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/zh-Hans/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/zh-Hans/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ko",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ko",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ko/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ko/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ko/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ko/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ko/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ko/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ko/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ko/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ko/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ko/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ko/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/hi",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/hi",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/hi/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/hi/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/hi/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/hi/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/hi/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/hi/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/hi/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/hi/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/hi/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/hi/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/hi/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/es",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/es",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/es/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/es/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/es/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/es/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/es/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/es/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/es/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/es/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/es/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/es/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/es/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pt",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pt",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pt/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pt/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pt/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/pt/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pt/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/pt/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pt/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/pt/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/pt/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/pt/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pt/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/it",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/it",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/it/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/it/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/it/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/it/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/it/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/it/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/it/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/it/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/it/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/it/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/it/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ar",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ar",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ar/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ar/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ar/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ar/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ar/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ar/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ar/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/ar/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ar/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/ar/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/ar/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/tr",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/tr",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/tr/features",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/features",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/tr/technology",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/technology",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/tr/pro",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/pro",
+      "robots": "noindex, follow",
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/tr/about",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/tr/about",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/tr/support",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/tr/support",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    },
+    {
+      "route": "/tr/terms",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/terms",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/tr/privacy",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/privacy",
+      "robots": null,
+      "hreflang_count": 0,
+      "json_ld_count": 1,
+      "issues": []
+    },
+    {
+      "route": "/tr/blog",
+      "status": 200,
+      "h1_count": 1,
+      "canonical": "https://mytrackspeed.com/tr/blog",
+      "robots": null,
+      "hreflang_count": 14,
+      "json_ld_count": 2,
+      "issues": []
+    }
+  ],
+  "api_checks": [
+    {
+      "route": "/api/influencer/auth",
+      "status": 401,
+      "expected": 401,
+      "pass": true
+    },
+    {
+      "route": "/api/influencer/stats",
+      "status": 401,
+      "expected": 401,
+      "pass": true
+    },
+    {
+      "route": "/api/unsubscribe",
+      "status": 400,
+      "expected": 400,
+      "pass": true
+    }
+  ],
+  "passed": true
+}

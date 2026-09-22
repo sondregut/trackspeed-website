@@ -19,7 +19,7 @@ export default function StartTypes() {
               style={{ backgroundImage: "linear-gradient(rgba(16,24,28,0.20), rgba(16,24,28,0.44)), url('/track-lanes-ai-background.webp')" }}
             />
             <PhoneMockup
-              src="/app-screens/start-types.webp"
+              src="/app-screens/start-types-daylight-v2.png"
               alt="TrackSpeed start type setup screen"
               sizes="(max-width: 1024px) 76vw, 420px"
               className="relative mx-auto w-[78%]"

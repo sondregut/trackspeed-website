@@ -1,0 +1,2 @@
+src/components/marketing/ModeExplorer.tsx(46,562): error TS2322: Type 'string | { tab: string; title: string; body: string; steps: string[]; requirement: string; }' is not assignable to type 'ReactNode'.
+  Type '{ tab: string; title: string; body: string; steps: string[]; requirement: string; }' is not assignable to type 'ReactNode'.

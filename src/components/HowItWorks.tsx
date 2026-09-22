@@ -8,7 +8,7 @@ import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/Scroll
 const stepKeys = ["connect", "start", "position", "time"] as const;
 const stepVisuals = [
   { type: "connection", hostSrc: "/app-screens/connect-host.webp", joinSrc: "/app-screens/join-searching.webp" },
-  { type: "screen", src: "/app-screens/start-types.webp" },
+  { type: "screen", src: "/app-screens/start-types-daylight-v2.png" },
   { type: "framed", src: "/setup.webp" },
   { type: "photo", src: "/photofinish_edit.webp" },
 ] as const;

@@ -9,7 +9,13 @@ import SprintPreview from "./SprintPreview";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
-const startArtwork = ["flying", "touch", "countdown", "voice", "in-frame"];
+const startArtwork = [
+  {id: "flying", src: "/product/start-flying-blue-track-v3.png", width: 1536, height: 1024},
+  {id: "touch", src: "/product/start-touch-track-v2.png", width: 1142, height: 1378},
+  {id: "countdown", src: "/product/start-countdown-athlete.png", width: 1254, height: 1254},
+  {id: "voice", src: "/product/start-voice-athlete.png", width: 1254, height: 1254},
+  {id: "in-frame", src: "/product/start-in-frame-turf-v2.png", width: 1122, height: 1402},
+];
 
 export default function MarketingHome({copy: c}: {copy: typeof copy}) {
   return <div className="marketing-home editorial-home">
@@ -39,7 +45,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
         <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2></div>
         <p className="section-description">{c.editorial.landscapeBody}</p>
         <figure className="landscape-product">
-          <Image src="/product/landscape-practice-transparent.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
+          <Image className="landscape-football-image" src="/product/landscape-football-daylight-v2.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
           <figcaption>{c.editorial.illustration}</figcaption>
         </figure>
         <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
@@ -68,14 +74,14 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       <div className="marketing-container">
         <div className="section-intro start-method-intro"><h2>{c.starts.title}</h2><p>{c.starts.description}</p></div>
         <ol className="start-method-grid">
-          {c.starts.items.map((item, index) => <li key={startArtwork[index]} className={`start-method-card start-method-${startArtwork[index]}`}>
+          {c.starts.items.map((item, index) => <li key={startArtwork[index].id} className={`start-method-card start-method-${startArtwork[index].id}`}>
             <div className="start-method-copy">
               <span className="list-number" aria-hidden="true">0{index + 1}</span>
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </div>
             <div className="start-method-art">
-              <Image src={`/product/start-${startArtwork[index]}-athlete.png`} alt="" width={1254} height={1254} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
+              <Image src={startArtwork[index].src} alt="" width={startArtwork[index].width} height={startArtwork[index].height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
               {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
               {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
             </div>

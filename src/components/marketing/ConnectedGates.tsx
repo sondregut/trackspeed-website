@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ProductPhone from "./ProductPhone";
 import type copy from "../../../messages/en/marketing.json";
 
@@ -23,8 +22,8 @@ export default function ConnectedGates({copy: c}: {copy: GatesCopy}) {
         </div>
       </div>
       <div className="setup-art" aria-hidden="true">
-        <ProductPhone src="/product/training-home.png" className="setup-home"/>
-        <Image src="/product/sprint-football-transparent.png" alt="" width={873} height={1802} sizes="(max-width: 767px) 44vw, 224px" className="setup-finish"/>
+        <ProductPhone src="/product/training-home-daylight-v3.png" className="setup-home"/>
+        <ProductPhone src="/app-screens/start-types-daylight-v2.png" className="setup-home setup-finish"/>
       </div>
     </div>
     <ol className="setup-steps" aria-labelledby="connected-gates-title">

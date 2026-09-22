@@ -37,8 +37,9 @@ const softwareApplicationJsonLd = {
     "https://mytrackspeed.com/app-store-screenshots/01-trackspeed-app-store.webp",
     "https://mytrackspeed.com/photofinish_edit.webp",
   ],
-  author: { "@id": "https://mytrackspeed.com/#founder" },
-  provider: { "@id": "https://mytrackspeed.com/#organization" },
+  author: { "@id": "https://www.athletemindset.app/#founder" },
+  provider: { "@id": "https://www.athletemindset.app/#organization" },
+  brand: { "@id": "https://mytrackspeed.com/#brand" },
   featureList: [
     "Automatic camera-based sprint timing",
     "Multi-phone start, split, and finish timing",

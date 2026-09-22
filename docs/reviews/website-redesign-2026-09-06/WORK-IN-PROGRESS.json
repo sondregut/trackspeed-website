@@ -1,0 +1,11 @@
+{
+  "updated_at": "2026-09-06T16:09:51.485801+00:00",
+  "website": "Complete locally; see verification.json and README.md for limits",
+  "active_priority": "Await Watch device connection and intended pairing confirmation",
+  "remaining": [
+    "Install/readback/launch Watch once reachable",
+    "Owner mobile Safari acceptance"
+  ],
+  "android": "paused",
+  "deployed": false
+}

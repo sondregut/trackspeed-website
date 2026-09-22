@@ -708,3 +708,11 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .history-art { height: 350px; }
 }
 .editorial-home :is(h1,h2):is(:lang(ar),:lang(hi),:lang(ja),:lang(ko),:lang(zh)) { letter-spacing: normal; line-height: 1.25; }
+
+/* Use the reference PNG's alpha silhouette around the regenerated phone scene. */
+.landscape-football-image {
+  mask-image: url("/product/landscape-practice-transparent.png");
+  mask-mode: alpha;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}

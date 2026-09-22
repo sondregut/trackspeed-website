@@ -8,14 +8,13 @@ import PhoneMockup from "@/components/PhoneMockup";
 import ScrollReveal from "@/components/ScrollReveal";
 import { DownloadLink } from "@/components/DownloadLink";
 
-const heroStats = [
-  { value: "5.0", label: "US App Store rating" },
-  { value: "2+ phones", label: "Wireless gates" },
-  { value: "0", label: "Extra hardware" },
-] as const;
-
 export default function Hero() {
   const t = useTranslations("home");
+  const heroStats = [
+    { value: "Auto", label: t("features.smartDetection.title") },
+    { value: "2+", label: t("features.stats.sync.label") },
+    { value: "0", label: t("features.stats.hardware.label") },
+  ];
 
   return (
     <section className="relative isolate overflow-hidden bg-[#0E171D] px-5 pt-20 text-white sm:px-6 lg:pt-24">
@@ -46,7 +45,7 @@ export default function Hero() {
               {t("hero.title")} — {t("hero.subtitle")}
             </h1>
             <p className="mt-5 max-w-full text-xl leading-8 text-white/68 sm:max-w-[34rem] md:text-[1.35rem] md:leading-8">
-              {t("features.smartDetection.description")} {t("features.trackProgress.description")}
+              {t("hero.description")}
             </p>
 
             <div className="mt-7 flex w-full max-w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
@@ -68,11 +67,18 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="mt-10 hidden max-w-xl grid-cols-3 gap-3 sm:grid">
+            <div className="mt-10 hidden max-w-xl grid-cols-3 border-y border-white/12 sm:grid">
               {heroStats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-white/10 bg-white/[0.075] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur">
-                  <div className="text-2xl font-black tracking-[-0.02em] text-white">{stat.value}</div>
-                  <div className="mt-1 text-sm font-semibold text-white/55">{stat.label}</div>
+                <div
+                  key={stat.label}
+                  className="py-4 pr-4 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-white/12 [&:not(:first-child)]:pl-4"
+                >
+                  <div className="text-2xl font-black tracking-[-0.02em] text-white">
+                    {stat.value}
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-white/55">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
