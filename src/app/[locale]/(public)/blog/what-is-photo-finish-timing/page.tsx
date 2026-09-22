@@ -15,6 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     path: '/blog/what-is-photo-finish-timing',
     type: 'article',
     localized: false,
+    locale,
   });
 }
 

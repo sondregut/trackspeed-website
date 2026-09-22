@@ -15,6 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     path: '/blog/how-to-time-a-40-yard-dash',
     type: 'article',
     localized: false,
+    locale,
   });
 }
 

@@ -65,11 +65,21 @@ export function getPageMetadata({
     : getCanonical(path);
   const canonical = alternates.canonical;
 
+  // Locale duplicates of English-only pages (e.g. /de/blog/<slug>) are
+  // excluded from indexing; the English canonical is the indexed version.
+  // An explicit `robots` value always wins (e.g. checkout pages exclude
+  // every locale, and fully localized pages never hit this branch).
+  const robotsOut =
+    robots ??
+    (!localized && locale && locale !== 'en'
+      ? { index: false, follow: true }
+      : undefined);
+
   return {
     title: absoluteTitle ? {absolute: title} : title,
     description,
     alternates,
-    robots,
+    robots: robotsOut,
     openGraph: {
       type,
       siteName: 'TrackSpeed',

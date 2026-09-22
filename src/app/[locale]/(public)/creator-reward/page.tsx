@@ -3,12 +3,18 @@ import { setRequestLocale } from "next-intl/server"
 import { getPageMetadata } from "@/i18n/metadata"
 import CreatorRewardClaimForm from "@/components/CreatorRewardClaimForm"
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
   return getPageMetadata({
     title: "Creator Reward Program",
     description: "Post about Track Speed, submit your TikTok or Instagram Reel, and get rewarded after manual approval.",
     path: "/creator-reward",
     localized: false,
+    locale,
   })
 }
 

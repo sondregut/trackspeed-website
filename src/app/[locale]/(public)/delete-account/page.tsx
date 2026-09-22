@@ -10,6 +10,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     description: t('deleteAccount.description'),
     path: '/delete-account',
     localized: false,
+    locale,
   });
 }
 

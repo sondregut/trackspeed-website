@@ -15,6 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     path: '/blog/improve-sprint-speed-training',
     type: 'article',
     localized: false,
+    locale,
   });
 }
 

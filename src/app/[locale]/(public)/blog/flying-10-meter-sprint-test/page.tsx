@@ -11,13 +11,15 @@ const title = "Flying 10-Meter Sprint Test: Setup, Timing, and Protocol";
 const description =
   "Run a repeatable flying 10m sprint test with a clear setup, full-recovery protocol, automatic timing guidance, and practical result tracking.";
 
-export async function generateMetadata() {
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
   return getPageMetadata({
     title,
     description,
     path: "/blog/" + slug,
     type: "article",
     localized: false,
+    locale,
   });
 }
 

@@ -15,6 +15,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     path: '/blog/multi-phone-sprint-timing-setup',
     type: 'article',
     localized: false,
+    locale,
   });
 }
 
