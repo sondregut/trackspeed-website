@@ -45,7 +45,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
         <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2></div>
         <p className="section-description">{c.editorial.landscapeBody}</p>
         <figure className="landscape-product">
-          <Image className="landscape-football-image" src="/product/landscape-football-daylight-v2.png" alt={c.beta.landscapeAlt} width={1672} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
+          <Image src="/product/landscape-football-cutout.png" alt={c.beta.landscapeAlt} width={1671} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
           <figcaption>{c.editorial.illustration}</figcaption>
         </figure>
         <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
