@@ -88,10 +88,12 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
-  // Skip i18n for admin, influencer, api, invite, and install-handoff routes
+  // Skip i18n for admin, influencer, dashboard, api, invite, and install-handoff routes.
+  // The coach dashboard authenticates client-side with the user's Supabase session.
   if (
     pathname.startsWith('/admin') ||
     pathname.startsWith('/influencer') ||
+    pathname.startsWith('/dashboard') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/invite') ||
     pathname === '/get' ||
@@ -136,7 +138,7 @@ export function proxy(request: NextRequest) {
     // Private/non-localized destinations must pass their ordinary route checks.
     const unlocalizedPath = pathname.slice(3);
     if (
-      ['/admin', '/influencer', '/api', '/invite'].some(prefix => unlocalizedPath.startsWith(prefix)) ||
+      ['/admin', '/influencer', '/dashboard', '/api', '/invite'].some(prefix => unlocalizedPath.startsWith(prefix)) ||
       ['/get', '/get/', '/creator-kit', '/creator-kit/'].includes(unlocalizedPath)
     ) {
       const canonicalUrl = request.nextUrl.clone();

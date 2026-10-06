@@ -12,7 +12,8 @@
     "test:detection-review": "node --experimental-strip-types --test tests/detection-review.test.ts",
     "test:detection-evidence": "node --experimental-strip-types --test tests/detection-evidence.test.ts",
     "test:promo-codes": "node --experimental-strip-types --test tests/promo-code-contract.test.ts",
-    "test:checkout-security": "node --experimental-strip-types --test tests/checkout-security.test.mjs"
+    "test:checkout-security": "node --experimental-strip-types --test tests/checkout-security.test.mjs",
+    "test:dashboard": "node --experimental-strip-types --test tests/dashboard.test.ts"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",

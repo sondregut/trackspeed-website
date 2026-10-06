@@ -1,0 +1,153 @@
+/* Coach dashboard tokens. Scoped to .ts-dash (the page wrapper) and
+   .ts-dash-vars (portalled dialogs) so public pages are untouched. */
+
+.ts-dash,
+.ts-dash-vars {
+  --d-bg: #ffffff;
+  --d-raise: #f6f7f9;
+  --d-sunk: #eef1f4;
+  --d-line: #e6e9ee;
+  --d-line-strong: #d3d9e0;
+  --d-ink: #0e0e0c;
+  --d-ink-2: #4a5462;
+  --d-ink-3: #69727e;
+  --d-brand: #5c8db8;
+  --d-brand-ink: #3b6a95;
+  --d-brand-wash: rgb(92 141 184 / 0.1);
+  --d-chart: #3b7bbf;
+  --d-grid: #eceff3;
+  --d-photo: #15181c;
+  --d-danger: #b4433f;
+  --d-shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(16 24 40 / 0.12);
+
+  --d-athlete-red: #d9534f;
+  --d-athlete-orange: #e3842a;
+  --d-athlete-yellow: #d7a514;
+  --d-athlete-green: #2e9e6a;
+  --d-athlete-blue: #3d7fd1;
+  --d-athlete-purple: #8e6bd8;
+  --d-athlete-pink: #d6619a;
+  --d-athlete-gray: #8a8c94;
+  --d-athlete-none: #c3c9d1;
+
+  color-scheme: light;
+}
+
+.ts-dash {
+  min-height: 100dvh;
+  background: var(--d-bg);
+  color: var(--d-ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ts-dash,
+  .ts-dash-vars {
+    --d-bg: #0f1216;
+    --d-raise: #161a20;
+    --d-sunk: #1c2128;
+    --d-line: #232a33;
+    --d-line-strong: #323b47;
+    --d-ink: #e9edf2;
+    --d-ink-2: #aab3bf;
+    --d-ink-3: #8a94a2;
+    --d-brand: #6f9ecb;
+    --d-brand-ink: #93bbe0;
+    --d-brand-wash: rgb(111 158 203 / 0.14);
+    --d-chart: #4f8fd6;
+    --d-grid: #1b2129;
+    --d-photo: #0a0c0f;
+    --d-danger: #e0726d;
+    --d-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+    --d-athlete-none: #4a535f;
+    color-scheme: dark;
+  }
+
+  html:has(.ts-dash),
+  html:has(.ts-dash) body {
+    background: #0f1216;
+  }
+}
+
+.ts-dash :focus-visible,
+.ts-dash-vars :focus-visible {
+  outline: 2px solid var(--d-brand);
+  outline-offset: 2px;
+}
+
+.ts-dash ::selection {
+  background: var(--d-brand-wash);
+}
+
+@keyframes d-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@layer components {
+  .d-skeleton {
+    background: var(--d-sunk);
+    border-radius: 6px;
+    animation: d-pulse 1.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .d-skeleton { animation: none; }
+  }
+
+  /* Photo placeholder: a quiet diagonal hatch instead of a broken image. */
+  .d-photo-empty {
+    background-color: var(--d-raise);
+    background-image: repeating-linear-gradient(135deg, transparent 0 7px, var(--d-line) 7px 8px);
+  }
+
+  .d-scroll-x {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  /* Native form controls styled to match the dashboard chrome. */
+  .d-input {
+    height: 36px;
+    border: 1px solid var(--d-line-strong);
+    border-radius: 8px;
+    background: var(--d-bg);
+    color: var(--d-ink);
+    padding: 0 10px;
+    font-size: 14px;
+    min-width: 0;
+  }
+
+  .d-input::placeholder {
+    color: var(--d-ink-3);
+  }
+
+  select.d-input {
+    appearance: none;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2369727e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  input[type='date'].d-input::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    input[type='date'].d-input::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-dash *,
+  .ts-dash-vars * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
