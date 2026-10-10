@@ -5,7 +5,7 @@ import FeatureGuide from "@/components/marketing/FeatureGuide";
 import { featureGroups } from "@/lib/product-features";
 
 const title="Every TrackSpeed feature, explained";
-const description="Explore automatic sprint timing, five start methods, wireless gates, solo laps, history, athlete profiles, CSV and video sharing, plus Apple Watch starts and agility drills.";
+const description="Explore automatic sprint timing, five start methods, wireless gates, solo laps, history, athlete profiles, CSV and video sharing, plus Apple Watch starts.";
 export async function generateMetadata({params}:{params:Promise<{locale:string}>}) {
  const {locale}=await params;
  return getPageMetadata({title,description,path:"/features",localized:false,robots:locale==="en"?undefined:{index:false,follow:true}});

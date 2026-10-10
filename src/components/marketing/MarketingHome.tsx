@@ -40,18 +40,6 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       </div>
     </section>
 
-    <section id="preview" className="editorial-section landscape-section">
-      <div className="marketing-container">
-        <div className="preview-heading"><h2>{c.editorial.landscapeTitle}</h2></div>
-        <p className="section-description">{c.editorial.landscapeBody}</p>
-        <figure className="landscape-product">
-          <Image src="/product/landscape-football-cutout.png" alt={c.beta.landscapeAlt} width={1671} height={941} sizes="(max-width: 1280px) 92vw, 1200px"/>
-          <figcaption>{c.editorial.illustration}</figcaption>
-        </figure>
-        <div className="landscape-features"><span>{c.editorial.standingFlying}</span><span>{c.editorial.agilityDrills}</span></div>
-      </div>
-    </section>
-
     <section id="how-it-works" className="editorial-section setup-section" aria-labelledby="connected-gates-title">
       <div className="marketing-container">
         <ConnectedGates copy={c.modes}/>

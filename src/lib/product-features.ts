@@ -7,7 +7,7 @@ export const featureGroups: {id: FeatureGroupId; title: string; description: str
   {id: "review", title: "Evidence & results", description: "Understand the result and keep the context."},
   {id: "training", title: "Athletes & training", description: "Keep every athlete, repetition and session organized."},
   {id: "sharing", title: "Sharing & everyday use", description: "Take the session with you."},
-  {id: "beta", title: "Apple Watch & agility", description: "Watch starts, running dynamics and landscape sprint and agility timing."},
+  {id: "beta", title: "Apple Watch", description: "Watch starts, results and running dynamics."},
 ];
 export const productFeatures: ProductFeature[] = [
   {id:"automatic",group:"timing",status:"ios",title:"Automatic camera gates",description:"Position a camera at a measured line. A detected crossing records the event used to time your run."},
@@ -37,14 +37,10 @@ export const productFeatures: ProductFeature[] = [
   {id:"csv",group:"sharing",status:"ios",title:"CSV data export",description:"Export a session or your history with dates, distances, run numbers, times, speed, athlete, start type and mode."},
   {id:"cards",group:"sharing",status:"ios",title:"Result & session cards",description:"Create a shareable image of a result or session for a coach, training group or your own record."},
   {id:"video",group:"sharing",status:"ios",title:"Video timing overlays",description:"Add a timing overlay to a video and export the result. Keep the original video for your own review."},
-  {id:"sync",group:"sharing",status:"ios",title:"Account & cloud sync",description:"Save supported session data to your account and retry pending uploads when connectivity returns. Landscape and Watch-start beta evidence currently stays local."},
+  {id:"sync",group:"sharing",status:"ios",title:"Account & cloud sync",description:"Save supported session data to your account and retry pending uploads when connectivity returns. Watch-start beta evidence currently stays local."},
   {id:"appearance",group:"sharing",status:"ios",title:"Appearance & language options",description:"Choose the appearance, language and display options available in the app. A large timing display keeps the current session readable."},
   {id:"watch-start",group:"beta",status:"beta",title:"Apple Watch starts",description:"Movement, ready-set-go and external-sound modes are being tested. Wrist movement is an estimate of onset, not a certified block reaction measurement."},
   {id:"watch-gates",group:"beta",status:"beta",title:"Watch with two or more phones",description:"For Watch-generated starts, the paired host/start iPhone passes the start to the other timing phones. The Watch connects to its paired iPhone, not directly to every gate."},
   {id:"watch-results",group:"beta",status:"beta",title:"Watch results & next repetition",description:"View the completed result on your wrist and continue the session. Time delivery is separate from whether enough motion samples exist for dynamics."},
   {id:"watch-dynamics",group:"beta",status:"beta",title:"Running dynamics",description:"Explore available cadence, step frequency and estimated step/stride length within a timed run or segment. Results depend on Watch model and sample quality."},
-  {id:"landscape",group:"beta",status:"beta",title:"Landscape one-phone sprints",description:"A fixed, side-on camera observes the whole measured course. Standing mode starts at body movement; flying mode starts at the 0 m crossing."},
-  {id:"agility",group:"beta",status:"beta",title:"5-10-5 pro agility",description:"Three lines spaced 5 yards apart. Start at centre, touch both outside lines and finish through centre; the first centre return is a split. Both touches need video review."},
-  {id:"shuttle",group:"beta",status:"beta",title:"Out-and-back drills",description:"Run to a far line and return through the start. Standing and flying options use distinct start anchors; the far-line touch requires video review."},
-  {id:"solo-video",group:"beta",status:"beta",title:"Solo run video & refinement",description:"Save the run video, review the detected anchors and see whether analysis is complete. Review-only or unconfirmed results do not establish a personal best."},
 ];
