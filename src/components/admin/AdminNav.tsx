@@ -11,6 +11,7 @@ const navItems = [
   { href: "/admin/redemptions", label: "Redemptions" },
   { href: "/admin/creator-rewards", label: "Creator Rewards" },
   { href: "/admin/influencers", label: "Influencers" },
+  { href: "/admin/trackjump-creators", label: "TrackJump Creators" },
   { href: "/admin/emails", label: "Emails" },
   { href: "/admin/sms", label: "SMS" },
   { href: "/admin/notifications", label: "Push" },
