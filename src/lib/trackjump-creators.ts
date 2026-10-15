@@ -99,3 +99,17 @@ export const demoCodeUses: CodeUse[] = [
   {redeemedAt: '2026-09-21T20:10:00Z', code: 'DAC', account: 'jumper@example.com', install: '0c5512f9', status: 'refunded', plan: 'app.trackjump.pro.yearly.creator', currency: 'USD', revenue: 0, earned: 0},
   {redeemedAt: '2026-09-14T09:30:00Z', code: 'DAC', account: null, install: 'e2a8b6d0', status: 'paying', plan: 'app.trackjump.pro.weekly', currency: 'USD', revenue: 54.39, earned: 11.56},
 ];
+
+/** A code from a name: letters and digits only, upper case, at most 12 characters. */
+export function codeFromName(name: string) {
+  return name.normalize('NFKD').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 12)
+}
+
+/** One creator per line: "Name, CODE, email". Code and email are optional. */
+export function parseCreatorLines(text: string) {
+  return text.split('\n').map(line => line.trim()).filter(Boolean).map(line => {
+    const [name = '', code = '', email = ''] = line.split(/[,;\t]/).map(part => part.trim())
+    const cleanCode = (code ? code.replace(/[^A-Za-z0-9]/g, '').toUpperCase() : codeFromName(name))
+    return { name, code: cleanCode, email: email.toLowerCase() }
+  })
+}

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import type { Session } from "@supabase/supabase-js"
 import CreatorSignIn from "@/components/jump/creators/CreatorSignIn"
 import {
-  demoAdminOverview, demoCodeUses, followerOffer, formatMoney, percent, planName, trackJumpClient,
+  demoAdminOverview, demoCodeUses, followerOffer, formatMoney, parseCreatorLines, percent, planName, trackJumpClient,
   type CodeUse, type CreatorSummary,
 } from "@/lib/trackjump-creators"
 
@@ -31,6 +31,7 @@ function usd(c: CreatorSummary, key: "revenue" | "earned" | "payable" | "paid" |
 export default function TrackJumpCreatorsAdmin() {
   const [load, setLoad] = useState<Load>({ state: "loading" })
   const [openID, setOpenID] = useState<string | "new" | null>(null)
+  const [bulkOpen, setBulkOpen] = useState(false)
 
   const refresh = useCallback(async () => {
     const supabase = trackJumpClient()
@@ -87,9 +88,14 @@ export default function TrackJumpCreatorsAdmin() {
           <h1 className="text-xl sm:text-2xl font-bold text-white">TrackJump Creators</h1>
           <p className="text-[#9B9A97] text-sm sm:text-base">Creator codes, the people who used them, sales and what each creator is owed</p>
         </div>
-        <button onClick={() => setOpenID("new")} className="self-start sm:self-auto px-4 py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] text-white text-sm font-medium rounded-lg transition-colors">
-          Add creator
-        </button>
+        <div className="flex gap-2 self-start sm:self-auto">
+          <button onClick={() => setBulkOpen(true)} className="px-4 py-2 bg-[#2B2E32] hover:bg-[#343941] text-[#8EC5F3] text-sm font-medium rounded-lg transition-colors">
+            Add several
+          </button>
+          <button onClick={() => setOpenID("new")} className="px-4 py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] text-white text-sm font-medium rounded-lg transition-colors">
+            Add creator
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-6">
@@ -135,6 +141,8 @@ export default function TrackJumpCreatorsAdmin() {
       </div>
       <p className="mt-4 text-xs text-[#6B6A67]">Earnings are estimates: price × Apple&apos;s payout rate × the creator&apos;s share. Test purchases, free trials and refunds earn nothing.</p>
 
+      {bulkOpen && <BulkCreatorsPanel demo={demo} creators={creators} onClose={() => setBulkOpen(false)}
+        onSaved={o => setLoad({ state: "ready", overview: o, demo: false })} />}
       {openID && <CreatorPanel summary={open} demo={demo} onClose={() => setOpenID(null)}
         onSaved={(o, id) => { setLoad({ state: "ready", overview: o, demo: false }); if (id) setOpenID(id) }} />}
     </div>
@@ -147,6 +155,91 @@ function Stat({ label, value, hint, tone = "text-white" }: { label: string; valu
     <p className={`truncate text-2xl font-bold tabular-nums ${tone}`}>{value}</p>
     {hint && <p className="text-xs text-[#6B6A67] mt-0.5">{hint}</p>}
   </div>
+}
+
+type BulkResult = { name: string; code: string; ok: boolean; note: string }
+
+/** Creates many creators and their codes in one go, on the default terms. */
+function BulkCreatorsPanel({ demo, creators, onClose, onSaved }: {
+  demo: boolean; creators: CreatorSummary[]; onClose: () => void; onSaved: (o: Overview) => void
+}) {
+  const [text, setText] = useState("")
+  const [busy, setBusy] = useState(false)
+  const [results, setResults] = useState<BulkResult[]>([])
+  const rows = useMemo(() => parseCreatorLines(text), [text])
+
+  async function create() {
+    if (demo) { setResults([{ name: "Example", code: "", ok: false, note: "Example data: nothing was saved." }]); return }
+    const supabase = trackJumpClient()!
+    setBusy(true); setResults([])
+    let known = new Set(creators.map(c => c.creator?.id))
+    const done: BulkResult[] = []
+    for (const row of rows) {
+      if (!row.name) { done.push({ ...row, ok: false, note: "Missing name" }); continue }
+      if (!/^[A-Z0-9]{3,24}$/.test(row.code)) { done.push({ ...row, ok: false, note: "Codes are 3–24 letters or digits" }); continue }
+      const saved = await supabase.rpc("creator_admin_save", {
+        p_id: null, p_name: row.name, p_email: row.email || null, p_revenue_share: 0.25, p_share_months: 12,
+        p_proceeds_rate: 0.85, p_hold_days: 30, p_active: true, p_note: "",
+      })
+      if (saved.error) { done.push({ ...row, ok: false, note: saved.error.message.includes("duplicate") ? "Email already used" : "Couldn't add creator" }); setResults([...done]); continue }
+      const after = (saved.data as Overview).creators
+      const id = after.map(c => c.creator?.id).find(x => x && !known.has(x))
+      known = new Set(after.map(c => c.creator?.id))
+      const coded = await supabase.rpc("creator_admin_add_code", { p_creator_id: id, p_code: row.code })
+      if (coded.error) {
+        done.push({ ...row, ok: false, note: coded.error.message.includes("code_taken") ? "Creator added, but the code is taken: open them and add another" : "Creator added, code failed" })
+        onSaved(saved.data as Overview)
+      } else {
+        done.push({ ...row, ok: true, note: "Added" })
+        onSaved(coded.data as Overview)
+      }
+      setResults([...done])
+    }
+    setBusy(false)
+  }
+
+  const message = results.filter(r => r.ok).map(r =>
+    `${r.name}: your TrackJump code is ${r.code}. Your followers get ${followerOffer("app.trackjump.pro.yearly.creator")} with it, and you can follow sign-ups and earnings at mytrackspeed.com/jump/creators (sign in with the email you gave me).`).join("\n\n")
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center sm:p-6 z-50" onClick={onClose}>
+      <div className="bg-[#1A1A1A] rounded-t-2xl sm:rounded-2xl p-5 sm:p-6 max-w-3xl w-full max-h-[85vh] sm:max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-white">Add several creators</h2>
+            <p className="text-sm text-[#9B9A97]">One per line: <span className="font-mono text-[#C9D4DE]">Name, CODE, email</span>. Code and email are optional; without a code, one is made from the name. Everyone starts on 25% for 12 months, which you can change per creator afterwards.</p>
+          </div>
+          <button onClick={onClose} className="text-[#9B9A97] hover:text-white text-sm">Close</button>
+        </div>
+        <textarea value={text} onChange={e => setText(e.target.value)} rows={8} className={`${input} font-mono`}
+          placeholder={"King Dac, DAC, dac@example.com\nJane Jumps, JANE\nMike Hops"} />
+        {rows.length > 0 && <div className="mt-3 rounded-lg border border-[#3D3D3D] bg-[#202327] p-3 text-sm">
+          {rows.map((r, i) => {
+            const result = results[i]
+            return <div key={i} className="flex flex-wrap items-center gap-2 py-1">
+              <span className="text-white">{r.name || "—"}</span>
+              <span className="rounded bg-[#2B2E32] px-2 py-0.5 font-mono text-[#C9D4DE]">{r.code || "no code"}</span>
+              {r.email && <span className="text-[#9B9A97]">{r.email}</span>}
+              {result && <span className={result.ok ? "text-green-400" : "text-yellow-400"}>{result.note}</span>}
+            </div>
+          })}
+        </div>}
+        <div className="mt-4 flex gap-2">
+          <button disabled={busy || rows.length === 0} onClick={() => void create()}
+            className="px-4 py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] disabled:opacity-50 text-white text-sm font-medium rounded-lg">
+            {busy ? "Adding…" : `Add ${rows.length || ""} ${rows.length === 1 ? "creator" : "creators"}`}
+          </button>
+        </div>
+        {message && <div className="mt-5">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-white">Message to send each creator</p>
+            <button onClick={() => void navigator.clipboard.writeText(message)} className="text-sm text-[#8EC5F3] hover:underline">Copy</button>
+          </div>
+          <pre className="whitespace-pre-wrap rounded-lg bg-[#202327] p-3 text-sm text-[#C9D4DE]">{message}</pre>
+        </div>}
+      </div>
+    </div>
+  )
 }
 
 const input = "w-full px-3 py-2 bg-[#2B2E32] border border-[#3D3D3D] rounded-lg text-white text-sm focus:outline-none focus:border-[#5C8DB8]"
