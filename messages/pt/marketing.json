@@ -235,5 +235,15 @@
       "Compartilhe resultados, vídeos e dados da sessão.",
       "Cronometre localmente. Sincronize dados compatíveis quando estiver online."
     ]
+  },
+  "photos": {
+    "caption": "Gravado durante uma sessão real do TrackSpeed",
+    "heroAlt": "Um velocista passa por um iPhone num tripé enquanto o TrackSpeed registra a corrida e a foto de chegada",
+    "pairAlt": "TrackSpeed em um iPhone montado num tripé, pareando com um segundo celular",
+    "alignAlt": "Alinhando a câmera do TrackSpeed com a linha de chegada em um campo de grama sintética",
+    "flyingAlt": "Dois celulares em tripés marcam a largada e a chegada enquanto um corredor se aproxima em um campo de grama sintética",
+    "reviewLabel": "O TrackSpeed num tripé cronometra um sprint; depois a foto de chegada é aberta e reproduzida até o momento da passagem",
+    "play": "Reproduzir vídeo",
+    "pause": "Pausar vídeo"
   }
 }

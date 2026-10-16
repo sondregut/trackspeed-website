@@ -235,5 +235,15 @@
       "Teile Ergebnisse, Clips und Trainingsdaten.",
       "Lokal messen. Unterstützte Daten online synchronisieren."
     ]
+  },
+  "photos": {
+    "caption": "Aufgenommen in einer echten TrackSpeed-Session",
+    "heroAlt": "Ein Sprinter läuft an einem iPhone auf einem Stativ vorbei, während TrackSpeed den Lauf und das Zielfoto aufzeichnet",
+    "pairAlt": "TrackSpeed auf einem iPhone am Stativ beim Koppeln mit einem zweiten Handy",
+    "alignAlt": "Die TrackSpeed-Kamera wird auf einem Kunstrasenplatz an der Ziellinie ausgerichtet",
+    "flyingAlt": "Zwei Handys auf Stativen markieren Start und Ziel, während ein Läufer auf Kunstrasen anläuft",
+    "reviewLabel": "TrackSpeed auf einem Stativ stoppt einen Sprint, dann wird das Zielfoto geöffnet und bis zum Moment des Durchlaufs abgespielt",
+    "play": "Video abspielen",
+    "pause": "Video pausieren"
   }
 }

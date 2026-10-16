@@ -235,5 +235,15 @@
       "Share results, clips and session data.",
       "Time locally. Sync supported data when online."
     ]
+  },
+  "photos": {
+    "caption": "Filmed during a real TrackSpeed session",
+    "heroAlt": "A sprinter runs past an iPhone on a tripod while TrackSpeed records the run and its finish photo",
+    "pairAlt": "TrackSpeed on a tripod-mounted iPhone, pairing with a second phone",
+    "alignAlt": "Lining up the TrackSpeed camera with the finish line on a turf field",
+    "flyingAlt": "Two phones on tripods mark the start and finish as a runner approaches on a turf field",
+    "reviewLabel": "TrackSpeed on a tripod times a sprint, then the finish photo is opened and replayed to the moment of crossing",
+    "play": "Play video",
+    "pause": "Pause video"
   }
 }

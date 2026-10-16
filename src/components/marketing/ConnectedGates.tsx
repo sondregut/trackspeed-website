@@ -1,9 +1,10 @@
-import ProductPhone from "./ProductPhone";
+import Image from "next/image";
 import type copy from "../../../messages/en/marketing.json";
 
 type GatesCopy = Pick<typeof copy.modes, "gates" | "start" | "finish" | "diagramLabel">;
+type PhotoCopy = Pick<typeof copy.photos, "pairAlt" | "alignAlt">;
 
-export default function ConnectedGates({copy: c}: {copy: GatesCopy}) {
+export default function ConnectedGates({copy: c, photos}: {copy: GatesCopy; photos: PhotoCopy}) {
   return <>
     <div className="setup-story">
       <div className="setup-content">
@@ -21,9 +22,9 @@ export default function ConnectedGates({copy: c}: {copy: GatesCopy}) {
           </div>
         </div>
       </div>
-      <div className="setup-art" aria-hidden="true">
-        <ProductPhone src="/product/training-home-daylight-v3.png" className="setup-home"/>
-        <ProductPhone src="/app-screens/start-types-daylight-v2.png" className="setup-home setup-finish"/>
+      <div className="setup-art">
+        <Image src="/photos/trackspeed/pair-devices.webp" alt={photos.pairAlt} width={900} height={1600} sizes="(max-width: 767px) 44vw, 220px" className="setup-photo"/>
+        <Image src="/photos/trackspeed/align-camera.webp" alt={photos.alignAlt} width={900} height={1600} sizes="(max-width: 767px) 44vw, 220px" className="setup-photo setup-photo-offset"/>
       </div>
     </div>
     <ol className="setup-steps" aria-labelledby="connected-gates-title">

@@ -3,14 +3,14 @@ import {ArrowRightIcon, CameraIcon, CheckIcon, ClockIcon, DownloadIcon, PersonIc
 import {DownloadLink} from "@/components/DownloadLink";
 import {Link} from "@/i18n/navigation";
 import {TextLink} from "./Primitives";
+import LoopingVideo from "@/components/LoopingVideo";
 import ConnectedGates from "./ConnectedGates";
 import ProductPhone from "./ProductPhone";
-import SprintPreview from "./SprintPreview";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
 const startArtwork = [
-  {id: "flying", src: "/product/start-flying-blue-track-v3.png", width: 1536, height: 1024},
+  {id: "flying", src: "/photos/trackspeed/flying-start-field.webp", width: 960, height: 1200, photo: true},
   {id: "touch", src: "/product/start-touch-track-v2.png", width: 1142, height: 1378},
   {id: "countdown", src: "/product/start-countdown-athlete.png", width: 1254, height: 1254},
   {id: "voice", src: "/product/start-voice-athlete.png", width: 1254, height: 1254},
@@ -31,24 +31,36 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
           <p className="hero-availability">{c.hero.availability}</p>
         </div>
         <figure className="hero-product">
-          <Image src="/product/sprint-blue-track-transparent.png" alt={c.hero.imageAlt} width={872} height={1802} preload sizes="(max-width: 374px) 190px, (max-width: 767px) 230px, (max-width: 1100px) 295px, 352px" className="hero-timing-phone"/>
+          <Image src="/photos/trackspeed/sprint-finish.webp" alt={c.photos.heroAlt} width={1080} height={1920} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
           <div className="hero-watch">
             <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.editorial.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
           </div>
-          <figcaption className="sr-only">{c.editorial.illustration}</figcaption>
+          <figcaption className="hero-photo-caption">{c.photos.caption}</figcaption>
         </figure>
       </div>
     </section>
 
     <section id="how-it-works" className="editorial-section setup-section" aria-labelledby="connected-gates-title">
       <div className="marketing-container">
-        <ConnectedGates copy={c.modes}/>
+        <ConnectedGates copy={c.modes} photos={c.photos}/>
       </div>
     </section>
 
     <section id="review" className="editorial-section evidence-section">
       <div className="marketing-container evidence-layout">
-        <SprintPreview copy={c}/>
+        <figure className="review-clip">
+          <LoopingVideo
+            sources={[{src: "/photos/trackspeed/review-clip.webm", type: "video/webm"}, {src: "/photos/trackspeed/review-clip.mp4", type: "video/mp4"}]}
+            poster="/photos/trackspeed/photo-finish-poster.webp"
+            width={720}
+            height={1280}
+            label={c.photos.reviewLabel}
+            playLabel={c.photos.play}
+            pauseLabel={c.photos.pause}
+            className="review-clip-media"
+          />
+          <figcaption>{c.photos.caption}</figcaption>
+        </figure>
         <div className="story-copy">
           <h2>{c.evidence.title}</h2>
           <p>{c.editorial.evidenceBody}</p>
@@ -68,8 +80,8 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </div>
-            <div className="start-method-art">
-              <Image src={startArtwork[index].src} alt="" width={startArtwork[index].width} height={startArtwork[index].height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
+            <div className={`start-method-art${startArtwork[index].photo ? " is-photo" : ""}`}>
+              <Image src={startArtwork[index].src} alt={startArtwork[index].photo ? c.photos.flyingAlt : ""} width={startArtwork[index].width} height={startArtwork[index].height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
               {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
               {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
             </div>

@@ -235,5 +235,15 @@
       "Partagez résultats, vidéos et données de séance.",
       "Chronométrez localement. Synchronisez les données compatibles en ligne."
     ]
+  },
+  "photos": {
+    "caption": "Filmé pendant une vraie séance TrackSpeed",
+    "heroAlt": "Un sprinteur passe devant un iPhone sur trépied pendant que TrackSpeed enregistre la course et sa photo d’arrivée",
+    "pairAlt": "TrackSpeed sur un iPhone fixé à un trépied, en cours d’association avec un second téléphone",
+    "alignAlt": "Alignement de la caméra TrackSpeed sur la ligne d’arrivée, sur un terrain synthétique",
+    "flyingAlt": "Deux téléphones sur trépied marquent le départ et l’arrivée pendant qu’un coureur s’élance sur un terrain synthétique",
+    "reviewLabel": "TrackSpeed sur trépied chronomètre un sprint, puis la photo d’arrivée est ouverte et rejouée jusqu’au moment du passage",
+    "play": "Lire la vidéo",
+    "pause": "Mettre la vidéo en pause"
   }
 }

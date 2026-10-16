@@ -235,5 +235,15 @@
       "Del resultater, klipp og øktdata.",
       "Ta tiden lokalt. Synkroniser støttede data på nett."
     ]
+  },
+  "photos": {
+    "caption": "Filmet under en ekte TrackSpeed-økt",
+    "heroAlt": "En sprinter løper forbi en iPhone på stativ mens TrackSpeed registrerer løpet og målbildet",
+    "pairAlt": "TrackSpeed på en iPhone på stativ som kobles sammen med en ny telefon",
+    "alignAlt": "TrackSpeed-kameraet rettes inn mot mållinjen på en kunstgressbane",
+    "flyingAlt": "To telefoner på stativ markerer start og mål mens en løper kommer mot dem på en kunstgressbane",
+    "reviewLabel": "TrackSpeed på stativ tar tiden på en sprint, og målbildet åpnes og spilles av fram til passeringen",
+    "play": "Spill av video",
+    "pause": "Sett video på pause"
   }
 }

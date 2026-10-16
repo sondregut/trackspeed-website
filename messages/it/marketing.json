@@ -235,5 +235,15 @@
       "Condividi risultati, video e dati delle sessioni.",
       "Cronometra in locale. Sincronizza i dati supportati online."
     ]
+  },
+  "photos": {
+    "caption": "Girato durante una vera sessione TrackSpeed",
+    "heroAlt": "Uno sprinter passa accanto a un iPhone su treppiede mentre TrackSpeed registra la corsa e la foto d’arrivo",
+    "pairAlt": "TrackSpeed su un iPhone montato su treppiede, durante l’abbinamento con un secondo telefono",
+    "alignAlt": "Allineamento della fotocamera di TrackSpeed con la linea d’arrivo su un campo in erba sintetica",
+    "flyingAlt": "Due telefoni su treppiede segnano partenza e arrivo mentre un corridore si avvicina su un campo in erba sintetica",
+    "reviewLabel": "TrackSpeed su treppiede cronometra uno sprint, poi la foto d’arrivo viene aperta e riprodotta fino al momento del passaggio",
+    "play": "Riproduci video",
+    "pause": "Metti in pausa il video"
   }
 }

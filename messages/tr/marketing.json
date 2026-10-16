@@ -235,5 +235,15 @@
       "Sonuçları, videoları ve seans verilerini paylaşın.",
       "Yerel zamanlama. Desteklenen verileri çevrimiçi eşitleyin."
     ]
+  },
+  "photos": {
+    "caption": "Gerçek bir TrackSpeed antrenmanında çekildi",
+    "heroAlt": "Bir sprinter tripoddaki iPhone’un yanından koşarken TrackSpeed koşuyu ve bitiş fotoğrafını kaydediyor",
+    "pairAlt": "Tripoda takılı iPhone’da TrackSpeed, ikinci bir telefonla eşleşiyor",
+    "alignAlt": "Suni çim sahada TrackSpeed kamerasını bitiş çizgisiyle hizalama",
+    "flyingAlt": "Tripodlardaki iki telefon başlangıcı ve bitişi işaretlerken suni çim sahada bir koşucu yaklaşıyor",
+    "reviewLabel": "Tripoddaki TrackSpeed bir sprinti ölçüyor, ardından bitiş fotoğrafı açılıp geçiş anına kadar oynatılıyor",
+    "play": "Videoyu oynat",
+    "pause": "Videoyu duraklat"
   }
 }
