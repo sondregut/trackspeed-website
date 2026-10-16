@@ -568,6 +568,9 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .start-method-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .start-method-art.is-photo { flex: 1 0 auto; aspect-ratio: auto; min-height: 280px; margin-top: 24px; }
 .start-method-art.is-photo img { position: absolute; inset: 0; object-fit: cover; object-position: 50% 45%; }
+.start-method-art.is-icon { display: flex; align-items: center; justify-content: center; }
+.start-method-icon { display: flex; align-items: center; justify-content: center; width: min(46%, 168px); aspect-ratio: 1; border: 1px solid #ffffff; border-radius: 50%; background: #ffffffc2; color: var(--brand); box-shadow: 0 18px 40px -24px #253c5340; }
+.start-method-icon svg { width: 40%; height: 40%; }
 .start-method-cue { position: absolute; right: 24px; bottom: 25px; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #ffffff90; border-radius: 18px; background: #ffffffd9; color: #355d83; box-shadow: 0 8px 24px #253c5310; direction: ltr; }
 .start-method-cue > span { width: 27px; line-height: 27px; font-size: 18px; font-weight: 550; text-align: center; }
 .start-method-cue > span:last-child { border-radius: 50%; background: #d4e4f2; }
@@ -678,6 +681,9 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .start-method-card:nth-child(n+4) .start-method-art { aspect-ratio: 1; }
   .start-method-art { width: 100%; max-height: 400px; margin-top: 14px; }
   .start-method-art.is-photo { flex: none; aspect-ratio: 1; min-height: 0; margin-top: 14px; }
+  .start-method-art.is-icon, .start-method-card:nth-child(n+4) .start-method-art.is-icon { aspect-ratio: 2 / 1; }
+  .start-method-art.is-icon { justify-content: flex-start; padding-left: 26px; }
+  .start-method-icon { width: 112px; }
   .editorial-accordion summary { min-height: 70px; gap: 18px; }
   .editorial-accordion summary h3 { font-size: 18px; }
   .preview-heading { gap: 18px; }

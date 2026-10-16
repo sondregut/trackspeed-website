@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {ArrowRightIcon, CameraIcon, CheckIcon, ClockIcon, DownloadIcon, PersonIcon, PlusIcon} from "@radix-ui/react-icons";
+import {Mic, Pointer, ScanLine, Timer, type LucideIcon} from "lucide-react";
 import {DownloadLink} from "@/components/DownloadLink";
 import {Link} from "@/i18n/navigation";
 import {TextLink} from "./Primitives";
@@ -8,12 +9,13 @@ import ProductPhone from "./ProductPhone";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
-const startArtwork = [
-  {id: "flying", src: "/photos/trackspeed/ready-flying-start.webp", width: 960, height: 1200, photo: true},
-  {id: "touch", src: "/product/start-touch-track-v2.png", width: 1142, height: 1378},
-  {id: "countdown", src: "/product/start-countdown-athlete.png", width: 1254, height: 1254},
-  {id: "voice", src: "/product/start-voice-athlete.png", width: 1254, height: 1254},
-  {id: "in-frame", src: "/product/start-in-frame-turf-v2.png", width: 1122, height: 1402},
+// Flying start has a real photo; the other start modes use icons until real photos of them exist.
+const startArtwork: {id: string; photo?: {src: string; width: number; height: number}; Icon?: LucideIcon}[] = [
+  {id: "flying", photo: {src: "/photos/trackspeed/ready-flying-start.webp", width: 960, height: 1200}},
+  {id: "touch", Icon: Pointer},
+  {id: "countdown", Icon: Timer},
+  {id: "voice", Icon: Mic},
+  {id: "in-frame", Icon: ScanLine},
 ];
 
 export default function MarketingHome({copy: c}: {copy: typeof copy}) {
@@ -62,18 +64,22 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       <div className="marketing-container">
         <div className="section-intro start-method-intro"><h2>{c.starts.title}</h2><p>{c.starts.description}</p></div>
         <ol className="start-method-grid">
-          {c.starts.items.map((item, index) => <li key={startArtwork[index].id} className={`start-method-card start-method-${startArtwork[index].id}`}>
-            <div className="start-method-copy">
-              <span className="list-number" aria-hidden="true">0{index + 1}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-            <div className={`start-method-art${startArtwork[index].photo ? " is-photo" : ""}`}>
-              <Image src={startArtwork[index].src} alt={startArtwork[index].photo ? c.photos.flyingAlt : ""} width={startArtwork[index].width} height={startArtwork[index].height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
-              {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
-              {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
-            </div>
-          </li>)}
+          {c.starts.items.map((item, index) => {
+            const {id, photo, Icon} = startArtwork[index];
+            return <li key={id} className={`start-method-card start-method-${id}`}>
+              <div className="start-method-copy">
+                <span className="list-number" aria-hidden="true">0{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+              <div className={`start-method-art ${photo ? "is-photo" : "is-icon"}`}>
+                {photo && <Image src={photo.src} alt={c.photos.flyingAlt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>}
+                {Icon && <span className="start-method-icon" aria-hidden="true"><Icon strokeWidth={1.5}/></span>}
+                {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
+                {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
+              </div>
+            </li>;
+          })}
         </ol>
       </div>
     </section>
