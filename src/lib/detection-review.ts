@@ -547,6 +547,117 @@ export function falseTriggerReviewLabel(value: unknown): string | null {
   return null
 }
 
+/**
+ * App rows in `crossing_review_marks` that record a moved gate line (the red
+ * line dragged on the crossing photo, which re-times the run) rather than a
+ * "Tag this crossing" review. They attach to their crossing as a separate
+ * label, so they never replace a tag or a desktop mark.
+ */
+export const GATE_ADJUSTMENT_FRAME_PICK = "gate_adjustment"
+export const GATE_ADJUSTMENT_REVIEW_KEY_PREFIX = "gate-adjust:"
+
+export function isGateAdjustmentMark(mark: {
+  frame_pick?: string | null
+  review_key?: string | null
+}): boolean {
+  return mark.frame_pick === GATE_ADJUSTMENT_FRAME_PICK
+    || Boolean(mark.review_key?.startsWith(GATE_ADJUSTMENT_REVIEW_KEY_PREFIX))
+}
+
+export interface DetectionReviewGateAdjustment {
+  id: string
+  createdAt: string
+  /** Where the user left the line, 0...1 across the photo. */
+  linePosition: number
+  /** The line the detector timed against. */
+  detectorLinePosition: number
+  deltaPercent: number
+  /** Crossing-time shift from the detector's line to the user's line. */
+  timeShiftSeconds: number | null
+  correctedTimeSeconds: number | null
+  restoresDetectorLine: boolean
+  appBuild: string | null
+  buildChannel: string | null
+}
+
+function finiteOrNull(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null
+}
+
+export function publicGateAdjustment(mark: {
+  id: string
+  created_at: string
+  actual_x: number | null
+  detector_x: number
+  raw_message?: string | null
+  time_shift_seconds?: number | null
+  corrected_time_seconds?: number | null
+  source_app_build?: string | null
+  build_channel?: string | null
+}): DetectionReviewGateAdjustment | null {
+  const linePosition = normalizedCoordinate(mark.actual_x)
+  const detectorLinePosition = normalizedCoordinate(mark.detector_x)
+  if (typeof linePosition !== "number" || typeof detectorLinePosition !== "number") return null
+  return {
+    id: mark.id,
+    createdAt: mark.created_at,
+    linePosition,
+    detectorLinePosition,
+    deltaPercent: (linePosition - detectorLinePosition) * 100,
+    timeShiftSeconds: finiteOrNull(mark.time_shift_seconds),
+    correctedTimeSeconds: finiteOrNull(mark.corrected_time_seconds),
+    restoresDetectorLine: Boolean(mark.raw_message?.includes("restoresDetectorLine=true")),
+    appBuild: mark.source_app_build ?? null,
+    buildChannel: mark.build_channel ?? null,
+  }
+}
+
+export function gateAdjustmentLabel(adjustment: DetectionReviewGateAdjustment): string {
+  if (adjustment.restoresDetectorLine) return "Line reset to detector"
+  const delta = `${adjustment.deltaPercent >= 0 ? "+" : ""}${adjustment.deltaPercent.toFixed(1)}%`
+  const shift = adjustment.timeShiftSeconds === null
+    ? ""
+    : ` · ${adjustment.timeShiftSeconds >= 0 ? "+" : ""}${adjustment.timeShiftSeconds.toFixed(3)} s`
+  return `Line moved ${delta}${shift}`
+}
+
+/**
+ * Field-test phones run Release builds, so the build channel (not the
+ * consent version) is what separates test evidence from production. Rows
+ * uploaded before the channel was recorded fall back to the consent marker.
+ */
+export const DETECTION_REVIEW_BUILD_CHANNELS = [
+  "debug",
+  "field_test",
+  "developer",
+  "internal_testflight",
+  "testflight",
+  "app_store",
+] as const
+
+export type DetectionReviewBuildChannel = (typeof DETECTION_REVIEW_BUILD_CHANNELS)[number]
+
+export function isProductionBuildChannel(channel: string | null | undefined): boolean {
+  return channel === "testflight" || channel === "app_store"
+}
+
+export function detectionReviewBuildChannelLabel(
+  channel: string | null | undefined,
+  evidenceConsentVersion: number,
+): string {
+  switch (channel) {
+    case "debug": return "Debug build"
+    case "field_test": return "Field-test build"
+    case "developer": return "Developer-signed build"
+    case "internal_testflight": return "Internal TestFlight"
+    case "testflight": return `TestFlight · consent v${evidenceConsentVersion}`
+    case "app_store": return `App Store · consent v${evidenceConsentVersion}`
+  }
+  return evidenceConsentVersion > 0
+    ? `Production consent v${evidenceConsentVersion}`
+    : "Internal build"
+}
+
 export function detectionReviewImageRequestUrl(
   sourceUrl: string,
   retryAttempt: number,

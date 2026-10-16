@@ -15,12 +15,14 @@ import {
   detectionReviewSessionIdentifiers,
   isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
+  isGateAdjustmentMark,
   isSceneMotionCause,
   isSessionShirtContrast,
   isUuid,
   normalizedCoordinate,
   normalizeReviewTarget,
   parseDetectionReviewSet,
+  publicGateAdjustment,
   resolveDetectionReviewDisplayDirection,
   resolveDetectorDisplayPosition,
   resolveDetectorYPosition,
@@ -44,6 +46,7 @@ interface CaptureRow {
   app_version: string | null
   app_build: string | null
   evidence_consent_version: number
+  build_channel: string | null
   device_model: string | null
   detector_trigger_frame_pts_nanos: number | string | null
   detector_chosen_frame_pts_nanos: number | string | null
@@ -104,6 +107,9 @@ interface ReviewMarkRow {
   owner_confirmed: boolean
   evidence_provenance: string | null
   evidence_consent_version: number
+  build_channel: string | null
+  time_shift_seconds: number | null
+  corrected_time_seconds: number | null
 }
 
 interface SessionContextRow {
@@ -165,6 +171,7 @@ const captureSelect = [
   "app_version",
   "app_build",
   "evidence_consent_version",
+  "build_channel",
   "device_model",
   "detector_trigger_frame_pts_nanos",
   "detector_chosen_frame_pts_nanos",
@@ -225,6 +232,9 @@ const markSelect = [
   "owner_confirmed",
   "evidence_provenance",
   "evidence_consent_version",
+  "build_channel",
+  "time_shift_seconds",
+  "corrected_time_seconds",
 ].join(",")
 
 const sessionContextSelect = [
@@ -851,6 +861,8 @@ export async function GET(request: Request) {
 
     const adminMarksByKey = new Map(adminMarks.map((mark) => [mark.review_key, mark]))
     const latestAppMarksByIdentity = new Map<string, ReviewMarkRow>()
+    // A moved gate line is its own label: it must not replace a tag review.
+    const latestGateAdjustmentsByIdentity = new Map<string, ReviewMarkRow>()
     for (const mark of appMarks) {
       const identity = detectionReviewIdentityKey(
         mark.session_id,
@@ -858,8 +870,12 @@ export async function GET(request: Request) {
         mark.target || mark.gate_label,
         mark.device_id,
       )
-      if (identity && !latestAppMarksByIdentity.has(identity)) {
-        latestAppMarksByIdentity.set(identity, mark)
+      if (!identity) continue
+      const latestByIdentity = isGateAdjustmentMark(mark)
+        ? latestGateAdjustmentsByIdentity
+        : latestAppMarksByIdentity
+      if (!latestByIdentity.has(identity)) {
+        latestByIdentity.set(identity, mark)
       }
     }
 
@@ -892,6 +908,7 @@ export async function GET(request: Request) {
         (identity ? latestAppMarksByIdentity.get(identity) : null) ||
         null
       const directionReview = adminMarksByKey.get(adminDirectionReviewKey(capture.id)) || null
+      const gateAdjustment = identity ? latestGateAdjustmentsByIdentity.get(identity) : null
       const temporalFrames = (capture.frames_metadata || [])
         .map((frame, index) => {
           const ptsNanos = framePts(frame)
@@ -927,6 +944,7 @@ export async function GET(request: Request) {
         appVersion: capture.app_version,
         appBuild: capture.app_build,
         evidenceConsentVersion: capture.evidence_consent_version,
+        buildChannel: capture.build_channel,
         evidenceProvenance,
         deviceModel: capture.device_model,
         isFrontCamera: detectorCoordinate.isFrontCamera,
@@ -948,6 +966,7 @@ export async function GET(request: Request) {
           : 0,
         review: publicReview(review),
         directionReview: publicDirectionReview(directionReview),
+        gateAdjustment: gateAdjustment ? publicGateAdjustment(gateAdjustment) : null,
       }
     })
 
@@ -980,6 +999,7 @@ export async function GET(request: Request) {
               appVersion: mark.app_version,
               appBuild: mark.source_app_build,
               evidenceConsentVersion: mark.evidence_consent_version,
+              buildChannel: mark.build_channel,
               evidenceProvenance: mark.evidence_provenance || "app_review",
               deviceModel: mark.device_model,
               isFrontCamera: mark.is_front_camera,
@@ -998,6 +1018,7 @@ export async function GET(request: Request) {
               temporalFrames: [],
               temporalGeometryFrameCount: 0,
               review: publicReview(mark),
+              gateAdjustment: null,
             }
           })
       : []
@@ -1029,6 +1050,7 @@ export async function GET(request: Request) {
         total: rows.length,
         reviewed: rows.filter((row) => row.review).length,
         pending: rows.filter((row) => !row.review).length,
+        gateAdjusted: rows.filter((row) => row.gateAdjustment).length,
       },
     })
   } catch (error) {
