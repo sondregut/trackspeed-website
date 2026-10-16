@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   itunes: null,
   openGraph: {
     title: 'TrackJump',
-    description: 'Jump testing for iPhone, from the TrackSpeed family. In development.',
+    description: 'Jump testing for iPhone, from the TrackSpeed family. Available on the App Store.',
     siteName: 'TrackJump',
     images: ['/jump/share-image'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'TrackJump',
-    description: 'Jump testing for iPhone, from the TrackSpeed family. In development.',
+    description: 'Jump testing for iPhone, from the TrackSpeed family. Available on the App Store.',
     images: ['/jump/share-image'],
   },
 };
