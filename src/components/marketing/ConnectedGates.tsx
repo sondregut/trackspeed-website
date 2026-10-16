@@ -2,7 +2,7 @@ import Image from "next/image";
 import type copy from "../../../messages/en/marketing.json";
 
 type GatesCopy = Pick<typeof copy.modes, "gates" | "start" | "finish" | "diagramLabel">;
-type PhotoCopy = Pick<typeof copy.photos, "pairAlt" | "alignAlt">;
+type PhotoCopy = Pick<typeof copy.photos, "connectAlt" | "alignAlt">;
 
 export default function ConnectedGates({copy: c, photos}: {copy: GatesCopy; photos: PhotoCopy}) {
   return <>
@@ -23,7 +23,7 @@ export default function ConnectedGates({copy: c, photos}: {copy: GatesCopy; phot
         </div>
       </div>
       <div className="setup-art">
-        <Image src="/photos/trackspeed/pair-devices.webp" alt={photos.pairAlt} width={900} height={1600} sizes="(max-width: 767px) 44vw, 220px" className="setup-photo"/>
+        <Image src="/photos/trackspeed/connect-devices.webp" alt={photos.connectAlt} width={900} height={1600} sizes="(max-width: 767px) 44vw, 220px" className="setup-photo"/>
         <Image src="/photos/trackspeed/align-camera.webp" alt={photos.alignAlt} width={900} height={1600} sizes="(max-width: 767px) 44vw, 220px" className="setup-photo setup-photo-offset"/>
       </div>
     </div>

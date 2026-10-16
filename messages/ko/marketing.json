@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "실제 TrackSpeed 세션에서 촬영",
-    "heroAlt": "삼각대에 고정한 iPhone 옆을 스프린터가 달려 지나가고, TrackSpeed가 달리기와 도착 사진을 기록하는 모습",
-    "pairAlt": "삼각대에 고정한 iPhone의 TrackSpeed가 두 번째 휴대폰과 페어링하는 모습",
+    "heroAlt": "인조잔디 필드에서 출발과 도착 지점을 표시한 삼각대 위 휴대폰 두 대를 향해 달리는 스프린터",
+    "watchAlt": "출발 자세로 인조잔디에 손을 짚은 스프린터, 손목에 Apple Watch 착용",
+    "connectAlt": "삼각대에 고정한 iPhone의 TrackSpeed가 출발 휴대폰과 도착 휴대폰을 연결하는 모습",
     "alignAlt": "인조잔디 필드에서 TrackSpeed 카메라를 도착선에 맞추는 모습",
-    "flyingAlt": "삼각대 위 휴대폰 두 대가 출발과 도착 지점을 표시하고, 인조잔디 필드에서 주자가 다가오는 모습",
-    "reviewLabel": "삼각대의 TrackSpeed가 스프린트 시간을 측정한 뒤, 도착 사진을 열어 통과 순간까지 다시 재생하는 모습",
-    "play": "동영상 재생",
-    "pause": "동영상 일시정지"
+    "flyingAlt": "삼각대에 고정한 iPhone에서 TrackSpeed가 플라잉 출발 측정을 준비한 모습",
+    "reviewAlt": "스프린터와 도착선이 담긴 도착 사진을 삼각대 위 iPhone의 TrackSpeed에서 연 모습"
   }
 }

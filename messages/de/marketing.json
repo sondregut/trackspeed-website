@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "Aufgenommen in einer echten TrackSpeed-Session",
-    "heroAlt": "Ein Sprinter läuft an einem iPhone auf einem Stativ vorbei, während TrackSpeed den Lauf und das Zielfoto aufzeichnet",
-    "pairAlt": "TrackSpeed auf einem iPhone am Stativ beim Koppeln mit einem zweiten Handy",
+    "heroAlt": "Ein Sprinter läuft auf zwei Handys auf Stativen zu, die auf einem Kunstrasenplatz Start und Ziel markieren",
+    "watchAlt": "Die Hand eines Sprinters in Startposition auf dem Kunstrasen, mit einer Apple Watch am Handgelenk",
+    "connectAlt": "TrackSpeed auf einem iPhone am Stativ beim Verbinden der Handys an Start und Ziel",
     "alignAlt": "Die TrackSpeed-Kamera wird auf einem Kunstrasenplatz an der Ziellinie ausgerichtet",
-    "flyingAlt": "Zwei Handys auf Stativen markieren Start und Ziel, während ein Läufer auf Kunstrasen anläuft",
-    "reviewLabel": "TrackSpeed auf einem Stativ stoppt einen Sprint, dann wird das Zielfoto geöffnet und bis zum Moment des Durchlaufs abgespielt",
-    "play": "Video abspielen",
-    "pause": "Video pausieren"
+    "flyingAlt": "Ein iPhone auf einem Stativ, TrackSpeed bereit für einen fliegenden Start",
+    "reviewAlt": "Das Zielfoto eines Sprinters mit Ziellinie, geöffnet in TrackSpeed auf einem iPhone am Stativ"
   }
 }

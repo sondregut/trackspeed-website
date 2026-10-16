@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "Gerçek bir TrackSpeed antrenmanında çekildi",
-    "heroAlt": "Bir sprinter tripoddaki iPhone’un yanından koşarken TrackSpeed koşuyu ve bitiş fotoğrafını kaydediyor",
-    "pairAlt": "Tripoda takılı iPhone’da TrackSpeed, ikinci bir telefonla eşleşiyor",
+    "heroAlt": "Bir sprinter, suni çim sahada başlangıcı ve bitişi işaretleyen tripodlardaki iki telefona doğru koşuyor",
+    "watchAlt": "Başlangıç pozisyonunda suni çime dayanmış bir sprinter eli, bileğinde Apple Watch",
+    "connectAlt": "Tripoda takılı iPhone’da TrackSpeed, başlangıç ve bitiş telefonlarını bağlıyor",
     "alignAlt": "Suni çim sahada TrackSpeed kamerasını bitiş çizgisiyle hizalama",
-    "flyingAlt": "Tripodlardaki iki telefon başlangıcı ve bitişi işaretlerken suni çim sahada bir koşucu yaklaşıyor",
-    "reviewLabel": "Tripoddaki TrackSpeed bir sprinti ölçüyor, ardından bitiş fotoğrafı açılıp geçiş anına kadar oynatılıyor",
-    "play": "Videoyu oynat",
-    "pause": "Videoyu duraklat"
+    "flyingAlt": "Tripoddaki bir iPhone’da TrackSpeed, uçuş başlangıcını ölçmeye hazır",
+    "reviewAlt": "Bitiş çizgisiyle birlikte bir sprinterin bitiş fotoğrafı, tripoddaki iPhone’da TrackSpeed’de açık"
   }
 }

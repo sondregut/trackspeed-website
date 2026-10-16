@@ -515,8 +515,7 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .hero-product { position: relative; height: 700px; direction: ltr; }
 .hero-photo { position: absolute; width: 360px; aspect-ratio: 9 / 16; left: 24px; top: 10px; object-fit: cover; border-radius: 34px; box-shadow: 0 30px 60px -32px #13213266, 0 0 0 1px #13213210; }
 .hero-photo-caption { position: absolute; left: 24px; top: 660px; width: 360px; }
-.hero-watch { position: absolute; z-index: 1; width: 322px; right: 16px; top: 240px; }
-.hero-watch img { display: block; width: 100%; filter: drop-shadow(0 18px 16px #1321321c); }
+.hero-watch-photo { position: absolute; z-index: 1; width: 240px; aspect-ratio: 4 / 5; left: 300px; top: 330px; object-fit: cover; border: 5px solid #fff; border-radius: 28px; box-shadow: 0 26px 50px -26px #13213273; }
 .section-intro { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
 .section-intro h2 { max-width: 470px; }
 .section-intro > p { max-width: 330px; font-size: 16px; line-height: 1.6; color: var(--text-muted); }
@@ -546,8 +545,8 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
 .evidence-points { display: grid; gap: 22px; margin-block: 34px; }
 .evidence-points li { display: flex; align-items: center; gap: 18px; font-size: 14px; }
 .evidence-points svg { width: 42px; height: 42px; padding: 12px; border: 1px solid #88a8c8; border-radius: 50%; color: var(--brand); flex-shrink: 0; }
-.review-clip { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.review-clip-media { width: 340px; max-width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 32px; background: #c9d3d8; box-shadow: 0 30px 60px -34px #13213266, 0 0 0 1px #13213210; }
+.review-photo, .watch-layout .watch-photo { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 0; }
+.review-photo img, .watch-layout .watch-photo img { width: 340px; max-width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 32px; box-shadow: 0 30px 60px -34px #13213266, 0 0 0 1px #13213210; }
 .looping-video { position: relative; }
 .looping-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .video-toggle { position: absolute; inset-inline-end: 14px; bottom: 14px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #ffffff4d; border-radius: 50%; background: #0d1519a6; color: white; backdrop-filter: blur(12px); cursor: pointer; transition: background-color 140ms ease; }
@@ -628,7 +627,7 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .hero-product { height: 610px; }
   .hero-photo { width: clamp(250px, 28vw, 300px); left: 0; }
   .hero-photo-caption { left: 0; top: auto; bottom: 22px; width: clamp(250px, 28vw, 300px); }
-  .hero-watch { width: 220px; top: 230px; right: -24px; }
+  .hero-watch-photo { width: 190px; left: calc(clamp(250px, 28vw, 300px) - 70px); top: 300px; }
   .evidence-layout, .starts-layout, .history-layout, .founder-layout { gap: 55px; }
   .setup-story { gap: 32px; }
   .setup-art { gap: 10px; }
@@ -650,7 +649,7 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .hero-product { height: 495px; width: 360px; max-width: 100%; }
   .hero-photo { width: 240px; left: 0; top: 0; border-radius: 26px; }
   .hero-photo-caption { bottom: 18px; width: 240px; }
-  .hero-watch { width: 168px; top: 185px; right: -12px; }
+  .hero-watch-photo { width: 150px; left: 170px; top: 220px; border-width: 4px; border-radius: 20px; }
   .section-intro { display: block; }
   .section-intro h2 { max-width: 350px; }
   .section-intro > p { margin-top: 22px; font-size: 15px; }
@@ -669,7 +668,7 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .story-copy { width: 100%; }
   .story-copy > p { font-size: 16px; }
   .evidence-points { gap: 18px; margin-block: 28px; }
-  .review-clip-media { width: 290px; border-radius: 26px; }
+  .review-photo img, .watch-layout .watch-photo img { width: 290px; border-radius: 26px; }
   .starts-layout { grid-template-columns: 1fr; gap: 30px; }
   .start-method-intro { margin-bottom: 26px; }
   .start-method-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -703,7 +702,7 @@ h1:is(:lang(ar), :lang(hi), :lang(ja), :lang(ko), :lang(zh)) { max-width: 100%; 
   .hero-copy h1 { font-size: 40px; }
   .hero-product { height: 420px; }
   .hero-photo, .hero-photo-caption { width: 200px; }
-  .hero-watch { width: 140px; top: 170px; right: -20px; }
+  .hero-watch-photo { width: 120px; left: 140px; top: 190px; }
   .hero-actions { gap: 10px; }
   .hero-actions .quiet-link { font-size: 12px; }
   .history-art { height: 350px; }

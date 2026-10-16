@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "Filmet under en ekte TrackSpeed-økt",
-    "heroAlt": "En sprinter løper forbi en iPhone på stativ mens TrackSpeed registrerer løpet og målbildet",
-    "pairAlt": "TrackSpeed på en iPhone på stativ som kobles sammen med en ny telefon",
+    "heroAlt": "En sprinter løper mot to telefoner på stativ som markerer start og mål på en kunstgressbane",
+    "watchAlt": "En sprinters hånd i startposisjon på kunstgresset, med en Apple Watch på håndleddet",
+    "connectAlt": "TrackSpeed på en iPhone på stativ som kobler sammen start- og måltelefonen",
     "alignAlt": "TrackSpeed-kameraet rettes inn mot mållinjen på en kunstgressbane",
-    "flyingAlt": "To telefoner på stativ markerer start og mål mens en løper kommer mot dem på en kunstgressbane",
-    "reviewLabel": "TrackSpeed på stativ tar tiden på en sprint, og målbildet åpnes og spilles av fram til passeringen",
-    "play": "Spill av video",
-    "pause": "Sett video på pause"
+    "flyingAlt": "En iPhone på stativ med TrackSpeed klar til å ta tiden på en flyvende start",
+    "reviewAlt": "Målbildet av en sprinter ved mållinjen, åpnet i TrackSpeed på en iPhone på stativ"
   }
 }

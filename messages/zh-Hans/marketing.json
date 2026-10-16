@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "拍摄于一次真实的 TrackSpeed 训练",
-    "heroAlt": "一名短跑运动员从三脚架上的 iPhone 旁冲过，TrackSpeed 正在记录这次跑步及其终点照片",
-    "pairAlt": "三脚架上的 iPhone 正在用 TrackSpeed 与第二部手机配对",
+    "heroAlt": "一名短跑运动员在人造草坪场地上跑向两部架在三脚架上、标出起点和终点的手机",
+    "watchAlt": "短跑运动员以起跑姿势将手撑在草坪上，手腕上戴着 Apple Watch",
+    "connectAlt": "三脚架上的 iPhone 正在用 TrackSpeed 连接起点和终点手机",
     "alignAlt": "在人造草坪场地上将 TrackSpeed 摄像头对准终点线",
-    "flyingAlt": "三脚架上的两部手机标出起点和终点，一名跑者正在人造草坪场地上跑来",
-    "reviewLabel": "三脚架上的 TrackSpeed 为一次冲刺计时，随后打开终点照片并回放到冲线瞬间",
-    "play": "播放视频",
-    "pause": "暂停视频"
+    "flyingAlt": "三脚架上的 iPhone，TrackSpeed 已准备好为行进间起跑计时",
+    "reviewAlt": "在三脚架上的 iPhone 中用 TrackSpeed 打开的终点照片，显示短跑运动员与终点线"
   }
 }

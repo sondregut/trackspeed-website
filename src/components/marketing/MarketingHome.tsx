@@ -3,14 +3,13 @@ import {ArrowRightIcon, CameraIcon, CheckIcon, ClockIcon, DownloadIcon, PersonIc
 import {DownloadLink} from "@/components/DownloadLink";
 import {Link} from "@/i18n/navigation";
 import {TextLink} from "./Primitives";
-import LoopingVideo from "@/components/LoopingVideo";
 import ConnectedGates from "./ConnectedGates";
 import ProductPhone from "./ProductPhone";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
 const startArtwork = [
-  {id: "flying", src: "/photos/trackspeed/flying-start-field.webp", width: 960, height: 1200, photo: true},
+  {id: "flying", src: "/photos/trackspeed/ready-flying-start.webp", width: 960, height: 1200, photo: true},
   {id: "touch", src: "/product/start-touch-track-v2.png", width: 1142, height: 1378},
   {id: "countdown", src: "/product/start-countdown-athlete.png", width: 1254, height: 1254},
   {id: "voice", src: "/product/start-voice-athlete.png", width: 1254, height: 1254},
@@ -31,10 +30,8 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
           <p className="hero-availability">{c.hero.availability}</p>
         </div>
         <figure className="hero-product">
-          <Image src="/photos/trackspeed/sprint-finish.webp" alt={c.photos.heroAlt} width={1080} height={1920} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
-          <div className="hero-watch">
-            <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.editorial.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
-          </div>
+          <Image src="/photos/trackspeed/hero-sprint-field.webp" alt={c.photos.heroAlt} width={700} height={1244} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
+          <Image src="/photos/trackspeed/watch-start.webp" alt={c.photos.watchAlt} width={640} height={800} loading="eager" sizes="(max-width: 374px) 120px, (max-width: 767px) 150px, (max-width: 1100px) 190px, 240px" className="hero-watch-photo"/>
           <figcaption className="hero-photo-caption">{c.photos.caption}</figcaption>
         </figure>
       </div>
@@ -48,17 +45,8 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
 
     <section id="review" className="editorial-section evidence-section">
       <div className="marketing-container evidence-layout">
-        <figure className="review-clip">
-          <LoopingVideo
-            sources={[{src: "/photos/trackspeed/review-clip.webm", type: "video/webm"}, {src: "/photos/trackspeed/review-clip.mp4", type: "video/mp4"}]}
-            poster="/photos/trackspeed/photo-finish-poster.webp"
-            width={720}
-            height={1280}
-            label={c.photos.reviewLabel}
-            playLabel={c.photos.play}
-            pauseLabel={c.photos.pause}
-            className="review-clip-media"
-          />
+        <figure className="review-photo">
+          <Image src="/photos/trackspeed/photo-finish.webp" alt={c.photos.reviewAlt} width={900} height={1600} sizes="(max-width: 767px) 290px, 340px"/>
           <figcaption>{c.photos.caption}</figcaption>
         </figure>
         <div className="story-copy">
@@ -93,7 +81,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
     <section className="editorial-section watch-section">
       <div className="marketing-container watch-layout">
         <div className="story-copy"><h2>{c.editorial.watchTitle}</h2><p>{c.editorial.watchBody}</p><TextLink href="/features#watch-start">{c.workflow.guide}</TextLink></div>
-        <figure><Image src="/product/watch-and-phone-transparent.png" alt={c.beta.watchAlt} width={1448} height={1086} sizes="(max-width: 1024px) 95vw, 760px"/><figcaption>{c.editorial.illustration}</figcaption></figure>
+        <figure className="watch-photo"><Image src="/photos/trackspeed/watch-start-tall.webp" alt={c.photos.watchAlt} width={720} height={1280} sizes="(max-width: 767px) 290px, 340px"/><figcaption>{c.photos.caption}</figcaption></figure>
       </div>
     </section>
 

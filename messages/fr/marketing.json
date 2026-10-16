@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "Filmé pendant une vraie séance TrackSpeed",
-    "heroAlt": "Un sprinteur passe devant un iPhone sur trépied pendant que TrackSpeed enregistre la course et sa photo d’arrivée",
-    "pairAlt": "TrackSpeed sur un iPhone fixé à un trépied, en cours d’association avec un second téléphone",
+    "heroAlt": "Un sprinteur court vers deux téléphones sur trépied qui marquent le départ et l’arrivée sur un terrain synthétique",
+    "watchAlt": "La main d’un sprinteur posée sur le gazon en position de départ, une Apple Watch au poignet",
+    "connectAlt": "TrackSpeed sur un iPhone fixé à un trépied, en train de connecter les téléphones du départ et de l’arrivée",
     "alignAlt": "Alignement de la caméra TrackSpeed sur la ligne d’arrivée, sur un terrain synthétique",
-    "flyingAlt": "Deux téléphones sur trépied marquent le départ et l’arrivée pendant qu’un coureur s’élance sur un terrain synthétique",
-    "reviewLabel": "TrackSpeed sur trépied chronomètre un sprint, puis la photo d’arrivée est ouverte et rejouée jusqu’au moment du passage",
-    "play": "Lire la vidéo",
-    "pause": "Mettre la vidéo en pause"
+    "flyingAlt": "Un iPhone sur trépied avec TrackSpeed prêt à chronométrer un départ lancé",
+    "reviewAlt": "La photo d’arrivée d’un sprinteur avec la ligne d’arrivée, ouverte dans TrackSpeed sur un iPhone fixé à un trépied"
   }
 }

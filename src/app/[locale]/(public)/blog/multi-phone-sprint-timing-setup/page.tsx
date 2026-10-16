@@ -5,6 +5,7 @@ import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 import { DownloadLink } from "@/components/DownloadLink";
+import ArticlePhoto from "@/components/ArticlePhoto";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -359,6 +360,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 the ground. Position the phone about 1 to 2 meters back from
                 the lane edge so the full lane width is visible in the frame.
               </p>
+              <ArticlePhoto src="/photos/trackspeed/setup-field-wide.webp" width={1206} height={904} alt="Two phones on tripods mark the start and finish as a runner sprints toward them on a turf field" caption="Start and finish phones on tripods during a TrackSpeed session."/>
 
               <h3
                 className="text-lg font-semibold mb-3"
@@ -374,6 +376,7 @@ export default async function MultiPhoneSprintTimingSetupPage({params}: {params:
                 will discover the host automatically. Tap to join the session.
                 You will see both devices listed once they are connected.
               </p>
+              <ArticlePhoto narrow src="/photos/trackspeed/connect-devices.webp" width={900} height={1600} alt="TrackSpeed on the finish phone, waiting for the start phone to join the session" caption="The finish phone waits for the start phone to join."/>
 
               <h3
                 className="text-lg font-semibold mb-3"

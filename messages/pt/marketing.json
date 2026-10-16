@@ -238,12 +238,11 @@
   },
   "photos": {
     "caption": "Gravado durante uma sessão real do TrackSpeed",
-    "heroAlt": "Um velocista passa por um iPhone num tripé enquanto o TrackSpeed registra a corrida e a foto de chegada",
-    "pairAlt": "TrackSpeed em um iPhone montado num tripé, pareando com um segundo celular",
+    "heroAlt": "Um velocista corre em direção a dois celulares em tripés que marcam a largada e a chegada em um campo de grama sintética",
+    "watchAlt": "A mão de um velocista apoiada na grama em posição de largada, com um Apple Watch no pulso",
+    "connectAlt": "TrackSpeed em um iPhone montado num tripé, conectando os celulares da largada e da chegada",
     "alignAlt": "Alinhando a câmera do TrackSpeed com a linha de chegada em um campo de grama sintética",
-    "flyingAlt": "Dois celulares em tripés marcam a largada e a chegada enquanto um corredor se aproxima em um campo de grama sintética",
-    "reviewLabel": "O TrackSpeed num tripé cronometra um sprint; depois a foto de chegada é aberta e reproduzida até o momento da passagem",
-    "play": "Reproduzir vídeo",
-    "pause": "Pausar vídeo"
+    "flyingAlt": "Um iPhone num tripé com o TrackSpeed pronto para cronometrar uma largada lançada",
+    "reviewAlt": "A foto de chegada de um velocista com a linha de chegada, aberta no TrackSpeed em um iPhone num tripé"
   }
 }
