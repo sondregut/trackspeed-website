@@ -168,5 +168,7 @@ export const config = {
     '/',
     '/(de|fr|nb|ja|zh-Hans|ko|hi|es|pt|it|ar|tr)/:path*',
     '/((?!_next|_vercel|.*\\..*).*)',
+    // Files under /admin (e.g. the onboarding screenshots) need the admin session too.
+    '/admin/:path*',
   ],
 };
