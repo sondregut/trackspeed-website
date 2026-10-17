@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import type { Session } from "@supabase/supabase-js"
 import CreatorSignIn from "@/components/jump/creators/CreatorSignIn"
 import {
-  creatorOfferTerms, demoAdminOverview, demoCodeUses, followerOffer, formatMoney, offerCodeLink, parseCreatorLines, percent,
+  creatorOfferTerms, demoAdminOverview, demoCodeUses, followerOffer, formatMoney, freeOfferCodes, offerCodeLink, parseCreatorLines, percent,
   planName, trackJumpClient,
   type CodeUse, type CreatorSummary,
 } from "@/lib/trackjump-creators"
@@ -96,6 +96,20 @@ export default function TrackJumpCreatorsAdmin() {
           <button onClick={() => setOpenID("new")} className="px-4 py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] text-white text-sm font-medium rounded-lg transition-colors">
             Add creator
           </button>
+        </div>
+      </div>
+
+      <div className="mb-6 rounded-xl bg-[#1A1A1A] p-4 sm:p-5">
+        <p className="text-sm font-medium text-white">Free App Store codes</p>
+        <p className="mb-3 text-xs text-[#9B9A97]">Redeemed with Apple; no charge when the free period ends. In app 1.1.4 people can also type them into the app.</p>
+        <div className="grid gap-3 sm:grid-cols-2">{freeOfferCodes.map(o =>
+          <div key={o.code} className="flex items-center justify-between gap-3 rounded-lg bg-[#202327] px-3 py-2">
+            <div className="min-w-0">
+              <p className="font-mono text-white">{o.code} <span className="font-sans text-xs text-[#9B9A97]">· {o.terms} · {o.codes} codes</span></p>
+              <p className="text-xs text-[#6B6A67]">{o.who}</p>
+            </div>
+            <button type="button" onClick={() => void navigator.clipboard.writeText(offerCodeLink(o.code))} className="shrink-0 text-sm text-[#8EC5F3] hover:underline">Copy link</button>
+          </div>)}
         </div>
       </div>
 

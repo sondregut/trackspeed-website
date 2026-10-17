@@ -45,6 +45,13 @@ export function offerCodeLink(code: string): string {
   return `https://apps.apple.com/redeem?ctx=offercodes&id=${TRACKJUMP_APP_STORE_ID}&code=${encodeURIComponent(code)}`;
 }
 
+/** Free App Store offer codes on the yearly plan (App Store Connect, subscription 6809550626).
+ * They end after the free period with no charge. Change them in App Store Connect, then here. */
+export const freeOfferCodes = [
+  {code: 'TRYJUMP', terms: '2 months of Pro free', who: 'Anyone who wants to try the app', codes: 500},
+  {code: 'JUMPCREW', terms: '1 year of Pro free', who: 'UGC creators', codes: 500},
+];
+
 /** What a follower gets, by the plan a code unlocks (TrackJump codes from app 1.1.4 and earlier). */
 export function followerOffer(productID: string | null): string {
   if (productID === 'app.trackjump.pro.yearly.creator') return '10% off the yearly plan';
