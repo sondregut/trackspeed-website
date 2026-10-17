@@ -25,6 +25,8 @@ export type CreatorTerms = {
 export type CreatorSummary = {
   creator: CreatorTerms | null; codes: CreatorCode[]; totals: CreatorTotals;
   money: Money[]; months: MonthRow[]; payouts: Payout[];
+  /** App Store offer codes the creator shares (for example KINGDAC). */
+  offerCodes?: string[];
 };
 export type CodeUse = {
   redeemedAt: string; code: string; account: string | null; install: string | null;
@@ -32,7 +34,18 @@ export type CodeUse = {
   plan: string | null; currency: string | null; revenue: number; earned: number;
 };
 
-/** What a follower gets, by the plan a code unlocks. */
+/** TrackJump's App Store ID, for offer-code redeem links. */
+export const TRACKJUMP_APP_STORE_ID = '6809517672';
+
+/** What a follower gets with a creator's App Store offer code. */
+export const creatorOfferTerms = '$34.99 for the first year of TrackJump Pro';
+
+/** Opens the App Store's redeem sheet with the code filled in. */
+export function offerCodeLink(code: string): string {
+  return `https://apps.apple.com/redeem?ctx=offercodes&id=${TRACKJUMP_APP_STORE_ID}&code=${encodeURIComponent(code)}`;
+}
+
+/** What a follower gets, by the plan a code unlocks (TrackJump codes from app 1.1.4 and earlier). */
 export function followerOffer(productID: string | null): string {
   if (productID === 'app.trackjump.pro.yearly.creator') return '10% off the yearly plan';
   if (productID === 'app.trackjump.pro.yearly.offer') return 'A lower yearly price';
@@ -66,6 +79,7 @@ export function percent(value: number): string {
 export const demoSummary: CreatorSummary = {
   creator: {name: 'King Dac', revenueShare: 0.25, shareMonths: 12, holdDays: 30},
   codes: [{code: 'DAC', active: true, discountProductID: 'app.trackjump.pro.yearly.creator', uses: 214}],
+  offerCodes: ['KINGDAC'],
   totals: {codeUses: 214, trials: 96, customers: 41, refunds: 2},
   money: [{currency: 'USD', revenue: 1434.59, earned: 304.85, pending: 89.21, paid: 150, payable: 65.64}],
   months: [

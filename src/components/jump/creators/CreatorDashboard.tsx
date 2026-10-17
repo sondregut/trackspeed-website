@@ -4,7 +4,8 @@ import {useEffect, useState} from 'react';
 import type {Session} from '@supabase/supabase-js';
 import CreatorSignIn from './CreatorSignIn';
 import {
-  demoSummary, followerOffer, formatMoney, formatMonth, percent, trackJumpClient, type CreatorSummary,
+  creatorOfferTerms, demoSummary, followerOffer, formatMoney, formatMonth, offerCodeLink, percent, trackJumpClient,
+  type CreatorSummary,
 } from '@/lib/trackjump-creators';
 
 type Load = {state: 'loading'} | {state: 'signedOut'} | {state: 'notCreator'; email: string}
@@ -64,6 +65,8 @@ function Dashboard({summary, demo, onSignOut}: {summary: CreatorSummary; demo: b
   const creator = summary.creator!;
   const [copied, setCopied] = useState<string | null>(null);
   const money = summary.money.length ? summary.money : [{currency: 'USD', revenue: 0, earned: 0, pending: 0, paid: 0, payable: 0}];
+  // Creators share App Store offer codes. Their old TrackJump code shows only until they have one.
+  const offerCodes = summary.offerCodes ?? [];
 
   function copy(code: string) {
     navigator.clipboard?.writeText(code).then(() => {setCopied(code); setTimeout(() => setCopied(null), 1500);}).catch(() => {});
@@ -81,7 +84,26 @@ function Dashboard({summary, demo, onSignOut}: {summary: CreatorSummary; demo: b
     </div>
 
     <div className="mb-6 grid gap-4 md:grid-cols-2">
-      {summary.codes.map(code => <div key={code.code} className="rounded-2xl border border-[#5C8DB8]/20 bg-[#1A1A1A] p-6">
+      {offerCodes.map(code => <div key={code} className="rounded-2xl border border-[#5C8DB8]/20 bg-[#1A1A1A] p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="mb-1 text-sm text-[#9B9A97]">Your code</p>
+            <p className="break-all font-mono text-4xl font-bold tracking-wider">{code}</p>
+            <p className="mt-2 text-sm text-[#9B9A97]">{creatorOfferTerms} for anyone who redeems it in the App Store.</p>
+          </div>
+          <button onClick={() => copy(code)} className="shrink-0 rounded-lg bg-[#5C8DB8] px-4 py-2 text-sm font-medium transition-colors hover:bg-[#4A7A9E]">
+            {copied === code ? 'Copied' : 'Copy'}
+          </button>
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-lg bg-[#202327] px-3 py-2">
+          <p className="min-w-0 truncate text-xs text-[#9B9A97]">{offerCodeLink(code)}</p>
+          <button onClick={() => copy(offerCodeLink(code))} className="shrink-0 text-sm text-[#5C8DB8] hover:underline">
+            {copied === offerCodeLink(code) ? 'Copied' : 'Copy link'}
+          </button>
+        </div>
+        <p className="mt-2 text-xs text-[#6B6A67]">Put the link in your bio or captions: it opens the App Store with your code filled in.</p>
+      </div>)}
+      {offerCodes.length === 0 && summary.codes.map(code => <div key={code.code} className="rounded-2xl border border-[#5C8DB8]/20 bg-[#1A1A1A] p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="mb-1 text-sm text-[#9B9A97]">Your code</p>
@@ -96,13 +118,13 @@ function Dashboard({summary, demo, onSignOut}: {summary: CreatorSummary; demo: b
       <div className="rounded-2xl bg-[#1A1A1A] p-6 text-sm leading-6 text-[#9B9A97]">
         <p className="mb-1 text-white">How you earn</p>
         You earn <span className="text-white">{percent(creator.revenueShare)}</span> of what Apple pays us for every purchase
-        a customer makes in the <span className="text-white">{creator.shareMonths} months</span> after they enter your code, renewals included.
+        a customer makes in the <span className="text-white">{creator.shareMonths} months</span> after they redeem your code, renewals included.
         Each earning can be paid <span className="text-white">{creator.holdDays} days</span> after the purchase, once refunds have settled.
       </div>
     </div>
 
     <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-      <Stat label="Code uses" value={summary.totals.codeUses.toLocaleString('en-US')} hint="People who entered your code" />
+      <Stat label="Code uses" value={summary.totals.codeUses.toLocaleString('en-US')} hint="People who redeemed your code" />
       <Stat label="Free trials" value={summary.totals.trials.toLocaleString('en-US')} hint="Started a trial" />
       <Stat label="Paying customers" value={summary.totals.customers.toLocaleString('en-US')} hint={summary.totals.refunds ? `${summary.totals.refunds} refunded` : 'Paid at least once'} />
       <Stat label="Conversion" value={summary.totals.codeUses ? percent(summary.totals.customers / summary.totals.codeUses) : '—'} hint="Code uses that paid" />

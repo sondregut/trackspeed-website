@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import type { Session } from "@supabase/supabase-js"
 import CreatorSignIn from "@/components/jump/creators/CreatorSignIn"
 import {
-  demoAdminOverview, demoCodeUses, followerOffer, formatMoney, parseCreatorLines, percent, planName, trackJumpClient,
+  creatorOfferTerms, demoAdminOverview, demoCodeUses, followerOffer, formatMoney, offerCodeLink, parseCreatorLines, percent,
+  planName, trackJumpClient,
   type CodeUse, type CreatorSummary,
 } from "@/lib/trackjump-creators"
 
@@ -122,8 +123,11 @@ export default function TrackJumpCreatorsAdmin() {
                   <p className="text-white font-medium">{t.name}{!t.active && <span className="ml-2 rounded bg-[#2B2E32] px-2 py-0.5 text-xs text-[#9B9A97]">Paused</span>}</p>
                   <p className="text-xs text-[#9B9A97]">{t.email ?? "No email"}{t.linked ? " · signed in" : ""}</p>
                 </td>
-                <td className="px-4 py-3 align-top">{c.codes.map(code =>
-                  <span key={code.code} className={`mr-1 inline-block rounded px-2 py-1 font-mono text-sm ${code.active ? "bg-[#2B2E32] text-white" : "bg-[#2B2E32]/50 text-[#6B6A67] line-through"}`}>{code.code}</span>)}</td>
+                <td className="px-4 py-3 align-top">{(c.offerCodes ?? []).map(code =>
+                  <span key={`offer-${code}`} title="App Store offer code" className="mr-1 inline-block rounded bg-[#5C8DB8]/25 px-2 py-1 font-mono text-sm text-white">{code}</span>)}
+                  {c.codes.map(code =>
+                  <span key={code.code} title="TrackJump code (app 1.1.4 and earlier)" className={`mr-1 inline-block rounded px-2 py-1 font-mono text-sm ${code.active ? "bg-[#2B2E32] text-[#9B9A97]" : "bg-[#2B2E32]/50 text-[#6B6A67] line-through"}`}>{code.code}</span>)}
+                  {!(c.offerCodes ?? []).length && <p className="mt-1 text-xs text-yellow-400">No App Store code</p>}</td>
                 <td className="px-4 py-3 align-top text-sm text-[#C9D4DE]">{percent(t.revenueShare)} · {t.shareMonths} mo<p className="text-xs text-[#6B6A67]">{t.holdDays}-day hold</p></td>
                 <td className="px-4 py-3 align-top text-right text-white tabular-nums">{c.totals.codeUses}</td>
                 <td className="px-4 py-3 align-top text-right text-white tabular-nums">{c.totals.trials}</td>
@@ -198,8 +202,10 @@ function BulkCreatorsPanel({ demo, creators, onClose, onSaved }: {
     setBusy(false)
   }
 
+  // Followers can only use an App Store offer code, so the message assumes one
+  // with the same name exists and is linked (see the creator's panel).
   const message = results.filter(r => r.ok).map(r =>
-    `${r.name}: your TrackJump code is ${r.code}. Your followers get ${followerOffer("app.trackjump.pro.yearly.creator")} with it, and you can follow sign-ups and earnings at mytrackspeed.com/jump/creators (sign in with the email you gave me).`).join("\n\n")
+    `${r.name}: your TrackJump code is ${r.code}. Your followers get ${creatorOfferTerms} when they redeem it in the App Store: ${offerCodeLink(r.code)} . You can follow sign-ups and earnings at mytrackspeed.com/jump/creators (sign in with the email you gave me).`).join("\n\n")
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center sm:p-6 z-50" onClick={onClose}>
@@ -233,6 +239,7 @@ function BulkCreatorsPanel({ demo, creators, onClose, onSaved }: {
         {message && <div className="mt-5">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm font-medium text-white">Message to send each creator</p>
+            <p className="text-xs text-yellow-400">Send it only after each code exists in App Store Connect and is linked.</p>
             <button onClick={() => void navigator.clipboard.writeText(message)} className="text-sm text-[#8EC5F3] hover:underline">Copy</button>
           </div>
           <pre className="whitespace-pre-wrap rounded-lg bg-[#202327] p-3 text-sm text-[#C9D4DE]">{message}</pre>
@@ -255,6 +262,7 @@ function CreatorPanel({ summary, demo, onClose, onSaved }: {
     hold: String(t?.holdDays ?? 30), active: t?.active ?? true, note: t?.note ?? "",
   })
   const [newCode, setNewCode] = useState("")
+  const [offer, setOffer] = useState({ code: "", name: "" })
   const [payout, setPayout] = useState({ amount: "", currency: summary?.money[0]?.currency ?? "USD", method: "PayPal", reference: "" })
   const [uses, setUses] = useState<CodeUse[] | null>(null)
   const [busy, setBusy] = useState(false)
@@ -323,8 +331,32 @@ function CreatorPanel({ summary, demo, onClose, onSaved }: {
           </form>
 
           <div className="space-y-3">
+            {t && <form className={box} onSubmit={e => {
+                e.preventDefault()
+                const code = offer.code.trim().toUpperCase(), name = offer.name.trim()
+                void (async () => {
+                  // Apple's signed purchase names either the custom code or the offer, so link both.
+                  if (name) await call("creator_admin_link_offer_code", { p_creator_id: t.id, p_offer_identifier: name, p_note: `Offer for ${code}` }, "")
+                  await call("creator_admin_link_offer_code", { p_creator_id: t.id, p_offer_identifier: code, p_note: "Custom code", p_customer_code: true }, `App Store code ${code} linked.`)
+                })()
+                setOffer({ code: "", name: "" })
+              }}>
+              <p className="text-sm font-medium text-white mb-1">App Store code</p>
+              {(summary!.offerCodes ?? []).length ? <div className="mb-3 space-y-1">{summary!.offerCodes!.map(code =>
+                <div key={code} className="flex items-center justify-between gap-3">
+                  <p className="font-mono text-white">{code} <span className="text-xs text-[#9B9A97]">· {creatorOfferTerms}</span></p>
+                  <button type="button" onClick={() => void navigator.clipboard.writeText(offerCodeLink(code))} className="shrink-0 text-sm text-[#8EC5F3] hover:underline">Copy link</button>
+                </div>)}</div> :
+                <p className="mb-3 text-xs text-[#9B9A97]">Followers can only use an App Store offer code. Create a custom code on the yearly plan in App Store Connect (Subscriptions → Offer Codes), then link it here with the offer&apos;s name.</p>}
+              <div className="grid grid-cols-2 gap-2 mb-2">
+                <input id="cr-offer-code" required value={offer.code} onChange={e => setOffer({ ...offer, code: e.target.value })} placeholder="KINGDAC" className={`${input} font-mono uppercase`} />
+                <input id="cr-offer-name" value={offer.name} onChange={e => setOffer({ ...offer, name: e.target.value })} placeholder="Offer name: creator-DAC" className={input} />
+              </div>
+              <button disabled={busy || !offer.code.trim()} className="w-full py-2 bg-[#5C8DB8] hover:bg-[#4A7A9E] text-white text-sm font-medium rounded-lg disabled:opacity-50">Link App Store code</button>
+            </form>}
             {t && <div className={box}>
-              <p className="text-sm font-medium text-white mb-3">Codes</p>
+              <p className="text-sm font-medium text-white mb-1">TrackJump codes</p>
+              <p className="text-xs text-[#6B6A67] mb-3">Only app 1.1.4 and earlier accept these. Sales still report under this code.</p>
               <div className="space-y-2 mb-3">{summary!.codes.length === 0 ? <p className="text-sm text-[#9B9A97]">No code yet.</p> :
                 summary!.codes.map(code => <div key={code.code} className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
