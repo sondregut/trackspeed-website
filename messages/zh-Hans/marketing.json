@@ -235,5 +235,14 @@
       "分享成绩、视频和训练数据。",
       "本地计时，联网后同步支持的数据。"
     ]
+  },
+  "photos": {
+    "caption": "拍摄于一次真实的 TrackSpeed 训练",
+    "heroAlt": "一名短跑运动员在人造草坪场地上跑向两部架在三脚架上、标出起点和终点的手机",
+    "watchAlt": "短跑运动员以起跑姿势将手撑在草坪上，手腕上戴着 Apple Watch",
+    "connectAlt": "三脚架上的 iPhone 正在用 TrackSpeed 连接起点和终点手机",
+    "alignAlt": "在人造草坪场地上将 TrackSpeed 摄像头对准终点线",
+    "flyingAlt": "三脚架上的 iPhone，TrackSpeed 已准备好为行进间起跑计时",
+    "reviewAlt": "在三脚架上的 iPhone 中用 TrackSpeed 打开的终点照片，显示短跑运动员与终点线"
   }
 }

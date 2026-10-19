@@ -5,6 +5,7 @@ import { getPageMetadata } from "@/i18n/metadata";
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 import { DownloadLink } from "@/components/DownloadLink";
+import ArticlePhoto from "@/components/ArticlePhoto";
 
 const slug = "flying-10-meter-sprint-test";
 const title = "Flying 10-Meter Sprint Test: Setup, Timing, and Protocol";
@@ -267,6 +268,7 @@ export default async function FlyingTenMeterSprintTestPage({
                 The phones connect directly, so the setup does not depend on
                 internet service at the track.
               </p>
+              <ArticlePhoto src="/photos/trackspeed/setup-field-wide.webp" width={1206} height={904} alt="Two phones on tripods mark the start and finish as a runner sprints toward them on a turf field" caption="One phone at the entrance to the timed zone, one at the exit."/>
               <ul className="space-y-3 text-body list-disc pl-5 mb-5">
                 <li>Use a tripod or rigid support; do not hand-hold either phone.</li>
                 <li>Keep the athlete&apos;s full crossing path clear in each camera view.</li>

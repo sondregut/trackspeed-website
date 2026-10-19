@@ -1,20 +1,21 @@
 import Image from "next/image";
 import {ArrowRightIcon, CameraIcon, CheckIcon, ClockIcon, DownloadIcon, PersonIcon, PlusIcon} from "@radix-ui/react-icons";
+import {Mic, Pointer, ScanLine, Timer, type LucideIcon} from "lucide-react";
 import {DownloadLink} from "@/components/DownloadLink";
 import {Link} from "@/i18n/navigation";
 import {TextLink} from "./Primitives";
 import ConnectedGates from "./ConnectedGates";
 import ProductPhone from "./ProductPhone";
-import SprintPreview from "./SprintPreview";
 import type copy from "../../../messages/en/marketing.json";
 
 const workflowItems = [{index: 1, Icon: PersonIcon}, {index: 3, Icon: ClockIcon}, {index: 4, Icon: DownloadIcon}, {index: 5, Icon: CheckIcon}];
-const startArtwork = [
-  {id: "flying", src: "/product/start-flying-blue-track-v3.png", width: 1536, height: 1024},
-  {id: "touch", src: "/product/start-touch-track-v2.png", width: 1142, height: 1378},
-  {id: "countdown", src: "/product/start-countdown-athlete.png", width: 1254, height: 1254},
-  {id: "voice", src: "/product/start-voice-athlete.png", width: 1254, height: 1254},
-  {id: "in-frame", src: "/product/start-in-frame-turf-v2.png", width: 1122, height: 1402},
+// Flying start has a real photo; the other start modes use icons until real photos of them exist.
+const startArtwork: {id: string; photo?: {src: string; width: number; height: number}; Icon?: LucideIcon}[] = [
+  {id: "flying", photo: {src: "/photos/trackspeed/ready-flying-start.webp", width: 960, height: 1200}},
+  {id: "touch", Icon: Pointer},
+  {id: "countdown", Icon: Timer},
+  {id: "voice", Icon: Mic},
+  {id: "in-frame", Icon: ScanLine},
 ];
 
 export default function MarketingHome({copy: c}: {copy: typeof copy}) {
@@ -31,24 +32,25 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
           <p className="hero-availability">{c.hero.availability}</p>
         </div>
         <figure className="hero-product">
-          <Image src="/product/sprint-blue-track-transparent.png" alt={c.hero.imageAlt} width={872} height={1802} preload sizes="(max-width: 374px) 190px, (max-width: 767px) 230px, (max-width: 1100px) 295px, 352px" className="hero-timing-phone"/>
-          <div className="hero-watch">
-            <Image src="/product/watch-hero-transparent.png" alt={`Apple Watch — ${c.editorial.illustration}`} width={1086} height={1448} loading="eager" sizes="(max-width: 374px) 140px, (max-width: 767px) 168px, (max-width: 1100px) 220px, 322px"/>
-          </div>
-          <figcaption className="sr-only">{c.editorial.illustration}</figcaption>
+          <Image src="/photos/trackspeed/hero-sprint-field.webp" alt={c.photos.heroAlt} width={700} height={1244} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
+          <Image src="/photos/trackspeed/watch-start.webp" alt={c.photos.watchAlt} width={640} height={800} loading="eager" sizes="(max-width: 374px) 120px, (max-width: 767px) 150px, (max-width: 1100px) 190px, 240px" className="hero-watch-photo"/>
+          <figcaption className="hero-photo-caption">{c.photos.caption}</figcaption>
         </figure>
       </div>
     </section>
 
     <section id="how-it-works" className="editorial-section setup-section" aria-labelledby="connected-gates-title">
       <div className="marketing-container">
-        <ConnectedGates copy={c.modes}/>
+        <ConnectedGates copy={c.modes} photos={c.photos}/>
       </div>
     </section>
 
     <section id="review" className="editorial-section evidence-section">
       <div className="marketing-container evidence-layout">
-        <SprintPreview copy={c}/>
+        <figure className="review-photo">
+          <Image src="/photos/trackspeed/photo-finish.webp" alt={c.photos.reviewAlt} width={900} height={1600} sizes="(max-width: 767px) 290px, 340px"/>
+          <figcaption>{c.photos.caption}</figcaption>
+        </figure>
         <div className="story-copy">
           <h2>{c.evidence.title}</h2>
           <p>{c.editorial.evidenceBody}</p>
@@ -62,18 +64,22 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
       <div className="marketing-container">
         <div className="section-intro start-method-intro"><h2>{c.starts.title}</h2><p>{c.starts.description}</p></div>
         <ol className="start-method-grid">
-          {c.starts.items.map((item, index) => <li key={startArtwork[index].id} className={`start-method-card start-method-${startArtwork[index].id}`}>
-            <div className="start-method-copy">
-              <span className="list-number" aria-hidden="true">0{index + 1}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-            <div className="start-method-art">
-              <Image src={startArtwork[index].src} alt="" width={startArtwork[index].width} height={startArtwork[index].height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>
-              {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
-              {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
-            </div>
-          </li>)}
+          {c.starts.items.map((item, index) => {
+            const {id, photo, Icon} = startArtwork[index];
+            return <li key={id} className={`start-method-card start-method-${id}`}>
+              <div className="start-method-copy">
+                <span className="list-number" aria-hidden="true">0{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+              <div className={`start-method-art ${photo ? "is-photo" : "is-icon"}`}>
+                {photo && <Image src={photo.src} alt={c.photos.flyingAlt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 410px"/>}
+                {Icon && <span className="start-method-icon" aria-hidden="true"><Icon strokeWidth={1.5}/></span>}
+                {index === 2 && <span className="start-method-cue" aria-hidden="true"><span>3</span><span>2</span><span>1</span></span>}
+                {index === 3 && <span className="start-method-cue start-method-voice-cue" aria-hidden="true">{[12,22,34,18,28,38,24,14].map((height, bar) => <i key={bar} style={{height}}/>)}</span>}
+              </div>
+            </li>;
+          })}
         </ol>
       </div>
     </section>
@@ -81,7 +87,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
     <section className="editorial-section watch-section">
       <div className="marketing-container watch-layout">
         <div className="story-copy"><h2>{c.editorial.watchTitle}</h2><p>{c.editorial.watchBody}</p><TextLink href="/features#watch-start">{c.workflow.guide}</TextLink></div>
-        <figure><Image src="/product/watch-and-phone-transparent.png" alt={c.beta.watchAlt} width={1448} height={1086} sizes="(max-width: 1024px) 95vw, 760px"/><figcaption>{c.editorial.illustration}</figcaption></figure>
+        <figure className="watch-photo"><Image src="/photos/trackspeed/watch-start-tall.webp" alt={c.photos.watchAlt} width={720} height={1280} sizes="(max-width: 767px) 290px, 340px"/><figcaption>{c.photos.caption}</figcaption></figure>
       </div>
     </section>
 

@@ -235,5 +235,14 @@
       "결과, 영상, 세션 데이터를 공유하세요.",
       "로컬에서 측정하고 지원 데이터를 온라인으로 동기화하세요."
     ]
+  },
+  "photos": {
+    "caption": "실제 TrackSpeed 세션에서 촬영",
+    "heroAlt": "인조잔디 필드에서 출발과 도착 지점을 표시한 삼각대 위 휴대폰 두 대를 향해 달리는 스프린터",
+    "watchAlt": "출발 자세로 인조잔디에 손을 짚은 스프린터, 손목에 Apple Watch 착용",
+    "connectAlt": "삼각대에 고정한 iPhone의 TrackSpeed가 출발 휴대폰과 도착 휴대폰을 연결하는 모습",
+    "alignAlt": "인조잔디 필드에서 TrackSpeed 카메라를 도착선에 맞추는 모습",
+    "flyingAlt": "삼각대에 고정한 iPhone에서 TrackSpeed가 플라잉 출발 측정을 준비한 모습",
+    "reviewAlt": "스프린터와 도착선이 담긴 도착 사진을 삼각대 위 iPhone의 TrackSpeed에서 연 모습"
   }
 }

@@ -235,5 +235,14 @@
       "Comparte resultados, vídeos y datos de sesión.",
       "Cronometra localmente. Sincroniza datos compatibles al conectarte."
     ]
+  },
+  "photos": {
+    "caption": "Grabado durante una sesión real de TrackSpeed",
+    "heroAlt": "Un velocista corre hacia dos teléfonos en trípodes que marcan la salida y la llegada en un campo de césped artificial",
+    "watchAlt": "La mano de un velocista sobre el césped en posición de salida, con un Apple Watch en la muñeca",
+    "connectAlt": "TrackSpeed en un iPhone montado en un trípode, conectando los teléfonos de salida y llegada",
+    "alignAlt": "Alineando la cámara de TrackSpeed con la línea de llegada en un campo de césped artificial",
+    "flyingAlt": "Un iPhone en un trípode con TrackSpeed listo para cronometrar una salida lanzada",
+    "reviewAlt": "La foto de llegada de un velocista con la línea de meta, abierta en TrackSpeed en un iPhone sobre un trípode"
   }
 }

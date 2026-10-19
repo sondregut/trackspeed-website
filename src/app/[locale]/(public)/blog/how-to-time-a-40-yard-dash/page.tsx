@@ -5,6 +5,7 @@ import {getPageMetadata} from '@/i18n/metadata';
 import { ArticleByline } from "@/components/ArticleByline";
 import RelatedPosts from "@/components/RelatedPosts";
 import { DownloadLink } from "@/components/DownloadLink";
+import ArticlePhoto from "@/components/ArticlePhoto";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -409,6 +410,7 @@ export default async function HowToTime40YardDashPage({params}: {params: Promise
                 </Link>{" "}
                 a clear view of the runner crossing the finish plane.
               </p>
+              <ArticlePhoto narrow src="/photos/trackspeed/align-camera.webp" width={900} height={1600} alt="An iPhone on a tripod with the TrackSpeed camera line lined up on the finish line" caption="Line up the on-screen line with the finish line."/>
 
               <h3
                 className="text-lg font-semibold mb-3"
