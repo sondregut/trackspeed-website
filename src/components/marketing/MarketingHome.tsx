@@ -32,7 +32,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
           <p className="hero-availability">{c.hero.availability}</p>
         </div>
         <figure className="hero-product">
-          <Image src="/photos/trackspeed/hero-sprint-field.webp" alt={c.photos.heroAlt} width={700} height={1244} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
+          <Image src="/photos/trackspeed/photo-finish.webp" alt={c.photos.reviewAlt} width={900} height={1600} preload sizes="(max-width: 374px) 200px, (max-width: 767px) 240px, (max-width: 1100px) 300px, 360px" className="hero-photo"/>
           <Image src="/photos/trackspeed/watch-start.webp" alt={c.photos.watchAlt} width={640} height={800} loading="eager" sizes="(max-width: 374px) 120px, (max-width: 767px) 150px, (max-width: 1100px) 190px, 240px" className="hero-watch-photo"/>
           <figcaption className="hero-photo-caption">{c.photos.caption}</figcaption>
         </figure>
@@ -48,7 +48,7 @@ export default function MarketingHome({copy: c}: {copy: typeof copy}) {
     <section id="review" className="editorial-section evidence-section">
       <div className="marketing-container evidence-layout">
         <figure className="review-photo">
-          <Image src="/photos/trackspeed/photo-finish.webp" alt={c.photos.reviewAlt} width={900} height={1600} sizes="(max-width: 767px) 290px, 340px"/>
+          <Image src="/photos/trackspeed/hero-sprint-field.webp" alt={c.photos.heroAlt} width={700} height={1244} sizes="(max-width: 767px) 290px, 340px"/>
           <figcaption>{c.photos.caption}</figcaption>
         </figure>
         <div className="story-copy">
