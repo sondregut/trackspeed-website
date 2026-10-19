@@ -36,6 +36,11 @@ import {
   serializeSceneMotionCauses,
   isSceneMotionCause,
   validateReviewPixelAudit,
+  detectionReviewBuildChannelLabel,
+  gateAdjustmentLabel,
+  isGateAdjustmentMark,
+  isProductionBuildChannel,
+  publicGateAdjustment,
 } from "../src/lib/detection-review.ts"
 import { jpegDimensions } from "../src/lib/jpeg-dimensions.ts"
 import { directionReviewCohort } from "../src/lib/direction-review-cohorts.ts"
@@ -650,4 +655,72 @@ test("reads source dimensions from the rendered JPEG", () => {
   ])
   assert.deepEqual(jpegDimensions(jpeg), { width: 720, height: 1280 })
   assert.equal(jpegDimensions(Uint8Array.from([0xff, 0xd8, 0xff])), null)
+})
+
+test("separates a moved gate line from a tag review", () => {
+  assert.equal(isGateAdjustmentMark({ frame_pick: "gate_adjustment", review_key: null }), true)
+  assert.equal(isGateAdjustmentMark({ frame_pick: null, review_key: "gate-adjust:abc:finish" }), true)
+  assert.equal(isGateAdjustmentMark({ frame_pick: "prev", review_key: "S-run1-crossing" }), false)
+  assert.equal(isGateAdjustmentMark({}), false)
+})
+
+test("publishes a moved gate line with its re-timing", () => {
+  const adjustment = publicGateAdjustment({
+    id: "mark-1",
+    created_at: "2026-10-16T08:00:00.000Z",
+    actual_x: 0.47,
+    detector_x: 0.5,
+    time_shift_seconds: -0.0125,
+    corrected_time_seconds: 3.2105,
+    raw_message: "[GATE-ADJUST-LABEL] restoresDetectorLine=false",
+    source_app_build: "113",
+    build_channel: "debug",
+  })
+  assert.ok(adjustment)
+  assert.equal(adjustment.linePosition, 0.47)
+  assert.equal(adjustment.detectorLinePosition, 0.5)
+  assert.ok(Math.abs(adjustment.deltaPercent + 3) < 1e-9)
+  assert.equal(adjustment.timeShiftSeconds, -0.0125)
+  assert.equal(adjustment.correctedTimeSeconds, 3.2105)
+  assert.equal(adjustment.restoresDetectorLine, false)
+  assert.equal(adjustment.appBuild, "113")
+  assert.equal(adjustment.buildChannel, "debug")
+  assert.equal(gateAdjustmentLabel(adjustment), "Line moved -3.0% · -0.013 s")
+
+  const reset = publicGateAdjustment({
+    id: "mark-2",
+    created_at: "2026-10-16T08:01:00.000Z",
+    actual_x: 0.5,
+    detector_x: 0.5,
+    raw_message: "[GATE-ADJUST-LABEL] restoresDetectorLine=true",
+  })
+  assert.ok(reset)
+  assert.equal(reset.timeShiftSeconds, null)
+  assert.equal(gateAdjustmentLabel(reset), "Line reset to detector")
+
+  assert.equal(publicGateAdjustment({
+    id: "mark-3",
+    created_at: "2026-10-16T08:02:00.000Z",
+    actual_x: null,
+    detector_x: 0.5,
+  }), null)
+  assert.equal(publicGateAdjustment({
+    id: "mark-4",
+    created_at: "2026-10-16T08:03:00.000Z",
+    actual_x: 1.4,
+    detector_x: 0.5,
+  }), null)
+})
+
+test("labels evidence by build channel and falls back to the consent marker", () => {
+  assert.equal(detectionReviewBuildChannelLabel("field_test", 0), "Field-test build")
+  assert.equal(detectionReviewBuildChannelLabel("debug", 0), "Debug build")
+  assert.equal(detectionReviewBuildChannelLabel("app_store", 1), "App Store · consent v1")
+  assert.equal(detectionReviewBuildChannelLabel(null, 1), "Production consent v1")
+  assert.equal(detectionReviewBuildChannelLabel(null, 0), "Internal build")
+  assert.equal(detectionReviewBuildChannelLabel("something_new", 0), "Internal build")
+  assert.equal(isProductionBuildChannel("app_store"), true)
+  assert.equal(isProductionBuildChannel("testflight"), true)
+  assert.equal(isProductionBuildChannel("field_test"), false)
+  assert.equal(isProductionBuildChannel(null), false)
 })

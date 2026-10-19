@@ -11,7 +11,9 @@ import {
   detectionReviewDraftValidationError,
   detectionReviewImageRequestUrl,
   detectionReviewIssueForCrossingTiming,
+  detectionReviewBuildChannelLabel,
   falseTriggerReviewLabel,
+  gateAdjustmentLabel,
   isIgnoredCrossingIssue,
   isPointForbiddenDetectionReviewIssue,
   measureContainedImagePoint,
@@ -19,6 +21,7 @@ import {
   SCENE_MOTION_CAUSE_OPTIONS,
   sceneMotionCausesEqual,
   type DetectionReviewDirectionEvidence,
+  type DetectionReviewGateAdjustment,
   type DetectionReviewIssue,
   type SceneMotionCause,
 } from "@/lib/detection-review"
@@ -56,6 +59,7 @@ export interface DetectionGridCapture {
   appVersion: string | null
   appBuild: string | null
   evidenceConsentVersion: number
+  buildChannel?: string | null
   evidenceProvenance: string
   isFrontCamera: boolean | null
   direction: string | null
@@ -67,6 +71,7 @@ export interface DetectionGridCapture {
   imageUrl: string
   temporalFrames: GridTemporalFrame[]
   review: GridReview | null
+  gateAdjustment?: DetectionReviewGateAdjustment | null
 }
 
 export interface GridTemporalFrame {
@@ -930,7 +935,7 @@ export function DetectionReviewGrid({
                       {capture.deviceModel || "Unknown iPhone"} · {cameraSetupLabel(batch.captures)}
                     </h3>
                     <p className="mt-1 font-mono text-[10px] leading-4 text-[#7F929F]">
-                      Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "version not recorded"}{capture.appBuild ? ` (${capture.appBuild})` : ""} · {capture.evidenceConsentVersion > 0 ? `production consent v${capture.evidenceConsentVersion}` : capture.evidenceProvenance.replaceAll("_", " ")} · {formatSetupDate(capture.createdAt)}
+                      Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "version not recorded"}{capture.appBuild ? ` (${capture.appBuild})` : ""} · {capture.buildChannel ? detectionReviewBuildChannelLabel(capture.buildChannel, capture.evidenceConsentVersion) : capture.evidenceConsentVersion > 0 ? `production consent v${capture.evidenceConsentVersion}` : capture.evidenceProvenance.replaceAll("_", " ")} · {formatSetupDate(capture.createdAt)}
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-x-5 gap-y-1 font-mono text-right text-[10px]">
@@ -979,6 +984,14 @@ export function DetectionReviewGrid({
                       {capture.review.issue === "unlabeled"
                         ? "App review"
                         : falseTriggerReviewLabel(capture.review.issue) || capture.review.issue}
+                    </span>
+                  )}
+                  {capture.gateAdjustment && (
+                    <span
+                      title="The red line was moved on this photo in the app, which re-timed the run."
+                      className="rounded-full border border-[#5C8DB8] bg-[#1C2A35] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8FB5D4]"
+                    >
+                      {gateAdjustmentLabel(capture.gateAdjustment)}
                     </span>
                   )}
                 </div>

@@ -13,7 +13,9 @@ import {
   detectionReviewSetMatches,
   detectionReviewSetSelectorMatches,
   detectionReviewSessionIdentifiers,
+  detectionReviewBuildChannelLabel,
   falseTriggerReviewLabel,
+  gateAdjustmentLabel,
   isIgnoredCrossingIssue,
   isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
@@ -25,6 +27,7 @@ import {
   SCENE_MOTION_CAUSE_OPTIONS,
   sceneMotionCausesEqual,
   type DetectionReviewDirectionEvidence,
+  type DetectionReviewGateAdjustment,
   type DetectionReviewIssue,
   type SceneMotionCause,
 } from "@/lib/detection-review"
@@ -76,6 +79,7 @@ interface DetectionCapture {
   appVersion: string | null
   appBuild: string | null
   evidenceConsentVersion: number
+  buildChannel?: string | null
   evidenceProvenance: string
   deviceModel: string | null
   isFrontCamera: boolean | null
@@ -94,6 +98,7 @@ interface DetectionCapture {
   temporalFrames: TemporalFrame[]
   temporalGeometryFrameCount: number
   review: ReviewMark | null
+  gateAdjustment?: DetectionReviewGateAdjustment | null
 }
 
 interface SessionEvidence {
@@ -1724,7 +1729,19 @@ export default function DetectionReviewDashboard({
                       Marked in app
                     </span>
                   )}
-                  {selected.evidenceConsentVersion > 0 && (
+                  {selected.gateAdjustment && (
+                    <span
+                      title="The red line was moved on this photo in the app, which re-timed the run."
+                      className="rounded-full border border-[#5C8DB8] bg-[#1C2A35] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FB5D4]"
+                    >
+                      {gateAdjustmentLabel(selected.gateAdjustment)}
+                    </span>
+                  )}
+                  {selected.buildChannel ? (
+                    <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FC8A3]">
+                      {detectionReviewBuildChannelLabel(selected.buildChannel, selected.evidenceConsentVersion)}
+                    </span>
+                  ) : selected.evidenceConsentVersion > 0 && (
                     <span className="rounded-full border border-[#527E62] bg-[#213027] px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8FC8A3]">
                       Production evidence · consent v{selected.evidenceConsentVersion}
                     </span>
