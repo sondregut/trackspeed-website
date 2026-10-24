@@ -20,7 +20,7 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
     <div className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-[#9B9A97] mb-12">Last updated: August 30, 2026</p>
+        <p className="text-[#9B9A97] mb-12">Last updated: October 24, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">1. Introduction</h2>
@@ -89,6 +89,17 @@ export default async function PrivacyPage({params}: {params: Promise<{locale: st
             <li>Stripe for web payment processing, subject to Stripe&apos;s Privacy Policy</li>
             <li>Supabase for data storage and authentication, subject to Supabase&apos;s Privacy Policy</li>
             <li>PostHog for anonymized product analytics, crash reports, and structured production diagnostics, subject to PostHog&apos;s Privacy Policy</li>
+            <li>Meta Platforms for measuring which ads bring people to the App, subject to <a href="https://www.facebook.com/privacy/policy/" className="text-[#5C8DB8] hover:underline">Meta&apos;s Privacy Policy</a></li>
+          </ul>
+
+          <h3 className="text-lg font-semibold mb-2 mt-4">5.1 Ad measurement with Meta</h3>
+          <p className="text-[#9B9A97] mb-2">
+            The App includes Meta&apos;s Facebook SDK so we can see which of our ads lead to installs and subscriptions. Automatic event logging is turned off. The App sends Meta only these events: the App being opened, creating an account, starting a free trial, and completing a purchase or subscription, with the product, price and currency. RevenueCat also sends Meta subscription events such as a trial converting to paid or a renewal, linked to Meta&apos;s anonymous app identifier.
+          </p>
+          <ul className="list-disc pl-5 text-[#9B9A97] space-y-1">
+            <li>These events are sent whether or not you allow tracking, so Meta can count them in aggregated, privacy-preserving ad measurement. Meta also receives technical information such as device model, operating system and IP address.</li>
+            <li>Apple&apos;s advertising identifier (IDFA) is sent to Meta and RevenueCat only if you tap <strong>Allow</strong> on the &quot;Allow TrackSpeed to track your activity&quot; prompt, which appears after you start a trial or purchase. You can change this at any time in iPhone <strong>Settings &rarr; Privacy &amp; Security &rarr; Tracking</strong>.</li>
+            <li>The App never sends Meta your camera images, timing results, name or email address.</li>
           </ul>
         </section>
 
