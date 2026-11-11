@@ -87,6 +87,18 @@ const englishOnlyPages: SitemapPage[] = [
     path: "/delete-account",
     lastModified: "2026-02-28",
   },
+  {
+    path: "/jump/vertical-jump-calculator",
+    lastModified: "2026-11-10",
+  },
+  {
+    path: "/tools/wind-adjusted-100m-time-calculator",
+    lastModified: "2026-11-10",
+  },
+  {
+    path: "/tools/flying-30m-converter",
+    lastModified: "2026-11-10",
+  },
 ];
 
 const englishOnlyEntries: MetadataRoute.Sitemap = englishOnlyPages.map((page) => ({

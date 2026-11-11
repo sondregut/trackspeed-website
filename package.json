@@ -14,7 +14,8 @@
     "test:promo-codes": "node --experimental-strip-types --test tests/promo-code-contract.test.ts",
     "test:checkout-security": "node --experimental-strip-types --test tests/checkout-security.test.mjs",
     "test:dashboard": "node --experimental-strip-types --test tests/dashboard.test.ts",
-    "test:trackjump-creators": "node --experimental-strip-types --test tests/trackjump-creator-lines.test.ts"
+    "test:trackjump-creators": "node --experimental-strip-types --test tests/trackjump-creator-lines.test.ts",
+    "test:sprint-calculators": "node --experimental-strip-types --test tests/sprint-calculators.test.ts"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",

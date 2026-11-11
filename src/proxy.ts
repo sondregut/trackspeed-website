@@ -18,7 +18,7 @@ const englishOnlyPublicPaths = new Set([
 ]);
 
 function isEnglishOnlyPublicPath(pathname: string) {
-  return englishOnlyPublicPaths.has(pathname) || pathname.startsWith('/blog/') || pathname.startsWith('/jump/');
+  return englishOnlyPublicPaths.has(pathname) || pathname.startsWith('/blog/') || pathname.startsWith('/jump/') || pathname.startsWith('/tools/');
 }
 
 function canonicalEnglishPath(pathname: string) {
@@ -48,7 +48,7 @@ const publicEnglishPaths = new Set([
 
 function isPublicEnglishDestination(pathname: string) {
   const normalized = pathname.replace(/\/$/, '');
-  return publicEnglishPaths.has(normalized) || /^\/en\/(?:blog|shop|jump)\/[^/]+$/.test(normalized);
+  return publicEnglishPaths.has(normalized) || /^\/en\/(?:blog|shop|jump|tools)\/[^/]+$/.test(normalized);
 }
 
 export function proxy(request: NextRequest) {
