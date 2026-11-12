@@ -887,9 +887,9 @@ export default function DetectionReviewDashboard({
     () => groupLogOnlySessions(logOnlySessions, internalDeviceIds),
     [internalDeviceIds, logOnlySessions],
   )
-  const testDeviceLogOnlyCount = logOnlyGroups.filter((group) => group.testDevicesOnly).length
+  const testDeviceLogOnlyCount = logOnlyGroups.filter((group) => group.includesTestDevice).length
   const shownLogOnlyGroups = hideTestDevices
-    ? logOnlyGroups.filter((group) => !group.testDevicesOnly)
+    ? logOnlyGroups.filter((group) => !group.includesTestDevice)
     : logOnlyGroups
   const isTestDevice = (deviceId: string) => internalDeviceIds.has(deviceId.toLowerCase())
   const testDeviceThumbnailCount = incompleteSessionEvidence.filter((evidence) => isTestDevice(evidence.deviceId)).length
@@ -1597,7 +1597,7 @@ export default function DetectionReviewDashboard({
                           </div>
                           <div className="font-mono text-[10px] text-[#8F8A7A]">
                             {group.builds.join(", ")}
-                            {group.testDevicesOnly ? " · test devices" : ""}
+                            {group.includesTestDevice ? " · test session" : ""}
                           </div>
                         </li>
                       ))}

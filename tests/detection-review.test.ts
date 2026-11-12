@@ -759,17 +759,17 @@ test("log-only sessions become one row per session with its phones, newest first
   assert.equal(groups[1].uploadCount, 8)
   assert.equal(groups[1].startedAt, "2026-11-11T09:59:58.000Z")
   assert.deepEqual(groups[1].builds, ["1.0.27 (148)"])
-  assert.equal(groups[1].testDevicesOnly, true)
-  assert.equal(groups[0].testDevicesOnly, false)
+  assert.equal(groups[1].includesTestDevice, true)
+  assert.equal(groups[0].includesTestDevice, false)
 })
 
-test("a session with any non-test phone is not hidden as test traffic", () => {
+test("a session paired with one test phone counts as test traffic", () => {
   const [group] = groupLogOnlySessions([
     logSession({ evidenceCorrelationId: "SHARED", deviceId: "DEVICE-A" }),
-    logSession({ evidenceCorrelationId: "SHARED", deviceId: "CUSTOMER-1" }),
+    logSession({ evidenceCorrelationId: "SHARED", deviceId: "IPAD-1", deviceModel: "iPad8,11" }),
   ], new Set(["device-a"]))
   assert.equal(group.devices.length, 2)
-  assert.equal(group.testDevicesOnly, false)
+  assert.equal(group.includesTestDevice, true)
 })
 
 test("test build channels mark internal devices; App Store does not", () => {

@@ -1170,8 +1170,11 @@ export interface LogOnlySessionGroup<T extends LogOnlyDeviceSessionLike> {
   devices: T[]
   uploadCount: number
   builds: string[]
-  /** Every phone in the session is a known test device. */
-  testDevicesOnly: boolean
+  /**
+   * At least one phone in the session is a known test device. Phones in one
+   * session are paired at the same track, so the whole session is a test.
+   */
+  includesTestDevice: boolean
 }
 
 /**
@@ -1212,7 +1215,7 @@ export function groupLogOnlySessions<T extends LogOnlyDeviceSessionLike>(
         devices: ordered,
         uploadCount: ordered.reduce((total, device) => total + device.uploadCount, 0),
         builds,
-        testDevicesOnly: ordered.every((device) => internalDeviceIds.has(device.deviceId.toLowerCase())),
+        includesTestDevice: ordered.some((device) => internalDeviceIds.has(device.deviceId.toLowerCase())),
       }
     })
     .sort((left, right) => Date.parse(right.startedAt) - Date.parse(left.startedAt))
