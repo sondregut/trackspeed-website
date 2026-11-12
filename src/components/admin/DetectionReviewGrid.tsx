@@ -3,7 +3,9 @@
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 import {
+  canDownloadDetectionFrame,
   DetectionReviewBlockingError,
+  detectionFrameDownloadFilename,
   detectionReviewCrossingTiming,
   detectionReviewBatchKey,
   detectionReviewCaptureReference,
@@ -25,6 +27,8 @@ import {
   type DetectionReviewIssue,
   type SceneMotionCause,
 } from "@/lib/detection-review"
+import { downloadDetectionFrame } from "@/lib/detection-frame-download"
+import { FrameDownloadButton } from "./FrameDownloadButton"
 
 interface Point {
   x: number
@@ -111,6 +115,21 @@ interface DetectionReviewGridProps {
   onDraftCountChange: (count: number) => void
   onOpenDetail: (captureId: string) => void
   onQueue: (items: GridReviewItem[]) => Promise<void>
+  /** Lower-cased device ids of Sondre's own phones; only their frames can be downloaded. */
+  ownDeviceIds: ReadonlySet<string>
+}
+
+function frameDownloadFor(capture: DetectionGridCapture, frame: GridTemporalFrame | null) {
+  return {
+    url: frame?.url || capture.imageUrl,
+    detectorX: capture.detectorX,
+    filename: detectionFrameDownloadFilename({
+      sessionId: capture.sessionId,
+      runNumber: capture.runNumber,
+      target: capture.target,
+      relativeFrame: frame?.relativeFrame ?? null,
+    }),
+  }
 }
 
 function shortId(value: string | null) {
@@ -389,8 +408,11 @@ export function DetectionReviewGrid({
   onDraftCountChange,
   onOpenDetail,
   onQueue,
+  ownDeviceIds,
 }: DetectionReviewGridProps) {
   const [drafts, setDrafts] = useState<Record<string, GridDraft>>({})
+  const [batchDownload, setBatchDownload] = useState<{ key: string; done: number; total: number } | null>(null)
+  const [batchDownloadNotes, setBatchDownloadNotes] = useState<Record<string, string>>({})
   const [preparing, setPreparing] = useState(false)
   const [batchError, setBatchError] = useState("")
   const [blockingCaptureId, setBlockingCaptureId] = useState<string | null>(null)
@@ -486,6 +508,28 @@ export function DetectionReviewGrid({
       }
     })
     clearBatchError()
+  }
+
+  async function downloadBatchFrames(batchKey: string, captures: readonly DetectionGridCapture[]) {
+    const own = captures.filter((capture) => canDownloadDetectionFrame(capture, ownDeviceIds))
+    if (own.length === 0 || batchDownload) return
+    let failed = 0
+    setBatchDownloadNotes((notes) => ({ ...notes, [batchKey]: "" }))
+    for (const [position, capture] of own.entries()) {
+      setBatchDownload({ key: batchKey, done: position, total: own.length })
+      try {
+        await downloadDetectionFrame(frameDownloadFor(capture, selectedFrame(capture, drafts[capture.id])))
+      } catch {
+        failed += 1
+      }
+      // Browsers drop downloads fired in the same instant; space them out.
+      await new Promise((resolve) => window.setTimeout(resolve, 350))
+    }
+    setBatchDownload(null)
+    setBatchDownloadNotes((notes) => ({
+      ...notes,
+      [batchKey]: failed > 0 ? `${failed} of ${own.length} failed` : `${own.length} saved to Downloads`,
+    }))
   }
 
   function chooseGridFrame(capture: DetectionGridCapture, frame: GridTemporalFrame) {
@@ -938,6 +982,7 @@ export function DetectionReviewGrid({
                       Session {shortId(capture.sessionId)} · {capture.mode} · {capture.appVersion || "version not recorded"}{capture.appBuild ? ` (${capture.appBuild})` : ""} · {capture.buildChannel ? detectionReviewBuildChannelLabel(capture.buildChannel, capture.evidenceConsentVersion) : capture.evidenceConsentVersion > 0 ? `production consent v${capture.evidenceConsentVersion}` : capture.evidenceProvenance.replaceAll("_", " ")} · {formatSetupDate(capture.createdAt)}
                     </p>
                   </div>
+                  <div className="grid justify-items-end gap-2">
                   <div className="grid grid-cols-2 gap-x-5 gap-y-1 font-mono text-right text-[10px]">
                     <span className="text-[#8B8F94]">Runs</span>
                     <span className="font-semibold text-white">
@@ -947,6 +992,30 @@ export function DetectionReviewGrid({
                     <span className="font-semibold text-[#A8D8B9]">
                       {batch.captures.filter((item) => item.review).length} / {batch.captures.length}
                     </span>
+                  </div>
+                  {(() => {
+                    const downloadable = batch.captures.filter((item) => canDownloadDetectionFrame(item, ownDeviceIds)).length
+                    if (downloadable === 0) return null
+                    const running = batchDownload?.key === batch.key ? batchDownload : null
+                    return (
+                      <div className="flex items-center gap-2">
+                        {batchDownloadNotes[batch.key] && !running && (
+                          <span className="font-mono text-[10px] text-[#8FB5D4]">{batchDownloadNotes[batch.key]}</span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => void downloadBatchFrames(batch.key, batch.captures)}
+                          disabled={Boolean(batchDownload)}
+                          title="Save each frame as shown, with the red line and no dot, one file per run"
+                          className="rounded-lg border border-[#4D6B80] px-2.5 py-1 text-[11px] font-semibold text-[#CFE1EE] transition hover:border-[#7FA6C2] hover:text-white active:translate-y-px disabled:cursor-wait disabled:opacity-60"
+                        >
+                          {running
+                            ? `Saving ${running.done + 1} of ${running.total}…`
+                            : `Download all ${downloadable} ${downloadable === 1 ? "frame" : "frames"}`}
+                        </button>
+                      </div>
+                    )
+                  })()}
                   </div>
                 </div>
               </header>
@@ -1023,12 +1092,25 @@ export function DetectionReviewGrid({
                 </p>
               )}
 
+              {capture.temporalFrames.length === 0 && (
+                <div className="flex justify-end border-b border-[#31404A] bg-[#151D23] px-3.5 py-2">
+                  <FrameDownloadButton
+                    {...frameDownloadFor(capture, null)}
+                    allowed={canDownloadDetectionFrame(capture, ownDeviceIds)}
+                  />
+                </div>
+              )}
+
               {capture.temporalFrames.length > 0 && (
                 <div className="border-b border-[#31404A] bg-[#151D23] px-3.5 py-3">
-                  <div className="mb-2">
+                  <div className="mb-2 flex items-center justify-between gap-2">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9B9A97]">
                       Frame
                     </span>
+                    <FrameDownloadButton
+                      {...frameDownloadFor(capture, frame)}
+                      allowed={canDownloadDetectionFrame(capture, ownDeviceIds)}
+                    />
                   </div>
                   <div
                     role="group"

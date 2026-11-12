@@ -1220,3 +1220,51 @@ export function groupLogOnlySessions<T extends LogOnlyDeviceSessionLike>(
     })
     .sort((left, right) => Date.parse(right.startedAt) - Date.parse(left.startedAt))
 }
+
+export interface DetectionFrameDownloadInput {
+  sessionId: string | null
+  runNumber: number
+  target: string | null | undefined
+  /** 0 or missing for the detected frame; negative earlier, positive later. */
+  relativeFrame?: number | null
+}
+
+/**
+ * A file name Sondre can recognise in Downloads, for example
+ * `trackspeed-d3902b84-run8-finish.jpg` or `trackspeed-d3902b84-run8-finish-later-1.jpg`.
+ */
+export function detectionFrameDownloadFilename(input: DetectionFrameDownloadInput): string {
+  const session = (input.sessionId || "").replace(/[^0-9a-z]/gi, "").slice(0, 8).toLowerCase() || "nosession"
+  const target = (input.target || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
+  const relative = input.relativeFrame
+  const frame = !relative ? "" : relative < 0 ? `-earlier-${-relative}` : `-later-${relative}`
+  const run = Number.isFinite(input.runNumber) ? `run${input.runNumber}` : "run"
+  return `${["trackspeed", session, run, target].filter(Boolean).join("-")}${frame}.jpg`
+}
+
+/** Width in pixels of the red gate line burnt into a downloaded frame. */
+export function detectionFrameGateLineWidth(imageWidth: number): number {
+  if (!Number.isFinite(imageWidth) || imageWidth <= 0) return 3
+  return Math.max(3, Math.round(imageWidth * 0.005))
+}
+
+/** Left edge and width of the gate line for an image `imageWidth` pixels wide. */
+export function detectionFrameGateLineRect(imageWidth: number, detectorX: number): { left: number; width: number } {
+  const width = detectionFrameGateLineWidth(imageWidth)
+  const clamped = Math.min(Math.max(Number.isFinite(detectorX) ? detectorX : 0.5, 0), 1)
+  const left = Math.round(clamped * imageWidth - width / 2)
+  return { left: Math.min(Math.max(left, 0), Math.max(0, imageWidth - width)), width }
+}
+
+/**
+ * Frames may be downloaded for videos only when they come from Sondre's own
+ * phones: an internal build, or a device that has sent internal builds.
+ * Other people's frames were shared for detection work, not for videos.
+ */
+export function canDownloadDetectionFrame(
+  capture: { deviceId: string; buildChannel?: string | null },
+  ownDeviceIds: ReadonlySet<string>,
+): boolean {
+  return isInternalDetectionBuildChannel(capture.buildChannel)
+    || ownDeviceIds.has(capture.deviceId.toLowerCase())
+}

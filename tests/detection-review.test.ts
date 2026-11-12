@@ -17,6 +17,9 @@ import {
   detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
   groupLogOnlySessions,
+  canDownloadDetectionFrame,
+  detectionFrameDownloadFilename,
+  detectionFrameGateLineRect,
   isInternalDetectionBuildChannel,
   isIgnoredCrossingIssue,
   isCurrentDetectionReviewCapture,
@@ -779,4 +782,31 @@ test("test build channels mark internal devices; App Store does not", () => {
   for (const channel of ["app_store", "", null, undefined]) {
     assert.equal(isInternalDetectionBuildChannel(channel), false, String(channel))
   }
+})
+
+test("downloaded frames get a recognisable file name", () => {
+  const base = { sessionId: "D3902B84-1111-2222-3333-444455556666", runNumber: 8, target: "finish" }
+  assert.equal(detectionFrameDownloadFilename(base), "trackspeed-d3902b84-run8-finish.jpg")
+  assert.equal(detectionFrameDownloadFilename({ ...base, relativeFrame: 0 }), "trackspeed-d3902b84-run8-finish.jpg")
+  assert.equal(detectionFrameDownloadFilename({ ...base, relativeFrame: -2 }), "trackspeed-d3902b84-run8-finish-earlier-2.jpg")
+  assert.equal(detectionFrameDownloadFilename({ ...base, relativeFrame: 1 }), "trackspeed-d3902b84-run8-finish-later-1.jpg")
+  assert.equal(
+    detectionFrameDownloadFilename({ sessionId: null, runNumber: 3, target: "Lap Gate 2" }),
+    "trackspeed-nosession-run3-lap-gate-2.jpg",
+  )
+})
+
+test("the downloaded red line sits on the detector position and stays inside the frame", () => {
+  assert.deepEqual(detectionFrameGateLineRect(720, 0.5), { left: 358, width: 4 })
+  assert.deepEqual(detectionFrameGateLineRect(720, 0), { left: 0, width: 4 })
+  assert.deepEqual(detectionFrameGateLineRect(720, 1), { left: 716, width: 4 })
+  assert.deepEqual(detectionFrameGateLineRect(200, 0.25), { left: 49, width: 3 })
+})
+
+test("only frames from Sondre's own phones can be downloaded", () => {
+  const own = new Set(["test-phone"])
+  assert.equal(canDownloadDetectionFrame({ deviceId: "TEST-PHONE", buildChannel: "app_store" }, own), true)
+  assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: "debug" }, own), true)
+  assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: "app_store" }, own), false)
+  assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: null }, own), false)
 })

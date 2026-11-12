@@ -17,6 +17,8 @@ import {
   falseTriggerReviewLabel,
   gateAdjustmentLabel,
   groupLogOnlySessions,
+  canDownloadDetectionFrame,
+  detectionFrameDownloadFilename,
   isIgnoredCrossingIssue,
   isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
@@ -33,6 +35,7 @@ import {
   type SceneMotionCause,
 } from "@/lib/detection-review"
 import { DetectionReviewGrid, type GridReviewItem } from "./DetectionReviewGrid"
+import { FrameDownloadButton } from "./FrameDownloadButton"
 
 type ReviewIssue = DetectionReviewIssue
 
@@ -1737,6 +1740,7 @@ export default function DetectionReviewDashboard({
             onDraftCountChange={setGridDraftCount}
             onOpenDetail={openCaptureDetail}
             onQueue={queueGridReviews}
+            ownDeviceIds={internalDeviceIds}
           />
         ) : selected ? (
           <div className="grid items-start gap-4 xl:grid-cols-[220px_minmax(0,1fr)_320px]">
@@ -1930,6 +1934,19 @@ export default function DetectionReviewDashboard({
                     )}
                   </div>
                 </div>
+                <div className="flex items-center gap-2">
+                <FrameDownloadButton
+                  url={selectedImageSource}
+                  detectorX={selected.detectorX}
+                  filename={detectionFrameDownloadFilename({
+                    sessionId: selected.sessionId,
+                    runNumber: selected.runNumber,
+                    target: selected.target,
+                    relativeFrame: selectedFrame?.relativeFrame ?? null,
+                  })}
+                  allowed={canDownloadDetectionFrame(selected, internalDeviceIds)}
+                  size="md"
+                />
                 <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
                   point
                     ? "border-[#527E62] bg-[#213027] text-[#8FC8A3]"
@@ -1939,6 +1956,7 @@ export default function DetectionReviewDashboard({
                 }`}>
                   {point ? "Point ready" : selectedOutsideFrameLabel || selectedFalseTriggerLabel || "Waiting for click"}
                 </span>
+                </div>
               </div>
 
               <div className="flex min-h-[360px] items-center justify-center overflow-auto p-2 sm:min-h-[480px] sm:p-5 xl:min-h-[560px]">
