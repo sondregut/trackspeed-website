@@ -1135,3 +1135,85 @@ export function detectorDisplayPosition(capture: {
 }): number {
   return resolveDetectorDisplayPosition(capture, null).x
 }
+
+/**
+ * Build channels of test builds. A device that has sent a capture or review
+ * mark from one of these is one of the team's test devices (Sondre, 2026-11-12:
+ * "clean up this dashbaord"; the log-only list was almost all his own phones).
+ */
+export const INTERNAL_DETECTION_BUILD_CHANNELS = ["debug", "field_test", "testflight", "development"] as const
+
+export function isInternalDetectionBuildChannel(channel: string | null | undefined): boolean {
+  const value = channel?.trim().toLowerCase() || ""
+  return (INTERNAL_DETECTION_BUILD_CHANNELS as readonly string[]).includes(value)
+}
+
+export interface LogOnlyDeviceSessionLike {
+  evidenceCorrelationId: string | null
+  localRaceSessionId: string | null
+  sessionId: string | null
+  cloudSessionId: string | null
+  realtimeSessionId: string | null
+  deviceId: string
+  deviceModel: string | null
+  role: string | null
+  mode: string | null
+  appVersion: string | null
+  appBuild: string | null
+  sessionStartedAt: string
+  uploadCount: number
+}
+
+export interface LogOnlySessionGroup<T extends LogOnlyDeviceSessionLike> {
+  key: string
+  startedAt: string
+  devices: T[]
+  uploadCount: number
+  builds: string[]
+  /** Every phone in the session is a known test device. */
+  testDevicesOnly: boolean
+}
+
+/**
+ * One row per session instead of one card per phone: the phones of a
+ * multi-phone session share their session identifiers. Newest first.
+ */
+export function groupLogOnlySessions<T extends LogOnlyDeviceSessionLike>(
+  sessions: readonly T[],
+  internalDeviceIds: ReadonlySet<string>,
+): LogOnlySessionGroup<T>[] {
+  const groups = new Map<string, T[]>()
+  for (const session of sessions) {
+    const key = detectionReviewSessionIdentifiers([
+      session.evidenceCorrelationId,
+      session.localRaceSessionId,
+      session.sessionId,
+      session.cloudSessionId,
+      session.realtimeSessionId,
+    ])[0] || `device:${session.deviceId.toLowerCase()}:${session.sessionStartedAt}`
+    const devices = groups.get(key)
+    if (devices) devices.push(session)
+    else groups.set(key, [session])
+  }
+
+  return [...groups.entries()]
+    .map(([key, devices]) => {
+      const ordered = [...devices].sort((left, right) =>
+        (left.role || "").localeCompare(right.role || "")
+        || (left.deviceModel || "").localeCompare(right.deviceModel || ""))
+      const startedAt = ordered
+        .map((device) => device.sessionStartedAt)
+        .reduce((earliest, value) => (Date.parse(value) < Date.parse(earliest) ? value : earliest))
+      const builds = [...new Set(ordered.map((device) =>
+        `${device.appVersion || "unknown version"}${device.appBuild ? ` (${device.appBuild})` : ""}`))]
+      return {
+        key,
+        startedAt,
+        devices: ordered,
+        uploadCount: ordered.reduce((total, device) => total + device.uploadCount, 0),
+        builds,
+        testDevicesOnly: ordered.every((device) => internalDeviceIds.has(device.deviceId.toLowerCase())),
+      }
+    })
+    .sort((left, right) => Date.parse(right.startedAt) - Date.parse(left.startedAt))
+}

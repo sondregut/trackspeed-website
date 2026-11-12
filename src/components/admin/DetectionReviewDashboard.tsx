@@ -16,6 +16,7 @@ import {
   detectionReviewBuildChannelLabel,
   falseTriggerReviewLabel,
   gateAdjustmentLabel,
+  groupLogOnlySessions,
   isIgnoredCrossingIssue,
   isPointForbiddenDetectionReviewIssue,
   isPointFreeDetectionReviewIssue,
@@ -150,6 +151,8 @@ interface QueueResponse {
   captures: DetectionCapture[]
   sessionEvidence: SessionEvidence[]
   deviceLogSessions: DeviceLogSession[]
+  /** Test phones (devices that sent debug, field-test or TestFlight data). */
+  internalDeviceIds?: string[]
   counts: {
     total: number
     reviewed: number
@@ -304,6 +307,12 @@ export default function DetectionReviewDashboard({
   const [captures, setCaptures] = useState<DetectionCapture[]>([])
   const [sessionEvidence, setSessionEvidence] = useState<SessionEvidence[]>([])
   const [deviceLogSessions, setDeviceLogSessions] = useState<DeviceLogSession[]>([])
+  const [internalDeviceIds, setInternalDeviceIds] = useState<Set<string>>(() => new Set())
+  // The review queue comes first: the two upload-health lists start closed,
+  // and the team's own test phones are hidden from them (Sondre, 2026-11-12).
+  const [hideTestDevices, setHideTestDevices] = useState(true)
+  const [showLogOnly, setShowLogOnly] = useState(false)
+  const [showThumbnailHealth, setShowThumbnailHealth] = useState(false)
   const [dataset, setDataset] = useState<QueueResponse["dataset"] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [reviewSetQuery, setReviewSetQuery] = useState(initialReviewSet.raw)
@@ -357,6 +366,7 @@ export default function DetectionReviewDashboard({
       const loadedCaptures: DetectionCapture[] = []
       const loadedEvidence = new Map<string, SessionEvidence>()
       const loadedDeviceLogSessions = new Map<string, DeviceLogSession>()
+      const loadedInternalDeviceIds = new Set<string>()
       let offset = 0
       let hasMore = true
 
@@ -396,6 +406,7 @@ export default function DetectionReviewDashboard({
           const key = `${evidence.evidenceCorrelationId || evidence.localRaceSessionId || evidence.sessionId}:${evidence.deviceId}`
           if (!loadedEvidence.has(key)) loadedEvidence.set(key, evidence)
         })
+        ;(page.internalDeviceIds || []).forEach((id) => loadedInternalDeviceIds.add(id.toLowerCase()))
         const pageDeviceLogSessions = page.deviceLogSessions || []
         pageDeviceLogSessions.forEach((session) => {
           const key = `${session.evidenceCorrelationId || session.localRaceSessionId || session.sessionId}:${session.deviceId}`
@@ -459,6 +470,7 @@ export default function DetectionReviewDashboard({
       )
       setSessionEvidence([...loadedEvidence.values()])
       setDeviceLogSessions([...loadedDeviceLogSessions.values()])
+      setInternalDeviceIds(loadedInternalDeviceIds)
     } catch (loadError) {
       setError(loadError instanceof Error ? loadError.message : "Could not load review queue")
     } finally {
@@ -870,6 +882,21 @@ export default function DetectionReviewDashboard({
       ]).some((identifier) => linkedSessionIds.has(identifier)))
       .sort((left, right) => Date.parse(right.sessionStartedAt) - Date.parse(left.sessionStartedAt))
   }, [captures, deviceLogSessions, sessionEvidence])
+
+  const logOnlyGroups = useMemo(
+    () => groupLogOnlySessions(logOnlySessions, internalDeviceIds),
+    [internalDeviceIds, logOnlySessions],
+  )
+  const testDeviceLogOnlyCount = logOnlyGroups.filter((group) => group.testDevicesOnly).length
+  const shownLogOnlyGroups = hideTestDevices
+    ? logOnlyGroups.filter((group) => !group.testDevicesOnly)
+    : logOnlyGroups
+  const isTestDevice = (deviceId: string) => internalDeviceIds.has(deviceId.toLowerCase())
+  const testDeviceThumbnailCount = incompleteSessionEvidence.filter((evidence) => isTestDevice(evidence.deviceId)).length
+  const shownIncompleteEvidence = hideTestDevices
+    ? incompleteSessionEvidence.filter((evidence) => !isTestDevice(evidence.deviceId))
+    : incompleteSessionEvidence
+  const hiddenTestDeviceItems = hideTestDevices ? testDeviceLogOnlyCount + testDeviceThumbnailCount : 0
 
   function placeMark(event: React.PointerEvent<HTMLImageElement>) {
     if (!selected?.editable) return
@@ -1489,89 +1516,153 @@ export default function DetectionReviewDashboard({
             {success}
           </div>
         )}
-        {!hasReviewSetRequest && logOnlySessions.length > 0 && (
-          <section
-            aria-labelledby="log-only-sessions-heading"
-            className="border-l-2 border-[#F06C68] bg-[#2B2223] px-4 py-4"
-          >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 id="log-only-sessions-heading" className="text-sm font-semibold text-white">
-                  Log-only sessions
-                </h2>
-                <p className="mt-1 text-xs leading-5 text-[#D4A8A5]">
-                  Device logs arrived, but no session context or review thumbnail is linked. These sessions may have stopped before post-crossing processing completed.
-                </p>
-              </div>
-              <span className="font-mono text-xs font-semibold text-[#F2B1AE]">
-                {logOnlySessions.length} incomplete
-              </span>
+        {!hasReviewSetRequest && (logOnlyGroups.length > 0 || sessionEvidenceHealth.length > 0) && (
+          <section aria-labelledby="upload-health-heading" className="grid gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2
+                id="upload-health-heading"
+                className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A8D92]"
+              >
+                Upload health
+              </h2>
+              <label className="flex cursor-pointer items-center gap-2 text-xs text-[#9B9A97]">
+                <input
+                  type="checkbox"
+                  checked={hideTestDevices}
+                  onChange={(event) => setHideTestDevices(event.target.checked)}
+                  className="h-4 w-4 accent-[#5C8DB8]"
+                />
+                Hide test devices
+                {testDeviceLogOnlyCount + testDeviceThumbnailCount > 0 && (
+                  <span className="font-mono text-[11px] text-[#777B80]">
+                    ({testDeviceLogOnlyCount + testDeviceThumbnailCount})
+                  </span>
+                )}
+              </label>
             </div>
 
-            <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-              {logOnlySessions.map((session) => (
-                <div key={`${session.id}:${session.deviceId}`} className="border border-[#5D3D3F] bg-[#241B1C] px-3 py-2.5">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-xs font-semibold text-white">
-                      {session.deviceModel || "Unknown device"}
-                    </span>
-                    <span className="font-mono text-xs text-[#F2B1AE]">
-                      {session.uploadCount} {session.uploadCount === 1 ? "log" : "logs"}
-                    </span>
-                  </div>
-                  <div className="mt-1 font-mono text-[10px] text-[#A98381]">
-                    Session {shortId(session.sessionId || session.localRaceSessionId || session.evidenceCorrelationId)} · {session.role || session.mode || "detection"}
-                  </div>
-                  <div className="mt-1 text-[10px] text-[#8F7776]">
-                    {session.appVersion || "unknown version"}{session.appBuild ? ` (${session.appBuild})` : ""} · {formatDate(session.sessionStartedAt)}
-                  </div>
+            {logOnlyGroups.length > 0 && (
+              <div
+                className={`border-l-2 px-4 py-2.5 ${
+                  shownLogOnlyGroups.length > 0 ? "border-[#D6B36A] bg-[#2A2821]" : "border-[#3B4D59] bg-[#1C2226]"
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-xs text-[#C4BDAA]">
+                    <span id="log-only-sessions-heading" className="font-semibold text-white">Log-only sessions</span>
+                    <span className="ml-2 font-mono text-[#E4C985]">{shownLogOnlyGroups.length}</span>
+                    {hiddenTestDeviceItems > 0 && testDeviceLogOnlyCount > 0 && (
+                      <span className="ml-2 text-[#8A8D92]">· {testDeviceLogOnlyCount} from test devices hidden</span>
+                    )}
+                  </p>
+                  {shownLogOnlyGroups.length > 0 && (
+                    <button
+                      type="button"
+                      aria-expanded={showLogOnly}
+                      aria-controls="log-only-sessions-list"
+                      onClick={() => setShowLogOnly((value) => !value)}
+                      className="rounded-lg border border-[#5A5340] px-3 py-1 text-xs font-semibold text-[#E4C985] transition hover:border-[#A19061] hover:text-white active:translate-y-px"
+                    >
+                      {showLogOnly ? "Hide" : "Show"}
+                    </button>
+                  )}
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
-        {!hasReviewSetRequest && sessionEvidenceHealth.length > 0 && (
-          <section
-            aria-labelledby="evidence-upload-health-heading"
-            className={`border-l-2 px-4 py-4 ${
-              incompleteSessionEvidence.length > 0
-                ? "border-[#D6B36A] bg-[#2A2821]"
-                : "border-[#6FB58A] bg-[#202B25]"
-            }`}
-          >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 id="evidence-upload-health-heading" className="text-sm font-semibold text-white">
-                  Thumbnail upload completeness
-                </h2>
-                <p className="mt-1 text-xs leading-5 text-[#9B9A97]">
-                  {incompleteSessionEvidence.length > 0
-                    ? `${incompleteSessionEvidence.length} session ${incompleteSessionEvidence.length === 1 ? "upload is" : "uploads are"} incomplete. Keep each source app open on a stable connection until its evidence banner says fully synced.`
-                    : `All ${sessionEvidenceHealth.length} reported sessions have every expected review thumbnail.`}
-                </p>
-              </div>
-              <span className={`font-mono text-xs font-semibold ${incompleteSessionEvidence.length > 0 ? "text-[#E4C985]" : "text-[#A8D8B9]"}`}>
-                {sessionEvidenceHealth.length - incompleteSessionEvidence.length}/{sessionEvidenceHealth.length} complete
-              </span>
-            </div>
-
-            {incompleteSessionEvidence.length > 0 && (
-              <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                {incompleteSessionEvidence.map((evidence) => (
-                  <div key={`${evidence.id}:${evidence.deviceId}`} className="border border-[#4B4637] bg-[#211F1A] px-3 py-2.5">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-semibold text-white">
-                        {evidence.deviceModel || "Unknown device"}
-                      </span>
-                      <span className="font-mono text-xs text-[#E4C985]">
-                        {evidence.uploaded}/{evidence.expected}
-                      </span>
-                    </div>
-                    <div className="mt-1 font-mono text-[10px] text-[#777B80]">
-                      Session {shortId(evidence.sessionId)} · {evidence.localRole || evidence.timingMode || "detection"}
-                    </div>
+                {showLogOnly && shownLogOnlyGroups.length > 0 && (
+                  <div id="log-only-sessions-list">
+                    <p className="mt-2 text-[11px] leading-5 text-[#9B9A97]">
+                      Device logs arrived, but no session context or review thumbnail is linked. These sessions may have stopped before post-crossing processing completed. One row per session, newest first.
+                    </p>
+                    <ul aria-labelledby="log-only-sessions-heading" className="mt-2 divide-y divide-[#3A3528]">
+                      {shownLogOnlyGroups.map((group) => (
+                        <li
+                          key={group.key}
+                          className="grid gap-1 py-2 sm:grid-cols-[140px_minmax(0,1fr)_auto] sm:items-baseline sm:gap-4"
+                        >
+                          <div className="font-mono text-[11px] text-[#C4BDAA]">
+                            {formatDate(group.startedAt)}
+                            <span className="block text-[10px] text-[#8F8A7A]">Session {shortId(group.key)}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {group.devices.map((device) => (
+                              <span
+                                key={`${group.key}:${device.deviceId}`}
+                                className="rounded border border-[#4B4637] bg-[#211F1A] px-2 py-0.5 text-[11px] text-white"
+                              >
+                                {device.deviceModel || "Unknown device"}
+                                <span className="text-[#8F8A7A]">
+                                  {" "}· {device.role || device.mode || "detection"} · {device.uploadCount} {device.uploadCount === 1 ? "log" : "logs"}
+                                </span>
+                              </span>
+                            ))}
+                          </div>
+                          <div className="font-mono text-[10px] text-[#8F8A7A]">
+                            {group.builds.join(", ")}
+                            {group.testDevicesOnly ? " · test devices" : ""}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
+                )}
+              </div>
+            )}
+
+            {sessionEvidenceHealth.length > 0 && (
+              <div
+                className={`border-l-2 px-4 py-2.5 ${
+                  shownIncompleteEvidence.length > 0 ? "border-[#D6B36A] bg-[#2A2821]" : "border-[#6FB58A] bg-[#202B25]"
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-xs text-[#C4BDAA]">
+                    <span id="evidence-upload-health-heading" className="font-semibold text-white">Thumbnail uploads</span>
+                    <span className={`ml-2 font-mono ${shownIncompleteEvidence.length > 0 ? "text-[#E4C985]" : "text-[#A8D8B9]"}`}>
+                      {shownIncompleteEvidence.length > 0
+                        ? `${shownIncompleteEvidence.length} incomplete`
+                        : "all complete"}
+                    </span>
+                    <span className="ml-2 font-mono text-[#8A8D92]">
+                      · {sessionEvidenceHealth.length - incompleteSessionEvidence.length}/{sessionEvidenceHealth.length} sessions complete
+                    </span>
+                    {hiddenTestDeviceItems > 0 && testDeviceThumbnailCount > 0 && (
+                      <span className="ml-2 text-[#8A8D92]">· {testDeviceThumbnailCount} from test devices hidden</span>
+                    )}
+                  </p>
+                  {shownIncompleteEvidence.length > 0 && (
+                    <button
+                      type="button"
+                      aria-expanded={showThumbnailHealth}
+                      aria-controls="thumbnail-upload-list"
+                      onClick={() => setShowThumbnailHealth((value) => !value)}
+                      className="rounded-lg border border-[#5A5340] px-3 py-1 text-xs font-semibold text-[#E4C985] transition hover:border-[#A19061] hover:text-white active:translate-y-px"
+                    >
+                      {showThumbnailHealth ? "Hide" : "Show"}
+                    </button>
+                  )}
+                </div>
+                {showThumbnailHealth && shownIncompleteEvidence.length > 0 && (
+                  <div id="thumbnail-upload-list">
+                    <p className="mt-2 text-[11px] leading-5 text-[#9B9A97]">
+                      Keep each source app open on a stable connection until its evidence banner says fully synced.
+                    </p>
+                    <ul aria-labelledby="evidence-upload-health-heading" className="mt-2 divide-y divide-[#3A3528]">
+                      {shownIncompleteEvidence.map((evidence) => (
+                        <li
+                          key={`${evidence.id}:${evidence.deviceId}`}
+                          className="flex flex-wrap items-baseline justify-between gap-3 py-2 text-xs"
+                        >
+                          <span className="text-white">
+                            {evidence.deviceModel || "Unknown device"}
+                            <span className="ml-2 font-mono text-[10px] text-[#8F8A7A]">
+                              Session {shortId(evidence.sessionId)} · {evidence.localRole || evidence.timingMode || "detection"}
+                            </span>
+                          </span>
+                          <span className="font-mono text-[#E4C985]">{evidence.uploaded}/{evidence.expected}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </section>

@@ -16,6 +16,8 @@ import {
   detectionReviewMode,
   detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
+  groupLogOnlySessions,
+  isInternalDetectionBuildChannel,
   isIgnoredCrossingIssue,
   isCurrentDetectionReviewCapture,
   isPointForbiddenDetectionReviewIssue,
@@ -723,4 +725,58 @@ test("labels evidence by build channel and falls back to the consent marker", ()
   assert.equal(isProductionBuildChannel("testflight"), true)
   assert.equal(isProductionBuildChannel("field_test"), false)
   assert.equal(isProductionBuildChannel(null), false)
+})
+
+const logSession = (overrides: Record<string, unknown>) => ({
+  evidenceCorrelationId: null,
+  localRaceSessionId: null,
+  sessionId: null,
+  cloudSessionId: null,
+  realtimeSessionId: null,
+  deviceId: "DEVICE-A",
+  deviceModel: "iPhone14,5",
+  role: "startLine",
+  mode: "flying",
+  appVersion: "1.0.27",
+  appBuild: "148",
+  sessionStartedAt: "2026-11-11T10:00:00.000Z",
+  uploadCount: 1,
+  ...overrides,
+})
+
+test("log-only sessions become one row per session with its phones, newest first", () => {
+  const groups = groupLogOnlySessions([
+    logSession({ sessionId: "AAA", deviceId: "DEVICE-A", role: "startLine", uploadCount: 3 }),
+    logSession({ sessionId: "aaa", deviceId: "DEVICE-B", role: "finishLine", deviceModel: "iPhone18,1", uploadCount: 5,
+      sessionStartedAt: "2026-11-11T09:59:58.000Z" }),
+    logSession({ sessionId: "BBB", deviceId: "DEVICE-C", sessionStartedAt: "2026-11-11T12:00:00.000Z" }),
+  ], new Set(["device-a", "device-b"]))
+
+  assert.equal(groups.length, 2)
+  assert.equal(groups[0].key, "bbb")
+  assert.equal(groups[1].key, "aaa")
+  assert.deepEqual(groups[1].devices.map((device) => device.role), ["finishLine", "startLine"])
+  assert.equal(groups[1].uploadCount, 8)
+  assert.equal(groups[1].startedAt, "2026-11-11T09:59:58.000Z")
+  assert.deepEqual(groups[1].builds, ["1.0.27 (148)"])
+  assert.equal(groups[1].testDevicesOnly, true)
+  assert.equal(groups[0].testDevicesOnly, false)
+})
+
+test("a session with any non-test phone is not hidden as test traffic", () => {
+  const [group] = groupLogOnlySessions([
+    logSession({ evidenceCorrelationId: "SHARED", deviceId: "DEVICE-A" }),
+    logSession({ evidenceCorrelationId: "SHARED", deviceId: "CUSTOMER-1" }),
+  ], new Set(["device-a"]))
+  assert.equal(group.devices.length, 2)
+  assert.equal(group.testDevicesOnly, false)
+})
+
+test("test build channels mark internal devices; App Store does not", () => {
+  for (const channel of ["debug", "field_test", "testflight", "development", " Debug "]) {
+    assert.equal(isInternalDetectionBuildChannel(channel), true, channel)
+  }
+  for (const channel of ["app_store", "", null, undefined]) {
+    assert.equal(isInternalDetectionBuildChannel(channel), false, String(channel))
+  }
 })

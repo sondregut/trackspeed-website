@@ -13,6 +13,7 @@ import {
   detectionReviewMode,
   detectionReviewIdentityKey,
   detectionReviewSessionIdentifiers,
+  INTERNAL_DETECTION_BUILD_CHANNELS,
   isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
   isGateAdjustmentMark,
@@ -588,6 +589,43 @@ async function loadDeviceLogUploads(
   }
 }
 
+/**
+ * Devices that sent a capture or review mark from a test build (debug, field
+ * test, TestFlight) within the last year: the team's own test phones. The
+ * dashboard hides their log-only sessions by default.
+ */
+async function loadInternalDeviceIds(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+): Promise<string[]> {
+  const since = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString()
+  const channels = [...INTERNAL_DETECTION_BUILD_CHANNELS]
+  const ids = new Set<string>()
+  const pageSize = 1000
+
+  for (const table of ["crossing_debug_captures", "crossing_review_marks"] as const) {
+    let offset = 0
+    while (true) {
+      let query = supabase
+        .from(table)
+        .select("device_id")
+        .in("build_channel", channels)
+        .gte("created_at", since)
+      if (table === "crossing_review_marks") query = query.neq("device_id", ADMIN_REVIEW_DEVICE_ID)
+      const { data, error } = await query
+        .order("created_at", { ascending: false })
+        .range(offset, offset + pageSize - 1)
+      if (error) throw new Error(error.message)
+      const page = (data || []) as { device_id: string | null }[]
+      page.forEach((row) => {
+        if (row.device_id) ids.add(row.device_id.toLowerCase())
+      })
+      if (page.length < pageSize) break
+      offset += page.length
+    }
+  }
+  return [...ids].sort()
+}
+
 function publicDeviceLogSessions(rows: DeviceLogUploadRow[]) {
   const grouped = new Map<string, {
     row: DeviceLogUploadRow
@@ -789,7 +827,7 @@ export async function GET(request: Request) {
       adminReviewKey(capture.id),
       adminDirectionReviewKey(capture.id),
     ])
-    const [markResult, appMarks, sessionContexts, deviceLogUploads] = await Promise.all([
+    const [markResult, appMarks, sessionContexts, deviceLogUploads, internalDeviceIds] = await Promise.all([
       reviewKeys.length > 0
         ? supabase
             .from("crossing_review_marks")
@@ -800,6 +838,7 @@ export async function GET(request: Request) {
       loadAppReviewMarks(supabase, since),
       loadSessionContexts(supabase, since),
       offset === 0 ? loadDeviceLogUploads(supabase, since) : Promise.resolve([]),
+      offset === 0 ? loadInternalDeviceIds(supabase) : Promise.resolve([]),
     ])
 
     if (markResult.error) {
@@ -1039,6 +1078,7 @@ export async function GET(request: Request) {
       sessionContexts: [...mergedSessionContexts.values()].map(publicSessionContext),
       sessionEvidence: [...latestEvidenceByDeviceSession.values()].map(publicSessionEvidence),
       deviceLogSessions: publicDeviceLogSessions(deviceLogUploads),
+      internalDeviceIds,
       pagination: {
         offset,
         limit,
