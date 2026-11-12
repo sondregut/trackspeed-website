@@ -1268,3 +1268,74 @@ export function canDownloadDetectionFrame(
   return isInternalDetectionBuildChannel(capture.buildChannel)
     || ownDeviceIds.has(capture.deviceId.toLowerCase())
 }
+
+/**
+ * Last TrackSpeed Android version on Google Play (version code 11). Android
+ * sends no build channel, so a newer Android version can only be an internal
+ * test build (field 2026-11-12: Sondre's Pixel 7a on 1.0.12 showed as another
+ * user). Raise this when a new Android version ships to Play; until Android
+ * sends a build channel, a stale value would treat new public builds as tests.
+ */
+export const ANDROID_LAST_PLAY_RELEASE = "1.0.10"
+
+/** Numeric dotted-version comparison ("1.0.12" > "1.0.10"); missing parts are 0. */
+export function compareAppVersions(left: string, right: string): number {
+  const parse = (value: string) => value.trim().split(".").map((part) => Number.parseInt(part, 10) || 0)
+  const a = parse(left)
+  const b = parse(right)
+  for (let index = 0; index < Math.max(a.length, b.length); index += 1) {
+    const difference = (a[index] ?? 0) - (b[index] ?? 0)
+    if (difference !== 0) return difference < 0 ? -1 : 1
+  }
+  return 0
+}
+
+const APPLE_DEVICE_MODEL = /^(iphone|ipad|ipod|watch)/i
+
+export function isUnreleasedAndroidBuild(row: {
+  deviceModel: string | null | undefined
+  appVersion: string | null | undefined
+  buildChannel: string | null | undefined
+}): boolean {
+  if (row.buildChannel) return false
+  if (!row.deviceModel || APPLE_DEVICE_MODEL.test(row.deviceModel.trim())) return false
+  if (!row.appVersion) return false
+  return compareAppVersions(row.appVersion, ANDROID_LAST_PLAY_RELEASE) > 0
+}
+
+/** Account id in an upload path "users/<id>/…", lower-cased. */
+export function detectionStorageOwner(path: string | null | undefined): string | null {
+  const match = path?.match(/^users\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\//i)
+  return match ? match[1].toLowerCase() : null
+}
+
+export interface InternalDeviceEvidenceRow {
+  deviceId: string | null
+  buildChannel: string | null
+  deviceModel: string | null
+  appVersion: string | null
+  /** The uploading account (capture path owner or review-mark user id). */
+  ownerId: string | null
+}
+
+/**
+ * Sondre's own phones: a device that sent an internal build, any device
+ * signed in to an account that sent an internal build (older uploads carried
+ * no build channel), and Android builds newer than the Play release.
+ */
+export function selectInternalDeviceIds(rows: readonly InternalDeviceEvidenceRow[]): string[] {
+  const internalOwners = new Set<string>()
+  for (const row of rows) {
+    if (row.ownerId && isInternalDetectionBuildChannel(row.buildChannel)) internalOwners.add(row.ownerId.toLowerCase())
+  }
+  const ids = new Set<string>()
+  for (const row of rows) {
+    if (!row.deviceId) continue
+    if (isInternalDetectionBuildChannel(row.buildChannel)
+        || (row.ownerId && internalOwners.has(row.ownerId.toLowerCase()))
+        || isUnreleasedAndroidBuild(row)) {
+      ids.add(row.deviceId.toLowerCase())
+    }
+  }
+  return [...ids].sort()
+}

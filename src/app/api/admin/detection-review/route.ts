@@ -13,7 +13,9 @@ import {
   detectionReviewMode,
   detectionReviewIdentityKey,
   detectionReviewSessionIdentifiers,
-  INTERNAL_DETECTION_BUILD_CHANNELS,
+  detectionStorageOwner,
+  selectInternalDeviceIds,
+  type InternalDeviceEvidenceRow,
   isCurrentDetectionReviewCapture,
   isDetectionReviewIssue,
   isGateAdjustmentMark,
@@ -598,32 +600,39 @@ async function loadInternalDeviceIds(
   supabase: ReturnType<typeof getSupabaseAdmin>,
 ): Promise<string[]> {
   const since = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString()
-  const channels = [...INTERNAL_DETECTION_BUILD_CHANNELS]
-  const ids = new Set<string>()
+  const rows: InternalDeviceEvidenceRow[] = []
   const pageSize = 1000
 
   for (const table of ["crossing_debug_captures", "crossing_review_marks"] as const) {
+    const ownerColumn = table === "crossing_debug_captures" ? "thumbnail_storage_path" : "user_id"
     let offset = 0
     while (true) {
       let query = supabase
         .from(table)
-        .select("device_id")
-        .in("build_channel", channels)
+        .select(`device_id,build_channel,device_model,app_version,${ownerColumn}`)
         .gte("created_at", since)
       if (table === "crossing_review_marks") query = query.neq("device_id", ADMIN_REVIEW_DEVICE_ID)
       const { data, error } = await query
         .order("created_at", { ascending: false })
         .range(offset, offset + pageSize - 1)
       if (error) throw new Error(error.message)
-      const page = (data || []) as { device_id: string | null }[]
+      const page = (data || []) as unknown as Record<string, string | null>[]
       page.forEach((row) => {
-        if (row.device_id) ids.add(row.device_id.toLowerCase())
+        rows.push({
+          deviceId: row.device_id,
+          buildChannel: row.build_channel,
+          deviceModel: row.device_model,
+          appVersion: row.app_version,
+          ownerId: table === "crossing_debug_captures"
+            ? detectionStorageOwner(row.thumbnail_storage_path)
+            : row.user_id?.toLowerCase() ?? null,
+        })
       })
       if (page.length < pageSize) break
       offset += page.length
     }
   }
-  return [...ids].sort()
+  return selectInternalDeviceIds(rows)
 }
 
 function publicDeviceLogSessions(rows: DeviceLogUploadRow[]) {

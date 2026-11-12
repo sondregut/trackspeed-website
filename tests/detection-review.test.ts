@@ -17,6 +17,10 @@ import {
   detectionReviewSessionIdentifiers,
   falseTriggerReviewLabel,
   groupLogOnlySessions,
+  compareAppVersions,
+  detectionStorageOwner,
+  isUnreleasedAndroidBuild,
+  selectInternalDeviceIds,
   canDownloadDetectionFrame,
   detectionFrameDownloadFilename,
   detectionFrameGateLineRect,
@@ -809,4 +813,38 @@ test("only frames from Sondre's own phones can be downloaded", () => {
   assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: "debug" }, own), true)
   assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: "app_store" }, own), false)
   assert.equal(canDownloadDetectionFrame({ deviceId: "someone", buildChannel: null }, own), false)
+})
+
+test("Sondre's phones are found by build, by account and by unreleased Android builds", () => {
+  const row = (deviceId: string, overrides: Record<string, string | null>) => ({
+    deviceId, buildChannel: null, deviceModel: "iPhone18,1", appVersion: "1.0.9", ownerId: null, ...overrides,
+  })
+  const ids = selectInternalDeviceIds([
+    row("DEBUG-IPHONE", { buildChannel: "debug", ownerId: "85ad7a56-7794-45d4-b361-000000000001" }),
+    // Older upload from the same account, before builds were labelled.
+    row("OLD-IPHONE", { ownerId: "85AD7A56-7794-45D4-B361-000000000001" }),
+    // Pixel signed in to the same account (lower-case path).
+    row("PIXEL-AUGUST", { deviceModel: "Google Pixel 7a", appVersion: "1.0.10", ownerId: "85ad7a56-7794-45d4-b361-000000000001" }),
+    // Pixel on an Android build that is not on Google Play.
+    row("PIXEL-TODAY", { deviceModel: "Google Pixel 7a", appVersion: "1.0.12", ownerId: "ab4a2a49-466f-477e-b32d-000000000002" }),
+    // Other people: an old unlabelled iPhone, an App Store iPhone, a Play-version Android.
+    row("CUSTOMER-OLD", { ownerId: "293c0bfb-7af8-4d9e-b75e-000000000003" }),
+    row("CUSTOMER-STORE", { buildChannel: "app_store", appVersion: "1.0.24", ownerId: "52cac265-5956-40e7-a52a-000000000004" }),
+    row("CUSTOMER-PLAY", { deviceModel: "Google Pixel 8", appVersion: "1.0.10", ownerId: "11111111-2222-3333-4444-555555555555" }),
+  ])
+  assert.deepEqual(ids, ["debug-iphone", "old-iphone", "pixel-august", "pixel-today"])
+})
+
+test("unreleased Android builds and upload owners are read conservatively", () => {
+  assert.equal(compareAppVersions("1.0.12", "1.0.10"), 1)
+  assert.equal(compareAppVersions("1.0.10", "1.0.10"), 0)
+  assert.equal(compareAppVersions("1.0.9", "1.0.10"), -1)
+  assert.equal(compareAppVersions("1.1", "1.0.10"), 1)
+  assert.equal(isUnreleasedAndroidBuild({ deviceModel: "Google Pixel 7a", appVersion: "1.0.12", buildChannel: null }), true)
+  assert.equal(isUnreleasedAndroidBuild({ deviceModel: "Google Pixel 7a", appVersion: "1.0.10", buildChannel: null }), false)
+  assert.equal(isUnreleasedAndroidBuild({ deviceModel: "iPhone18,1", appVersion: "1.0.29", buildChannel: null }), false, "never an iPhone")
+  assert.equal(isUnreleasedAndroidBuild({ deviceModel: "Google Pixel 7a", appVersion: "1.0.12", buildChannel: "release" }), false, "a sent channel wins")
+  assert.equal(detectionStorageOwner("users/AB4A2A49-466F-477E-B32D-0123456789AB/crossing_debug/x/thumbnail.jpg"), "ab4a2a49-466f-477e-b32d-0123456789ab")
+  assert.equal(detectionStorageOwner("thumbnails/x.jpg"), null)
+  assert.equal(detectionStorageOwner(null), null)
 })
